@@ -1,10 +1,11 @@
 .getPXD000001 <- function(destdir, src, unpack = TRUE) {
-  on.exit(invisible(destfile))
   dest <- basename(src)
-  dest <- file.path(destdir, dest)    
+  dest <- file.path(destdir, dest)
   download.file(src, destfile = dest)
   if (unpack)
-    gunzip(dest)
+    R.utils::gunzip.default(dest)
+  dest <- gsub("[.]gz$", "", dest)
+  invisible(dest)
 }
 
 
