@@ -1,1 +1,6 @@
-exportPattern("^[[:alpha:]]+")
+importFrom("R.utils", "gunzip")
+
+export(getPXD000001mzXML,
+       getPXD000001mzTab,
+       getPXD000001mzData)
+
