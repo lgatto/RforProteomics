@@ -1,12 +1,10 @@
-.getPXD000001 <- function(destdir, src, gunzip = TRUE) {
-  ans <- FALSE
-  on.exit(invisible(ans))
+.getPXD000001 <- function(destdir, src, unpack = TRUE) {
+  on.exit(invisible(destfile))
   dest <- basename(src)
   dest <- file.path(destdir, dest)    
   download.file(src, destfile = dest)
-  if (gunzip)
+  if (unpack)
     gunzip(dest)
-  ans <- TRUE
 }
 
 
@@ -16,8 +14,7 @@
 ##'
 ##' @title Download the PXD000001 mzXML file
 ##' @param destdir A \code{character} with the destination folder.
-##' @return Invisibly returns \code{TRUE} if download and gunzip of 
-##' the file was successful, \code{FALSE} otherwise. 
+##' @return Invisibly returns the name of the downloaded file.
 ##' @author Laurent Gatto
 getPXD000001mzXML <- function(destdir = ".") {
   src <- "http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML.gz"
@@ -31,8 +28,7 @@ getPXD000001mzXML <- function(destdir = ".") {
 ##'
 ##' @title Download the PXD000001 mzTab file
 ##' @param destdir A \code{character} with the destination folder.
-##' @return Invisibly returns \code{TRUE} if download and gunzip of 
-##' the file was successful, \code{FALSE} otherwise. 
+##' @return Invisibly returns the name of the downloaded file.
 ##' @author Laurent Gatto
 getPXD000001mzTab <- function(destdir = ".") {
   src <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/F063721.dat-mztab.txt"
@@ -46,8 +42,7 @@ getPXD000001mzTab <- function(destdir = ".") {
 ##'
 ##' @title Download the PXD000001 mzTab file
 ##' @param destdir A \code{character} with the destination folder.
-##' @return Invisibly returns \code{TRUE} if download and gunzip of 
-##' the file was successful, \code{FALSE} otherwise. 
+##' @return Invisibly returns the name of the downloaded file.
 ##' @author Laurent Gatto
 getPXD000001mzData <- function(destdir = ".") {
   src <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/PRIDE_Exp_Complete_Ac_22134.xml.gz"
