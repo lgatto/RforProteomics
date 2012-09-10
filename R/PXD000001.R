@@ -49,7 +49,7 @@ getPXD000001mzTab <- function(destdir = ".") {
 ##' @return Invisibly returns \code{TRUE} if download and gunzip of 
 ##' the file was successful, \code{FALSE} otherwise. 
 ##' @author Laurent Gatto
-getPXD000001mzTab <- function(destdir = ".") {
+getPXD000001mzData <- function(destdir = ".") {
   src <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/PRIDE_Exp_Complete_Ac_22134.xml.gz"
   .getPXD000001(destdir, src, TRUE)
 }
