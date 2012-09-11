@@ -5,9 +5,10 @@ Version: 0.1.0
 Date: 2012-09-10
 Author: Laurent Gatto
 Maintainer: Laurent Gatto <lg390@cam.ac.uk>
-Depends: R (>= 2.15), mzR, MSnbase
-Imporst: R.utils
+Depends: R (>= 2.15), 
+Imports: R.utils
+Suggests: mzR, MSnbase, xcms, MALDIquant
 Description: This package contains code to illustrate the	
-	     'R for Proteomics' paper. It contains helper functions 
-	     and the complete code.
+	     'R for Proteomics' paper. It contains helper 
+	     data accessors and the complete code.
 License: Artistic-2.0

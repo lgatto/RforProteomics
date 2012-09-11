@@ -3,7 +3,7 @@
   dest <- file.path(destdir, dest)
   download.file(src, destfile = dest)
   if (unpack)
-    R.utils::gunzip.default(dest)
+    gunzip(dest)
   dest <- gsub("[.]gz$", "", dest)
   invisible(dest)
 }

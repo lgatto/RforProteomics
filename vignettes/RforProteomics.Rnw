@@ -1,0 +1,210 @@
+%\VignetteIndexEntry{R for Proteomics}
+%\VignetteKeywords{Bioinformatics, Proteomics, Mass spectrometry, tutorial}
+%\VignettePackage{hpar}
+\documentclass{article}
+\usepackage{longtable}
+\usepackage[authoryear,round]{natbib}
+\usepackage[T1]{fontenc}
+\newcommand{\R}{\texttt{R} }
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\Robject}[1]{{\texttt{#1}}}
+\newcommand{\Rpackage}[1]{{\mbox{\normalfont\textsf{#1}}}}
+\newcommand{\email}[1]{\href{mailto:#1}{\normalfont\texttt{#1}}}
+%% colors
+\definecolor{Red}{rgb}{0.7,0,0}
+\definecolor{Blue}{rgb}{0,0,0.8}
+
+\usepackage{geometry}
+\geometry{verbose,
+  tmargin = 2.5cm,
+  bmargin = 2.5cm,
+  lmargin = 3.5cm,
+  rmargin = 3.5cm}
+
+\usepackage{hyperref}
+\usepackage{breakurl}
+\hypersetup{%
+  pdfusetitle,
+  bookmarks = {true},
+  bookmarksnumbered = {true},
+  bookmarksopen = {true},
+  bookmarksopenlevel = 2,
+  unicode = {true},
+  breaklinks = {false},
+  hyperindex = {true},
+  colorlinks = {true},
+  linktocpage = {true},
+  plainpages = {false},
+  linkcolor = {Blue},
+  citecolor = {Blue},
+  urlcolor = {Red},
+  pdfstartview = {Fit},
+  pdfpagemode = {UseOutlines},
+  pdfview = {XYZ null null null}
+}
+
+\input{Author.tex}
+
+\begin{document}
+
+\title{\R for Proteomics: using \R and Bioconductor to analyse proteomics data}
+
+\maketitle
+
+<<'setup', include = FALSE, cache = FALSE>>=
+library(knitr)
+opts_chunk$set(fig.align = 'center', 
+               fig.show = 'hold', 
+               par = TRUE,
+               prompt = TRUE,
+               comment = NA)
+options(replace.assign = TRUE, 
+        width = 70)
+knit_hooks$set(par = function(before, options, envir) {
+  if (before && options$fig.show != 'none') 
+    par(mar = c(4,4,.1,.1),
+        cex.lab = .95,
+        cex.axis = .9,
+        mgp = c(2,.7,0),
+        tcl = -.3)
+})
+@
+%% $
+
+<<'env', echo = FALSE>>=
+suppressPackageStartupMessages(library("MSnbase"))
+@ 
+
+%% Abstract and keywords %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vskip 0.3in minus 0.1in
+\hrule
+\begin{abstract}
+This vignette shows and executes the code presented in the manuscript \textit{R for Proteomics}. 
+\end{abstract}
+
+\textit{Keywords}: bioinformatics, proteomics, mass spectrometry, tutorial
+\vskip 0.1in minus 0.05in
+\hrule
+\vskip 0.2in minus 0.1in
+\vspace{10mm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% \tableofcontents
+%% \newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Section
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}\label{sec:intro} 
+
+\section{Data standards and input/ouput}
+
+\subsection{The \Rpackage{mzR} package}
+
+This code chunk, taken mainly from the \Rfunction{openMSfile} documentation illustrated how to open a connection to an raw data file. The example \textt{mzML} data is taken from the \Rpackage{msdata} data package. The code below would be applicatble to an \texttt{mzXML} of \texttt{mzData} file.
+
+<<mzr>>=
+## load the required packages
+library("mzR") ## the software package
+library("msdata") ## the data package
+## below, we extract the releavant example file 
+## from the local 'msdata' installation 
+filepath <- system.file("microtofq", package = "msdata")
+file <- list.files(filepath, pattern="MM14.mzML",
+                   full.names=TRUE, recursive = TRUE)
+## creates a commection to the mzML file
+mz <- openMSfile(file)
+## demonstraction of data access
+fileName(mz)
+isInitialized(mz)
+runInfo(mz)
+instrumentInfo(mz)
+## once finished, it is good to explicitely 
+## close the connection
+close(mz)
+@ 
+
+\section{Raw data abstraction with \Robject{MSnExp} objects}
+
+<<msnexp, cache=TRUE, cache=TRUE>>= 
+mzXML <- dir(system.file(package="MSnbase",dir="extdata"),
+             full.name=TRUE,
+             pattern="mzXML$")
+raw <- readMSData(mzXML, verbose = FALSE)
+raw
+## Extract a sigle spectrum
+raw[[3]]
+@ 
+%% $
+
+\begin{figure}[!ht]
+<<msnexpPlot, dev='pdf', echo=TRUE, fig.width=5.5, fig.height=5.5, fig.keep='all', out.width='.49\\linewidth'>>=
+plot(raw, full=TRUE)
+plot(raw[[3]], full=TRUE, reporters=iTRAQ4)
+@ 
+\caption{The \Rfunction{plot} method can be used on experiments, i.e. spectrum collections (left), or individual spectra (right). }
+\label{fig:msnexp}
+\end{figure}
+
+\subsection{\texttt{mgf} read/write support}
+
+
+
+As an running example throughout this document, we will use the \texttt{PXD000001} data set. The code chunk below first downloads this data file from the ProteomicXchange server using the \Rfunction{getPXD000001mzXML} function from the \Rpackage{RforProteomics} package.
+
+
+<<mztab>>=
+mztab <- getPXD000001mzTab()
+mztab ## the mzTab file name
+## Load mzTabs's peptide data 
+qnt <- readMzTabData(mztab, what = "PEP")
+qnt <- normalise(qnt, "sum")
+
+acc <- c("P00489", "P00924", 
+         "P02769", "P62894",
+         "ECA")
+
+idx <- sapply(acc, grep, fData(qnt)$accession)
+idx2 <- sapply(idx, head, 3)
+small <- qnt[unlist(idx2), ]
+
+library(ggplot2)
+library(reshape2)
+
+dfr <- data.frame(exprs(small),
+                  Protein = as.character(fData(small)$accession),
+                  Feature = featureNames(small),
+                  stringsAsFactors = FALSE)
+colnames(dfr) <- c("126", "127", "128", "129", "130", "131", "Protein", "Feature")
+dfr$Protein[dfr$Protein == "sp|P00924|ENO1_YEAST"] <- "ENO"
+dfr$Protein[dfr$Protein == "sp|P62894|CYC_BOVIN"]  <- "CYT"
+dfr$Protein[dfr$Protein == "sp|P02769|ALBU_BOVIN"] <- "BSA"
+dfr$Protein[dfr$Protein == "sp|P00489|PYGM_RABIT"] <- "PH0"
+dfr$Protein[grep("ECA", dfr$Protein)] <- "Background"
+dfr2 <- melt(dfr)
+
+pdf("PXD000001-TMTspikes.pdf", width = 10, height = 5.5)
+ggplot(aes(x = variable, y = value, colour = Protein), data = dfr2) +
+  geom_point() + geom_line(aes(group=as.factor(Feature)), alpha = 0.5) +
+  facet_grid(. ~ Protein) + theme(legend.position="none") +
+  labs(x = "Reporters", y = "Normalised intensity")
+dev.off()
+
+mzxml <- getPXD000001mzXML()
+raw <- readMSData(mzxml)
+qnt <- quantify(raw, reporters = TMT7)
+d <- (melt(exprs(qnt)))
+colnames(d) <- c("Feature", "Reporter", "Intensity")
+qplot(x = Tag, y = log(Intensity), data = d, geom = c("jitter", "boxplot"))
+@ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Section
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Session information}\label{sec:sessionInfo} 
+<<sessioninfo, results = tex, echo = FALSE, cache = FALSE>>=
+toLatex(sessionInfo())
+@
+
+\end{document}
