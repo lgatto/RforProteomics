@@ -71,7 +71,7 @@ knit_hooks$set(par = function(before, options, envir) {
 @
 %% $
 
-<<'env', echo = FALSE>>=
+<<'env0', echo = FALSE>>=
 suppressPackageStartupMessages(library("MSnbase"))
 @ 
 
@@ -96,6 +96,10 @@ This vignette shows and executes the code presented in the manuscript \textit{R 
 %% Section
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}\label{sec:intro} 
+
+<<env>>=
+library("RforProteomics")
+@ 
 
 \section{Data standards and input/ouput}
 

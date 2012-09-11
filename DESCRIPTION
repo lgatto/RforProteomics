@@ -6,7 +6,7 @@ Date: 2012-09-10
 Author: Laurent Gatto
 Maintainer: Laurent Gatto <lg390@cam.ac.uk>
 Depends: R (>= 2.15), 
-Imports: R.utils
+Imports: R.utils, Biobase
 Suggests: mzR, MSnbase, xcms, MALDIquant
 Description: This package contains code to illustrate the	
 	     'R for Proteomics' paper. It contains helper 

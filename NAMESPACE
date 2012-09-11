@@ -1,4 +1,5 @@
-importFrom("R.utils", "gunzip")
+importFrom("Biobase", "addVigs2WinMenu")
+import("R.utils")
 
 export(getPXD000001mzXML,
        getPXD000001mzTab,
