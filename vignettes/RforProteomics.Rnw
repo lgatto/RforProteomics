@@ -97,6 +97,16 @@ This vignette shows and executes the code presented in the manuscript \textit{R 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}\label{sec:intro} 
 
+\section{Introduction}
+
+General \R ressources.
+
+Getting help: mailing lists, post form, posting guide, session info, make reproducible examples.
+
+Extract the code from this document.
+
+Load the package.
+
 <<env>>=
 library("RforProteomics")
 @ 
@@ -162,6 +172,20 @@ mztab <- getPXD000001mzTab()
 mztab ## the mzTab file name
 ## Load mzTabs's peptide data 
 qnt <- readMzTabData(mztab, what = "PEP")
+head(exprs(qnt))
+## combine into proteins
+## - usin the 'accession' feature meta data
+## - sum the peptide intensities
+protqnt <- combineFeatures(qnt, groupBy = fData(qnt)$accession, fun = sum)
+cls <- c(brewer.pal(length(unique(rownames(m)))-1, "Set1"),
+         "grey")
+names(cls) <- unique(rownames(m))
+matplot(t(tail(exprs(protqnt), n = 5)), type = "b", col = cls, lty = 1,
+        ylab = "Protein intensity (summed peptides)",
+        xlab = "TMT reporters")
+legend("topright", tail(featureNames(protqnt), n=5), 
+       lty = 1, col = cls, bty = "n", cex = .8)
+
 sampleNames(qnt) <- reporterNames(TMT6)
 qntS <- normalise(qnt, "sum")
 qntV <- normalise(qntS, "vsn")
@@ -336,23 +360,124 @@ dev.off()
 
 
 
+<<iotopes>>=
+library(IPPD)
+## x <- myo500[,"mz"]
+## y <- myo500[,"intensities"]
+## sel <- x <= 2500
+## y <- y[sel]
+## x <- x[sel]
+
+library(BRAIN)
+atoms <- getAtomsFromSeq("SIVPSGASTGVHEALEMR")
+library(Rdisop)
+pepmol <- getMolecule(paste0(names(atoms), unlist(atoms), collapse = ""))
+
+##
+library(OrgMassSpecR)
+data(itraqdata)
+
+simplottest <- itraqdata[featureNames(itraqdata) %in% paste0("X", 46:47)]
+##pdf("orgmassspecr-compare-spectra.pdf")
+sim <- SpectrumSimilarity(as(simplottest[[1]], "data.frame"),
+                          as(simplottest[[2]], "data.frame"),
+                          top.lab = "itraqdata[['X46']]",
+                          bottom.lab = "itraqdata[['X47']]",
+                          b = 25)
+abline(v = FragmentPeptide("TAGIQIVADDLTVTNPK")[, 7], lty = "dotted")
+##dev.off()
+sim
+
+MonoisotopicMass(formula = list(C = 2, O = 1, H=6))
+molecule <- getMolecule("C2H5OH")
+molecule$exactmass
+x11()
+plot(t(.pepmol$isotopes[[1]]), type = "h")
+
+x <- IsotopicDistribution(formula = list(C = 2, O = 1, H=6))
+t(molecule$isotopes[[1]])
+par(mfrow = c(2,1))
+plot(t(molecule$isotopes[[1]]), type = "h")
+plot(x[, c(1,3)], type = "h")
+
+data(myo500)
+masses <- c(147.053, 148.056)
+intensities <- c(93, 5.8)
+molecules <- decomposeIsotopes(masses, intensities)
+
+
+###################
+## experimental eno peptides
+exppep <- as.character(fData(qnt[grep("ENO", fData(qnt)[, 2]), ])[, 1]) ## 13
+minlength <- min(nchar(exppep))
+
+eno <- download.file("http://www.uniprot.org/uniprot/P00924.fasta", destfile = "Figures/P00924.fasta")
+eno <- paste(readLines("Figures/P00924.fasta")[-1], collapse = "")
+enopep <- Digest(eno, missed = 1)
+nrow(enopep) ## 103
+sum(nchar(enopep$peptide) >= minlength) ## 68
+pepcnt <- enopep[enopep[, 1] %in% exppep, ]
+nrow(pepcnt) ## 13
+
+## example code to generate an Texshade image to be 
+## included directly in a Latex document or R vignette
+
+## seq1file <- "seq1.tex"
+## cat("\\begin{texshade}{Figures/P00924.fasta}
+##      \\setsize{numbering}{footnotesize}     
+##      \\setsize{residues}{footnotesize}     
+##      \\residuesperline*{70}
+##      \\shadingmode{functional}
+##      \\hideconsensus      
+##      \\vsepspace{1mm}
+##      \\hidenames
+##      \\noblockskip\n", file = seq1file)
+## tmp <- sapply(1:nrow(pepcnt), function(i) {
+##   col <- ifelse((i %% 2) == 0, "Blue", "RoyalBlue")
+##   cat("\\shaderegion{1}{", pepcnt$start[i], "..", pepcnt$stop[i], "}{White}{", col, "}\n", 
+##       file = seq1file, append = TRUE)
+## })
+## cat("\\end{texshade}
+##     \\caption{Visualising observed peptides for the Yeast enolase protein. Peptides are shaded in blue and black. The last peptide is a mis-cleavage and overlaps with \\texttt{IEEELGDNAVFAGENFHHGDK}.}
+##     \\label{fig:seq}
+##   \\end{center}
+## \\end{figure}\n\n", 
+##     file = seq1file, append = TRUE)
+
+
+## 15N
+incrate <- seq(0, 1, 0.1)
+inc <- lapply(incrate, function(inc) IsotopicDistributionN("YEVQGEVFTKPQLWP", inc))
+inc99 <- IsotopicDistributionN("YEVQGEVFTKPQLWP", .99)
+
+par(mfrow = c(4,3))
+for (i in 1:length(inc))
+  plot(inc[[i]][, c(1, 3)], xlim = c(1823, 1848), 
+       type = "h", 
+       main = paste0("15N incorporation ", incrate[i]))
+plot(inc99[, c(1, 3)], xlim = c(1823, 1848), 
+     type = "h", 
+     main = paste0("15N incorporation 0.99"))
+@ 
+
 <<isobar>>=
 
 library(isobar)
 .ions <- exprs(qnt)
 .mass <- matrix(mz(TMT6), nrow(qnt), byrow=TRUE, ncol = 6)
-colnames(.ions) <- colnames(.mass) <- reporterTagNames(x)
+colnames(.ions) <- colnames(.mass) <- 
+  reporterTagNames(new("TMT6plexSpectra"))
 rownames(.ions) <- rownames(.mass) <- 
   paste(fData(qnt)$accession, fData(qnt)$sequence, sep = ".")
-pgtbl <- data.frame(spectrum = featureNames(qnt),
+pgtbl <- data.frame(spectrum = rownames(.ions),
                     peptide = fData(qnt)$sequence,
                     modif = ":",
                     start.pos = 1,
                     protein = fData(qnt)$accession,
-                    accession = fData(qnt)$accession,
-                    row.names = featureNames(qnt))
-x <- new("TMT6plexSpectra",pgtbl,.ions,.mass)
+                    accession = fData(qnt)$accession)
+x <- new("TMT6plexSpectra", pgtbl, .ions, .mass)
 featureData(x)$proteins <- as.character(fData(qnt)$accession)
+
 x <- correctIsotopeImpurities(x) ## useless, identity matrix
 x <- normalize(x, per.file = FALSE) ## little effect
 spks <- c(protein.g(proteinGroup(x), "P00489"),
@@ -445,8 +570,43 @@ points(res[spks, "lratio"],
          "gold4", "springgreen4"),
        pch = 19)
 dev.off()
+@ %% $
+
+
+
+<<synapter>>=
+## see vignette
+@ 
+
+
+\section{Annotation}
+
+See \Rpackage{rols} and \Rpackage{hpar} vignettes.
+
+<<annot>>=
+id <- "ENSG00000002746"
+library(rols)
+getHpa(id, "SubcellularLoc")
+
+library(org.Hs.eg.db)
+library(GO.db)
+ans <- select(org.Hs.eg.db, keys = id, cols = c("ENSEMBL", "GO", "ONTOLOGY"), keytype = "ENSEMBL")
+ans <- ans[ans$ONTOLOGY == "CC", ]
+ans
+sapply(as.list(GOTERM[ans$GO]), slot, "Term")
+
+library("biomaRt")
+ensembl <- useMart("ensembl",dataset="hsapiens_gene_ensembl")
+efilter <- "ensembl_gene_id"
+eattr <- c("go_id", "name_1006", "namespace_1003")
+bmres <- getBM(attributes=eattr, filters = efilter, values = id, mart = ensembl)
+bmres[bmres$namespace_1003 == "cellular_component", "name_1006"]
+
+
+library("rols")
 
 @ 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Section
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
