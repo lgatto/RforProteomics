@@ -1,17 +1,18 @@
 .getPXD000001 <- function(destdir, src, unpack = TRUE) {
   dest <- basename(src)
   dest <- file.path(destdir, dest)
-  download.file(src, destfile = dest)
+  dest2 <- gsub("[.]gz$", "", dest)
+  if (!file.exists(dest) & !file.exists(dest2))
+    download.file(src, destfile = dest)
   if (unpack)
     gunzip(dest)
-  dest <- gsub("[.]gz$", "", dest)
-  invisible(dest)
+  invisible(dest2)
 }
 
 
-##' Downloads the PXD000001 mzXML file in the \code{destdir}
-##' directory. The resulting file is named
-##' \code{TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML.gz}.
+##' Unless already present, downloads the PXD000001 mzXML file
+##' in the \code{destdir} directory. The resulting file is named
+##' \code{TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML}.
 ##'
 ##' @title Download the PXD000001 mzXML file
 ##' @param destdir A \code{character} with the destination folder.
@@ -23,8 +24,8 @@ getPXD000001mzXML <- function(destdir = ".") {
 }
 
 
-##' Downloads the PXD000001 mzTba file in the \code{destdir}
-##' directory. The resulting file is named
+##' Unless already present, downloads the PXD000001 mzTab file
+##' n the \code{destdir} directory. The resulting file is named
 ##' \code{F063721.dat-mztab.txt}.
 ##'
 ##' @title Download the PXD000001 mzTab file
@@ -37,8 +38,8 @@ getPXD000001mzTab <- function(destdir = ".") {
 }
 
 
-##' Downloads the PXD000001 mzData file in the \code{destdir}
-##' directory. The resulting file is named
+##' Unless already present, downloads the PXD000001 mzData file
+##' in the \code{destdir} directory. The resulting file is named
 ##' \code{PRIDE_Exp_Complete_Ac_22134.xml}
 ##'
 ##' @title Download the PXD000001 mzTab file

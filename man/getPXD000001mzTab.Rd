@@ -9,13 +9,12 @@
   folder.}
 }
 \value{
-  Invisibly returns \code{TRUE} if download and gunzip of
-  the file was successful, \code{FALSE} otherwise.
+  Invisibly returns the name of the downloaded file.
 }
 \description{
-  Downloads the PXD000001 mzTba file in the \code{destdir}
-  directory. The resulting file is named
-  \code{F063721.dat-mztab.txt}.
+  Unless already present, downloads the PXD000001 mzTab
+  file n the \code{destdir} directory. The resulting file
+  is named \code{F063721.dat-mztab.txt}.
 }
 \author{
   Laurent Gatto

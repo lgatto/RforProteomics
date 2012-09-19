@@ -9,13 +9,13 @@
   folder.}
 }
 \value{
-  Invisibly returns \code{TRUE} if download and gunzip of
-  the file was successful, \code{FALSE} otherwise.
+  Invisibly returns the name of the downloaded file.
 }
 \description{
-  Downloads the PXD000001 mzXML file in the \code{destdir}
-  directory. The resulting file is named
-  \code{TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML.gz}.
+  Unless already present, downloads the PXD000001 mzXML
+  file in the \code{destdir} directory. The resulting file
+  is named
+  \code{TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML}.
 }
 \author{
   Laurent Gatto

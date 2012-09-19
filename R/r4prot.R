@@ -1,7 +1,8 @@
 ##' Opens the package vignettes.
 ##'
 ##' @title Opens RforProteomics vignettes
-##' @return None
+##' @return An instance of class \code{vignette},
+##' as returned by \code{\link{vignette}}
 ##' @author Laurent Gatto
 RforProteomics <- function()
-  message("This will open the main vignette.")
+  vignette("RforProteomics", package = "RforProteomics")

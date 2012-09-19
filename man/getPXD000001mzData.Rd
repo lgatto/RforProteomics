@@ -9,13 +9,12 @@
   folder.}
 }
 \value{
-  Invisibly returns \code{TRUE} if download and gunzip of
-  the file was successful, \code{FALSE} otherwise.
+  Invisibly returns the name of the downloaded file.
 }
 \description{
-  Downloads the PXD000001 mzData file in the \code{destdir}
-  directory. The resulting file is named
-  \code{PRIDE_Exp_Complete_Ac_22134.xml}
+  Unless already present, downloads the PXD000001 mzData
+  file in the \code{destdir} directory. The resulting file
+  is named \code{PRIDE_Exp_Complete_Ac_22134.xml}
 }
 \author{
   Laurent Gatto
