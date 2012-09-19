@@ -1,6 +1,6 @@
 %\VignetteIndexEntry{R for Proteomics}
-%\VignetteKeywords{Bioinformatics, Proteomics, Mass spectrometry, tutorial}
-%\VignettePackage{hpar}
+%\VignetteKeywords{Bioinformatics, proteomics, mass spectrometry, tutorial}
+%\VignettePackage{RforProteomics}
 \documentclass{article}
 \usepackage{longtable}
 \usepackage[authoryear,round]{natbib}
@@ -47,7 +47,7 @@
 
 \begin{document}
 
-\title{\R for Proteomics: using \R and Bioconductor to analyse proteomics data}
+\title{Using \R and Bioconductor to analyse proteomics data.}
 
 \maketitle
 
@@ -79,7 +79,7 @@ suppressPackageStartupMessages(library("MSnbase"))
 \vskip 0.3in minus 0.1in
 \hrule
 \begin{abstract}
-This vignette shows and executes the code presented in the manuscript \textit{R for Proteomics}. 
+This vignette shows and executes the code presented in the manuscript \textit{Using R for proteomics data analysis}.  
 \end{abstract}
 
 \textit{Keywords}: bioinformatics, proteomics, mass spectrometry, tutorial
@@ -103,13 +103,39 @@ General \R ressources.
 
 Getting help: mailing lists, post form, posting guide, session info, make reproducible examples.
 
-Extract the code from this document.
+Installing the package (assuming it is available on Bioconductor) - will update it not.
+
+<<installation, eval = FALSE>>=
+## only first time you install Bioconductor packages
+source("http://www.bioconductor.org/biocLite.R")
+## else
+library("BiocInstaller")
+useDevel(TRUE) ## use devel version of packages
+biocLite("RforProteomics", dependencies = TRUE)
+## installs RforProteomics and all dependencies
+## required to reproduce the code below
+@ 
 
 Load the package.
 
-<<env>>=
+<<loadR4Prot>>=
 library("RforProteomics")
 @ 
+
+\subsection{Obtaining the code}
+
+The code in this document describes all the examples presented in \cite{R4prot2012} and can be copy, pasted and executed. It is however more convenient to have it in a separate text file for better interaction with \R (using ESS\footnote{\url{http://ess.r-project.org/}} for emacs or RStudio\footnote{\url{http://rstudio.org/}}) and to easily modify and explore it. This can be achieved with the \Rfunction{Stangle} function. It only need the Sweave source of this document, extracts the code chunks and produces a clean \R source file.
+
+<<stangle>>= 
+## gets the vignette source
+rnwfile <- file <- dir(system.file(package="RforProteomics", dir="doc"),
+                       full.name = TRUE,
+                       pattern = "Rnw$")
+## produces an R file in the working directory
+Stangle(rnwfile)
+dir(pattern = "RforProteomics.R")
+@ 
+
 
 \section{Data standards and input/ouput}
 

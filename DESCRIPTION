@@ -1,14 +1,22 @@
 Package: RforProteomics
 Type: Package
-Title: Package accompanying the 'R for Proteomics' publication
+Title: Package accompanying the 'Using R for proteomics data analysis' publication
 Version: 0.1.0
-Date: 2012-09-10
 Author: Laurent Gatto
 Maintainer: Laurent Gatto <lg390@cam.ac.uk>
 Depends: R (>= 2.15), 
 Imports: R.utils, Biobase
-Suggests: mzR, MSnbase, xcms, MALDIquant
+Suggests: mzR, MSnbase, xcms, msdata, isobar, 
+	  MALDIquant, readBrukerFlexData, 
+	  synapter, synapterdata,
+	  IPPD, Rdisop, OrgMassSpecR, BRAIN,
+	  rols, hpar, GO.db, org.Hs.eg.db, biomaRt, 
+  	  RColorBrewer,	ggplot2, reshape2,
+	  knitr
 Description: This package contains code to illustrate the	
-	     'R for Proteomics' paper. It contains helper 
-	     data accessors and the complete code.
+	     'Using R for proteomics data analysis' paper. 
+	     The vignette describes the code and data needed 
+	     to	reproduce the examples and figures descibed in 
+	     the paper as well as functions to download the 
+	     PXD000001 data files.
 License: Artistic-2.0
