@@ -1,1 +1,1 @@
-This package distributed the code illustrating the use-cases described in the _R for Proteomics_ manuscript. 
+This package distributes the code illustrating use-cases described in the _Usinf R for proteomics data analysis_ manuscript. 
