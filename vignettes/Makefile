@@ -1,3 +1,5 @@
+patched=0
+
 LATEXFILES = *.aux\
         *.bbl\
         *.blg\
@@ -18,16 +20,18 @@ all:
 	make clean
 
 setvars:
-ifeq (${R_HOME},)
-## R_HOME=	$(shell R RHOME)
+ifeq (${patched},1)
 R_HOME=/opt/Rpatched
+else 
+R_HOME=	$(shell R RHOME)
 endif
 
 vignette:
 	make clean
 	make stub
 	"$(R_HOME)/bin/R" CMD Sweave RforProteomics.Rnw
-	cp src/RforProteomics.pdf .	
+	cp src/RforProteomics.pdf .
+	cp src/RforProteomics.Rnw .
 
 build: 
 	rm -f $(LATEXFILES)
@@ -53,5 +57,10 @@ stub:
 clean:
 	rm -f $(LATEXFILES)
 	rm -f *~
+	rm -f RforProteomics.R
 	rm -f PRIDE_Exp_Complete_Ac_22134.xml
-	rm -f cache figure F063721.dat-mztab.txt TMT*mzXML* P00924.fasta
+	rm -f F063721.dat-mztab.txt TMT*mzXML* P00924.fasta
+
+allclean:
+	make clean
+	rm -fr cache figure 

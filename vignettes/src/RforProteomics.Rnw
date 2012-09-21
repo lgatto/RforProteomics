@@ -281,12 +281,12 @@ colnames(dfr) <- c("126", "127", "128", "129", "130", "131", "Protein", "Feature
 dfr$Protein[dfr$Protein == "sp|P00924|ENO1_YEAST"] <- "ENO"
 dfr$Protein[dfr$Protein == "sp|P62894|CYC_BOVIN"]  <- "CYT"
 dfr$Protein[dfr$Protein == "sp|P02769|ALBU_BOVIN"] <- "BSA"
-dfr$Protein[dfr$Protein == "sp|P00489|PYGM_RABIT"] <- "PH0"
+dfr$Protein[dfr$Protein == "sp|P00489|PYGM_RABIT"] <- "PHO"
 dfr$Protein[grep("ECA", dfr$Protein)] <- "Background"
 dfr2 <- melt(dfr)
 
-##pdf("PXD000001-TMTspikes.pdf", width = 10, height = 5.5)
-ggplot(aes(x = variable, y = value, colour = Protein), data = dfr2) +
+pdf("PXD000001-TMTspikes.pdf", width = 10, height = 5.5)
+##ggplot(aes(x = variable, y = value, colour = Protein), data = dfr2) +
   geom_point() + geom_line(aes(group=as.factor(Feature)), alpha = 0.5) +
   facet_grid(. ~ Protein) + theme(legend.position="none") +
   labs(x = "Reporters", y = "Normalised intensity")

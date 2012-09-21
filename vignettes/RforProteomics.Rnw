@@ -2,8 +2,6 @@
 %% Look in vignettes/src for the complete Rnw file.
 
 \documentclass[10pt]{article}
-%\VignetteKeywords{Bioinformatics, proteomics, mass spectrometry, tutorial}
-%\VignettePackage{RforProteomics}
 %\VignetteIndexEntry{R for Proteomics}
 \begin{document}
 \end{document}
