@@ -2,12 +2,12 @@
   dest <- basename(src)
   dest <- file.path(destdir, dest)
   dest2 <- gsub("[.]gz$", "", dest)
-  if (file.exists(dest2))
-    invisible(dest2)
-  if (!file.exists(dest))
-    download.file(src, destfile = dest)
-  if (unpack)
-    gunzip(dest)
+  if (!file.exists(dest2)) {
+    if (!file.exists(dest))
+      download.file(src, destfile = dest)
+    if (unpack)
+      gunzip(dest)
+  }
   invisible(dest2)
 }
 

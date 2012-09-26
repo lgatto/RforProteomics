@@ -11,7 +11,7 @@ Suggests: mzR, MSnbase, xcms, msdata, isobar,
 	  synapter, synapterdata,
 	  IPPD, Rdisop, OrgMassSpecR, BRAIN,
 	  rols, hpar, GO.db, org.Hs.eg.db, biomaRt, 
-  	  RColorBrewer,	ggplot2, reshape2,
+  	  RColorBrewer, ggplot2, reshape2,
 	  knitr
 Description: This package contains code to illustrate the	
 	     'Using R for proteomics data analysis' paper. 
