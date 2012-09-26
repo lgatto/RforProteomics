@@ -143,11 +143,10 @@ All lists have browsable archives.
 Since the package is not yet into Bioconductor, it is not yet possible to use its automatice installation and update framework. An ad hoc script is however available to facilitate installation of \Rpackage{RforProteomics} and all dependencies. To install, simple open \R and type 
 
 <<eval=FALSE>>=
-source
+source("https://raw.github.com/lgatto/RforProteomics/master/inst/scripts/installR4P.R")
 @ 
 
-
-Load the package.
+This \R script is part of the package itself. It will install missing dependencies and then \Rpackage{RforProteomics}, which can then be loaded with
 
 <<loadR4Prot>>=
 library("RforProteomics")

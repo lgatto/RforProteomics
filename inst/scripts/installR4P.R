@@ -15,7 +15,7 @@ if (length(deps) > 0) {
     source("http://www.bioconductor.org/biocLite.R")
     useDevel(TRUE)
   }
-  biocLite(deps)
+  biocLite(deps, suppressUpdates = TRUE)
 }
 
 message("[R4p] Downloading RforProteomics...")
