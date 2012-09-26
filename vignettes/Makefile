@@ -34,6 +34,7 @@ vignette:
 	cp src/RforProteomics.Rnw .
 
 build: 
+	## Only locally
 	rm -f $(LATEXFILES)
 	cp src/RforProteomics.Rnw .
 	if [ -d 'src/cache' ]; then \
@@ -48,6 +49,7 @@ build:
 	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2pdf('RforProteomics.Rnw');"
 	bibtex RforProteomics
 	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
+	scp RforProteomics.pdf lg390@proteome.sysbiol.cam.ac.uk:/var/www/htdocs/lgatto/RforProteomics/.
 	cp RforProteomics.pdf src/.
 	make stub
 

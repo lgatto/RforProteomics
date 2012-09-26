@@ -158,9 +158,9 @@ The code in this document describes all the examples presented in \cite{R4prot20
 
 <<stangle, eval=TRUE>>= 
 ## gets the vignette source
-rnwfile <- file <- dir(system.file(package="RforProteomics", dir="doc"),
-                       full.name = TRUE,
-                       pattern = "Rnw$")
+rnwfile <- dir(system.file(package="RforProteomics", dir="doc"),
+               full.name = TRUE,
+               pattern = "Rnw$")
 ## produces an R file in the working directory
 Stangle(rnwfile)
 dir(pattern = "RforProteomics.R")
