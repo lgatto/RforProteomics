@@ -9,10 +9,13 @@ The package also distributes a set of function to access data from the ProteomeX
 
 ## Installation
 
-Since the package is not in Bioconductor, a installation script that will install unmet dependencies and `RforProteomics` automatically is available. From R, type 
+Since the package is not in Bioconductor, a installation script that will install unmet dependencies and `RforProteomics` automatically is available. You will need the `devtools` to execute the script over `https`. From R, type 
 
 ```r
-source("https://raw.github.com/lgatto/RforProteomics/master/inst/scripts/installR4P.R")
+## only of 'devtools' is not installed
+install.packages("devtools")
+library("devtools")
+source_url("https://raw.github.com/lgatto/RforProteomics/master/inst/scripts/installR4P.R")
 ```
 
 ## Help
