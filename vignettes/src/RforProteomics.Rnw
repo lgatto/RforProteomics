@@ -140,7 +140,7 @@ All lists have browsable archives.
 %% ## required to reproduce the code below
 %% @ 
 
-Since the package is not yet into Bioconductor, it is not yet possible to use its automatice installation and update framework. An ad hoc script is however available to facilitate installation of \Rpackage{RforProteomics} and all dependencies. To install, simple open \R and type 
+Since the package is not yet in Bioconductor, it is not yet possible to use its automatice installation and update framework. An ad hoc script is however available to facilitate installation of \Rpackage{RforProteomics} and all dependencies. To install, simple open \R and type 
 
 <<eval=FALSE>>=
 source("https://raw.github.com/lgatto/RforProteomics/master/inst/scripts/installR4P.R")
