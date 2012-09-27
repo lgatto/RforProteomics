@@ -42,9 +42,12 @@ The package illustrates how R and a selection of dedicated packages can be used 
 
 <h2>Installation</h2>
 
-<p>Since the package is not in Bioconductor, a installation script that will install unmet dependencies and <code>RforProteomics</code> automatically is available. From R, type </p>
+<p>Since the package is not in Bioconductor, a installation script that will install unmet dependencies and <code>RforProteomics</code> automatically is available. You will need the <code>devtools</code> to execute the script over <code>https</code>. From R, type </p>
 
-<div class="highlight"><pre>source<span class="p">(</span><span class="s">"https://raw.github.com/lgatto/RforProteomics/master/inst/scripts/installR4P.R"</span><span class="p">)</span>
+<div class="highlight"><pre><span class="nl">##</span> <span class="nv">only</span> <span class="nb">if</span> <span class="vi">'devtools'</span> <span class="nv">is</span> <span class="nb">not</span> <span class="nv">installed</span>
+<span class="nv">install.packages</span><span class="gs">(</span><span class="s">"devtools"</span><span class="gs">)</span>
+<span class="nv">library</span><span class="gs">(</span><span class="s">"devtools"</span><span class="gs">)</span>
+<span class="nv">source_url</span><span class="gs">(</span><span class="s">"https://raw.github.com/lgatto/RforProteomics/master/inst/scripts/installR4P.R"</span><span class="gs">)</span>
 </pre></div>
 
 <h2>Help</h2>
