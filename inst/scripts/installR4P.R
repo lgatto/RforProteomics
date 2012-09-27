@@ -24,6 +24,8 @@ if (os == "unix") {
   ext <- ".tar.gz"
   type <- "source"
 } else {
+  if (!setInternet2(use = NA))
+    setInternet2(use = TRUE)
   ext <- ".zip"
   type <- "win.binary"
 }
