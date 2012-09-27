@@ -29,9 +29,10 @@ if (os == "unix") {
 }
 r4p <- paste0("RforProteomics_", v, ext)
 
+url <- "https://github.com/downloads/lgatto/RforProteomics/"
 tdir <- tempdir()
 dest <- file.path(tdir, r4p)
-src <- paste0("http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/", r4p)
+src <- paste0(url, r4p)
 download.file(url = src,
               destfile = dest)
 
