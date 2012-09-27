@@ -13,6 +13,6 @@ Since the package is not in Bioconductor, a installation script that will instal
 source("https://raw.github.com/lgatto/RforProteomics/master/inst/scripts/installR4P.R")
 ```
 
-### Help
+## Help
 
 To obtain help or additional information about the `RforProteomics` package, please contact [me](http://proteome.sysbiol.cam.ac.uk/lgatto/). For help about the packages presented in the vignette or manuscript, please refer to the [R mailing list](https://stat.ethz.ch/mailman/listinfo/r-help), [Biodonductor mailing list](http://www.bioconductor.org/help/mailing-list/#bioconductor) (if the packaage is in Bioconductor) and/or the respective package authors. 
