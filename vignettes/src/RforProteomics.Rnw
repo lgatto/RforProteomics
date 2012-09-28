@@ -140,13 +140,16 @@ All lists have browsable archives.
 %% ## required to reproduce the code below
 %% @ 
 
-Since the package is not yet in Bioconductor, it is not yet possible to use its automatice installation and update framework. An ad hoc script is however available to facilitate installation of \Rpackage{RforProteomics} and all dependencies. To install, simple open \R and type 
+Since the package is not yet in Bioconductor, it is not yet possible to use its automatice installation and update framework. An ad hoc script is however available to facilitate installation of \Rpackage{RforProteomics} and all dependencies. The \Rfunction{source\_url} function from the \Rpackage{devtools} package is used to source the \R code over \texttt{https}. Simply open \R and type 
 
 <<eval=FALSE>>=
-source("https://raw.github.com/lgatto/RforProteomics/master/inst/scripts/installR4P.R")
+## only if 'devtools' is not installed
+install.packages("devtools")
+library("devtools")
+source_url("https://raw.github.com/lgatto/RforProteomics/master/inst/scripts/installR4P.R")
 @ 
 
-This \R script is part of the package itself. It will install missing dependencies and then \Rpackage{RforProteomics}, which can then be loaded with
+The script installs missing dependencies and then \Rpackage{RforProteomics}, which can then be loaded with
 
 <<loadR4Prot>>=
 library("RforProteomics")
@@ -304,7 +307,7 @@ heatmap(m, col = wbcol, RowSideColors=cls[rownames(m)])
 
 
 \begin{figure}[!ht]
-<<spikes, dev='pdf', echo=TRUE, fig.width=7, fig.height=5.5, fig.keep='all', out.width='.7\\linewidth'>>=
+<<spikes, dev='pdf', echo=TRUE, fig.width=9, fig.height=5, fig.keep='all', out.width='1\\linewidth'>>=
 dfr <- data.frame(exprs(small),
                   Protein = as.character(fData(small)$accession),
                   Feature = featureNames(small),
@@ -326,6 +329,7 @@ ggplot(aes(x = variable, y = value, colour = Protein), data = dfr2) +
 \end{figure}
 
 \clearpage
+
 \subsection{Working with raw data}
 
 <<mzxml, cache=TRUE>>=
@@ -348,9 +352,13 @@ pch[grep("P62894", fData(qnt)$accession)] <- 19
 pch[grep("P00489", fData(qnt)$accession)] <- 19
 @ 
 
+<<mzp, cache = TRUE, fig.keep='none'>>=
+mzp <- plotMzDelta(rawms, reporters = TMT6, verbose = FALSE) + ggtitle("")
+@ 
+
 \begin{figure}[!ht]
-<<plotmzdelta, dev='pdf', echo=TRUE, fig.width=6.5, fig.height=5.5, fig.keep='last', out.width='7.\\linewidth', cache=TRUE>>=
-plotMzDelta(rawms, reporters = TMT6, verbose = FALSE) + ggtitle("")
+<<plotmzdelta, dev='pdf', echo=TRUE, fig.width=8, fig.height=5, fig.keep='last', out.width='0.9\\linewidth'>>=
+mzp
 @ 
 \caption{A m/z delta plot.}
 \label{fig:plotmzdelta}
@@ -391,9 +399,8 @@ This section illustrates some of \Rpackage{MALDIquant}'s data processing capabil
 \subsubsection*{Loading the data}
 
 <<mqload>>=
-## load MALDIquant library
+## load packages
 library("MALDIquant")
-#### DATA INPUT ####
 library("readBrukerFlexData")
 datapath <- file.path(system.file("Examples", 
                                   package = "readBrukerFlexData"), 
@@ -441,8 +448,7 @@ s4
 \subsubsection*{Peak picking}
 
 <<mqred>>=
-#### DATA REDUCTION ####
-# peak picking
+## peak picking
 p <- detectPeaks(s4)
 length(p) # 181
 peak.data <- as.matrix(p) # extract peak information
@@ -467,6 +473,8 @@ labelPeaks(p, index=top20, underline=TRUE)
 \caption{Spectrum plotting in \Rpackage{MALDIquant}.}
 \label{fig:mqplot}
 \end{figure}
+
+\clearpage
 
 \subsection{Working with peptide sequences}
 
@@ -518,8 +526,6 @@ molecule$exactmass
 ## intensities <- c(93, 5.8)
 ## molecules <- decomposeIsotopes(masses, intensities)
 
-
-###################
 ## experimental eno peptides
 exppep <- as.character(fData(qnt[grep("ENO", fData(qnt)[, 2]), ])[, 1]) ## 13
 minlength <- min(nchar(exppep))
@@ -531,7 +537,9 @@ nrow(enopep) ## 103
 sum(nchar(enopep$peptide) >= minlength) ## 68 
 pepcnt <- enopep[enopep[, 1] %in% exppep, ]
 nrow(pepcnt) ## 13
+@ 
 
+<<texshade, echo=TRUE, eval=FALSE>>=
 ## example code to generate an Texshade image to be 
 ## included directly in a Latex document or R vignette
 
@@ -556,23 +564,26 @@ nrow(pepcnt) ## 13
 ##   \\end{center}
 ## \\end{figure}\n\n", 
 ##     file = seq1file, append = TRUE)
+@ %% $
 
+\subsubsection*{$^{15}N$ incorporation}
 
-## 15N
-incrate <- seq(0, 1, 0.1)
+\begin{figure}[!ht]
+<<n15, dev='pdf', echo=TRUE, fig.width=8, fig.height=8, fig.keep='high', out.width='.9\\linewidth'>>=
+## 15N example
+incrate <- c(seq(0, 0.9, 0.1), 0.95, 1)
 inc <- lapply(incrate, function(inc) IsotopicDistributionN("YEVQGEVFTKPQLWP", inc))
-inc99 <- IsotopicDistributionN("YEVQGEVFTKPQLWP", .99)
-
 par(mfrow = c(4,3))
 for (i in 1:length(inc))
   plot(inc[[i]][, c(1, 3)], xlim = c(1823, 1848), 
        type = "h", 
-       main = paste0("15N incorporation ", incrate[i]))
-plot(inc99[, c(1, 3)], xlim = c(1823, 1848), 
-     type = "h", 
-     main = paste0("15N incorporation 0.99"))
+       main = paste0("15N incorporation at ", incrate[i], "%"))
 @ 
-%% $
+\caption{Isotopic envelope for the \texttt{YEVQGEVFTKPQLWP} peptide at different $^{15}N$ incorporation rates. }
+\label{fig:n15}
+\end{figure}
+
+\clearpage
 
 \subsection{The \Rpackage{isobar} package}
 
@@ -650,11 +661,11 @@ rat.exp <- c(PHO = 2/2,
              ENO = 5/1, 
              BSA = 2.5/10, 
              CYT = 1/1)
-@ 
+@ %% $
 
 
 \begin{figure}[!ht]
-<<ibplot, dev='pdf', echo=TRUE, fig.width=10, fig.height=5, fig.keep='last', out.width='.9\\linewidth'>>=
+<<ibplot, dev='pdf', echo=TRUE, fig.width=10, fig.height=5, fig.keep='last', out.width='1\\linewidth'>>=
 par(mfrow = c(1,2))
 maplot(x,
        noise.model = c(nm.background, nm.spks, nm),
@@ -689,16 +700,17 @@ points(res[spks, "lratio"],
 \label{fig:ibplot}
 \end{figure}
 
-
-
+\clearpage
 
 \subsection{The \Rpackage{synapter} package}
 
-<<synapter>>=
-## see vignette
-@ 
+The \Rpackage{synapter} package comes with a detailed vignette that describes how to prepare the MS$^E$ data and then process it in \R. Several interfaces are available provided the user with maximum control, easy batch processing capabilites or a graphical user interface. The conversion into \Robject{MSnSet} instances and filter and combination thereof as well as statistical analysis are also described. 
 
-\clearpage
+<<synapter, eval=FALSE>>=
+## open the synapter vignette
+library("synapter")
+synapterGuide()
+@ 
 
 \section{Annotation}
 
