@@ -27,7 +27,7 @@ installR4P <- function(v = "0.1.0") {
     ext <- ".zip"
   }
   r4p <- paste0("RforProteomics_", v, ext)  
-  url <- "http://proteomics.sysbiol.cam.ac.uk/lgatto/RforProteomics/"
+  url <- "http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/"
   pkg <- paste0(url, r4p)
 
   tdir <- tempdir()
