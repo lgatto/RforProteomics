@@ -1,4 +1,4 @@
-installP4R <- function(v = "0.1.0") {
+installR4P <- function(v = "0.1.0") {
   message("[R4P] Installing dependencies...")
   deps <- c("R.utils", "Biobase",
             "mzR", "MSnbase", "xcms", "msdata", "isobar", 
@@ -24,8 +24,6 @@ installP4R <- function(v = "0.1.0") {
     ext <- ".tar.gz"
     type <- "source"
   } else {
-    if (!setInternet2(use = NA))
-      setInternet2(use = TRUE)
     ext <- ".zip"
     type <- "win.binary"
   }
@@ -35,18 +33,15 @@ installP4R <- function(v = "0.1.0") {
   tdir <- tempdir()
   dest <- file.path(tdir, r4p)
   src <- paste0(url, r4p)
+
+  download.file(url = src, destfile = dest)
   
-  if (os == "unix") {
-    download.file(url = src, destfile = dest, method = "wget")
-  } else {
-    download.file(url = src, destfile = dest)
-  }
   
   message("[R4P] Installing RforProteomics...")
   install.packages(dest, repos = NULL, type = type)
   message("You can now type library('RforProteomics') to load the package.")
 }
 
-installP4R()
+installR4P()
 
 
