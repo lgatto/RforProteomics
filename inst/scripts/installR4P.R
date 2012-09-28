@@ -27,18 +27,17 @@ installR4P <- function(v = "0.1.0") {
     ext <- ".zip"
   }
   r4p <- paste0("RforProteomics_", v, ext)  
-  url <- "https://github.com/downloads/lgatto/RforProteomics/"
+  url <- "http://proteomics.sysbiol.cam.ac.uk/lgatto/RforProteomics/"
   pkg <- paste0(url, r4p)
 
   tdir <- tempdir()
   dest <- file.path(tdir, r4p)
+
   download.file(pkg, dest)
   
   if (os == "unix") {
     install.packages(dest, type = "source")
   } else {
-    if (!setInternet2(use = NA))
-      setInternet2(use = TRUE)
     install.packages(dest, type = "win.binary")
   }
   
