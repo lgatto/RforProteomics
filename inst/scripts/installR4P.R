@@ -1,5 +1,5 @@
-installR4P <- function(v = "0.1.0", deps) {
-  if (missing(deps)) {
+installR4P <- function(v = "0.1.0", deps = TRUE) {
+  if (deps) {
     deps <- c("R.utils", "Biobase",
               "mzR", "MSnbase", "xcms", "msdata", "isobar", 
               "MALDIquant", "readBrukerFlexData", 
@@ -8,18 +8,18 @@ installR4P <- function(v = "0.1.0", deps) {
               "rols", "hpar", "GO.db", "org.Hs.eg.db", "biomaRt", 
               "RColorBrewer", "ggplot2", "reshape2",
               "knitr")
-    instld <- rownames(installed.packages())
-    deps <- deps[!deps %in% instld]
-  }
-  if (!is.null(deps)) {
-    message("[R4P] Installing dependencies...")  
-    if (length(deps) > 0) {
-      if (!require("BiocInstaller")) {
-        source("http://www.bioconductor.org/biocLite.R")
-        useDevel(TRUE)
+  } else {
+    deps <- c("R.utils", "Biobase")
+  }    
+  instld <- rownames(installed.packages())
+  deps <- deps[!deps %in% instld]
+  if (length(deps) > 0) {
+    message("[R4P] Installing dependencies...")        
+    if (!require("BiocInstaller")) {
+      source("http://www.bioconductor.org/biocLite.R")
+      useDevel(TRUE)
     }
-      biocLite(deps, suppressUpdates = TRUE)
-    }
+    biocLite(deps, suppressUpdates = TRUE)
   }
 
   message("[R4P] Installing RforProteomics...")
