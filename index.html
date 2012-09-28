@@ -42,17 +42,19 @@ The package illustrates how R and a selection of dedicated packages can be used 
 
 <h2>Installation</h2>
 
-<p>Since the package is not in Bioconductor, a installation script that will install unmet dependencies and <code>RforProteomics</code> automatically is available. You will need the <code>devtools</code> <code>source_url</code> function to execute the script over <code>https</code>. From R, type </p>
+<p>Since the package is not in Bioconductor, a installation script that will install unmet dependencies and <code>RforProteomics</code> automatically is available. From R, type </p>
 
-<div class="highlight"><pre><span class="nl">##</span> <span class="nv">only</span> <span class="nb">if</span> <span class="vi">'devtools'</span> <span class="nv">is</span> <span class="nb">not</span> <span class="nv">installed</span>
-<span class="nv">install.packages</span><span class="gs">(</span><span class="s">"devtools"</span><span class="gs">)</span>
-<span class="nv">library</span><span class="gs">(</span><span class="s">"devtools"</span><span class="gs">)</span>
-<span class="nv">source_url</span><span class="gs">(</span><span class="s">"https://raw.github.com/lgatto/RforProteomics/master/inst/scripts/installR4P.R"</span><span class="gs">)</span>
+<div class="highlight"><pre><span class="nv">sourc</span><span class="gs">(</span><span class="s">"http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/installR4P.R"</span><span class="gs">)</span>
+</pre></div>
+
+<p>and load the package with </p>
+
+<div class="highlight"><pre><span class="nv">library</span><span class="gs">(</span><span class="s">"RforProteomics"</span><span class="gs">)</span>
 </pre></div>
 
 <h2>Help</h2>
 
-<p>To obtain help or additional information about the <code>RforProteomics</code> package, please contact <a href="http://proteome.sysbiol.cam.ac.uk/lgatto/">me</a>. For help about the packages presented in the vignette or manuscript, please refer to the <a href="https://stat.ethz.ch/mailman/listinfo/r-help">R mailing list</a>, <a href="http://www.bioconductor.org/help/mailing-list/#bioconductor">Biodonductor mailing list</a> (if the packaage is in Bioconductor) and/or the respective package authors. </p>
+<p>To obtain help or additional information about the <code>RforProteomics</code> package, please contact <a href="http://proteome.sysbiol.cam.ac.uk/lgatto/">me</a>. For help about the packages presented in the vignette or manuscript, please refer to the <a href="https://stat.ethz.ch/mailman/listinfo/r-help">R mailing list</a>, <a href="http://www.bioconductor.org/help/mailing-list/#bioconductor">Biodonductor mailing list</a> (if the package is in Bioconductor) and/or the respective package authors. </p>
       </section>
     </div>
 
