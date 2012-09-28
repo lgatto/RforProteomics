@@ -71,13 +71,10 @@ knit_hooks$set(par = function(before, options, envir) {
 %% $
 
 <<'env0', echo = FALSE>>=
-suppressPackageStartupMessages(library("foreach"))
-suppressPackageStartupMessages(library("doMC"))
 suppressPackageStartupMessages(library("parallel"))                             
-suppressPackageStartupMessages(library("IRanges"))  
 suppressPackageStartupMessages(library("MSnbase"))
 suppressPackageStartupMessages(library("isobar"))
-suppressPackageStartupMessages(library("MALDIquant"))                             
+suppressPackageStartupMessages(library("MALDIquant"))   
 suppressPackageStartupMessages(library("IPPD"))                           
 suppressPackageStartupMessages(library("rols"))
 suppressPackageStartupMessages(library("hpar"))
