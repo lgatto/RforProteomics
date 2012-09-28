@@ -1,4 +1,4 @@
-patched=0
+patched=1
 
 LATEXFILES = *.aux\
         *.bbl\
@@ -27,11 +27,13 @@ R_HOME=	$(shell R RHOME)
 endif
 
 vignette:
-	make clean
 	make stub
 	"$(R_HOME)/bin/R" CMD Sweave RforProteomics.Rnw
 	cp src/RforProteomics.pdf .
 	cp src/RforProteomics.Rnw .
+
+stub:
+	cp src/RforProteomics-stub.Rnw RforProteomics.Rnw 
 
 build: 
 	## Only locally
@@ -53,8 +55,6 @@ build:
 	cp RforProteomics.pdf src/.
 	make stub
 
-stub:
-	cp src/RforProteomics-stub.Rnw RforProteomics.Rnw 
 
 clean:
 	rm -f $(LATEXFILES)
@@ -66,3 +66,4 @@ clean:
 allclean:
 	make clean
 	rm -fr cache figure 
+

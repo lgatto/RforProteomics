@@ -1,4 +1,5 @@
 installR4P <- function(v = "0.1.0") {
+  suppressPackageStartupMessages(library("devtools"))
   message("[R4P] Installing dependencies...")
   deps <- c("R.utils", "Biobase",
             "mzR", "MSnbase", "xcms", "msdata", "isobar", 
@@ -17,28 +18,20 @@ installR4P <- function(v = "0.1.0") {
     }
     biocLite(deps, suppressUpdates = TRUE)
   }
-  
-  message("[R4p] Downloading RforProteomics...")
+
+  message("[R4P] Installing RforProteomics...")
   os <- .Platform$OS.type
   if (os == "unix") {
     ext <- ".tar.gz"
-    type <- "source"
   } else {
     ext <- ".zip"
-    type <- "win.binary"
   }
-  r4p <- paste0("RforProteomics_", v, ext)
-  
+  r4p <- paste0("RforProteomics_", v, ext)  
   url <- "https://github.com/downloads/lgatto/RforProteomics/"
-  tdir <- tempdir()
-  dest <- file.path(tdir, r4p)
-  src <- paste0(url, r4p)
+  pkg <- paste0(url, r4p)
 
-  download.file(url = src, destfile = dest)
+  install_url(pkg) 
   
-  
-  message("[R4P] Installing RforProteomics...")
-  install.packages(dest, repos = NULL, type = type)
   message("You can now type library('RforProteomics') to load the package.")
 }
 
