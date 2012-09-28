@@ -1,7 +1,9 @@
 ## Introduction
 
-This package distributes the code illustrating the use-cases described in the _Using R for proteomics data analysis_ manuscript. 
+This package distributes the code illustrating the use-cases described in the _Using R and Bioconductor for proteomics data analysis_ manuscript. 
 The package illustrates how R and a selection of dedicated packages can be used to access mass spectrometry base proteomics data, manipulate and visualise it, how to process label-free and labelled quantitative data and how to analyse the quantitation data. 
+
+The package will be updated beyond the content of the manuscript to keep up-to-date with progress in the area.
 
 ## Data and vignette
 
