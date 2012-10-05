@@ -1,7 +1,0 @@
-%% This vignette is a stub. 
-%% See RforProteomics-src.Rnw for the complete vignette.
-
-\documentclass[10pt]{article}
-%\VignetteIndexEntry{R for Proteomics}
-\begin{document}
-\end{document}

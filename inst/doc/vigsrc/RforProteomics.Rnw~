@@ -78,6 +78,7 @@ suppressPackageStartupMessages(library("MALDIquant"))
 suppressPackageStartupMessages(library("IPPD"))                           
 suppressPackageStartupMessages(library("rols"))
 suppressPackageStartupMessages(library("hpar"))
+suppressPackageStartupMessages(library("BRAIN"))
 @ 
 
 %% Abstract and keywords %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -137,13 +138,10 @@ All lists have browsable archives.
 %% ## required to reproduce the code below
 %% @ 
 
-Since the package is not yet in Bioconductor, it is not yet possible to use its automatice installation and update framework. An ad hoc script is however available to facilitate installation of \Rpackage{RforProteomics} and all dependencies. The \Rfunction{source\_url} function from the \Rpackage{devtools} package is used to source the \R code over \texttt{https}. Simply open \R and type 
+Since the package is not yet in Bioconductor, it is not yet possible to use its automatice installation and update framework. An ad hoc script is however available to facilitate installation of \Rpackage{RforProteomics} and all dependencies. Simply open \R and type 
 
 <<eval=FALSE>>=
-## only if 'devtools' is not installed
-install.packages("devtools")
-library("devtools")
-source_url("https://raw.github.com/lgatto/RforProteomics/master/inst/scripts/installR4P.R")
+source("http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/installR4P.R")
 @ 
 
 The script installs missing dependencies and then \Rpackage{RforProteomics}, which can then be loaded with
@@ -158,7 +156,7 @@ The code in this document describes all the examples presented in \cite{R4prot20
 
 <<stangle, eval=TRUE>>= 
 ## gets the vignette source
-rnwfile <- dir(system.file(package="RforProteomics", dir="doc"),
+rnwfile <- dir(system.file(package="RforProteomics", dir="doc/vigsrc/"),
                full.name = TRUE,
                pattern = "Rnw$")
 ## produces an R file in the working directory

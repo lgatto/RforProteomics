@@ -1,7 +1,7 @@
 Package: RforProteomics
 Type: Package
 Title: Package accompanying the 'Using R for proteomics data analysis' publication
-Version: 0.1.0
+Version: 0.1.1
 Author: Laurent Gatto
 Maintainer: Laurent Gatto <lg390@cam.ac.uk>
 Depends: R (>= 2.15)

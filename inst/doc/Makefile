@@ -1,5 +1,3 @@
-patched=1
-
 LATEXFILES = *.aux\
         *.bbl\
         *.blg\
@@ -20,17 +18,13 @@ all:
 	make clean
 
 setvars:
-ifeq (${patched},1)
-R_HOME=/opt/Rpatched
-else 
-R_HOME=	$(shell R RHOME)
+ifeq (${R_HOME},)
+R_HOME= $(shell R RHOME)
 endif
 
 vignette:
 	make stub
 	"$(R_HOME)/bin/R" CMD Sweave RforProteomics.Rnw
-	cp vigsrc/RforProteomics.Rnw .
-	cp vigsrc/RforProteomics.pdf .
 
 stub:
 	cp vigsrc/RforProteomics-stub.Rnw RforProteomics.Rnw 
