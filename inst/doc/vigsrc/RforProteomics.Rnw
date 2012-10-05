@@ -153,10 +153,10 @@ The code in this document describes all the examples presented in \cite{R4prot20
 ## gets the vignette source
 rnwfile <- dir(system.file(package="RforProteomics", dir="doc/vigsrc/"),
                full.name = TRUE,
-               pattern = "Rnw$")
+               pattern = "RforProteomics.Rnw")
 ## produces an R file in the working directory
 Stangle(rnwfile)
-dir(pattern = "RforProteomics.R")
+dir(pattern = "RforProteomics.R$")
 @ %% $
 
 \subsection{Prepare the working environment}

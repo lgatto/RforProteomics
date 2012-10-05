@@ -59,5 +59,5 @@ clean:
 
 allclean:
 	make clean
-	rm -fr cache figure 
+	rm -f cache figure 
 
