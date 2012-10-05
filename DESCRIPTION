@@ -1,7 +1,7 @@
 Package: RforProteomics
 Type: Package
 Title: Package accompanying the 'Using R for proteomics data analysis' publication
-Version: 0.1.1
+Version: 0.2.0
 Author: Laurent Gatto
 Maintainer: Laurent Gatto <lg390@cam.ac.uk>
 Depends: R (>= 2.15)
@@ -19,4 +19,5 @@ Description: This package contains code to illustrate the
 	     to	reproduce the examples and figures descibed in 
 	     the paper as well as functions to download the 
 	     PXD000001 data files.
+URL: http://lgatto.github.com/RforProteomics/
 License: Artistic-2.0
