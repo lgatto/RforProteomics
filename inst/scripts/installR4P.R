@@ -1,4 +1,4 @@
-installR4P <- function(v = "0.1.1", deps = TRUE) {
+installR4P <- function(v = "0.2.1", deps = TRUE) {
   if (deps) {
     deps <- c("R.utils", "Biobase",
               "mzR", "MSnbase", "xcms", "msdata", "isobar", 
