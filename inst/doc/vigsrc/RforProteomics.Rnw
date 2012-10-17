@@ -199,6 +199,7 @@ close(mz)
 \section{Raw data abstraction with \Robject{MSnExp} objects}
 
 <<msnexp>>= 
+library("MSnbase")
 mzXML <- dir(system.file(package="MSnbase",dir="extdata"),
              full.name=TRUE,
              pattern="mzXML$")

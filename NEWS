@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.2.1
+------------------------
+ o added visible library("MSnbase") in vignette <2012-10-17 Wed>
+
 CHANGES IN VERSION 0.2.0
 ------------------------
  o Added NEWS file <2012-10-05 Fri>
