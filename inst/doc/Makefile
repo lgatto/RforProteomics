@@ -49,15 +49,25 @@ build:
 	cp RforProteomics.pdf vigsrc/.
 	make stub
 
+cache:
+	mv cache/ vigsrc/.
+	mv figure/ vigsrc/.
+	mv TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML P00924.fasta F063721.dat-mztab.txt vigsrc/.
 
 clean:
 	rm -f $(LATEXFILES)
 	rm -f *~
+	rm -f .Rhistory
 	rm -f RforProteomics.R
+	## removing symbolic links only
 	rm -f PRIDE_Exp_Complete_Ac_22134.xml
 	rm -f F063721.dat-mztab.txt TMT*mzXML* P00924.fasta
+	rm -f cache figure
 
-allclean:
+cacheclean:
 	make clean
-	rm -f cache figure 
+	rm -fr vigsrc/cache vigsrc/figure 
+	rm -f vigsrc/F063721.dat-mztab.txt
+	rm -f vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML
+	rm -f vigsrc/P00924.fasta
 

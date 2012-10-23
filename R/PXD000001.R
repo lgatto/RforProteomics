@@ -21,8 +21,9 @@
 ##' @return Invisibly returns the name of the downloaded file.
 ##' @author Laurent Gatto
 getPXD000001mzXML <- function(destdir = ".") {
-  src <- "http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML.gz"
-  .getPXD000001(destdir, src, TRUE)
+  ## src <- "http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML.gz"
+  src2 <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML"
+  .getPXD000001(destdir, src2, FALSE)
 }
 
 

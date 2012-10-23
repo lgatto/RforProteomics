@@ -326,7 +326,8 @@ ggplot(aes(x = variable, y = value, colour = Protein), data = dfr2) +
 <<mzxml, cache=TRUE>>=
 mzxml <- getPXD000001mzXML()
 rawms <- readMSData(mzxml, centroided = TRUE, verbose = FALSE)
-qntms <- quantify(rawms, reporters = TMT7, method = "max", verbose = FALSE)
+qntms <- quantify(rawms, reporters = TMT7, method = "max", 
+                  verbose = FALSE, parallel = TRUE)
 
 d <- data.frame(Signal = rowSums(exprs(qntms)[, 1:6]),
                 Incomplete = exprs(qntms)[, 7])
@@ -707,7 +708,7 @@ synapterGuide()
 
 See \Rpackage{rols} and \Rpackage{hpar} vignettes.
 
-<<annot, cache=TRUE>>=
+<<annot, cache=FALSE>>=
 id <- "ENSG00000002746"
 library("hpar")
 getHpa(id, "SubcellularLoc")
