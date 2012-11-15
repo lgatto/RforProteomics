@@ -1,0 +1,22 @@
+\name{getPXD000001mzData}
+\alias{getPXD000001mzData}
+\title{Download the PXD000001 mzTab file}
+\usage{
+  getPXD000001mzData(destdir = ".")
+}
+\arguments{
+  \item{destdir}{A \code{character} with the destination
+  folder.}
+}
+\value{
+  Invisibly returns the name of the downloaded file.
+}
+\description{
+  Unless already present, downloads the PXD000001 mzData
+  file in the \code{destdir} directory. The resulting file
+  is named \code{PRIDE_Exp_Complete_Ac_22134.xml}
+}
+\author{
+  Laurent Gatto
+}
+
