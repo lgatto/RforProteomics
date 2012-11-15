@@ -1,0 +1,750 @@
+%\VignetteIndexEntry{R for Proteomics}
+%\VignetteKeywords{Bioinformatics, proteomics, mass spectrometry, tutorial, data}
+%\VignettePackage{RforProteomics}
+\documentclass[12pt]{article}
+\usepackage{longtable}
+\usepackage[T1]{fontenc}
+\newcommand{\R}{\texttt{R} }
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\Robject}[1]{{\texttt{#1}}}
+\newcommand{\Rpackage}[1]{{\mbox{\normalfont\textsf{#1}}}}
+\newcommand{\email}[1]{\href{mailto:#1}{\normalfont\texttt{#1}}}
+%% colors
+\definecolor{Red}{rgb}{0.7,0,0}
+\definecolor{Blue}{rgb}{0,0,0.8}
+
+\usepackage{geometry}
+\geometry{verbose,
+  tmargin = 2.5cm,
+  bmargin = 2.5cm,
+  lmargin = 3.5cm,
+  rmargin = 3.5cm}
+
+\usepackage{hyperref}
+\usepackage{breakurl}
+\hypersetup{%
+  pdfusetitle,
+  bookmarks = {true},
+  bookmarksnumbered = {true},
+  bookmarksopen = {true},
+  bookmarksopenlevel = 2,
+  unicode = {true},
+  breaklinks = {false},
+  hyperindex = {true},
+  colorlinks = {true},
+  linktocpage = {true},
+  plainpages = {false},
+  linkcolor = {Blue},
+  citecolor = {Blue},
+  urlcolor = {Red},
+  pdfstartview = {Fit},
+  pdfpagemode = {UseOutlines},
+  pdfview = {XYZ null null null}
+}
+
+\author{Laurent Gatto\\
+  \email{lg390@cam.ac.uk}\\
+  Cambridge Center for Proteomics\\
+  University of Cambridge
+}
+
+\begin{document}
+
+\title{Using \R and Bioconductor for proteomics data analysis.}
+
+\maketitle
+
+<<'setup', include = FALSE, cache = FALSE>>=
+library("knitr")
+## opts_chunk$set(fig.align = 'center', 
+##                fig.show = 'hold', 
+##                par = TRUE,
+##                prompt = TRUE,
+##                comment = NA)
+## })
+@
+%% $
+
+<<'env0', echo = FALSE>>=
+suppressPackageStartupMessages(library("parallel"))                             
+suppressPackageStartupMessages(library("MSnbase"))
+suppressPackageStartupMessages(library("isobar"))
+suppressPackageStartupMessages(library("MALDIquant"))   
+suppressPackageStartupMessages(library("IPPD"))                           
+suppressPackageStartupMessages(library("rols"))
+suppressPackageStartupMessages(library("hpar"))
+suppressPackageStartupMessages(library("BRAIN"))
+@ 
+
+%% Abstract and keywords %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vskip 0.3in minus 0.1in
+\hrule
+\begin{abstract}
+  This vignette shows and executes the code presented in the manuscript \textit{Using R for proteomics data analysis}.  
+\end{abstract}
+
+\textit{Keywords}: bioinformatics, proteomics, mass spectrometry, tutorial
+\vskip 0.1in minus 0.05in
+\hrule
+\vskip 0.2in minus 0.1in
+\vspace{10mm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% \tableofcontents
+%% \newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Section
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}\label{sec:intro} 
+
+\subsection{General \R ressources}
+
+The reader is expected to have basic \R knowledge to find to document helpful. There are numerous \R introductions freely available, some of which are listed below. 
+
+From the \R project web-page:
+\begin{itemize}
+\item \textbf{An Introduction to R} is based on the former \textit{Notes on R}, gives an introduction to the language and how to use R for doing statistical analysis and graphics. [\href{http://cran.r-project.org/doc/manuals/R-intro.html}{browse HTML} | \href{http://cran.r-project.org/doc/manuals/R-intro.pdf}{download PDF}]
+\item Several introductionary tutorials in the \href{http://cran.r-project.org/other-docs.html}{contributed documentation} section.
+\end{itemize}
+
+\subsection{Getting help}
+
+\R has several mailing lists\footnote{\url{http://www.r-project.org/mail.html}}. The most relevant here being the main \texttt{R-help} list, \textit{for discussion about problem and solutions using \R}. This one is for general \R content and is not suitable for bioinformatics or proteomics questions. 
+
+Bioconductor also offers several mailing lists\footnote{\url{http://bioconductor.org/help/mailing-list/}} dedicated to bioinformatics matters and Bioconductor packages. The main \texttt{bioconductor} list is the most relevant one. It is possible to post\footnote{\url{http://bioconductor.org/help/mailing-list/mailform/}} questions without subscribing to the list.
+
+It is important to read and comply to the posting guides (\href{http://www.r-project.org/posting-guide.html}{here} and \href{http://bioconductor.org/help/mailing-list/posting-guide/}{here}) to maximise the chances to obtain good responses. It is important to specify the software versions using the \Rfunction{sessionInfo()} functions (see an example output at the end of this docuement, on page \pageref{sec:sessionInfo}). It the question involves some code, make sure to isolate the relevant portion and filed it with your question and try to make your code/example reproducible\footnote{\url{https://github.com/hadley/devtools/wiki/Reproducibility}}.
+
+All lists have browsable archives.
+
+\subsection{Installation}
+
+%% Installing the package (assuming it is available on Bioconductor) - will update it not.
+
+%% <<installation, eval = FALSE>>=
+%% ## only first time you install Bioconductor packages
+%% source("http://www.bioconductor.org/biocLite.R")
+%% ## else
+%% library("BiocInstaller")
+%% useDevel(TRUE) ## use devel version of packages
+%% biocLite("RforProteomics", dependencies = TRUE)
+%% ## installs RforProteomics and all dependencies
+%% ## required to reproduce the code below
+%% @ 
+
+Since the package is not yet in Bioconductor, it is not yet possible to use its automatice installation and update framework. An ad hoc script is however available to facilitate installation of \Rpackage{RforProteomics} and all dependencies. Simply open \R and type 
+
+<<eval=FALSE>>=
+source("http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/installR4P.R")
+@ 
+
+The script installs missing dependencies and then \Rpackage{RforProteomics}, which can then be loaded with
+
+<<loadR4Prot>>=
+library("RforProteomics")
+@ 
+
+\subsection{Obtaining the code}
+
+The code in this document describes all the examples presented in \cite{R4prot2012} and can be copy, pasted and executed. It is however more convenient to have it in a separate text file for better interaction with \R (using ESS\footnote{\url{http://ess.r-project.org/}} for emacs or RStudio\footnote{\url{http://rstudio.org/}}) and to easily modify and explore it. This can be achieved with the \Rfunction{Stangle} function. It only need the Sweave source of this document, extracts the code chunks and produces a clean \R source file. If the package is installed, the following code chunk will create a \texttt{RforProteomics.R} file in your working directory containing all the annotated source code contained in this document.
+
+<<stangle, eval=TRUE>>= 
+## gets the vignette source
+rnwfile <- dir(system.file(package="RforProteomics", dir="doc/vigsrc/"),
+               full.name = TRUE,
+               pattern = "RforProteomics.Rnw")
+## produces an R file in the working directory
+Stangle(rnwfile)
+dir(pattern = "RforProteomics.R$")
+@ %% $
+
+\subsection{Prepare the working environment}
+
+The packages that we will depend on to execture the examples will be loaded in the respective sections. Here, we pre-load packages that provide general functionality used throughout the document.
+
+<<env>>=
+library("RColorBrewer") ## Color palettes
+library("ggplot2")  ## Convenient and nice plotting
+library("reshape2") ## Flexibly reshape data 
+@ 
+
+\section{Data standards and input/ouput}
+
+\subsection{The \Rpackage{mzR} package}
+
+This code chunk, taken mainly from the \Rfunction{openMSfile} documentation illustrated how to open a connection to an raw data file. The example \texttt{mzML} data is taken from the \Rpackage{msdata} data package. The code below would be applicatble to an \texttt{mzXML} of \texttt{mzData} file.
+
+<<mzr>>=
+## load the required packages
+library("mzR") ## the software package
+library("msdata") ## the data package
+## below, we extract the releavant example file 
+## from the local 'msdata' installation 
+filepath <- system.file("microtofq", package = "msdata")
+file <- list.files(filepath, pattern="MM14.mzML",
+                   full.names=TRUE, recursive = TRUE)
+## creates a commection to the mzML file
+mz <- openMSfile(file)
+## demonstraction of data access
+fileName(mz)
+isInitialized(mz)
+runInfo(mz)
+instrumentInfo(mz)
+## once finished, it is good to explicitely 
+## close the connection
+close(mz)
+@ 
+
+\section{Raw data abstraction with \Robject{MSnExp} objects}
+
+<<msnexp>>= 
+library("MSnbase")
+mzXML <- dir(system.file(package="MSnbase",dir="extdata"),
+             full.name=TRUE,
+             pattern="mzXML$")
+raw <- readMSData(mzXML, verbose = FALSE)
+raw
+## Extract a sigle spectrum
+raw[[3]]
+@ 
+%% $
+
+\begin{figure}[!ht]
+<<msnexpPlot, dev='pdf', echo=TRUE, fig.width=5.5, fig.height=5.5, fig.keep='all', out.width='.49\\linewidth'>>=
+plot(raw, full=TRUE)
+plot(raw[[3]], full=TRUE, reporters=iTRAQ4)
+@ 
+\caption{The \Rfunction{plot} method can be used on experiments, i.e. spectrum collections (left), or individual spectra (right). }
+\label{fig:msnexp}
+\end{figure}
+
+\subsection{\texttt{mgf} read/write support}
+
+See \Rfunction{readMgfData} and \Rfunction{writeMgfData} in \Rpackage{MSnbase}.
+
+\section{Quantitative proteomics}
+
+As an running example throughout this document, we will use the \texttt{PXD000001} data set. The code chunk below first downloads this data file from the ProteomeXchange server using the \Rfunction{getPXD000001mzXML} function from the \Rpackage{RforProteomics} package.
+
+\subsection{The \texttt{mzTab} format}
+
+<<mztab>>=
+mztab <- getPXD000001mzTab()
+mztab ## the mzTab file name
+## Load mzTabs's peptide data 
+qnt <- readMzTabData(mztab, what = "PEP")
+sampleNames(qnt) <- reporterNames(TMT6)
+head(exprs(qnt))
+## combine into proteins
+## - usin the 'accession' feature meta data
+## - sum the peptide intensities
+protqnt <- combineFeatures(qnt, groupBy = fData(qnt)$accession, fun = sum)
+@ 
+
+\begin{figure}[!ht]
+<<matplot, dev='pdf', echo=TRUE, fig.width=5.5, fig.height=5.5, fig.keep='last', out.width='.6\\linewidth'>>=
+cls <- brewer.pal(5, "Set1")
+matplot(t(tail(exprs(protqnt), n = 5)), type = "b", 
+        lty = 1, col = cls,
+        ylab = "Protein intensity (summed peptides)",
+        xlab = "TMT reporters")
+legend("topright", tail(featureNames(protqnt), n=5), 
+       lty = 1, bty = "n", cex = .8, col = cls)
+@ 
+\caption{Protein quantitation data. }
+\label{fig:matplot}
+\end{figure}
+
+<<mztab2>>=
+qntS <- normalise(qnt, "sum")
+qntV <- normalise(qntS, "vsn")
+qntV2 <- normalise(qnt, "vsn")
+
+acc <- c("P00489", "P00924", 
+         "P02769", "P62894",
+         "ECA")
+
+idx <- sapply(acc, grep, fData(qnt)$accession)
+idx2 <- sapply(idx, head, 3)
+small <- qntS[unlist(idx2), ]
+
+idx3 <- sapply(idx, head, 10)
+medium <- qntV[unlist(idx3), ]
+
+m <- exprs(medium)
+colnames(m) <- c("126", "127", "128",
+                 "129", "130", "131")
+rownames(m) <- fData(medium)$accession
+rownames(m)[grep("CYC", rownames(m))] <- "CYT"
+rownames(m)[grep("ENO", rownames(m))] <- "ENO"
+rownames(m)[grep("ALB", rownames(m))] <- "BSA"
+rownames(m)[grep("PYGM", rownames(m))] <- "PHO"
+rownames(m)[grep("ECA", rownames(m))] <- "Background"
+
+cls <- c(brewer.pal(length(unique(rownames(m)))-1, "Set1"),
+         "grey")
+names(cls) <- unique(rownames(m))
+wbcol <- colorRampPalette(c("white", "darkblue"))(256)
+@ %% $
+
+\begin{figure}[!ht]
+<<heatmap, dev='pdf', echo=TRUE, fig.width=5.5, fig.height=5.5, fig.keep='last', out.width='.6\\linewidth'>>=
+heatmap(m, col = wbcol, RowSideColors=cls[rownames(m)])
+@ 
+\caption{A heatmap. }
+\label{fig:heatmap}
+\end{figure}
+
+
+\begin{figure}[!ht]
+<<spikes, dev='pdf', echo=TRUE, fig.width=9, fig.height=5, fig.keep='all', out.width='1\\linewidth'>>=
+dfr <- data.frame(exprs(small),
+                  Protein = as.character(fData(small)$accession),
+                  Feature = featureNames(small),
+                  stringsAsFactors = FALSE)
+colnames(dfr) <- c("126", "127", "128", "129", "130", "131", "Protein", "Feature")
+dfr$Protein[dfr$Protein == "sp|P00924|ENO1_YEAST"] <- "ENO"
+dfr$Protein[dfr$Protein == "sp|P62894|CYC_BOVIN"]  <- "CYT"
+dfr$Protein[dfr$Protein == "sp|P02769|ALBU_BOVIN"] <- "BSA"
+dfr$Protein[dfr$Protein == "sp|P00489|PYGM_RABIT"] <- "PHO"
+dfr$Protein[grep("ECA", dfr$Protein)] <- "Background"
+dfr2 <- melt(dfr)
+ggplot(aes(x = variable, y = value, colour = Protein), data = dfr2) +
+  geom_point() + geom_line(aes(group=as.factor(Feature)), alpha = 0.5) +
+  facet_grid(. ~ Protein) + theme(legend.position="none") +
+  labs(x = "Reporters", y = "Normalised intensity")
+@ %% $
+\caption{Spikes plot using \Rpackage{ggplot2}.}
+\label{fig:spikes}
+\end{figure}
+
+\clearpage
+
+\subsection{Working with raw data}
+
+<<mzxml, cache=TRUE>>=
+mzxml <- getPXD000001mzXML()
+rawms <- readMSData(mzxml, centroided = TRUE, verbose = FALSE)
+qntms <- quantify(rawms, reporters = TMT7, method = "max", 
+                  verbose = FALSE, parallel = TRUE)
+
+d <- data.frame(Signal = rowSums(exprs(qntms)[, 1:6]),
+                Incomplete = exprs(qntms)[, 7])
+d <- log(d)
+cls <- rep("#00000050", nrow(qnt))
+pch <- rep(1, nrow(qnt))
+cls[grep("P02769", fData(qnt)$accession)] <- "gold4" ## BSA
+cls[grep("P00924", fData(qnt)$accession)] <- "dodgerblue" ## ENO
+cls[grep("P62894", fData(qnt)$accession)] <- "springgreen4" ## CYT
+cls[grep("P00489", fData(qnt)$accession)] <- "darkorchid2" ## PHO
+pch[grep("P02769", fData(qnt)$accession)] <- 19
+pch[grep("P00924", fData(qnt)$accession)] <- 19
+pch[grep("P62894", fData(qnt)$accession)] <- 19
+pch[grep("P00489", fData(qnt)$accession)] <- 19
+@ 
+
+<<mzp, cache = TRUE, fig.keep='none'>>=
+mzp <- plotMzDelta(rawms, reporters = TMT6, verbose = FALSE) + ggtitle("")
+@ 
+
+\begin{figure}[!ht]
+<<plotmzdelta, dev='pdf', echo=TRUE, fig.width=8, fig.height=5, fig.keep='last', out.width='0.9\\linewidth'>>=
+mzp
+@ 
+\caption{A m/z delta plot.}
+\label{fig:plotmzdelta}
+\end{figure}
+
+
+\begin{figure}[!ht]
+<<incompl, dev='pdf', echo=TRUE, fig.width=5.5, fig.height=5.5, fig.keep='last', out.width='.6\\linewidth'>>=
+plot(Signal ~ Incomplete, data = d, 
+     xlab = expression(Incomplete~dissociation), 
+     ylab = expression(Sum~of~reporters~intensities),
+     pch = 19,
+     col = "#4582B380")
+grid()
+abline(0, 1, lty = "dotted")
+abline(lm(Signal ~ Incomplete, data = d), col = "darkblue")
+@ 
+\caption{Incomplete dissociation.}
+\label{fig:incompl}
+\end{figure}
+ 
+
+\begin{figure}[!ht]
+<<maplot, dev='pdf', echo=TRUE, fig.width=5.5, fig.height=5.5, fig.keep='last', out.width='.6\\linewidth'>>=
+MAplot(qnt[, c(4, 2)], cex = .9, col = cls, pch = pch, show.statistics = FALSE)
+abline(lm(Signal ~ Incomplete, data = d), col = "darkblue")
+@ 
+\caption{MAplot on an \Robject{MSnSet} instance.}
+\label{fig:maplot}
+\end{figure}
+
+\clearpage
+
+\subsection{The \Rpackage{MALDIquant} package}
+
+This section illustrates some of \Rpackage{MALDIquant}'s data processing capabilities. The code is taken from the \texttt{processing-peaks.R} script downloaded from the package homepage\footnote{\url{http://strimmerlab.org/software/maldiquant/}}.
+
+\subsubsection*{Loading the data}
+
+<<mqload>>=
+## load packages
+library("MALDIquant")
+library("readBrukerFlexData")
+datapath <- file.path(system.file("Examples", 
+                                  package = "readBrukerFlexData"), 
+                      "2010_05_19_Gibb_C8_A1")
+dir(datapath)
+sA1 <- mqReadBrukerFlex(datapath)
+# in the following we use only the first spectrum
+s <- sA1[[1]] 
+
+summary(mass(s))
+summary(intensity(s))
+head(as.matrix(s))
+@ 
+
+\begin{figure}[!ht]
+<<mqplot, dev='pdf', echo=TRUE, fig.width=7, fig.height=5.5, fig.keep='last', out.width='.6\\linewidth'>>=
+plot(s)
+@ 
+\caption{Spectrum plotting in \Rpackage{MALDIquant}.}
+\label{fig:mqplot}
+\end{figure}
+
+\subsubsection*{Preprocessing}
+
+<<mqpreproc>>=
+## sqrt transform (for variance stabilization)
+s2 <- transformIntensity(s, fun=sqrt)
+s2
+
+## smoothing
+simpleSmooth <- function(y) {
+  return ( filter(y, rep(1, 5)/5, sides=2) ) # 5 point moving average 
+}
+
+s3 <- transformIntensity(s2, simpleSmooth)
+s3
+length(s2) # 22431
+length(s3) # 22427 - at both ends data points have been removed
+
+## baseline subtraction
+s4 <- removeBaseline(s3, method="SNIP")
+s4
+@ 
+
+\subsubsection*{Peak picking}
+
+<<mqred>>=
+## peak picking
+p <- detectPeaks(s4)
+length(p) # 181
+peak.data <- as.matrix(p) # extract peak information
+@ 
+
+
+\begin{figure}[!ht]
+<<mqplot2, dev='pdf', echo=TRUE, fig.width=10, fig.height=5, fig.keep='high', out.width='1\\linewidth'>>=
+par(mfrow=c(2,3))
+xl <- range(mass(s)) # use same xlim on all plots for better comparison
+plot(s, sub="", main="1: raw", xlim=xl)
+plot(s2, sub="", main="2: variance stabilisation", xlim=xl)
+plot(s3, sub="", main="3: smoothing", xlim=xl)
+plot(s4, sub="", main="4: base line correction", xlim=xl)
+plot(s4, sub="", main="5: peak detection", xlim=xl)
+points(p)
+top20 <- intensity(p) %in% sort(intensity(p), decreasing=TRUE)[1:20]
+labelPeaks(p, index=top20, underline=TRUE)
+plot(p, sub="", main="6: peak plot", xlim=xl)
+labelPeaks(p, index=top20, underline=TRUE)
+@ 
+\caption{Spectrum plotting in \Rpackage{MALDIquant}.}
+\label{fig:mqplot}
+\end{figure}
+
+\clearpage
+
+\subsection{Working with peptide sequences}
+
+<<isotopes>>=
+library(IPPD)
+## x <- myo500[,"mz"]
+## y <- myo500[,"intensities"]
+## sel <- x <= 2500
+## y <- y[sel]
+## x <- x[sel]
+## see vignette
+
+## add example
+
+library(BRAIN)
+atoms <- getAtomsFromSeq("SIVPSGASTGVHEALEMR")
+unlist(atoms)
+
+library(Rdisop)
+pepmol <- getMolecule(paste0(names(atoms), unlist(atoms), collapse = ""))
+pepmol
+
+##
+library(OrgMassSpecR)
+data(itraqdata)
+
+simplottest <- itraqdata[featureNames(itraqdata) %in% paste0("X", 46:47)]
+sim <- SpectrumSimilarity(as(simplottest[[1]], "data.frame"),
+                          as(simplottest[[2]], "data.frame"),
+                          top.lab = "itraqdata[['X46']]",
+                          bottom.lab = "itraqdata[['X47']]",
+                          b = 25)
+title(main = paste("Spectrum similarity", round(sim, 3)))
+
+MonoisotopicMass(formula = list(C = 2, O = 1, H=6))
+molecule <- getMolecule("C2H5OH")
+molecule$exactmass
+## x11()
+## plot(t(.pepmol$isotopes[[1]]), type = "h")
+
+## x <- IsotopicDistribution(formula = list(C = 2, O = 1, H=6))
+## t(molecule$isotopes[[1]])
+## par(mfrow = c(2,1))
+## plot(t(molecule$isotopes[[1]]), type = "h")
+## plot(x[, c(1,3)], type = "h")
+
+## data(myo500)
+## masses <- c(147.053, 148.056)
+## intensities <- c(93, 5.8)
+## molecules <- decomposeIsotopes(masses, intensities)
+
+## experimental eno peptides
+exppep <- as.character(fData(qnt[grep("ENO", fData(qnt)[, 2]), ])[, 1]) ## 13
+minlength <- min(nchar(exppep))
+
+eno <- download.file("http://www.uniprot.org/uniprot/P00924.fasta", destfile = "P00924.fasta")
+eno <- paste(readLines("P00924.fasta")[-1], collapse = "")
+enopep <- Digest(eno, missed = 1)
+nrow(enopep) ## 103
+sum(nchar(enopep$peptide) >= minlength) ## 68 
+pepcnt <- enopep[enopep[, 1] %in% exppep, ]
+nrow(pepcnt) ## 13
+@ 
+
+<<texshade, echo=TRUE, eval=FALSE>>=
+## example code to generate an Texshade image to be 
+## included directly in a Latex document or R vignette
+
+## seq1file <- "seq1.tex"
+## cat("\\begin{texshade}{Figures/P00924.fasta}
+##      \\setsize{numbering}{footnotesize}     
+##      \\setsize{residues}{footnotesize}     
+##      \\residuesperline*{70}
+##      \\shadingmode{functional}
+##      \\hideconsensus      
+##      \\vsepspace{1mm}
+##      \\hidenames
+##      \\noblockskip\n", file = seq1file)
+## tmp <- sapply(1:nrow(pepcnt), function(i) {
+##   col <- ifelse((i %% 2) == 0, "Blue", "RoyalBlue")
+##   cat("\\shaderegion{1}{", pepcnt$start[i], "..", pepcnt$stop[i], "}{White}{", col, "}\n", 
+##       file = seq1file, append = TRUE)
+## })
+## cat("\\end{texshade}
+##     \\caption{Visualising observed peptides for the Yeast enolase protein. Peptides are shaded in blue and black. The last peptide is a mis-cleavage and overlaps with \\texttt{IEEELGDNAVFAGENFHHGDK}.}
+##     \\label{fig:seq}
+##   \\end{center}
+## \\end{figure}\n\n", 
+##     file = seq1file, append = TRUE)
+@ %% $
+
+\subsubsection*{$^{15}N$ incorporation}
+
+\begin{figure}[!ht]
+<<n15, dev='pdf', echo=TRUE, fig.width=8, fig.height=8, fig.keep='high', out.width='.9\\linewidth'>>=
+## 15N example
+incrate <- c(seq(0, 0.9, 0.1), 0.95, 1)
+inc <- lapply(incrate, function(inc) IsotopicDistributionN("YEVQGEVFTKPQLWP", inc))
+par(mfrow = c(4,3))
+for (i in 1:length(inc))
+  plot(inc[[i]][, c(1, 3)], xlim = c(1823, 1848), 
+       type = "h", 
+       main = paste0("15N incorporation at ", incrate[i], "%"))
+@ 
+\caption{Isotopic envelope for the \texttt{YEVQGEVFTKPQLWP} peptide at different $^{15}N$ incorporation rates. }
+\label{fig:n15}
+\end{figure}
+
+\clearpage
+
+\subsection{The \Rpackage{isobar} package}
+
+<<isobar, cache=TRUE>>=
+library(isobar)
+.ions <- exprs(qnt)
+.mass <- matrix(mz(TMT6), nrow(qnt), byrow=TRUE, ncol = 6)
+colnames(.ions) <- colnames(.mass) <- 
+  reporterTagNames(new("TMT6plexSpectra"))
+rownames(.ions) <- rownames(.mass) <- 
+  paste(fData(qnt)$accession, fData(qnt)$sequence, sep = ".")
+pgtbl <- data.frame(spectrum = rownames(.ions),
+                    peptide = fData(qnt)$sequence,
+                    modif = ":",
+                    start.pos = 1,
+                    protein = fData(qnt)$accession,
+                    accession = fData(qnt)$accession)
+x <- new("TMT6plexSpectra", pgtbl, .ions, .mass)
+featureData(x)$proteins <- as.character(fData(qnt)$accession)
+
+x <- correctIsotopeImpurities(x) ## useless, identity matrix
+x <- normalize(x, per.file = FALSE) ## little effect
+spks <- c(protein.g(proteinGroup(x), "P00489"),
+          protein.g(proteinGroup(x), "P00924"),
+          protein.g(proteinGroup(x), "P02769"),
+          protein.g(proteinGroup(x), "P62894"))
+
+
+cls2 <- rep("#00000040", nrow(x))
+pch2 <- rep(1, nrow(x))
+cls2[grep("P02769", featureNames(x))] <- "gold4" ## BSA
+cls2[grep("P00924", featureNames(x))] <- "dodgerblue" ## ENO
+cls2[grep("P62894", featureNames(x))] <- "springgreen4" ## CYT
+cls2[grep("P00489", featureNames(x))] <- "darkorchid2" ## PHO
+pch2[grep("P02769", featureNames(x))] <- 19
+pch2[grep("P00924", featureNames(x))] <- 19
+pch2[grep("P62894", featureNames(x))] <- 19
+pch2[grep("P00489", featureNames(x))] <- 19
+
+nm <- NoiseModel(x)
+ib.background <- subsetIBSpectra(x, protein=spks, "exclude")
+nm.background <- NoiseModel(ib.background)
+ib.spks <- subsetIBSpectra(x, protein = spks,
+                           direction="exclude others",
+                           specificity="reporter-specific")
+nm.spks <- NoiseModel(ib.spks, one.to.one=FALSE, pool=TRUE)
+
+ratios <- 10^estimateRatio(x, nm,
+                           channel1="127", channel2="129",
+                           protein = spks,
+                           combine = FALSE)[, "lratio"]
+
+res <- estimateRatio(x, nm,
+                     channel1="127", channel2="129",
+                     protein = unique(fData(x)$proteins), 
+                     combine = FALSE,
+                     sign.level = 0.01)[, c(1, 2, 6, 8)]
+res <- as.data.frame(res)
+res$lratio <- -(res$lratio)
+
+cls3 <- rep("#00000050", nrow(res))
+pch3 <- rep(1, nrow(res))
+cls3[grep("P02769", rownames(res))] <- "gold4" ## BSA
+cls3[grep("P00924", rownames(res))] <- "dodgerblue" ## ENO
+cls3[grep("P62894", rownames(res))] <- "springgreen4" ## CYT
+cls3[grep("P00489", rownames(res))] <- "darkorchid2" ## PHO
+##cls3[grep("P00761", rownames(res))] <- "red" ## Trypsin
+pch3[grep("P02769", rownames(res))] <- 19
+pch3[grep("P00924", rownames(res))] <- 19
+pch3[grep("P62894", rownames(res))] <- 19
+pch3[grep("P00489", rownames(res))] <- 19
+##pch3[grep("P00761", rownames(res))] <- 19
+
+rat.exp <- c(PHO = 2/2, 
+             ENO = 5/1, 
+             BSA = 2.5/10, 
+             CYT = 1/1)
+@ %% $
+
+
+\begin{figure}[!ht]
+<<ibplot, dev='pdf', echo=TRUE, fig.width=10, fig.height=5, fig.keep='last', out.width='1\\linewidth'>>=
+par(mfrow = c(1,2))
+maplot(x,
+       noise.model = c(nm.background, nm.spks, nm),
+       channel1="127", channel2="129",
+       pch = 19, col = cls2,
+       main = "Spectra MA plot")
+abline(h = 1, lty = "dashed", col = "grey")
+legend("topright", 
+       c("BSA", "ENO", "CYT", "PHO"),
+       pch = 19, col = c("gold4", "dodgerblue", 
+                   "springgreen4", "darkorchid2"),
+       bty = "n", cex = .7) 
+plot(res$lratio, -log10(res$p.value.rat), col = cls3, pch = pch3,
+     xlab = expression(log[10]~fold-change),
+     ylab = expression(-log[10]~p-value),
+     main = "Protein volcano plot", 
+     xlim = c(-0.7, 0.7))
+grid()
+abline(h = -log10(0.01), lty = "dotted")
+abline(v = log10(c(2, 0.5)), lty = "dotted")
+abline(v = -0.003, col = "springgreen4", lty = "dashed", lwd = 2)
+abline(v = 0.003, col = "darkorchid2", lty = "dashed", lwd = 2)
+abline(v = log10(5), col = "dodgerblue", lty = "dashed", lwd = 2)
+abline(v = log10(0.25), col = "gold4", lty = "dashed", lwd = 2)
+points(res[spks, "lratio"], 
+       -log10(res[spks, "p.value.rat"]), 
+       col = c("darkorchid2", "dodgerblue", 
+         "gold4", "springgreen4"),
+       pch = 19)
+@ 
+\caption{Result from the \Rpackage{isobar} pipeline. }
+\label{fig:ibplot}
+\end{figure}
+
+\clearpage
+
+\subsection{The \Rpackage{synapter} package}
+
+The \Rpackage{synapter} package comes with a detailed vignette that describes how to prepare the MS$^E$ data and then process it in \R. Several interfaces are available provided the user with maximum control, easy batch processing capabilites or a graphical user interface. The conversion into \Robject{MSnSet} instances and filter and combination thereof as well as statistical analysis are also described. 
+
+<<synapter, eval=FALSE>>=
+## open the synapter vignette
+library("synapter")
+synapterGuide()
+@ 
+
+\section{Annotation}
+
+See \Rpackage{rols} and \Rpackage{hpar} vignettes.
+
+<<annot, cache=FALSE>>=
+id <- "ENSG00000002746"
+library("hpar")
+getHpa(id, "SubcellularLoc")
+
+library(org.Hs.eg.db)
+library(GO.db)
+ans <- select(org.Hs.eg.db, keys = id, cols = c("ENSEMBL", "GO", "ONTOLOGY"), keytype = "ENSEMBL")
+ans <- ans[ans$ONTOLOGY == "CC", ]
+ans
+sapply(as.list(GOTERM[ans$GO]), slot, "Term")
+
+library("biomaRt")
+ensembl <- useMart("ensembl",dataset="hsapiens_gene_ensembl")
+efilter <- "ensembl_gene_id"
+eattr <- c("go_id", "name_1006", "namespace_1003")
+bmres <- getBM(attributes=eattr, filters = efilter, values = id, mart = ensembl)
+bmres[bmres$namespace_1003 == "cellular_component", "name_1006"]
+
+
+library("rols")
+## see vignette
+@ %% $
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Section
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Session information}\label{sec:sessionInfo} 
+
+All software and version used in this document, as returned by \Rfunction{sessionInfo()} are detailed below.
+
+<<sessioninfo, results = tex, echo = FALSE, cache = FALSE>>=
+toLatex(sessionInfo())
+@
+
+\bibliographystyle{abbrv}
+\bibliography{RforProteomics}
+
+\end{document}
