@@ -11,13 +11,15 @@ The package also distributes a set of function to access data from the ProteomeX
 
 ## Installation
 
-Since the package is not in Bioconductor, a installation script that will install unmet dependencies and `RforProteomics` automatically is available. From R, type 
+The package is now available in [Bioconductor](http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html). To install the package, start `R` and enter:
+
 
 ```r
-source("http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/installR4P.R")
+source("http://bioconductor.org/biocLite.R")
+biocLite("RforProteomics")
 ```
 
-and load the package with 
+Once installed, the package with loaded with
 
 ```r
 library("RforProteomics")
