@@ -7,11 +7,11 @@ The package will be updated beyond the content of the manuscript to keep up-to-d
 
 ## Data and vignette
 
-The package also distributes a set of function to access data from the ProteomeXchange `PXD000001` data, used in several examples, as well as a detailed document containing the exact code to reproduce all the analyses presented in the manuscript as well as other application examples. The latter document is called the package vignette, and can be accessed once the package is installed (see below) with the `RforProteomics()` function. Alternatively, the vignette can be downloaded alternatively as a pdf file [here](http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/RforProteomics.pdf). 
+The package also distributes a set of function to access data from the ProteomeXchange `PXD000001` data, used in several examples, as well as a detailed document containing the exact code to reproduce all the analyses presented in the manuscript as well as other application examples. The latter document is called the package vignette, and can be accessed once the package is installed (see below) with the `RforProteomics()` function. Alternatively, the vignette can be downloaded as a pdf file [here](http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf). 
 
 ## Installation
 
-The package is now available in [Bioconductor](http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html). To install the package, start `R` and enter:
+The package is now available in [Bioconductor](http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html). To install the package, start `R` (currently devel version only) and enter:
 
 
 ```r
