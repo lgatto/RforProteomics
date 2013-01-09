@@ -11,13 +11,28 @@ The package also distributes a set of function to access data from the ProteomeX
 
 ## Installation
 
-The package is now available in [Bioconductor](http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html). To install the package, start `R` (currently devel version only) and enter:
-
+The package is now available in [Bioconductor](http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html) version 2.12. To install the package, start `R` (currently devel version only) and enter:
 
 ```r
 source("http://bioconductor.org/biocLite.R")
 biocLite("RforProteomics")
 ```
+
+As of writing, Bioc 2.12 is the development branch, which require the development verion of `R` to install packages using `biocLite'. If you have an earlier version of `R` (`R-2.15.2`, the latest stable verions is recommended), start by installing the package dependencies as shown below. 
+
+```r
+deps <- c('R.utils', 'Biobase', 'mzR', 'MSnbase', 
+          'xcms', 'msdata', 'isobar', 'MALDIquant', 
+          'readBrukerFlexData', 'synapter', 'synapterdata', 
+          'IPPD', 'Rdisop', 'OrgMassSpecR', 'BRAIN', 
+          'rols', 'hpar', 'GO.db', 'org.Hs.eg.db', 
+          'biomaRt', 'RColorBrewer', 'ggplot2', 'reshape2', 
+          'knitr')
+source("http://proteome.sysbiol.cam.ac.uk/lgatto/src/installPackages.R")
+installPackages(deps)
+```
+
+Download the appropriate package from the [Bioconductor landing page](http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html) and install manually using `install.packages(..., repos = "NULL")` or the GUI front-end of your favourite R interface.
 
 Once installed, the package with loaded with
 
