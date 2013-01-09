@@ -44,15 +44,30 @@ The package illustrates how R and a selection of dedicated packages can be used 
 
 <h2>Installation</h2>
 
-<p>The package is now available in <a href="http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html">Bioconductor</a>. To install the package, start <code>R</code> (currently devel version only) and enter:</p>
+<p>The package is now available in <a href="http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html">Bioconductor</a> version 2.12. To install the package, start <code>R</code> (currently devel version only) and enter:</p>
 
-<div class="highlight"><pre>source<span class="p">(</span><span class="s">"http://bioconductor.org/biocLite.R"</span><span class="p">)</span>
-biocLite<span class="p">(</span><span class="s">"RforProteomics"</span><span class="p">)</span>
+<div class="highlight"><pre><span class="kn">source</span><span class="gs">(</span><span class="s">"http://bioconductor.org/biocLite.R"</span><span class="gs">)</span>
+<span class="nv">biocLite</span><span class="gs">(</span><span class="s">"RforProteomics"</span><span class="gs">)</span>
 </pre></div>
+
+<p>As of writing, Bioc 2.12 is the development branch, which require the development verion of <code>R</code> to install packages using <code>biocLite'. If you have an earlier version of</code>R<code>(</code>R-2.15.2`, the latest stable verions is recommended), start by installing the package dependencies as shown below. </p>
+
+<div class="highlight"><pre><span class="nv">deps</span> <span class="nt">&lt;- c</span><span class="err">(</span><span class="nt">'R.utils', 'Biobase', 'mzR', 'MSnbase', </span>
+          <span class="vi">'xcms',</span> <span class="vi">'msdata',</span> <span class="vi">'isobar',</span> <span class="vi">'MALDIquant',</span> 
+          <span class="vi">'readBrukerFlexData',</span> <span class="vi">'synapter',</span> <span class="vi">'synapterdata',</span> 
+          <span class="vi">'IPPD',</span> <span class="vi">'Rdisop',</span> <span class="vi">'OrgMassSpecR',</span> <span class="vi">'BRAIN',</span> 
+          <span class="vi">'rols',</span> <span class="vi">'hpar',</span> <span class="vi">'GO.db',</span> <span class="vi">'org.Hs.eg.db',</span> 
+          <span class="vi">'biomaRt',</span> <span class="vi">'RColorBrewer',</span> <span class="vi">'ggplot2',</span> <span class="vi">'reshape2',</span> 
+          'knitr'<span class="gs">)</span>
+<span class="kn">source</span><span class="gs">(</span><span class="s">"http://proteome.sysbiol.cam.ac.uk/lgatto/src/installPackages.R"</span><span class="gs">)</span>
+<span class="nv">installPackages</span><span class="gs">(</span>deps<span class="gs">)</span>
+</pre></div>
+
+<p>Download the appropriate package from the <a href="http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html">Bioconductor landing page</a> and install manually using <code>install.packages(..., repos = "NULL")</code> or the GUI front-end of your favourite R interface.</p>
 
 <p>Once installed, the package with loaded with</p>
 
-<div class="highlight"><pre>library<span class="p">(</span><span class="s">"RforProteomics"</span><span class="p">)</span>
+<div class="highlight"><pre><span class="nv">library</span><span class="gs">(</span><span class="s">"RforProteomics"</span><span class="gs">)</span>
 </pre></div>
 
 <h2>Help</h2>
