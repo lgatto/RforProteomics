@@ -66,7 +66,13 @@ source<span class="p">(</span><span class="s">"http://proteome.sysbiol.cam.ac.uk
 installPackages<span class="p">(</span>deps<span class="p">)</span>
 </pre></div>
 
-<p>Download the appropriate package from the <a href="http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html">Bioconductor landing page</a> and install manually using <code>install.packages(..., repos = "NULL")</code> or the GUI front-end of your favourite R interface.</p>
+<p>The <code>rTANDEM</code> package is required to repliacte all the examples illustrated in the vignette. <code>rTANDEM</code> is a very recent addition to the Bioconductor project and is currently also only in the development branch. To install it, first install the dependencies using the same procedure as shown above and then download and install the package manually.</p>
+
+<div class="highlight"><pre>deps2 <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">'data.table'</span><span class="p">,</span> <span class="s">'XML'</span><span class="p">,</span> <span class="s">'Rcpp'</span><span class="p">)</span>
+installPackages<span class="p">(</span>deps2<span class="p">)</span>
+</pre></div>
+
+<p>Download the appropriate <code>RforProteomics</code> package from the <a href="http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html">Bioconductor landing page</a> and install manually using <code>install.packages(..., repos = "NULL")</code> or the GUI front-end of your favourite R interface.</p>
 
 <p>Once installed, the package with loaded with</p>
 
