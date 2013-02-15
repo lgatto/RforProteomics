@@ -33,14 +33,17 @@
       <section id="main_content" class="inner">
         <h2>Introduction</h2>
 
-<p>This package distributes the code illustrating the use-cases described in the <em>Using R and Bioconductor for proteomics data analysis</em> manuscript. 
-The package illustrates how R and a selection of dedicated packages can be used to access mass spectrometry base proteomics data, manipulate and visualise it, how to process label-free and labelled quantitative data and how to analyse the quantitation data. </p>
+<p>This package distributes the code illustrating the use-cases described in the 
+<em>Using <code>R</code> and Bioconductor for proteomics data analysis</em> manuscript. 
+The package illustrates how <code>R</code> and a selection of dedicated packages can be used 
+to access mass spectrometry proteomics data, manipulate and visualise it, 
+how to process label-free and labelled quantitative data and how to analyse the quantitation data. </p>
 
 <p>The package will be updated beyond the content of the manuscript to keep up-to-date with progress in the area.</p>
 
 <h2>Data and vignette</h2>
 
-<p>The package also distributes a set of function to access data from the ProteomeXchange <code>PXD000001</code> data, used in several examples, as well as a detailed document containing the exact code to reproduce all the analyses presented in the manuscript as well as other application examples. The latter document is called the package vignette, and can be accessed once the package is installed (see below) with the <code>RforProteomics()</code> function. Alternatively, the vignette can be downloaded as a pdf file <a href="http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf">here</a>. </p>
+<p>The package also distributes a set of function to access data from the <a href="http://www.proteomexchange.org/">ProteomeXchange</a> <a href="http://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD000001"><code>PXD000001</code></a> data, used in several examples, as well as a detailed document containing the exact code to reproduce all the analyses presented in the manuscript as well as other application examples. The latter document is called the package vignette, and can be accessed once the package is installed (see below) with the <code>RforProteomics()</code> function. Alternatively, the vignette can be downloaded as a pdf file <a href="http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf">here</a>. </p>
 
 <h2>Installation</h2>
 
@@ -50,7 +53,7 @@ The package illustrates how R and a selection of dedicated packages can be used 
 biocLite<span class="p">(</span><span class="s">"RforProteomics"</span><span class="p">)</span>
 </pre></div>
 
-<p>As of writing, Bioc 2.12 is the development branch, which require the development verion of <code>R</code> to install packages using <code>biocLite</code>. If you have an earlier version of <code>R</code> (<code>R-2.15.2</code>, the latest stable verions is recommended), start by installing the package dependencies as shown below. The <code>deps</code> variable is a list of all packages that are needed to replicate all the code illustrated in the package. The second line loads the <code>installPackages</code> function, available on a server. This function will first check if any of the packages listed in <code>deps</code> are not already available and proceed only with missing dependencies. The installation uses the recommended <code>BiocInstaller</code> package, which is installed if not yet available. If packages are out dated, they will be updated.</p>
+<p>As of writing, Bioc 2.12 is the development branch, which require the development version of <code>R</code> to install packages using <code>biocLite</code>. If you have an earlier version of <code>R</code> (<code>R-2.15.2</code>, the latest stable version is recommended), start by installing the package dependencies as shown below. The <code>deps</code> variable is a list of all packages that are needed to replicate all the code illustrated in the package. The second line loads the <code>installPackages</code> function, available on a server. This function will first check if any of the packages listed in <code>deps</code> are not already available and proceed only with missing dependencies. The installation uses the recommended <code>BiocInstaller</code> package, which is installed if not yet available. If packages are out dated, they will be updated.</p>
 
 <div class="highlight"><pre>deps <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">'R.utils'</span><span class="p">,</span> <span class="s">'Biobase'</span><span class="p">,</span> <span class="s">'mzR'</span><span class="p">,</span> <span class="s">'MSnbase'</span><span class="p">,</span> 
           <span class="s">'xcms'</span><span class="p">,</span> <span class="s">'msdata'</span><span class="p">,</span> <span class="s">'isobar'</span><span class="p">,</span> <span class="s">'MALDIquant'</span><span class="p">,</span> <span class="s">'MALDIquantForeign'</span><span class="p">,</span>
@@ -74,7 +77,7 @@ installPackages<span class="p">(</span>deps<span class="p">)</span>
 
 <h2>Help</h2>
 
-<p>To obtain help or additional information about the <code>RforProteomics</code> package, please contact <a href="http://proteome.sysbiol.cam.ac.uk/lgatto/">me</a>. For help about the packages presented in the vignette or manuscript, please refer to the <a href="https://stat.ethz.ch/mailman/listinfo/r-help">R mailing list</a>, <a href="http://www.bioconductor.org/help/mailing-list/#bioconductor">Biodonductor mailing list</a> (if the package is in Bioconductor) and/or the respective package authors. </p>
+<p>To obtain help or additional information about the <code>RforProteomics</code> package, please contact <a href="http://proteome.sysbiol.cam.ac.uk/lgatto/">me</a>. For help about the packages presented in the vignette or manuscript, please refer to the <a href="https://stat.ethz.ch/mailman/listinfo/r-help">R mailing list</a>, <a href="http://www.bioconductor.org/help/mailing-list/#bioconductor">Bioconductor mailing list</a> (if the package is in Bioconductor) and/or the respective package authors. </p>
       </section>
     </div>
 
