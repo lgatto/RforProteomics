@@ -21,7 +21,7 @@ source("http://bioconductor.org/biocLite.R")
 biocLite("RforProteomics")
 ```
 
-As of writing, Bioc 2.12 is the development branch, which require the development verion of `R` to install packages using `biocLite`. If you have an earlier version of `R` (`R-2.15.2`, the latest stable verions is recommended), start by installing the package dependencies as shown below. The `deps` variable is a list of all packages that are needed to replicate all the code illustrated in the package. The second line loads the `installPackages` function, available on a server. This function will first check if any of the packages listed in `deps` are not already available and proceed only with missing dependencies. The installation uses the recommended `BiocInstaller` package, which is installed if not yet available. If packages are out dated, they will be updated.
+As of writing, Bioc 2.12 is the development branch, which require the development version of `R` to install packages using `biocLite`. If you have an earlier version of `R` (`R-2.15.2`, the latest stable version is recommended), start by installing the package dependencies as shown below. The `deps` variable is a list of all packages that are needed to replicate all the code illustrated in the package. The second line loads the `installPackages` function, available on a server. This function will first check if any of the packages listed in `deps` are not already available and proceed only with missing dependencies. The installation uses the recommended `BiocInstaller` package, which is installed if not yet available. If packages are out dated, they will be updated.
 
 ```r
 deps <- c('R.utils', 'Biobase', 'mzR', 'MSnbase', 
@@ -47,4 +47,4 @@ If you are using `R-2.15.x', a message will warn that `RforProteomics` has been 
 
 ## Help
 
-To obtain help or additional information about the `RforProteomics` package, please contact [me](http://proteome.sysbiol.cam.ac.uk/lgatto/). For help about the packages presented in the vignette or manuscript, please refer to the [R mailing list](https://stat.ethz.ch/mailman/listinfo/r-help), [Biodonductor mailing list](http://www.bioconductor.org/help/mailing-list/#bioconductor) (if the package is in Bioconductor) and/or the respective package authors. 
+To obtain help or additional information about the `RforProteomics` package, please contact [me](http://proteome.sysbiol.cam.ac.uk/lgatto/). For help about the packages presented in the vignette or manuscript, please refer to the [R mailing list](https://stat.ethz.ch/mailman/listinfo/r-help), [Bioconductor mailing list](http://www.bioconductor.org/help/mailing-list/#bioconductor) (if the package is in Bioconductor) and/or the respective package authors. 
