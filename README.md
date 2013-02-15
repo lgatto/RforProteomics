@@ -18,11 +18,11 @@ source("http://bioconductor.org/biocLite.R")
 biocLite("RforProteomics")
 ```
 
-As of writing, Bioc 2.12 is the development branch, which require the development verion of `R` to install packages using `biocLite'. If you have an earlier version of `R` (`R-2.15.2`, the latest stable verions is recommended), start by installing the package dependencies as shown below. 
+As of writing, Bioc 2.12 is the development branch, which require the development verion of `R` to install packages using `biocLite`. If you have an earlier version of `R` (`R-2.15.2`, the latest stable verions is recommended), start by installing the package dependencies as shown below. The `deps` variable is a list of all packages that are needed to replicate all the code illustrated in the package. The second line loads the `installPackages` function, available on a server. This function will first check if any of the packages listed in `deps` are not already available and proceed only with missing dependencies. The installation uses the recommended `BiocInstaller` package, which is installed if not yet available. If packages are out dated, they will be updated.
 
 ```r
 deps <- c('R.utils', 'Biobase', 'mzR', 'MSnbase', 
-          'xcms', 'msdata', 'isobar', 'MALDIquant', 
+          'xcms', 'msdata', 'isobar', 'MALDIquant', 'MALDIquantForeign',
           'readBrukerFlexData', 'synapter', 'synapterdata', 
           'IPPD', 'Rdisop', 'OrgMassSpecR', 'BRAIN', 
           'rols', 'hpar', 'GO.db', 'org.Hs.eg.db', 
@@ -39,6 +39,8 @@ Once installed, the package with loaded with
 ```r
 library("RforProteomics")
 ```
+
+If you are using `R-2.15.x', a message will warn that `RforProteomics` has been built using `R-3.0.0` (the development version). 
 
 ## Help
 
