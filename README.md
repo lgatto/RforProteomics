@@ -1,13 +1,16 @@
 ## Introduction
 
-This package distributes the code illustrating the use-cases described in the _Using R and Bioconductor for proteomics data analysis_ manuscript. 
-The package illustrates how R and a selection of dedicated packages can be used to access mass spectrometry base proteomics data, manipulate and visualise it, how to process label-free and labelled quantitative data and how to analyse the quantitation data. 
+This package distributes the code illustrating the use-cases described in the 
+_Using `R` and Bioconductor for proteomics data analysis_ manuscript. 
+The package illustrates how `R` and a selection of dedicated packages can be used 
+to access mass spectrometry proteomics data, manipulate and visualise it, 
+how to process label-free and labelled quantitative data and how to analyse the quantitation data. 
 
 The package will be updated beyond the content of the manuscript to keep up-to-date with progress in the area.
 
 ## Data and vignette
 
-The package also distributes a set of function to access data from the ProteomeXchange `PXD000001` data, used in several examples, as well as a detailed document containing the exact code to reproduce all the analyses presented in the manuscript as well as other application examples. The latter document is called the package vignette, and can be accessed once the package is installed (see below) with the `RforProteomics()` function. Alternatively, the vignette can be downloaded as a pdf file [here](http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf). 
+The package also distributes a set of function to access data from the [ProteomeXchange](http://www.proteomexchange.org/) [`PXD000001`](http://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD000001) data, used in several examples, as well as a detailed document containing the exact code to reproduce all the analyses presented in the manuscript as well as other application examples. The latter document is called the package vignette, and can be accessed once the package is installed (see below) with the `RforProteomics()` function. Alternatively, the vignette can be downloaded as a pdf file [here](http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf). 
 
 ## Installation
 
