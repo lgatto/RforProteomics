@@ -4,6 +4,7 @@ CHANGES IN VERSION 0.99.0
  o update README.md with R-2.15.2 installation 
    instructions <2013-01-09 Wed>
  o Major updates to vignette <2013-02-15 Fri>
+ o Added rTANDEM <2013-02-15 Fri>
 
 CHANGES IN VERSION 0.2.2
 ------------------------
