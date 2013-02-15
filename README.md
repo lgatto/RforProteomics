@@ -43,7 +43,7 @@ Once installed, the package with loaded with
 library("RforProteomics")
 ```
 
-If you are using `R-2.15.x', a message will warn that `RforProteomics` has been built using `R-3.0.0` (the development version). 
+If you are using `R-2.15.x`, a message will warn that `RforProteomics` has been built using `R-3.0.0` (the development version). 
 
 ## Help
 
