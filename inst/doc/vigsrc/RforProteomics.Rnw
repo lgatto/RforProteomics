@@ -104,7 +104,7 @@ options(width = 60)
 
 <<'env0', echo = FALSE>>=
 library(xtable)
-suppressPackageStartupMessages(library("parallel"))                             
+suppressPackageStartupMessages(library("parallel"))
 suppressPackageStartupMessages(library("MSnbase"))
 suppressPackageStartupMessages(library("isobar"))
 suppressPackageStartupMessages(library("MALDIquant"))   
@@ -116,6 +116,7 @@ suppressPackageStartupMessages(library("BRAIN"))
 suppressPackageStartupMessages(library("org.Hs.eg.db"))
 suppressPackageStartupMessages(library("GO.db"))
 suppressPackageStartupMessages(library("Rdisop"))
+suppressPackageStartupMessages(library("rTANDEM")) 
 @ 
 
 %% Abstract and keywords %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -870,9 +871,84 @@ library("synapter")
 synapterGuide()
 @ 
 
+\section{MS$^2$ spectra identification}
+
+A recent addition to Bioconductor 2.12 is the \Rpackage{rTANDEM} package, 
+that provides a direct interface to the X!Tandem software \cite{Craig2004}. 
+A typical \Rpackage{rTANDEM} pipeline comprises
+
+\begin{enumerate}
+\item Prepare the input data.
+\item Run the search.
+\item Import the search results and extract the peptides and proteins
+\end{enumerate}
+
+Using example code/data from the \Rpackage{rTANDEM} vignette/package, these steps are executed as described below.
+
+\subsection{Preparation of the input data}
+
+<<rtandem1, tidy = FALSE>>=
+library(rTANDEM)
+taxonomy <- rTTaxo(taxon = "yeast",
+                   format = "peptide", 
+                   URL = system.file(
+                     "extdata/fasta/scd.fasta.pro", 
+                     package="rTANDEM"))
+param <- rTParam()
+param <- setParamValue(param, 
+                       'protein', 'taxon', 
+                       value="yeast")
+param <- setParamValue(param, 'list path', 
+                       'taxonomy information', taxonomy)
+param <- setParamValue(param, 
+                       'list path', 'default parameters',
+                       value = system.file(
+                         "extdata/default_input.xml",
+                         package="rTANDEM"))
+param <- setParamValue(param, 'spectrum', 'path',
+                       value = system.file(
+                         "extdata/test_spectra.mgf", 
+                         package="rTANDEM"))
+param <- setParamValue(param, 'output', 'xsl path',
+                       value = system.file(
+                         "extdata/tandem-input-style.xsl", 
+                         package="rTANDEM"))
+param <- setParamValue(param, 'output', 'path',
+                       value = paste(getwd(), 
+                         "output.xml", sep="/"))
+@ 
+
+
+\subsection{Performing the search}
+
+The analysis is run using the \Rfunction{tandem} function (see also the \Rfunction{rtandem} function), 
+which returns the results data file path (only the file name is displayed below).
+
+<<rtanem2>>=
+resultPath <- tandem(param)
+basename(resultPath)
+@ 
+
+\subsection{Import and analyse results}
+
+<<rtandem3>>=
+res <- GetResultsFromXML(resultPath)
+## the inferred proteins
+proteins <- GetProteins(res, 
+                        log.expect = -1.3, 
+                        min.peptides = 2)
+proteins[, -(4:5), with = FALSE]
+## the identified peptides for YFR053C
+peptides <- GetPeptides(protein.uid = 1811,
+                        results = res,
+                        expect = 0.05)
+peptides[, c(1:4, 9, 10:16), with = FALSE]
+@ 
+
+More details are provided in the vignette available with \Rfunction(vignette("rTANDEM")), 
+for instance the extraction of degenerated peptides, i.e. peptides found in multiple proteins.
+
 \section{Annotation}
-
-
 
 In this section, we briefly present some Bioconductor annotation infrastruture. 
 
@@ -919,7 +995,7 @@ bmres[bmres$namespace_1003 == "cellular_component", "name_1006"]
 
 \section{Other packages}\label{sec:packages}
 
-\subsection{Bioconductor pacakges}
+\subsection{Bioconductor packages}
 
 <<gist4493747, echo=FALSE, warning = FALSE, cache = TRUE>>=
 biocv <- 2.12

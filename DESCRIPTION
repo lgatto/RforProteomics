@@ -8,7 +8,7 @@ Imports: R.utils, Biobase
 Suggests: mzR, MSnbase, xcms, msdata, isobar, 
 	  MALDIquant, MALDIquantForeign,
 	  readBrukerFlexData, 
-	  synapter, synapterdata,
+	  synapter, synapterdata, rTANDEM,	  
 	  IPPD, Rdisop, OrgMassSpecR, BRAIN,
 	  rols, hpar, GO.db, org.Hs.eg.db, biomaRt, 
   	  RColorBrewer, ggplot2, reshape2,

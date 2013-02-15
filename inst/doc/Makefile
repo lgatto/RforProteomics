@@ -83,6 +83,7 @@ clean:
 	rm -f PRIDE_Exp_Complete_Ac_22134.xml
 	rm -f F063721.dat-mztab.txt TMT*mzXML* P00924.fasta
 	rm -f cache figure
+	rm -rf output*xml
 
 cacheclean:
 	make clean

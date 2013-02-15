@@ -35,7 +35,14 @@ source("http://proteome.sysbiol.cam.ac.uk/lgatto/src/installPackages.R")
 installPackages(deps)
 ```
 
-Download the appropriate package from the [Bioconductor landing page](http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html) and install manually using `install.packages(..., repos = "NULL")` or the GUI front-end of your favourite R interface.
+The `rTANDEM` package is required to repliacte all the examples illustrated in the vignette. `rTANDEM` is a very recent addition to the Bioconductor project and is currently also only in the development branch. To install it, first install the dependencies using the same procedure as shown above and then download and install the package manually.
+
+```r
+deps2 <- c('data.table', 'XML', 'Rcpp')
+installPackages(deps2)
+```
+
+Download the appropriate `RforProteomics` package from the [Bioconductor landing page](http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html) and install manually using `install.packages(..., repos = "NULL")` or the GUI front-end of your favourite R interface.
 
 Once installed, the package with loaded with
 
