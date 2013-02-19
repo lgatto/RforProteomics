@@ -1,16 +1,18 @@
 Package: RforProteomics
 Type: Package
-Title: Companion package to the 'Using R and Bioconductor for
-        proteomics data analysis' publication
-Version: 0.2.2
+Title: Companion package to the 'Using R and Bioconductor for proteomics data analysis' publication
+Version: 0.99.0
 Author: Laurent Gatto
 Maintainer: Laurent Gatto <lg390@cam.ac.uk>
-Depends: R (>= 2.15)
 Imports: R.utils, Biobase
-Suggests: mzR, MSnbase, xcms, msdata, isobar, MALDIquant,
-        readBrukerFlexData, synapter, synapterdata, IPPD, Rdisop,
-        OrgMassSpecR, BRAIN, rols, hpar, GO.db, org.Hs.eg.db, biomaRt,
-        RColorBrewer, ggplot2, reshape2, knitr
+Suggests: mzR, MSnbase, xcms, msdata, isobar, 
+	  MALDIquant, MALDIquantForeign,
+	  readBrukerFlexData, 
+	  synapter, synapterdata, rTANDEM,	  
+	  IPPD, Rdisop, OrgMassSpecR, BRAIN,
+	  rols, hpar, GO.db, org.Hs.eg.db, biomaRt, 
+  	  RColorBrewer, ggplot2, reshape2,
+	  knitr, biocViews, xtable
 Description: This package contains code to illustrate the	
 	     'Using R and Bioconductor for proteomics data analysis'
 	     manuscript. The vignette describes the code and data 
@@ -18,7 +20,5 @@ Description: This package contains code to illustrate the
 	     in the paper as well as functions to download the 
 	     PXD000001 data files.
 URL: http://lgatto.github.com/RforProteomics/
-biocViews: ExperimentData, MassSpectrometry, Proteomics,
-        MassSpectrometryData
+biocViews: ExperimentData, MassSpectrometry, Proteomics, MassSpectrometryData
 License: Artistic-2.0
-Packaged: 2012-10-23 16:06:52 UTC; lgatto
