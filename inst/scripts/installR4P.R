@@ -1,4 +1,5 @@
 installR4P <- function(v = "0.2.2", deps = TRUE) {
+  stop("Please use 'biocLite(\"RforProteomics\")' to install the package.")
   if (deps) {
     deps <- c("R.utils", "Biobase",
               "mzR", "MSnbase", "xcms", "msdata", "isobar", 
