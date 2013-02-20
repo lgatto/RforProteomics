@@ -1,3 +1,10 @@
+CHANGES IN VERSION 0.99.2
+-------------------------
+ o removing rTANDEM from Suggests, as the package 
+   currently fails to build and results in R4P 
+   checking errors. Will add it again when 
+   builds <2013-02-20 Wed>
+
 CHANGES IN VERSION 0.99.1
 -------------------------
  o adding pre-build vignette <2013-02-20 Wed>
