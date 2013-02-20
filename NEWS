@@ -1,5 +1,9 @@
+CHANGES IN VERSION 0.99.1
+-------------------------
+ o adding pre-build vignette <2013-02-20 Wed>
+
 CHANGES IN VERSION 0.99.0
-------------------------
+-------------------------
  o typo in startup msg <2013-01-09 Wed>
  o update README.md with R-2.15.2 installation 
    instructions <2013-01-09 Wed>
