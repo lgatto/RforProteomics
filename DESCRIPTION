@@ -1,14 +1,14 @@
 Package: RforProteomics
 Type: Package
 Title: Companion package to the 'Using R and Bioconductor for proteomics data analysis' publication
-Version: 0.99.1
+Version: 0.99.2
 Author: Laurent Gatto
 Maintainer: Laurent Gatto <lg390@cam.ac.uk>
 Imports: R.utils, Biobase
 Suggests: mzR, MSnbase, xcms, msdata, isobar, 
 	  MALDIquant, MALDIquantForeign,
 	  readBrukerFlexData, 
-	  synapter, synapterdata, rTANDEM,	  
+	  synapter, synapterdata, 
 	  IPPD, Rdisop, OrgMassSpecR, BRAIN,
 	  rols, hpar, GO.db, org.Hs.eg.db, biomaRt, 
   	  RColorBrewer, ggplot2, reshape2,
