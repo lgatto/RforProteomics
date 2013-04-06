@@ -4,7 +4,7 @@ CHANGES IN VERSION 1.0.0
  o Adding rTANDEM as Suggests <2013-04-06 Sat>
  o Update and rebuild vignette with R 3.0.0 stable <2013-04-06 Sat>
 
-CHANGES IN VERSION 0.99.2
+CHANGES IN VERSION 0.99.3
 -------------------------
  o Bioc version bump
 
