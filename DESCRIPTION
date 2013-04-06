@@ -7,7 +7,7 @@ Maintainer: Laurent Gatto <lg390@cam.ac.uk>
 Imports: R.utils, Biobase
 Suggests: mzR, MSnbase, xcms, msdata, isobar, 
 	  MALDIquant, MALDIquantForeign,
-	  readBrukerFlexData, 
+	  readBrukerFlexData, rTANDEM,
 	  synapter, synapterdata, 
 	  IPPD, Rdisop, OrgMassSpecR, BRAIN,
 	  rols, hpar, GO.db, org.Hs.eg.db, biomaRt, 

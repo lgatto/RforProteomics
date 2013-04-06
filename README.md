@@ -21,7 +21,7 @@ source("http://bioconductor.org/biocLite.R")
 biocLite("RforProteomics")
 ```
 
-To install all dependencies (75 packages) to reproduce the code in the vignette, replace the last line in the code chunk above with:
+To install all dependencies (80 packages) to reproduce the code in the vignette, replace the last line in the code chunk above with:
 
 ```r
 biocLite("RforProteomics", dependencies = TRUE)
