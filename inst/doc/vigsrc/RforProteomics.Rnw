@@ -94,9 +94,11 @@ library("knitr")
 ##                prompt = TRUE,
 ##                comment = NA)
 ## })
-opts_chunk$set(tidy.opts = list(width.cutoff = 50, 
-                 tidy = FALSE),
+opts_chunk$set(tidy.opts = 
+               list(width.cutoff = 50, 
+                    tidy = FALSE),
                fig.align = 'center',
+               stop_on_error = 1L,
                comment = NA)
 options(width = 60)
 @
@@ -104,7 +106,7 @@ options(width = 60)
 
 <<'env0', echo = FALSE>>=
 library(xtable)
-suppressPackageStartupMessages(library("parallel"))
+## suppressPackageStartupMessages(library("parallel"))
 suppressPackageStartupMessages(library("MSnbase"))
 suppressPackageStartupMessages(library("isobar"))
 suppressPackageStartupMessages(library("MALDIquant"))   
@@ -238,15 +240,14 @@ Some packages used in the document depend on external libraries that need to be 
 
 The code in this document describes all the examples presented in \cite{R4prot2013} and can be copy, pasted and executed. It is however more convenient to have it in a separate text file for better interaction with \R (using ESS\footnote{\url{http://ess.r-project.org/}} for emacs or RStudio\footnote{\url{http://rstudio.org/}} for instance) to easily modify and explore it. This can be achieved with the \Rfunction{Stangle} function. One needs the Sweave source of this document (a document combining the narration and the \R code) and the \Rfunction{Stangle} then specifically extracts the code chunks and produces a clean \R source file. If the package is installed, the following code chunk will create a \texttt{RforProteomics.R} file in your working directory containing all the annotated source code contained in this document.
 
-<<stangle, eval=TRUE, tidy=FALSE>>= 
+<<stangle, eval=TRUE, tidy=FALSE, error=FALSE>>= 
 ## gets the vignette source
 rnwfile <- dir(system.file(package="RforProteomics", 
                            dir="doc/vigsrc/"),
                full.name = TRUE,
                pattern = "RforProteomics.Rnw")
-## produces an R file in the working directory
+## produces the R file in the working directory
 Stangle(rnwfile)
-dir(pattern = "RforProteomics.R$")
 @ %% $
 
 Alternatively, you can obtain the \texttt{Rnw} file on the github page \url{https://github.com/lgatto/RforProteomics/blob/master/inst/doc/vigsrc/RforProteomics.Rnw}.
@@ -429,7 +430,8 @@ dfr <- data.frame(exprs(small),
                   Protein = as.character(fData(small)$accession),
                   Feature = featureNames(small),
                   stringsAsFactors = FALSE)
-colnames(dfr) <- c("126", "127", "128", "129", "130", "131", "Protein", "Feature")
+colnames(dfr) <- c("126", "127", "128", "129", "130", "131", 
+                   "Protein", "Feature")
 dfr$Protein[dfr$Protein == "sp|P00924|ENO1_YEAST"] <- "ENO"
 dfr$Protein[dfr$Protein == "sp|P62894|CYC_BOVIN"]  <- "CYT"
 dfr$Protein[dfr$Protein == "sp|P02769|ALBU_BOVIN"] <- "BSA"
@@ -453,7 +455,7 @@ ggplot(aes(x = variable, y = value, colour = Protein), data = dfr2) +
 mzxml <- getPXD000001mzXML()
 rawms <- readMSData(mzxml, centroided = TRUE, verbose = FALSE)
 qntms <- quantify(rawms, reporters = TMT7, method = "max", 
-                  verbose = FALSE, parallel = TRUE)
+                  verbose = FALSE, parallel = FALSE)
 
 d <- data.frame(Signal = rowSums(exprs(qntms)[, 1:6]),
                 Incomplete = exprs(qntms)[, 7])
@@ -470,12 +472,12 @@ pch[grep("P62894", fData(qnt)$accession)] <- 19
 pch[grep("P00489", fData(qnt)$accession)] <- 19
 @ 
 
-<<mzp, cache = TRUE, fig.keep='none'>>=
+<<mzp, cache = TRUE, fig.keep='none', warning = FALSE>>=
 mzp <- plotMzDelta(rawms, reporters = TMT6, verbose = FALSE) + ggtitle("")
 @ 
 
 \begin{figure}[!ht]
-<<plotmzdelta, dev='pdf', echo=TRUE, fig.width=8, fig.height=5, fig.keep='last', out.width='0.9\\linewidth'>>=
+<<plotmzdelta, dev='pdf', echo=TRUE, fig.width=8, fig.height=5, fig.keep='last', out.width='0.9\\linewidth', warning = FALSE>>=
 mzp
 @ 
 \caption{A m/z delta plot.}
@@ -502,7 +504,6 @@ abline(lm(Signal ~ Incomplete, data = d), col = "darkblue")
 \begin{figure}[!ht]
 <<maplot, dev='pdf', echo=TRUE, fig.width=5.5, fig.height=5.5, fig.keep='last', out.width='.6\\linewidth'>>=
 MAplot(qnt[, c(4, 2)], cex = .9, col = cls, pch = pch, show.statistics = FALSE)
-abline(lm(Signal ~ Incomplete, data = d), col = "darkblue")
 @ 
 \caption{MAplot on an \Robject{MSnSet} instance.}
 \label{fig:maplot}
@@ -602,7 +603,7 @@ labelPeaks(p, index=top20, underline=TRUE)
 
 \subsection{Working with peptide sequences}
 
-<<isotopes, tidy = FALSE>>=
+<<isotopes, tidy = FALSE, warning = FALSE>>=
 library(IPPD)
 library(BRAIN)
 atoms <- getAtomsFromSeq("SIVPSGASTGVHEALEMR")
@@ -966,7 +967,7 @@ Below, we make use of the human annotation package \Rpackage{org.Hs.eg.db} and
 the Gene Ontonolgy annotation package \Rpackage{GO.db} to retrieve the same 
 information as above.
 
-<<annot2, cache=FALSE>>=
+<<annot2, cache=FALSE, warning = FALSE>>=
 library(org.Hs.eg.db)
 library(GO.db)
 ans <- select(org.Hs.eg.db, 
@@ -993,12 +994,14 @@ bmres[bmres$namespace_1003 == "cellular_component", "name_1006"]
 %% Section
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newpage
+
 \section{Other packages}\label{sec:packages}
 
 \subsection{Bioconductor packages}
 
 <<gist4493747, echo=FALSE, warning = FALSE, cache = TRUE>>=
-biocv <- 2.12
+biocv <- 2.13
 getPackagesInBiocView <- 
   function(view,
            rep = c("BioCsoft", "BioCann",
@@ -1123,6 +1126,14 @@ which is available on CRAN but not listed in the Chemometrics and Computational 
 provides a GUI interface for analyzing 2D DIGE data. It allows to 
 perform correlation analysis, score plot, classification, 
 feature selection and power analysis for 2D DIGE experiment data.
+
+\bigskip
+
+Suggestions for additional \R packages are welcome and will be added to the vignette. 
+Please send suggestions and possibly a short description and/or a example utilisation with code 
+to \url{lg390@cam.ac.uk}. The only requirement is that the package must be available 
+on an official package channel (CRAN, Bioconductor, R-forge, Omegahat), 
+i.e. not only available through a personal web page. 
 
 \clearpage
 
