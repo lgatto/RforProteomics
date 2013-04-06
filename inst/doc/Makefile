@@ -62,9 +62,9 @@ build2:
 		ln -sf vigsrc/F063721.dat-mztab.txt .; \
 		ln -sf vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML .; \
 	fi
-	R-2.15.2 --vanilla -e "library(knitr); knit2pdf('RforProteomics.Rnw');"
+	R-stable --vanilla -e "library(knitr); knit2pdf('RforProteomics.Rnw');"
 	bibtex RforProteomics
-	R-2.15.2 CMD pdflatex RforProteomics.tex
+	R-stable CMD pdflatex RforProteomics.tex
 	cp RforProteomics.pdf vigsrc/.
 	make stub
 
