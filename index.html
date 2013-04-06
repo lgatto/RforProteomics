@@ -47,39 +47,62 @@ how to process label-free and labelled quantitative data and how to analyse the 
 
 <h2>Installation</h2>
 
-<p>The package is now available in <a href="http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html">Bioconductor</a> version 2.12. To install the package, start <code>R</code> (currently devel version only) and enter:</p>
+<p>The package is now available in <a href="http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html">Bioconductor</a> version 2.13. To install the package and its documentation, start <code>R</code> (&gt;= <code>3.0.0</code>) and enter:</p>
 
-<div class="highlight"><pre>source<span class="p">(</span><span class="s">"http://bioconductor.org/biocLite.R"</span><span class="p">)</span>
-biocLite<span class="p">(</span><span class="s">"RforProteomics"</span><span class="p">)</span>
+<div class="highlight"><pre><span class="c">source("http://bioconductor.org/biocLite.R")</span>
+<span class="c">biocLite("RforProteomics")</span>
 </pre></div>
 
-<p>As of writing, Bioc 2.12 is the development branch, which require the development version of <code>R</code> to install packages using <code>biocLite</code>. If you have an earlier version of <code>R</code> (<code>R-2.15.2</code>, the latest stable version is recommended), start by installing the package dependencies as shown below. The <code>deps</code> variable is a list of all packages that are needed to replicate all the code illustrated in the package. The second line loads the <code>installPackages</code> function, available on a server. This function will first check if any of the packages listed in <code>deps</code> are not already available and proceed only with missing dependencies. The installation uses the recommended <code>BiocInstaller</code> package, which is installed if not yet available. If packages are out dated, they will be updated.</p>
+<p>To install all dependencies (80 packages) to reproduce the code in the vignette, replace the last line in the code chunk above with:</p>
 
-<div class="highlight"><pre>deps <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">'R.utils'</span><span class="p">,</span> <span class="s">'Biobase'</span><span class="p">,</span> <span class="s">'mzR'</span><span class="p">,</span> <span class="s">'MSnbase'</span><span class="p">,</span> 
-          <span class="s">'xcms'</span><span class="p">,</span> <span class="s">'msdata'</span><span class="p">,</span> <span class="s">'isobar'</span><span class="p">,</span> <span class="s">'MALDIquant'</span><span class="p">,</span> <span class="s">'MALDIquantForeign'</span><span class="p">,</span>
-          <span class="s">'readBrukerFlexData'</span><span class="p">,</span> <span class="s">'synapter'</span><span class="p">,</span> <span class="s">'synapterdata'</span><span class="p">,</span> 
-          <span class="s">'IPPD'</span><span class="p">,</span> <span class="s">'Rdisop'</span><span class="p">,</span> <span class="s">'OrgMassSpecR'</span><span class="p">,</span> <span class="s">'BRAIN'</span><span class="p">,</span> 
-          <span class="s">'rols'</span><span class="p">,</span> <span class="s">'hpar'</span><span class="p">,</span> <span class="s">'GO.db'</span><span class="p">,</span> <span class="s">'org.Hs.eg.db'</span><span class="p">,</span> 
-          <span class="s">'biomaRt'</span><span class="p">,</span> <span class="s">'RColorBrewer'</span><span class="p">,</span> <span class="s">'ggplot2'</span><span class="p">,</span> <span class="s">'reshape2'</span><span class="p">,</span> 
-          <span class="s">'knitr'</span><span class="p">)</span>
-source<span class="p">(</span><span class="s">"http://proteome.sysbiol.cam.ac.uk/lgatto/src/installPackages.R"</span><span class="p">)</span>
-installPackages<span class="p">(</span>deps<span class="p">)</span>
+<div class="highlight"><pre><span class="c">biocLite("RforProteomics", dependencies = TRUE)</span>
 </pre></div>
 
-<p>The <code>rTANDEM</code> package is required to repliacte all the examples illustrated in the vignette. <code>rTANDEM</code> is a very recent addition to the Bioconductor project and is currently also only in the development branch. To install it, first install the dependencies using the same procedure as shown above and then download and install the package manually.</p>
 
-<div class="highlight"><pre>deps2 <span class="o">&lt;-</span> c<span class="p">(</span><span class="s">'data.table'</span><span class="p">,</span> <span class="s">'XML'</span><span class="p">,</span> <span class="s">'Rcpp'</span><span class="p">)</span>
-installPackages<span class="p">(</span>deps2<span class="p">)</span>
-</pre></div>
 
-<p>Download the appropriate <code>RforProteomics</code> package from the <a href="http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html">Bioconductor landing page</a> and install manually using <code>install.packages(..., repos = "NULL")</code> or the GUI front-end of your favourite R interface.</p>
 
-<p>Once installed, the package with loaded with</p>
 
-<div class="highlight"><pre>library<span class="p">(</span><span class="s">"RforProteomics"</span><span class="p">)</span>
-</pre></div>
 
-<p>If you are using <code>R-2.15.x</code>, a message will warn that <code>RforProteomics</code> has been built using <code>R-3.0.0</code> (the development version). </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <h2>Help</h2>
 
