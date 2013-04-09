@@ -99,7 +99,8 @@ opts_chunk$set(tidy.opts =
                     tidy = FALSE),
                fig.align = 'center',
                stop_on_error = 1L,
-               comment = NA)
+               comment = NA,
+               prompt = TRUE)
 options(width = 60)
 @
 %% $
@@ -159,7 +160,7 @@ picture of available packages, without going into details.
 
 \subsection{General \R resources}
 
-The reader is expected to have basic \R knowledge to find to document helpful. 
+The reader is expected to have basic \R knowledge to find the document helpful. 
 There are numerous \R introductions freely available, some of which are listed below. 
 
 From the \R project web-page:
@@ -173,8 +174,8 @@ From the \R project web-page:
   \href{http://cran.r-project.org/other-docs.html}{contributed documentation} section.
 \end{itemize}
 
-Relevant background on the \R software and its appplication to computational biology in general and proteomics in particular  
-can also be found in \cite{R4prot2013}. For deatils about the Bioconductor project, the reader is refered to \cite{Gentleman2004}.
+Relevant background on the \R software and its application to computational biology in general and proteomics in particular  
+can also be found in \cite{R4prot2013}. For details about the Bioconductor project, the reader is referred to \cite{Gentleman2004}.
 
 \subsection{Getting help}
 
@@ -200,20 +201,23 @@ All lists have browsable archives.
 
 \subsection{Installation}
 
-%% Installing the package (assuming it is available on Bioconductor) - will update it not.
+The package should be installed using as described below:
 
-%% <<installation, eval = FALSE>>=
-%% ## only first time you install Bioconductor packages
-%% source("http://www.bioconductor.org/biocLite.R")
-%% ## else
-%% library("BiocInstaller")
-%% useDevel(TRUE) ## use devel version of packages
-%% biocLite("RforProteomics", dependencies = TRUE)
-%% ## installs RforProteomics and all dependencies
-%% ## required to reproduce the code below
-%% @ 
+<<installation, eval = FALSE>>=
+## only first time you install Bioconductor packages
+source("http://www.bioconductor.org/biocLite.R")
+## else
+library("BiocInstaller")
+biocLite("RforProteomics")
+@ 
 
-Since the package is not yet in the stable branch of Bioconductor, it is not yet possible to use its automatic installation and update framework unless one uses the development version of \R. An ad hoc script is however available to facilitate installation of \Rpackage{RforProteomics} and all dependencies. See \url{http://lgatto.github.com/RforProteomics/} for details. The script installs missing dependencies and then \Rpackage{RforProteomics}, which can then be loaded with
+To install all dependencies (78 packages) and reproduce the code in the vignette, replace the last line in the code chunk above with:)
+
+<<installation2, eval = FALSE>>=
+biocLite("RforProteomics", dependencies = TRUE)
+@ 
+
+Finally, the package can be loaded with
 
 <<loadR4Prot>>=
 library("RforProteomics")
@@ -242,8 +246,8 @@ The code in this document describes all the examples presented in \cite{R4prot20
 
 <<stangle, eval=TRUE, tidy=FALSE, error=FALSE>>= 
 ## gets the vignette source
-rnwfile <- dir(system.file(package="RforProteomics", 
-                           dir="doc/vigsrc/"),
+rnwfile <- dir(system.file(package = "RforProteomics", 
+                           dir = "doc/vigsrc"),
                full.name = TRUE,
                pattern = "RforProteomics.Rnw")
 ## produces the R file in the working directory
@@ -348,9 +352,9 @@ the \Rfunction{getPXD000001mzTab} function from the \Rpackage{RforProteomics} pa
 \subsection{The \texttt{mzTab} format}
 
 The first code chunk downloads the data, reads it into \R and generates 
-an \Robject{MSnSet} instance and then calculates protein intensitites 
+an \Robject{MSnSet} instance and then calculates protein intensities 
 by summing the peptide quantitation data.
-Figure \ref{fig:matplot} illustates the intensities for 5 proteins.
+Figure \ref{fig:matplot} illustrates the intensities for 5 proteins.
 
 <<mztab, tidy = FALSE>>=
 ## Downloads the experiment
@@ -438,8 +442,10 @@ dfr$Protein[dfr$Protein == "sp|P02769|ALBU_BOVIN"] <- "BSA"
 dfr$Protein[dfr$Protein == "sp|P00489|PYGM_RABIT"] <- "PHO"
 dfr$Protein[grep("ECA", dfr$Protein)] <- "Background"
 dfr2 <- melt(dfr)
-ggplot(aes(x = variable, y = value, colour = Protein), data = dfr2) +
-  geom_point() + geom_line(aes(group=as.factor(Feature)), alpha = 0.5) +
+ggplot(aes(x = variable, y = value, colour = Protein), 
+       data = dfr2) +
+  geom_point() + 
+  geom_line(aes(group=as.factor(Feature)), alpha = 0.5) +
   facet_grid(. ~ Protein) + theme(legend.position="none") +
   labs(x = "Reporters", y = "Normalised intensity")
 @ %% $
@@ -786,7 +792,8 @@ pch2[grep("P62894", featureNames(x))] <- 19
 pch2[grep("P00489", featureNames(x))] <- 19
 
 nm <- NoiseModel(x)
-ib.background <- subsetIBSpectra(x, protein=spks, direction = "exclude")
+ib.background <- subsetIBSpectra(x, protein=spks, 
+                                 direction = "exclude")
 nm.background <- NoiseModel(ib.background)
 ib.spks <- subsetIBSpectra(x, protein = spks,
                            direction="include",
@@ -951,7 +958,7 @@ for instance the extraction of degenerated peptides, i.e. peptides found in mult
 
 \section{Annotation}
 
-In this section, we briefly present some Bioconductor annotation infrastruture. 
+In this section, we briefly present some Bioconductor annotation infrastructure. 
 
 We start with the \Rpackage{hpar} package, an interface to the \textit{Human Protein Atlas} 
 \cite{Uhlen2005, Uhlen2010}, to retrieve subcellular localisation information for the 
@@ -964,7 +971,7 @@ getHpa(id, "SubcellularLoc")
 @
 
 Below, we make use of the human annotation package \Rpackage{org.Hs.eg.db} and 
-the Gene Ontonolgy annotation package \Rpackage{GO.db} to retrieve the same 
+the Gene Ontology annotation package \Rpackage{GO.db} to retrieve the same 
 information as above.
 
 <<annot2, cache=FALSE, warning = FALSE>>=
@@ -978,7 +985,7 @@ ans
 sapply(as.list(GOTERM[ans$GO]), slot, "Term")
 @ 
 
-Finally, this inforamtion can also be retrieved from on-line databases using the 
+Finally, this information can also be retrieved from on-line databases using the 
 \Rpackage{biomaRt} package \cite{Durinck2005}.
 
 <<annot3, cache=FALSE>>=
@@ -1096,7 +1103,7 @@ The CRAN task view on Chemometrics and Computational
 Physics\footnote{\url{http://cran.r-project.org/web/views/ChemPhys.html}}
 lists \Sexpr{np} packages, including a set of packages for 
 mass spectrometry and proteomics, some of which are illustrated in this document. 
-The most relevant (non Bioconductor) packages are summerised below.
+The most relevant (non Bioconductor) packages are summarised below.
 
 \begin{description}
   \item[MALDIquant] 
@@ -1123,7 +1130,7 @@ The most relevant (non Bioconductor) packages are summerised below.
 
 Finally, \Rpackage{digeR}\footnote{\url{http://cran.r-project.org/web/packages/digeR/index.html}}, 
 which is available on CRAN but not listed in the Chemometrics and Computational Physics Task View, 
-provides a GUI interface for analyzing 2D DIGE data. It allows to 
+provides a GUI interface for analysing 2D DIGE data. It allows to 
 perform correlation analysis, score plot, classification, 
 feature selection and power analysis for 2D DIGE experiment data.
 
