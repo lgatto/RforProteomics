@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.0.2
+------------------------
+ o update in vignette NetCDF installation <2013-04-19 Fri>
+
 CHANGES IN VERSION 1.0.1
 ------------------------
  o fixed 'doc/vigsrc/' to 'doc/vigsrc' in vignette <2013-04-09 Tue> 
