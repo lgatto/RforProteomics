@@ -229,14 +229,13 @@ Some packages used in the document depend on external libraries that need to be 
 
 \begin{description}
   \item[\Rpackage{mzR}] depends on the Common Data Format\footnote{\url{http://cdf.gsfc.nasa.gov/}} (CDF) 
-    to CDF-based raw mass-spectrometry data. On linux, the \texttt{libcdf} libraries are required. 
-    On debian-based systems, for instance, you will need to install \texttt{netCDFlibnetcdf-dev}, 
-    \texttt{netcdf-dev} and \texttt{netcdf-bin}.
+    to CDF-based raw mass-spectrometry data. On linux, the \texttt{libcdf} library is required. 
+    On debian-based systems, for instance, one needs to install the \texttt{libnetcdf-dev} package.
   \item[\Rpackage{IPPD}] (and others) depend on the \Rpackage{XML} package which requires the \texttt{libxml2} 
-    infrastructure on linux. On debian-based systems, you will need to install \texttt{libxml2-dev}.
+    infrastructure on linux. On debian-based systems, one needs to install \texttt{libxml2-dev}.
   \item [\Rpackage{biomaRt}] performs on-line requests using the 
     \texttt{curl}\footnote{\url{http://curl.haxx.se/}} 
-    infrastructure. On debian-based systems, you will need to install  
+    infrastructure. On debian-based systems, you one needs to install  
     \texttt{libcurl-dev} or \texttt{libcurl4-openssl-dev}.
 \end{description}
 
