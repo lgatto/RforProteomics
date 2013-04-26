@@ -527,7 +527,6 @@ homepage\footnote{\url{http://strimmerlab.org/software/maldiquant/}}.
 <<mqload, tidy=FALSE>>=
 ## load packages
 library("MALDIquant")
-library("readBrukerFlexData")
 library("MALDIquantForeign")
 ## getting test data
 datapath <- 
@@ -560,11 +559,7 @@ s2 <- transformIntensity(s, fun=sqrt)
 s2
 
 ## smoothing - 5 point moving average 
-simpleSmooth <- function(y) {
-  return ( filter(y, rep(1, 5)/5, sides=2) ) 
-}
-
-s3 <- transformIntensity(s2, simpleSmooth)
+s3 <- transformIntensity(s2, movingAverage, halfWindowSize=2)
 s3
 length(s2) # 22431
 length(s3) # 22427 - at both ends data points have been removed
