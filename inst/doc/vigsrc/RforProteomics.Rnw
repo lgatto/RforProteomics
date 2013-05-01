@@ -534,7 +534,7 @@ datapath <-
                         package = "readBrukerFlexData"), 
             "2010_05_19_Gibb_C8_A1")
 dir(datapath)
-sA1 <- importBrukerFlex(datapath)
+sA1 <- importBrukerFlex(datapath, verbose=FALSE)
 # in the following we use only the first spectrum
 s <- sA1[[1]] 
 
