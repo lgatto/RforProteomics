@@ -30,7 +30,7 @@ stub:
 	cp vigsrc/RforProteomics-stub.Rnw RforProteomics.Rnw 
 
 build: 
-	## Only locally
+	## Only locally, using detault R-devel
 	rm -f $(LATEXFILES)
 	cp vigsrc/RforProteomics.Rnw .
 	if [ -d 'vigsrc/cache' ]; then \
@@ -50,7 +50,7 @@ build:
 	make stub
 
 build2: 
-	## Only locally
+	## Only locally, using R patched stable
 	rm -f $(LATEXFILES)
 	cp vigsrc/RforProteomics.Rnw .
 	if [ -d 'vigsrc/cache' ]; then \
