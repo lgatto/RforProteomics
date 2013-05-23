@@ -561,8 +561,6 @@ s2
 ## smoothing - 5 point moving average 
 s3 <- transformIntensity(s2, movingAverage, halfWindowSize=2)
 s3
-length(s2) # 22431
-length(s3) # 22427 - at both ends data points have been removed
 
 ## baseline subtraction
 s4 <- removeBaseline(s3, method="SNIP")
