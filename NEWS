@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.0.5
+------------------------
+ o MALDIquant: remove misleading length calls by 
+   Sebastian Gibb <2013-05-24 Fri>
+
 CHANGES IN VERSION 1.0.4
 ------------------------
  o importBrukerFlex: set verbose=FALSE, contributed 
