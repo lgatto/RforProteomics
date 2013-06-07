@@ -863,7 +863,7 @@ points(res[spks, "lratio"],
 
 \subsection{The \Rpackage{synapter} package}
 
-The \Rpackage{synapter} package comes with a detailed vignette that describes how to prepare the MS$^E$ data and then process it in \R. Several interfaces are available provided the user with maximum control, easy batch processing capabilities or a graphical user interface. The conversion into \Robject{MSnSet} instances and filter and combination thereof as well as statistical analysis are also described. 
+The \Rpackage{synapter} \cite{synapter} package comes with a detailed vignette that describes how to prepare the MS$^E$ data and then process it in \R. Several interfaces are available provided the user with maximum control, easy batch processing capabilities or a graphical user interface. The conversion into \Robject{MSnSet} instances and filter and combination thereof as well as statistical analysis are also described. 
 
 <<synapter, eval=FALSE>>=
 ## open the synapter vignette
