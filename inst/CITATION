@@ -1,0 +1,27 @@
+citHeader("To cite package ‘nlme’ in publications use:")
+
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date, perl = TRUE)
+vers <- paste("R package version", meta$Version)
+
+citEntry(entry = "Manual",
+         title = "RforProteomcs: Companion package to the 'Using R and Bioconductor for proteomics data analysis' publication",
+         author = personList(as.person("Laurent Gatto")),
+         year = year,
+         note = vers,         
+         textVersion =
+         paste0("Laurent Gatto (", year,
+                "). RforProteomcs: Companion package to the ",
+                "'Using R and Bioconductor for proteomics data analysis' publication",
+                vers, "."))
+
+citEntry(entry = "article",
+         title = "Using R and Bioconductor for proteomics data analysis",
+         author = personList(as.person("Laurent Gatto"),
+             as.person("Andy Christoforou")),
+         journal = "Biochim Biophys Acta",
+         year = "2013",
+         textVersion =
+         paste0("Gatto L, Christoforou A. Using R and Bioconductor for proteomics data analysis.",
+                "Biochim Biophys Acta. 2013 May 18. doi:pii: S1570-9639(13)00186-6.",
+                "10.1016/j.bbapap.2013.04.032. [Epub ahead of print] PubMed PMID: 23692960."))
+
