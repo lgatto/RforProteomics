@@ -172,6 +172,7 @@ From the \R project web-page:
     \href{http://cran.r-project.org/doc/manuals/R-intro.pdf}{download PDF}]
 \item Several introductory tutorials in the 
   \href{http://cran.r-project.org/other-docs.html}{contributed documentation} section.
+\item The \texttt{TeachingMaterial} repository\footnote{\href{https://github.com/lgatto/TeachingMaterial}{https://github.com/lgatto/TeachingMaterial}} contains several sets of slides and vignettes about \R programming.
 \end{itemize}
 
 Relevant background on the \R software and its application to computational biology in general and proteomics in particular  
@@ -1001,31 +1002,31 @@ bmres[bmres$namespace_1003 == "cellular_component", "name_1006"]
 
 <<gist4493747, echo=FALSE, warning = FALSE, cache = TRUE>>=
 biocv <- 2.13
-getPackagesInBiocView <- 
-  function(view,
-           rep = c("BioCsoft", "BioCann",
-             "BioCexp", "BioCextra"),
-           biocVersion = biocv) {
+
+getPackagesInBiocView <- function(view, 
+                                  rep = c("BioCsoft", "BioCann",
+                                      "BioCexp", "BioCextra"),
+                                  biocVersion = biocv) {
     suppressPackageStartupMessages(require("biocViews"))
-  data(biocViewsVocab)
-  rep <- match.arg(rep)
-  biocMirror <- getOption("BioC_mirror", "http://bioconductor.org")
-  biocPaths <- switch(rep,         
-                      BioCsoft = "bioc",
-                      BioCann = "data/annotation", 
-                      BioCexp = "data/experiment",
-                      BioCextra = "extra")   
-  rep <- paste(biocMirror,
-               "packages",
-               biocVersion,
-               biocPaths, 
-               sep = "/") 
-  bv <- getBiocViews(rep, biocViewsVocab, "NoViewProvided")
-  if (!view %in% names(bv)) {
-    warning("BiocView ", view, " not found.")
-    return(NULL)
-  }  
-  return(bv[[view]])
+    data(biocViewsVocab)
+    rep <- match.arg(rep)
+    biocMirror <- getOption("BioC_mirror", "http://bioconductor.org")
+    biocPaths <- switch(rep,         
+                        BioCsoft = "bioc",
+                        BioCann = "data/annotation", 
+                        BioCexp = "data/experiment",
+                        BioCextra = "extra")   
+    rep <- paste(biocMirror,
+                 "packages",
+                 biocVersion,
+                 biocPaths, 
+                 sep = "/") 
+    bv <- getBiocViews(rep, biocViewsVocab, "NoViewProvided")
+    if (!view %in% names(bv)) {
+        warning("BiocView ", view, " not found.")
+        return(NULL)
+    }  
+    return(bv[[view]])
 }
 
 pk <- list(Proteomics = getPackagesInBiocView("Proteomics"),
