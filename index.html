@@ -1,124 +1,89 @@
 <!DOCTYPE html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="R for Proteomics : Package accompanying the 'R for Proteomics' publication" />
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>R for Proteomics</title>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>R for Proteomics by lgatto</title>
   </head>
 
   <body>
+    <div id="container">
+      <div class="inner">
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/lgatto/RforProteomics">View on GitHub</a>
-
-          <h1 id="project_title">R for Proteomics</h1>
-          <h2 id="project_tagline">Package accompanying the 'R for Proteomics' publication</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/lgatto/RforProteomics/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/lgatto/RforProteomics/tarball/master">Download this project as a tar.gz file</a>
-            </section>
+        <header>
+          <h1>R for Proteomics</h1>
+          <h2>Package accompanying the 'R for Proteomics' publication</h2>
         </header>
-    </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h2>Introduction</h2>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/lgatto/RforProteomics/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/lgatto/RforProteomics/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/lgatto/RforProteomics" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h2>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h2>
 
 <p>This package distributes the code illustrating the use-cases described in the 
-<em>Using <code>R</code> and Bioconductor for proteomics data analysis</em> manuscript. 
+<em>Using <code>R</code> and Bioconductor for proteomics data analysis</em> manuscript
+(<a href="http://www.ncbi.nlm.nih.gov/pubmed/23692960">pubmed</a> and <a href="http://arxiv.org/abs/1305.6559">pre-print</a>). 
 The package illustrates how <code>R</code> and a selection of dedicated packages can be used 
-to access mass spectrometry proteomics data, manipulate and visualise it, 
+to access mass-spectrometry proteomics data, manipulate and visualise it, 
 how to process label-free and labelled quantitative data and how to analyse the quantitation data. </p>
 
-<p>The package will be updated beyond the content of the manuscript to keep up-to-date with progress in the area.</p>
+<p>The package will be updated beyond the content of the manuscript to keep up-to-date with progress in the area.
+The <a href="https://github.com/lgatto/RforProteomics">github page</a> can be used to edit the wiki and file new issues 
+related to the package itself of general needed for proteomics that should be addressed in <code>R</code>.</p>
 
-<h2>Data and vignette</h2>
+<p>It would be great if this work could stimulate a wider participation to use <code>R</code> and develop <code>R</code>
+packages for proteomics and promote interaction between computational biologists working in the
+field of proteomics and interoperability between their software.
+Do not hesitate to get in touch with questions and suggestions.</p>
+
+<h2>
+<a name="data-and-vignette" class="anchor" href="#data-and-vignette"><span class="octicon octicon-link"></span></a>Data and vignette</h2>
 
 <p>The package also distributes a set of function to access data from the <a href="http://www.proteomexchange.org/">ProteomeXchange</a> <a href="http://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD000001"><code>PXD000001</code></a> data, used in several examples, as well as a detailed document containing the exact code to reproduce all the analyses presented in the manuscript as well as other application examples. The latter document is called the package vignette, and can be accessed once the package is installed (see below) with the <code>RforProteomics()</code> function. Alternatively, the vignette can be downloaded as a pdf file <a href="http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf">here</a>. </p>
 
-<h2>Installation</h2>
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
 <p>The package is now available in <a href="http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html">Bioconductor</a> version 2.13. To install the package and its documentation, start <code>R</code> (&gt;= <code>3.0.0</code>) and enter:</p>
 
-<div class="highlight"><pre><span class="c">source("http://bioconductor.org/biocLite.R")</span>
-<span class="c">biocLite("RforProteomics")</span>
+<div class="highlight"><pre><span class="n">source</span><span class="p">(</span><span class="s">"http://bioconductor.org/biocLite.R"</span><span class="p">)</span>
+<span class="n">biocLite</span><span class="p">(</span><span class="s">"RforProteomics"</span><span class="p">)</span>
 </pre></div>
 
 <p>To install all dependencies (78 packages, including <code>RforProteomics</code>) and reproduce the code in the vignette, replace the last line in the code chunk above with:</p>
 
-<div class="highlight"><pre><span class="c">biocLite("RforProteomics", dependencies = TRUE)</span>
+<div class="highlight"><pre><span class="n">biocLite</span><span class="p">(</span><span class="s">"RforProteomics"</span><span class="p">,</span> <span class="n">dependencies</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">)</span>
 </pre></div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h2>Help</h2>
+<h2>
+<a name="help" class="anchor" href="#help"><span class="octicon octicon-link"></span></a>Help</h2>
 
 <p>To obtain help or additional information about the <code>RforProteomics</code> package, please contact <a href="http://proteome.sysbiol.cam.ac.uk/lgatto/">me</a>. For help about the packages presented in the vignette or manuscript, please refer to the <a href="https://stat.ethz.ch/mailman/listinfo/r-help">R mailing list</a>, <a href="http://www.bioconductor.org/help/mailing-list/#bioconductor">Bioconductor mailing list</a> (if the package is in Bioconductor) and/or the respective package authors. </p>
-      </section>
+
+<p>For general resources about <code>R</code>, see the corresponding section in the vignettes and the <a href="https://github.com/lgatto/TeachingMaterial">TeachingMaterial</a> repository.</p>
+        </section>
+
+        <footer>
+          R for Proteomics is maintained by <a href="https://github.com/lgatto">lgatto</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
     </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">R for Proteomics maintained by <a href="https://github.com/lgatto">lgatto</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
   </body>
 </html>
