@@ -2,8 +2,8 @@ Package: RforProteomics
 Type: Package
 Title: Companion package to the 'Using R and Bioconductor for proteomics data analysis' publication
 Version: 1.0.8
-Author: Laurent Gatto
-Maintainer: Laurent Gatto <lg390@cam.ac.uk>
+Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
+                    email="lg390@cam.ac.uk"))
 Imports: R.utils, Biobase
 Suggests: mzR, MSnbase, xcms, msdata, isobar, 
 	  MALDIquant, MALDIquantForeign,
