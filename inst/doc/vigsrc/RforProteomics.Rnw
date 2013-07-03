@@ -659,6 +659,24 @@ pepcnt <- enopep[enopep[, 1] %in% exppep, ]
 nrow(pepcnt) ## 13
 @ 
 
+The following code chunks demonstrate how to use the \Rpackage{cleaver} package
+for in-silico cleavage of polypeptides, e.g. cleaving of
+\emph{Gastric juice peptide 1 (P01358)} using \emph{Trypsin}:
+<<cleaver, tidy = FALSE>>=
+library(cleaver)
+cleave("LAAGKVEDSD", enzym = "trypsin")
+@
+
+Sometimes cleavage is not perfect and the enzym miss some cleavage positions:
+
+<<cleaver_missing, tidy = FALSE>>=
+## miss one cleavage position
+cleave("LAAGKVEDSD", enzym = "trypsin", missedCleavages = 1)
+
+## miss zero or one cleavage positions
+cleave("LAAGKVEDSD", enzym = "trypsin", missedCleavages = 0:1)
+@
+
 <<texshade, echo=TRUE, eval=FALSE>>=
 ## example code to generate an Texshade image to be 
 ## included directly in a Latex document or R vignette
