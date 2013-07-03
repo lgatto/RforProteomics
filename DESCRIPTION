@@ -9,9 +9,9 @@ Suggests: mzR, MSnbase, xcms, msdata, isobar,
 	  MALDIquant, MALDIquantForeign,
 	  readBrukerFlexData, rTANDEM,
 	  synapter, synapterdata, 
-	  IPPD, Rdisop, OrgMassSpecR, BRAIN,
+	  IPPD, Rdisop, OrgMassSpecR, BRAIN, cleaver,
 	  rols, hpar, GO.db, org.Hs.eg.db, biomaRt, 
-  	  RColorBrewer, ggplot2, reshape2,
+  	RColorBrewer, ggplot2, reshape2,
 	  knitr, biocViews, xtable
 Description: This package contains code to illustrate the	
 	     'Using R and Bioconductor for proteomics data analysis'
