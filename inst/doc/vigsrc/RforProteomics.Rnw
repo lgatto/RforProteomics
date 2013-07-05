@@ -1,48 +1,34 @@
 %\VignetteIndexEntry{Using R for proteomics data analysis}
 %\VignetteKeywords{Bioinformatics, proteomics, mass spectrometry, tutorial, data}
 %\VignettePackage{RforProteomics}
-\documentclass[12pt, oneside]{article}
 
-\usepackage[a4paper]{geometry}
-\geometry{verbose,
-  tmargin = 2.5cm,
-  bmargin = 2.5cm,
-  lmargin = 3.0cm,
-  rmargin = 3.0cm}
+\documentclass[12pt,a4paper,english]{scrartcl}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage[auth-sc]{authblk}
+\usepackage{setspace}
+\onehalfspacing
 
-%% \usepackage{helvet}
-\renewcommand{\familydefault}{\sfdefault}
+% caption formatting
+\setcapindent{0em}
+\setkomafont{captionlabel}{\sffamily\bfseries}
+\setkomafont{caption}{\sffamily}
+
+\renewcommand\Authands{ and }
 
 \usepackage{color}
 \usepackage{graphicx}
 \usepackage{xstring}
 
+\usepackage{longtable}
+\usepackage{tabulary}
+
+
 %% colors
 \definecolor{Red}{rgb}{0.7,0,0}
 \definecolor{Blue}{rgb}{0,0,0.8}
-
-\usepackage{pbox}
-
-\newcommand{\thetitle}{Using \R and Bioconductor\\for Proteomics Data Analysis.}
-
-\usepackage{sectsty}
-\sectionfont{\sffamily\bfseries\sectionrule{0pt}{0pt}{-1ex}{1pt}}
-\subsectionfont{\sffamily\bfseries}
-\subsubsectionfont{\sffamily\bfseries}
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhead{}
-\fancyfoot{}
-
-\lhead{}\chead{Using \R and Bioconductor for Proteomics Data Analysis.}\rhead{}
-\lfoot{}\cfoot{\thepage}\rfoot{}
-\renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0pt}
-
-\usepackage{longtable}
-\usepackage{tabulary}
-\usepackage[T1]{fontenc}
-
 
 \newcommand{\R}{\textbf{\texttt{R} }}
 \newcommand{\Rfunction}[1]{{\textbf{\texttt{#1}}}}
@@ -74,13 +60,22 @@
   pdfview = {XYZ null null null}
 }
 
-\author{Laurent Gatto\\
-  \email{lg390@cam.ac.uk}\\
-  Cambridge Center for Proteomics\\
-  University of Cambridge
+
+\author{
+  Laurent Gatto$^1$\thanks{\email{lg390@cam.ac.uk}}
 }
 
-\title{\textbf{\thetitle}}
+\author{
+  Sebastian Gibb$^2$
+}
+
+\affil{
+  \small
+  $^1$Cambridge Center for Proteomics, University of Cambridge, UK \\
+  $^2$Institute for Medical Informatics, Statistics and Epidemiology, University of Leipzig, Germany 
+}
+
+\title{Using \R and Bioconductor for Proteomics Data Analysis}
 
 \begin{document}
 
@@ -223,6 +218,9 @@ Finally, the package can be loaded with
 <<loadR4Prot>>=
 library("RforProteomics")
 @ 
+
+See also the `RforProteomics` web page\footnote{\url{http://lgatto.github.io/RforProteomics/}} 
+for more information on installation. 
 
 \subsection{External dependencies}
 
