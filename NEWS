@@ -2,6 +2,9 @@ CHANGES IN VERSION 1.0.8
 ------------------------
  o rbioc-sig-proteomics group references in readme <2013-07-03 Wed>
  o added a twitter hook to the github repo <2013-07-03 Wed>
+ o Sebastian is now contributor <2013-07-05 Fri>
+ o Sebastian added new cleaver section in vignette <2013-07-05 Fri>
+ o document useDevel in README.md <2013-07-05 Fri>
 
 CHANGES IN VERSION 1.0.7
 ------------------------
