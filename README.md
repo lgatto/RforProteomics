@@ -14,7 +14,10 @@ related to the package itself of general needed for proteomics that should be ad
 It would be great if this work could stimulate a wider participation to use `R` and develop `R`
 packages for proteomics and promote interaction between computational biologists working in the
 field of proteomics and interoperability between their software.
-Do not hesitate to get in touch with questions and suggestions.
+The [rbioc-sig-proteomics](https://groups.google.com/forum/#!forum/rbioc-sig-proteomics) group
+has tentatively been set up to provide an question and discussion forum for interested parties. 
+Do not hesitate to get in touch with further suggestions.
+
 
 ## Data and vignette
 
@@ -33,6 +36,14 @@ To install all dependencies (78 packages, including `RforProteomics`) and reprod
 
 ```c
 biocLite("RforProteomics", dependencies = TRUE)
+```
+
+Some packages might not be available in the stable Bioconductor version (currently 2.12).
+To have access to new packages that are available in the development branch or make use very recent fetaures of packages in the stale version, one would need to use the development vesion of `R` use set the `useDevel` variable as shown below.
+
+```c
+library("BiocInstaller")
+useDevel(TRUE)
 ```
 
 ## Help
