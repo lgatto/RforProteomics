@@ -145,7 +145,8 @@ suppressPackageStartupMessages(library("rTANDEM"))
 \section{Introduction}\label{sec:intro} 
 
 This document illustrates some existing \R infrastructure for the analysis of proteomics data. 
-It presents the code for the use cases taken from \cite{R4prot2013}. 
+It presents the code for the use cases taken from \cite{R4prot2013}. A pre-print of the manuscript 
+is avaiable on arXiv\footnote{\url{http://arxiv.org/abs/1305.6559}}.
 
 There are however numerous additional \R resources
 distributed by the Bioconductor\footnote{\url{http://www.bioconductor.org}} and 
@@ -187,9 +188,7 @@ vignette("RforProteomics")
 @ 
 
 
-\R has several mailing lists\footnote{\url{http://www.r-project.org/mail.html}}. The most relevant here being the main \texttt{R-help} list, \textit{for discussion about problem and solutions using \R}. This one is for general \R content and is not suitable for bioinformatics or proteomics questions. 
-
-Bioconductor also offers several mailing lists\footnote{\url{http://bioconductor.org/help/mailing-list/}} dedicated to bioinformatics matters and Bioconductor packages. The main \texttt{Bioconductor} list is the most relevant one. It is possible to post\footnote{\url{http://bioconductor.org/help/mailing-list/mailform/}} questions without subscribing to the list.
+\R has several mailing lists\footnote{\url{http://www.r-project.org/mail.html}}. The most relevant here being the main \texttt{R-help} list, \textit{for discussion about problem and solutions using \R}. This one is for general \R content and is not suitable for bioinformatics or proteomics questions. Bioconductor also offers several mailing lists\footnote{\url{http://bioconductor.org/help/mailing-list/}} dedicated to bioinformatics matters and Bioconductor packages. The main \texttt{Bioconductor} list is the most relevant one. It is possible to post\footnote{\url{http://bioconductor.org/help/mailing-list/mailform/}} questions without subscribing to the list. Finally, the dedicated \Rpackage{RforProteomics} google group\footnote{\url{https://groups.google.com/forum/\#!forum/rbioc-sig-proteomics}} welcomes questions/comments/annoucements related to \R and mass-spectrometry/proteomics. 
 
 It is important to read and comply to the posting guides (\href{http://www.r-project.org/posting-guide.html}{here} and \href{http://bioconductor.org/help/mailing-list/posting-guide/}{here}) to maximise the chances to obtain good responses. It is important to specify the software versions using the \Rfunction{sessionInfo()} functions (see an example output at the end of this document, on page \pageref{sec:sessionInfo}). It the question involves some code, make sure to isolate the relevant portion and report it with your question, trying to make your code/example reproducible\footnote{\url{https://github.com/hadley/devtools/wiki/Reproducibility}}.
 

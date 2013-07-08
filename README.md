@@ -39,7 +39,7 @@ biocLite("RforProteomics", dependencies = TRUE)
 ```
 
 Some packages might not be available in the stable Bioconductor version (currently 2.12).
-To have access to new packages that are available in the development branch or make use of very recent features of packages in the stale version, one would need to use the development version of Bioconductor by setting the `useDevel` variable as shown below.
+To have access to new packages that are available in the development branch or make use of very recent features of packages in the stable version, one would need to use the development version of Bioconductor by setting the `useDevel` variable as shown below (or use the `R` development version, only recommended for advanced users though).
 
 ```c
 library("BiocInstaller")
