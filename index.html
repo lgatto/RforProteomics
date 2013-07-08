@@ -71,6 +71,13 @@ Do not hesitate to get in touch with further suggestions.</p>
 <div class="highlight"><pre><span class="n">biocLite</span><span class="p">(</span><span class="s">"RforProteomics"</span><span class="p">,</span> <span class="n">dependencies</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">)</span>
 </pre></div>
 
+<p>Some packages might not be available in the stable Bioconductor version (currently 2.12).
+To have access to new packages that are available in the development branch or make use of very recent features of packages in the stable version, one would need to use the development version of Bioconductor by setting the <code>useDevel</code> variable as shown below (or use the <code>R</code> development version, only recommended for advanced users though).</p>
+
+<div class="highlight"><pre><span class="n">library</span><span class="p">(</span><span class="s">"BiocInstaller"</span><span class="p">)</span>
+<span class="n">useDevel</span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span>
+</pre></div>
+
 <h2>
 <a name="help" class="anchor" href="#help"><span class="octicon octicon-link"></span></a>Help</h2>
 
