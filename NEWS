@@ -1,3 +1,9 @@
+CHANGES IN VERSION 1.0.9
+------------------------
+ o devel use clarification in readme <2013-07-08 Mon>
+ o cite arXiv in vigette <2013-07-08 Mon>
+ o cite R4P mailing list in vignette <2013-07-08 Mon>
+
 CHANGES IN VERSION 1.0.8
 ------------------------
  o rbioc-sig-proteomics group references in readme <2013-07-03 Wed>
