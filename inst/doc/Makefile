@@ -11,10 +11,12 @@ LATEXFILES = *.aux\
 	*.dvi\
 	*.map\
         *.out\
-	RforProteomics.tex
+	RforProteomics.tex\
+	Bioc2013_poster.tex
 
 all:
 	make vignette
+	make poster
 	make clean
 
 setvars:
@@ -25,6 +27,10 @@ endif
 vignette:
 	make stub
 	"$(R_HOME)/bin/R" CMD Sweave RforProteomics.Rnw
+
+poster:
+	"$(R_HOME)/bin/R" CMD Sweave Bioc2013_poster.Rnw
+	cp vigsrc/Bioc2013_poster.pdf .
 
 stub:
 	cp vigsrc/RforProteomics-stub.Rnw RforProteomics.Rnw 
