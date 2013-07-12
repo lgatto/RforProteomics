@@ -15,7 +15,8 @@ It would be great if this work could stimulate a wider participation to use `R` 
 packages for proteomics and promote interaction between computational biologists working in the
 field of proteomics, in particular by facilitating interoperability between their software.
 The [rbioc-sig-proteomics](https://groups.google.com/forum/#!forum/rbioc-sig-proteomics) group
-has tentatively been set up to provide an question and discussion forum for interested parties. 
+has tentatively been set up to provide an question and discussion forum for interested parties.
+You can also follow updates to some of the relevant packages on twitter via [@RforProteomics](https://twitter.com/r4proteomics).
 Do not hesitate to get in touch with further suggestions.
 
 
