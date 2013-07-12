@@ -6,6 +6,7 @@ Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
                     email="lg390@cam.ac.uk"),
              person("Sebastian", "Gibb", role="ctb",
                     email="mail@sebastiangibb.de"))
+Maintainer: Laurent Gatto <lg390@cam.ac.uk>
 Imports: R.utils, Biobase
 Suggests: mzR, MSnbase, xcms, msdata, isobar, 
 	  MALDIquant, MALDIquantForeign,
