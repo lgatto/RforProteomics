@@ -13,7 +13,7 @@ related to the package itself of general needed for proteomics that should be ad
 
 It would be great if this work could stimulate a wider participation to use `R` and develop `R`
 packages for proteomics and promote interaction between computational biologists working in the
-field of proteomics and interoperability between their software.
+field of proteomics, in particular by facilitating interoperability between their software.
 The [rbioc-sig-proteomics](https://groups.google.com/forum/#!forum/rbioc-sig-proteomics) group
 has tentatively been set up to provide an question and discussion forum for interested parties. 
 Do not hesitate to get in touch with further suggestions.

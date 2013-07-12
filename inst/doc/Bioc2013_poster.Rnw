@@ -1,0 +1,11 @@
+%% This vignette is a stub. Look at 
+%% https://github.com/lgatto/Bioc2013-poster
+%% for the complete Rnw file.
+
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{RforProteomics Bioc2013 poster}
+%\VignetteKeywords{bioinformatics, proteomics, mass spectrometry}
+
+\documentclass[10pt]{article}
+\begin{document}
+\end{document}
