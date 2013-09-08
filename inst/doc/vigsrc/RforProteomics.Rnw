@@ -553,11 +553,11 @@ plot(s)
 
 <<mqpreproc>>=
 ## sqrt transform (for variance stabilization)
-s2 <- transformIntensity(s, fun=sqrt)
+s2 <- transformIntensity(s, method="sqrt")
 s2
 
 ## smoothing - 5 point moving average 
-s3 <- transformIntensity(s2, movingAverage, halfWindowSize=2)
+s3 <- smoothIntensity(s2, method="MovingAverage", halfWindowSize=2)
 s3
 
 ## baseline subtraction
