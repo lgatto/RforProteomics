@@ -83,19 +83,13 @@
 
 <<'setup', include = FALSE, cache = FALSE>>=
 library("knitr")
-## opts_chunk$set(fig.align = 'center', 
-##                fig.show = 'hold', 
-##                par = TRUE,
-##                prompt = TRUE,
-##                comment = NA)
-## })
 opts_chunk$set(tidy.opts = 
                list(width.cutoff = 50, 
                     tidy = FALSE),
                fig.align = 'center',
                stop_on_error = 1L,
-               comment = NA,
-               prompt = TRUE)
+               comment = "##",
+               prompt = FALSE)
 options(width = 60)
 @
 %% $
@@ -243,12 +237,11 @@ The code in this document describes all the examples presented in \cite{R4prot20
 
 <<stangle, eval=TRUE, tidy=FALSE, error=FALSE>>= 
 ## gets the vignette source
-rnwfile <- dir(system.file(package = "RforProteomics", 
-                           dir = "doc/vigsrc"),
-               full.name = TRUE,
-               pattern = "RforProteomics.Rnw")
+rnwfile <- system.file("doc/vigsrc/RforProteomics.Rnw",
+                       package = "RforProteomics")
 ## produces the R file in the working directory
-Stangle(rnwfile)
+library("knitr")
+purl(rnwfile, quiet = TRUE)
 @ %% $
 
 Alternatively, you can obtain the \texttt{Rnw} file on the github page \url{https://github.com/lgatto/RforProteomics/blob/master/inst/doc/vigsrc/RforProteomics.Rnw}.
@@ -674,46 +667,50 @@ cleave("LAAGKVEDSD", enzym = "trypsin", missedCleavages = 1)
 cleave("LAAGKVEDSD", enzym = "trypsin", missedCleavages = 0:1)
 @
 
-<<texshade, echo=TRUE, eval=FALSE>>=
-## example code to generate an Texshade image to be 
-## included directly in a Latex document or R vignette
 
-## seq1file <- "seq1.tex"
-## cat("\\begin{texshade}{Figures/P00924.fasta}
-##      \\setsize{numbering}{footnotesize}     
-##      \\setsize{residues}{footnotesize}     
-##      \\residuesperline*{70}
-##      \\shadingmode{functional}
-##      \\hideconsensus      
-##      \\vsepspace{1mm}
-##      \\hidenames
-##      \\noblockskip\n", file = seq1file)
-## tmp <- sapply(1:nrow(pepcnt), function(i) {
-##   col <- ifelse((i %% 2) == 0, "Blue", "RoyalBlue")
-##   cat("\\shaderegion{1}{", pepcnt$start[i], "..", pepcnt$stop[i], "}{White}{", col, "}\n", 
-##       file = seq1file, append = TRUE)
-## })
-## cat("\\end{texshade}
-##     \\caption{Visualising observed peptides for the Yeast enolase protein. Peptides are shaded in blue and black. The last peptide is a mis-cleavage and overlaps with \\texttt{IEEELGDNAVFAGENFHHGDK}.}
-##     \\label{fig:seq}
-##   \\end{center}
-## \\end{figure}\n\n", 
-##     file = seq1file, append = TRUE)
-@ %% $
+Example code to generate an Texshade image to be included directly in a Latex document or \R vignette is presented below. 
+The \R code generates a Texshade environment and the annotated sequence display code that is written to a \TeX~file that can 
+itself be included into a \LaTeX~of Sweave document. 
+
+{\scriptsize
+\begin{verbatim}
+seq1file <- "seq1.tex"
+cat("\\begin{texshade}{Figures/P00924.fasta}
+     \\setsize{numbering}{footnotesize}
+     \\setsize{residues}{footnotesize}     
+     \\residuesperline*{70}
+     \\shadingmode{functional}
+     \\hideconsensus      
+     \\vsepspace{1mm}
+     \\hidenames
+     \\noblockskip\n", file = seq1file)
+tmp <- sapply(1:nrow(pepcnt), function(i) {
+  col <- ifelse((i %% 2) == 0, "Blue", "RoyalBlue")
+  cat("\\shaderegion{1}{", pepcnt$start[i], "..", pepcnt$stop[i], "}{White}{", col, "}\n", 
+      file = seq1file, append = TRUE)
+})
+cat("\\end{texshade}
+    \\caption{Visualising observed peptides for the Yeast enolase protein. Peptides are shaded in blue and black.
+              The last peptide is a mis-cleavage and overlaps with \\texttt{IEEELGDNAVFAGENFHHGDK}.}
+    \\label{fig:seq}
+  \\end{center}
+\\end{figure}\n\n", 
+    file = seq1file, append = TRUE)
+\end{verbatim}
+}
+
 
 \subsubsection*{$^{15}N$ incorporation}
 
 \begin{figure}[!ht]
-<<n15, dev='pdf', echo=TRUE, fig.width=8, fig.height=8, fig.keep='high', out.width='.9\\linewidth', tidy=FALSE>>=
-## 15N example
-## incorporation rates from 0, 0.1, ..., 0.9, 0.95, 1
+<<n15, dev='pdf', echo=TRUE, fig.width=8, fig.height=7, fig.keep='high', out.width='.9\\linewidth', tidy=FALSE, cache=TRUE>>=
+## 15N incorporation rates from 0, 0.1, ..., 0.9, 0.95, 1
 incrate <- c(seq(0, 0.9, 0.1), 0.95, 1)
 inc <- lapply(incrate, function(inc)               
               IsotopicDistributionN("YEVQGEVFTKPQLWP", inc))
 par(mfrow = c(4,3))
 for (i in 1:length(inc))
-  plot(inc[[i]][, c(1, 3)], xlim = c(1823, 1848), 
-       type = "h", 
+  plot(inc[[i]][, c(1, 3)], xlim = c(1823, 1848), type = "h",        
        main = paste0("15N incorporation at ", incrate[i]*100, "%"))
 @ 
 \caption{Isotopic envelope for the \texttt{YEVQGEVFTKPQLWP} peptide at different $^{15}N$ incorporation rates. }
@@ -1015,7 +1012,7 @@ bmres[bmres$namespace_1003 == "cellular_component", "name_1006"]
 
 \subsection{Bioconductor packages}
 
-<<gist4493747, echo=FALSE, warning = FALSE, cache = TRUE>>=
+<<gist4493747, echo=FALSE, warning=FALSE, cache=TRUE>>=
 biocv <- 2.13
 
 getPackagesInBiocView <- function(view, 
@@ -1155,6 +1152,8 @@ i.e. not only available through a personal web page.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Section
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\singlespacing
 
 \section{Session information}\label{sec:sessionInfo} 
 
