@@ -2,10 +2,7 @@
 %% vignettes/vigsrc.RforProteomics.Rnw 
 %% for the complete Rnw file.
 
-%\VignetteIndexEntry{Using R for proteomics data analysis}
-%\VignetteKeywords{Bioinformatics, proteomics, mass spectrometry, tutorial, data}
-%\VignettePackage{RforProteomics}
-
 \documentclass[10pt]{article}
+%\VignetteIndexEntry{R for Proteomics}
 \begin{document}
 \end{document}
