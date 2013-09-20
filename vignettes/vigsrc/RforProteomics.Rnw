@@ -1,3 +1,4 @@
+%\VignetteEngine{knitr}
 %\VignetteIndexEntry{Using R for proteomics data analysis}
 %\VignetteKeywords{Bioinformatics, proteomics, mass spectrometry, tutorial, data}
 %\VignettePackage{RforProteomics}
@@ -1035,7 +1036,7 @@ getPackagesInBiocView <- function(view,
                  sep = "/") 
     bv <- getBiocViews(rep, biocViewsVocab, "NoViewProvided")
     if (!view %in% names(bv)) {
-        warning("BiocView ", view, " not found.")
+        message("BiocView ", view, " not found.")
         return(NULL)
     }  
     return(bv[[view]])
