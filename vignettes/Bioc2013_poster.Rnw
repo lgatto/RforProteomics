@@ -1,0 +1,19 @@
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{RforProteomics Bioc2013 poster}
+%\VignetteKeywords{bioinformatics, proteomics, mass spectrometry}
+%\VignettePackage{RforProteomics}
+
+\documentclass[10pt]{article}
+
+\usepackage{hyperref}
+\usepackage{breakurl}
+
+\begin{document}
+
+This vignette is a stub. Look at \url{https://github.com/lgatto/Bioc2013-poster} for the complete Rnw file.
+
+<<session>>=
+sessionInfo()
+@
+
+\end{document}
