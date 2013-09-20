@@ -68,18 +68,12 @@ clean:
 	rm -f .Rhistory
 	rm -f *~
 	rm -f */*~
-	rm -f RforProteomics.pdf
-	rm -f RforProteomics.R
 	rm -f PRIDE_Exp_Complete_Ac_22134.xml
 	rm -f F063721.dat-mztab.txt TMT*mzXML* P00924.fasta
 	rm -f cache figure
 	rm -rf output*xml
 
-clean2:
-	rm -f RforProteomics.tex
-	rm -r Bioc2013_poster.tex
-
-allclean: clean clean2
+allclean: clean 
 	rm -fr vigsrc/cache vigsrc/figure 
 	rm -f vigsrc/F063721.dat-mztab.txt
 	rm -f vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML
