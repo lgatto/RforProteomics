@@ -1,9 +1,9 @@
-inst/doc/figure
-inst/doc/cache
-inst/doc/vigsrc/figure
-inst/doc/vigsrc/cache
-inst/doc/vigsrc/F063721.dat-mztab.txt
-inst/doc/vigsrc/P00924.fasta
-inst/doc/vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML
+vignettes/figure
+vignettes/cache
+vignettes/vigsrc/figure
+vignettes/vigsrc/cache
+vignettes/vigsrc/F063721.dat-mztab.txt
+vignettes/vigsrc/P00924.fasta
+vignettes/vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML
 .gitignore
 README.md

@@ -26,3 +26,4 @@ Description: This package contains code to illustrate the
 URL: http://lgatto.github.com/RforProteomics/
 biocViews: ExperimentData, MassSpectrometry, Proteomics, MassSpectrometryData
 License: Artistic-2.0
+VignetteBuilder: knitr
