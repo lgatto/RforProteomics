@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.0.16
+-------------------------
+ o new downloadData and getThermoHelaPRTC functions [2013-12-14 Sat]
+
 CHANGES IN VERSION 1.0.13
 -------------------------
  o Updates in the MALDIquant section <2013-09-08 Sun>
