@@ -2,15 +2,15 @@
 ##' directory.
 ##'
 ##' @title Download a file
-##' @param destdir The destination directory. Default is \code{"."}.
 ##' @param src The url of the file to download.
+##' @param destdir The destination directory. Default is \code{"."}.
 ##' @param unpack Should \code{src} be uncompressed? Default is
 ##' \code{TRUE}.
 ##' @param ... Additional paramters passed to
 ##' \code{\link{download.file}}.
 ##' @return Invisible returns the full path of the downloaded file.
 ##' @author Laurent Gatto
-downloadData <- function(destdir = ".", src, unpack = TRUE, ...) {
+downloadData <- function(src, destdir = ".", unpack = TRUE, ...) {
   dest <- basename(src)
   dest <- file.path(destdir, dest)
   dest2 <- gsub("[.]gz$", "", dest)
@@ -22,6 +22,60 @@ downloadData <- function(destdir = ".", src, unpack = TRUE, ...) {
   }
   invisible(dest2)
 }
+
+##' Downloads on of multiple Thermo Hela/PRTC data files.
+##' 
+##' @title Dowload Thermo Hela PRTC data
+##' @param src The name of the file to be downloaded. If missing, a
+##' vector of possible filenames is returned. If \code{"all"}, all
+##' files are downloaded. Alternatively, a pattern can be used to
+##' \code{grep} the files from the output \code{getThermoHelaPRTC()} the
+##' files to be downloaded.
+##' @param destdir Destination directory. Default is \code{"."}.
+##' @return Invisibly return the path of the downloaded files. 
+##' @author Laurent Gatto
+##' @examples
+##' getThermoHelaPRTC()
+##' getThermoHelaPRTC("design")
+##' \dontrun{
+##' getThermoHelaPRTC("all")
+##' }
+getThermoHelaPRTC <- function(src, destdir = ".") {
+    url <- "http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/"
+    Thermo_Hela_files <-c(
+        "design.txt",
+        "swissprot_human_canonical_19_09_12.fasta.gz", 
+        "Thermo_Hela_PRTC_1.mgf.gz", 
+        "Thermo_Hela_PRTC_2.mgf.gz", 
+        "Thermo_Hela_PRTC_3.mgf.gz")
+    if (missing(src)) {
+        return(Thermo_Hela_files)
+    } else {
+        Thermo_Hela_files2 <-
+            paste(url, Thermo_Hela_files, sep = "/")
+        if (src == "all") {
+            ans <- sapply(Thermo_Hela_files2[1], downloadData, unpack = FALSE)
+            ans <- sapply(Thermo_Hela_files2[2:5], downloadData, unpack = TRUE)
+        } else {
+            Thermo_Hela_files2 <- 
+                paste(url, match.arg(src, Thermo_Hela_files), sep = "/")
+            ans <- mapply(downloadData,
+                          Thermo_Hela_files2,
+                          unpack = grepl("\\.gz$", Thermo_Hela_files2))
+
+        }
+    }
+    invisible(ans)
+}
+
+
+
+getPXD000001mzXML <- function(destdir = ".") {
+  ## src <- "http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML.gz"
+  src2 <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML"
+  downloadData(src2, destdir, FALSE)
+}
+
 
 
 ##' Unless already present, downloads the PXD000001 mzXML file
@@ -35,7 +89,7 @@ downloadData <- function(destdir = ".", src, unpack = TRUE, ...) {
 getPXD000001mzXML <- function(destdir = ".") {
   ## src <- "http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML.gz"
   src2 <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML"
-  downloadData(destdir, src2, FALSE)
+  downloadData(src2, destdir, FALSE)
 }
 
 
@@ -49,7 +103,7 @@ getPXD000001mzXML <- function(destdir = ".") {
 ##' @author Laurent Gatto
 getPXD000001mzTab <- function(destdir = ".") {
   src <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/F063721.dat-mztab.txt"
-  downloadData(destdir, src, FALSE)
+  downloadData(src, destdir, FALSE)
 }
 
 
@@ -63,7 +117,7 @@ getPXD000001mzTab <- function(destdir = ".") {
 ##' @author Laurent Gatto
 getPXD000001mzData <- function(destdir = ".") {
   src <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/PRIDE_Exp_Complete_Ac_22134.xml.gz"
-  downloadData(destdir, src, TRUE)
+  downloadData(src, destdir, TRUE)
 }
 
 

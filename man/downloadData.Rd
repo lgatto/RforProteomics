@@ -2,13 +2,13 @@
 \alias{downloadData}
 \title{Download a file}
 \usage{
-  downloadData(destdir = ".", src, unpack = TRUE, ...)
+  downloadData(src, destdir = ".", unpack = TRUE, ...)
 }
 \arguments{
+  \item{src}{The url of the file to download.}
+
   \item{destdir}{The destination directory. Default is
   \code{"."}.}
-
-  \item{src}{The url of the file to download.}
 
   \item{unpack}{Should \code{src} be uncompressed? Default
   is \code{TRUE}.}

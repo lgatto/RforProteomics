@@ -4,6 +4,7 @@ import("R.utils")
 export(getPXD000001mzXML,
        getPXD000001mzTab,
        getPXD000001mzData,
+       getThermoHelaPRTC,
        downloadData,
        RforProteomics)
 
