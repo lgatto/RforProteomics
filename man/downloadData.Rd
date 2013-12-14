@@ -1,8 +1,8 @@
-\name{dowloadData}
-\alias{dowloadData}
+\name{downloadData}
+\alias{downloadData}
 \title{Download a file}
 \usage{
-  dowloadData(destdir = ".", src, unpack = TRUE, ...)
+  downloadData(destdir = ".", src, unpack = TRUE, ...)
 }
 \arguments{
   \item{destdir}{The destination directory. Default is
