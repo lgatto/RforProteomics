@@ -10,7 +10,7 @@
 ##' \code{\link{download.file}}.
 ##' @return Invisible returns the full path of the downloaded file.
 ##' @author Laurent Gatto
-dowloadData <- function(destdir = ".", src, unpack = TRUE, ...) {
+downloadData <- function(destdir = ".", src, unpack = TRUE, ...) {
   dest <- basename(src)
   dest <- file.path(destdir, dest)
   dest2 <- gsub("[.]gz$", "", dest)
