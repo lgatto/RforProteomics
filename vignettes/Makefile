@@ -59,9 +59,8 @@ vig2:
 	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
 	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
 	## scp RforProteomics.pdf lg390@proteome.sysbiol.cam.ac.uk:/var/www/htdocs/lgatto/RforProteomics/.
-	cp RforProteomics.pdf vigsrc/.
-	cp vigsrc/RforProteomics-stub.Rnw .
-
+	cp vigsrc/RforProteomics-stub.Rnw RforProteomics.Rnw
+	rm RforProteomics.bib RforProteomics.tex
 
 clean:	
 	rm -f $(LATEXFILES)
