@@ -34,6 +34,7 @@ downloadData <- function(src, destdir = ".", unpack = TRUE, ...) {
 ##' @param destdir Destination directory. Default is \code{"."}.
 ##' @return Invisibly return the path of the downloaded files. 
 ##' @author Laurent Gatto
+##' @seealso \code{downloadData}
 ##' @examples
 ##' getThermoHelaPRTC()
 ##' getThermoHelaPRTC("design")

@@ -31,4 +31,7 @@ getThermoHelaPRTC("all")
 \author{
   Laurent Gatto
 }
+\seealso{
+  \code{downloadData}
+}
 
