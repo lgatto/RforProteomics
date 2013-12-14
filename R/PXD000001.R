@@ -1,10 +1,22 @@
-.getPXD000001 <- function(destdir, src, unpack = TRUE) {
+##' Unless already present, downloads \code{src} in the \code{destdir}
+##' directory.
+##'
+##' @title Download a file
+##' @param destdir The destination directory. Default is \code{"."}.
+##' @param src The url of the file to download.
+##' @param unpack Should \code{src} be uncompressed? Default is
+##' \code{TRUE}.
+##' @param ... Additional paramters passed to
+##' \code{\link{download.file}}.
+##' @return Invisible returns the full path of the downloaded file.
+##' @author Laurent Gatto
+dowloadData <- function(destdir = ".", src, unpack = TRUE, ...) {
   dest <- basename(src)
   dest <- file.path(destdir, dest)
   dest2 <- gsub("[.]gz$", "", dest)
   if (!file.exists(dest2)) {
     if (!file.exists(dest))
-      download.file(src, destfile = dest)
+      download.file(src, destfile = dest, ...)
     if (unpack)
       gunzip(dest)
   }
@@ -23,7 +35,7 @@
 getPXD000001mzXML <- function(destdir = ".") {
   ## src <- "http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML.gz"
   src2 <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML"
-  .getPXD000001(destdir, src2, FALSE)
+  downloadData(destdir, src2, FALSE)
 }
 
 
@@ -37,7 +49,7 @@ getPXD000001mzXML <- function(destdir = ".") {
 ##' @author Laurent Gatto
 getPXD000001mzTab <- function(destdir = ".") {
   src <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/F063721.dat-mztab.txt"
-  .getPXD000001(destdir, src, FALSE)
+  downloadData(destdir, src, FALSE)
 }
 
 
@@ -51,7 +63,7 @@ getPXD000001mzTab <- function(destdir = ".") {
 ##' @author Laurent Gatto
 getPXD000001mzData <- function(destdir = ".") {
   src <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/PRIDE_Exp_Complete_Ac_22134.xml.gz"
-  .getPXD000001(destdir, src, TRUE)
+  downloadData(destdir, src, TRUE)
 }
 
 

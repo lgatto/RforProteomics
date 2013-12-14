@@ -6,5 +6,8 @@ inst/doc/vigsrc/F063721.dat-mztab.txt
 inst/doc/cache
 inst/doc/figure
 inst/doc/RforProteomics.pdf
+vignettes/vigsrc/cache
+vignettes/vigsrc/figure
+vignettes/RforProteomics.pdf
 IMPORTANT
 .gitignore
