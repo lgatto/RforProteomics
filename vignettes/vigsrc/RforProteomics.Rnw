@@ -1014,7 +1014,8 @@ bmres[bmres$namespace_1003 == "cellular_component", "name_1006"]
 \subsection{Bioconductor packages}
 
 <<gist4493747, echo=FALSE, warning=FALSE, cache=FALSE>>=
-biocv <- 2.13
+# biocVersion has to be of type character
+biocv <- "2.13"
 
 getPackagesInBiocView <- function(view, 
                                   rep = c("BioCsoft", "BioCann",
