@@ -41,7 +41,7 @@ stub:
 	cp vigsrc/RforProteomics-stub.Rnw ./RforProteomics.Rnw 
 
 vig2: 
-	## Only locally, using detault R-devel
+	## Only locally, using default R-devel
 	rm -f $(LATEXFILES)
 	cp vigsrc/RforProteomics.Rnw .
 	cp vigsrc/RforProteomics.bib .
