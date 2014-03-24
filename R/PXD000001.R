@@ -70,15 +70,6 @@ getThermoHelaPRTC <- function(src, destdir = ".") {
 }
 
 
-
-getPXD000001mzXML <- function(destdir = ".") {
-  ## src <- "http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML.gz"
-  src2 <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML"
-  downloadData(src2, destdir, FALSE)
-}
-
-
-
 ##' Unless already present, downloads the PXD000001 mzXML file
 ##' in the \code{destdir} directory. The resulting file is named
 ##' \code{TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML}.
@@ -88,6 +79,10 @@ getPXD000001mzXML <- function(destdir = ".") {
 ##' @return Invisibly returns the name of the downloaded file.
 ##' @author Laurent Gatto
 getPXD000001mzXML <- function(destdir = ".") {
+    .Deprecated(new = "pxfile",
+                package = "pxr",
+                msg = paste0("Please use the pxr package to download data ",
+                    "from the ProteomeXchaneg repository."))
   ## src <- "http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML.gz"
   src2 <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML"
   downloadData(src2, destdir, FALSE)
@@ -95,7 +90,7 @@ getPXD000001mzXML <- function(destdir = ".") {
 
 
 ##' Unless already present, downloads the PXD000001 mzTab file
-##' n the \code{destdir} directory. The resulting file is named
+##' in the \code{destdir} directory. The resulting file is named
 ##' \code{F063721.dat-mztab.txt}.
 ##'
 ##' @title Download the PXD000001 mzTab file
@@ -103,8 +98,12 @@ getPXD000001mzXML <- function(destdir = ".") {
 ##' @return Invisibly returns the name of the downloaded file.
 ##' @author Laurent Gatto
 getPXD000001mzTab <- function(destdir = ".") {
-  src <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/F063721.dat-mztab.txt"
-  downloadData(src, destdir, FALSE)
+    .Deprecated(new = "pxfile",
+                package = "pxr",
+                msg = paste0("Please use the pxr package to download data ",
+                    "from the ProteomeXchaneg repository."))
+    src <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/F063721.dat-mztab.txt"
+    downloadData(src, destdir, FALSE)
 }
 
 
@@ -117,8 +116,12 @@ getPXD000001mzTab <- function(destdir = ".") {
 ##' @return Invisibly returns the name of the downloaded file.
 ##' @author Laurent Gatto
 getPXD000001mzData <- function(destdir = ".") {
-  src <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/PRIDE_Exp_Complete_Ac_22134.xml.gz"
-  downloadData(src, destdir, TRUE)
+    .Deprecated(new = "pxfile",
+                package = "pxr",
+                msg = paste0("Please use the pxr package to download data ",
+                    "from the ProteomeXchaneg repository."))
+    src <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/PRIDE_Exp_Complete_Ac_22134.xml.gz"
+    downloadData(src, destdir, TRUE)
 }
 
 
