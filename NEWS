@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.0.18
+-------------------------
+ o pxr renamed rpx [2014-03-28]
+
 CHANGES IN VERSION 1.0.17
 -------------------------
  o using pxr to download data from the PX repository [2014-03-24 Mon]

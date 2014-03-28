@@ -1,6 +1,6 @@
 importFrom("Biobase", "addVigs2WinMenu")
 import("R.utils")
-import("pxr")
+import("rpx")
 
 export(getPXD000001mzXML,
        getPXD000001mzTab,

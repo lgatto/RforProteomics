@@ -99,7 +99,7 @@ options(width = 60)
 library(xtable)
 ## suppressPackageStartupMessages(library("parallel"))
 suppressPackageStartupMessages(library("MSnbase"))
-suppressPackageStartupMessages(library("pxr"))
+suppressPackageStartupMessages(library("rpx"))
 suppressPackageStartupMessages(library("isobar"))
 suppressPackageStartupMessages(library("MALDIquant"))   
 suppressPackageStartupMessages(library("MALDIquantForeign"))  
@@ -410,7 +410,7 @@ respectively.  An example for the latter is shown in the next section.
 As an running example throughout this document, we will use a TMT
 6-plex data set, \texttt{PXD000001} to illustrate quantitative data
 processing.  The code chunk below first downloads this data file from
-the ProteomeXchange server using the \Rpackage{pxr} package.
+the ProteomeXchange server using the \Rpackage{rpx} package.
 
 \subsection{The \texttt{mzTab} format}
 
@@ -419,7 +419,7 @@ ProteomeXchange repository \citep{Vizcaino2014}.
 
 <<downloadmztab, tidy = FALSE>>=
 ## Experiment information
-library("pxr")
+library("rpx")
 px1 <- PXDataset("PXD000001")
 px1
 pxfiles(px1)
