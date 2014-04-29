@@ -23,9 +23,7 @@ proteomics, in particular by facilitating interoperability between
 their software.  The
 [rbioc-sig-proteomics](https://groups.google.com/forum/#!forum/rbioc-sig-proteomics)
 group has tentatively been set up to provide an question and
-discussion forum for interested parties.  You can also follow updates
-to some of the relevant packages on twitter via
-[@r4proteomics](https://twitter.com/r4proteomics). Do not hesitate to
+discussion forum for interested parties. Do not hesitate to
 [get in touch](http://proteome.sysbiol.cam.ac.uk/lgatto/) for
 questions, comments or further suggestions.
 
