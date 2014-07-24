@@ -25,8 +25,9 @@ getPackagesInBiocView <- function(view,
                                   rep = c("BioCsoft", "BioCann",
                                       "BioCexp", "BioCextra"),
                                   biocVersion) {
+    biocViewsVocab <- NULL ## no visible binding warning
     suppressPackageStartupMessages(require("biocViews"))
-    data(biocViewsVocab)
+    data(biocViewsVocab, envir = environment())
     rep <- match.arg(rep)
     biocMirror <- getOption("BioC_mirror", "http://bioconductor.org")
     biocPaths <- switch(rep,         

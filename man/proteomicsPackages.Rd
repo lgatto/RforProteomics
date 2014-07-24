@@ -13,11 +13,10 @@
   Searches for all the packages with the \code{"Proteomics"} (software),
   \code{"MassSpectrometry"} (software) and \code{"MassSepctrometryData"}
   (data) packages and return their names, titles and versions as a
-  \code{data.frame}. The (unexported) underlying functions are
-  \code{RforProteomics:::getPackagesInBiocView} (to find relevant
-  package) and \code{RforProteomics:::packageDF} (\code{data.frame}
-  formatting).
-}
+  \code{data.frame}. The (unexported but documented) underlying
+  functions are \code{RforProteomics:::getPackagesInBiocView} (to find
+  relevant package) and \code{RforProteomics:::packageDF}
+  (\code{data.frame} formatting).  }
 
 \usage{
 proteomicsPackages(biocv)
