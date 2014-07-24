@@ -18,17 +18,16 @@ all:
 	make poster
 	make clean
 
+
 setvars:
 ifeq (${R_HOME},)
 R_HOME= $(shell R RHOME)
 endif
 
-vig:
-	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2pdf('RforProteomics.Rnw');"
-	bibtex RforProteomics
-	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
-	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
 
+vig0:
+	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
+	cp vigsrc/RforProteomics.pdf .
 
 poster:
 	"$(R_HOME)/bin/R" CMD pdflatex Bioc2013_poster.Rnw
@@ -44,31 +43,29 @@ cache:
 stub:
 	cp vigsrc/RforProteomics-stub.Rnw ./RforProteomics.Rnw 
 
-# vig0:
-# 	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
-# 	cp vigsrc/RforProteomics.pdf .
 
-# vig2: 
-# 	## Only locally, using default R-devel
-# 	rm -f $(LATEXFILES)
-# 	cp vigsrc/RforProteomics.Rnw .
-# 	cp vigsrc/RforProteomics.bib .
-# 	if [ -d 'vigsrc/cache' ]; then \
-# 		ln -sf vigsrc/cache .; \
-# 		ln -sf vigsrc/figure .; \
-# 	fi
-# 	if [ -f 'vigsrc/F063721.dat-mztab.txt' ]; then \
-# 		ln -sf vigsrc/P00924.fasta .; \
-# 		ln -sf vigsrc/F063721.dat-mztab.txt .; \
-# 		ln -sf vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML .; \
-# 	fi
-# 	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2pdf('RforProteomics.Rnw');"
-# 	bibtex RforProteomics
-# 	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
-# 	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
-# 	## scp RforProteomics.pdf lg390@proteome.sysbiol.cam.ac.uk:/var/www/htdocs/lgatto/RforProteomics/.
-# 	cp vigsrc/RforProteomics-stub.Rnw RforProteomics.Rnw
-# 	rm RforProteomics.bib RforProteomics.tex
+vig2: 
+	## Only locally, using default R-devel
+	rm -f $(LATEXFILES)
+	cp vigsrc/RforProteomics.Rnw .
+	cp vigsrc/RforProteomics.bib .
+	if [ -d 'vigsrc/cache' ]; then \
+		ln -sf vigsrc/cache .; \
+		ln -sf vigsrc/figure .; \
+	fi
+	if [ -f 'vigsrc/F063721.dat-mztab.txt' ]; then \
+		ln -sf vigsrc/P00924.fasta .; \
+		ln -sf vigsrc/F063721.dat-mztab.txt .; \
+		ln -sf vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML .; \
+	fi
+	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2pdf('RforProteomics.Rnw');"
+	bibtex RforProteomics
+	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
+	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
+	cp RforProteomics.pdf vigsrc/.
+	## scp RforProteomics.pdf lg390@proteome.sysbiol.cam.ac.uk:/var/www/htdocs/lgatto/RforProteomics/.
+	cp vigsrc/RforProteomics-stub.Rnw RforProteomics.Rnw
+	rm RforProteomics.bib RforProteomics.tex
 
 clean:	
 	rm -f $(LATEXFILES)
@@ -79,6 +76,8 @@ clean:
 	rm -f F063721.dat-mztab.txt TMT*mzXML* P00924.fasta
 	rm -f PXD000001_mztab.txt
 	rm -rf output*xml
+	rm -f RforProteomics.tex 
+	rm -f cache figure
 
 allclean: clean 
 	rm -fr cache figure 
