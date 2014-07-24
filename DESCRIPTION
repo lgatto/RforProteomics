@@ -9,14 +9,11 @@ Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
 Maintainer: Laurent Gatto <lg390@cam.ac.uk>
 Imports: R.utils, Biobase, rpx, biocViews, interactiveDisplay,
 	 BiocInstaller
-Suggests: mzR, MSnbase, xcms, msdata, isobar, 
-	  MALDIquant, MALDIquantForeign,
-	  readBrukerFlexData, rTANDEM,
-	  synapter, synapterdata, 
-	  IPPD, Rdisop, OrgMassSpecR, BRAIN, 
-	  rols, hpar, GO.db, org.Hs.eg.db, biomaRt, 
-  	  RColorBrewer, ggplot2, reshape2,
-	  knitr, biocViews, xtable
+Suggests: mzR, MSnbase, xcms, msdata, isobar, MALDIquant,
+	  MALDIquantForeign, readBrukerFlexData, rTANDEM, synapter,
+	  synapterdata, IPPD, Rdisop, OrgMassSpecR, BRAIN, rols, hpar,
+	  GO.db, org.Hs.eg.db, biomaRt, RColorBrewer, ggplot2,
+	  reshape2, knitr, xtable
 Enhances: cleaver
 Description: This package contains code to illustrate the	
 	     'Using R and Bioconductor for proteomics data analysis'
