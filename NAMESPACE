@@ -14,7 +14,5 @@ export(getPXD000001mzXML,
        proteomicsPackages,
        massSpectrometryPackages,
        massSpectrometryDataPackages,
-       getPackagesInBiocView,
-       display, 
-       packageDF)
+       display)
 
