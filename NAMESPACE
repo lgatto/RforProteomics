@@ -1,5 +1,8 @@
 importFrom("Biobase", "addVigs2WinMenu")
+importFrom("interactiveDisplay", "display")
+importFrom("BiocInstaller", "biocVersion")
 import("R.utils")
+import("biocViews")
 import("rpx")
 
 export(getPXD000001mzXML,
@@ -7,5 +10,11 @@ export(getPXD000001mzXML,
        getPXD000001mzData,
        getThermoHelaPRTC,
        downloadData,
-       RforProteomics)
+       RforProteomics,
+       proteomicsPackages,
+       massSpectrometryPackages,
+       massSpectrometryDataPackages,
+       getPackagesInBiocView,
+       display, 
+       packageDF)
 
