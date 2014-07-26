@@ -25,7 +25,7 @@ R_HOME= $(shell R RHOME)
 endif
 
 
-vig0:
+vig:
 	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
 	cp vigsrc/RforProteomics.pdf .
 
