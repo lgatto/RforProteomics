@@ -16,7 +16,7 @@
     <div class="wrapper">
       <header>
         <h1>R for Proteomics</h1>
-        <p>Package accompanying the 'R for Proteomics' publication</p>
+        <p>Package accompanying the &#39;R for Proteomics&#39; publication</p>
 
         <p class="view"><a href="https://github.com/lgatto/RforProteomics">View the Project on GitHub <small>lgatto/RforProteomics</small></a></p>
 
@@ -31,40 +31,62 @@
         <h2>
 <a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h2>
 
-<p>This package distributes the code illustrating the use-cases described in the 
-<em>Using <code>R</code> and Bioconductor for proteomics data analysis</em> manuscript
-(<a href="http://www.ncbi.nlm.nih.gov/pubmed/23692960">pubmed</a> and <a href="http://arxiv.org/abs/1305.6559">pre-print</a>). 
-The package illustrates how <code>R</code> and a selection of dedicated packages can be used 
-to access mass-spectrometry proteomics data, manipulate and visualise it, 
-how to process label-free and labelled quantitative data and how to analyse the quantitation data. </p>
+<p>The <code>RforProteomics</code> package distributes and extends the use-cases
+described in the <em>Using <code>R</code> and Bioconductor for proteomics data
+analysis</em> manuscript
+(<a href="http://www.ncbi.nlm.nih.gov/pubmed/23692960">pubmed</a> and
+<a href="http://arxiv.org/abs/1305.6559">pre-print</a>).  The package illustrates
+how <code>R</code> and a selection of dedicated packages that can be used to
+access mass-spectrometry proteomics data, manipulate and visualise it,
+how to process label-free and labelled quantitative data and how to
+analyse the quantitation data.</p>
 
-<p>The package will be updated beyond the content of the manuscript to keep up-to-date with progress in the area.
-The <a href="https://github.com/lgatto/RforProteomics">github page</a> can be used to edit the wiki and file new issues 
-related to the package itself of general needed for proteomics that should be addressed in <code>R</code>.</p>
+<p>The package will be updated beyond the content of the manuscript to
+keep up-to-date with progress in the area.  The
+<a href="https://github.com/lgatto/RforProteomics">github page</a> can be used to
+edit the wiki and file new issues related to the package itself of
+general needed for proteomics that should be addressed in <code>R</code>.</p>
 
-<p>It would be great if this work could stimulate a wider participation to use <code>R</code> and develop <code>R</code>
-packages for proteomics and promote interaction between computational biologists working in the
-field of proteomics, in particular by facilitating interoperability between their software.
-The <a href="https://groups.google.com/forum/#!forum/rbioc-sig-proteomics">rbioc-sig-proteomics</a> group
-has tentatively been set up to provide an question and discussion forum for interested parties.
-You can also follow updates to some of the relevant packages on twitter via <a href="https://twitter.com/r4proteomics">@r4proteomics</a>.
-Do not hesitate to get in touch with further suggestions.</p>
+<p>It would be great if this work could stimulate a wider participation
+to use <code>R</code> and develop <code>R</code> packages for proteomics and promote
+interaction between computational biologists working in the field of
+proteomics, in particular by facilitating interoperability between
+their software.  The
+<a href="https://groups.google.com/forum/#!forum/rbioc-sig-proteomics">rbioc-sig-proteomics</a>
+group has tentatively been set up to provide an question and
+discussion forum for interested parties. Do not hesitate to
+<a href="http://proteome.sysbiol.cam.ac.uk/lgatto/">get in touch</a> for
+questions, comments or further suggestions.</p>
 
 <h2>
 <a name="data-and-vignette" class="anchor" href="#data-and-vignette"><span class="octicon octicon-link"></span></a>Data and vignette</h2>
 
-<p>The package also distributes a set of function to access data from the <a href="http://www.proteomexchange.org/">ProteomeXchange</a> <a href="http://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD000001"><code>PXD000001</code></a> data, used in several examples, as well as a detailed document containing the exact code to reproduce all the analyses presented in the manuscript as well as other application examples. The latter document is called the package vignette, and can be accessed once the package is installed (see below) with the <code>RforProteomics()</code> function. Alternatively, the vignette can be downloaded as a pdf file <a href="http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf">here</a>. </p>
+<p>The package also distributes a set of function to access data from the
+<a href="http://www.proteomexchange.org/">ProteomeXchange</a>
+<a href="http://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD000001"><code>PXD000001</code></a>
+data, used in several examples, as well as a detailed document
+containing the exact code to reproduce all the analyses presented in
+the manuscript as well as other application examples. The latter
+document is called the package vignette, and can be accessed once the
+package is installed (see below) with the <code>RforProteomics()</code>
+function. Alternatively, the vignette can be downloaded as a pdf file
+<a href="http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf">here</a>.</p>
 
 <h2>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
-<p>The package is now available in <a href="http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html">Bioconductor</a> version 2.13. To install the package and its documentation, start <code>R</code> (&gt;= <code>3.0.0</code>) and enter:</p>
+<p>The package is now available in
+<a href="http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html">Bioconductor</a>
+version 2.13. To install the package and its documentation, start <code>R</code>
+(&gt;= <code>3.0.0</code> required) and type:</p>
 
 <div class="highlight highlight-c"><pre><span class="n">source</span><span class="p">(</span><span class="s">"http://bioconductor.org/biocLite.R"</span><span class="p">)</span>
 <span class="n">biocLite</span><span class="p">(</span><span class="s">"RforProteomics"</span><span class="p">)</span>
 </pre></div>
 
-<p>To install all dependencies (78 packages, including <code>RforProteomics</code>) and reproduce the code in the vignette, replace the last line in the code chunk above with:</p>
+<p>To install all dependencies (78 packages, including <code>RforProteomics</code>)
+and reproduce the code in the vignette, replace the last line in the
+code chunk above with:</p>
 
 <div class="highlight highlight-c"><pre><span class="n">biocLite</span><span class="p">(</span><span class="s">"RforProteomics"</span><span class="p">,</span> <span class="n">dependencies</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">)</span>
 </pre></div>
@@ -72,9 +94,19 @@ Do not hesitate to get in touch with further suggestions.</p>
 <h2>
 <a name="help" class="anchor" href="#help"><span class="octicon octicon-link"></span></a>Help</h2>
 
-<p>To obtain help or additional information about the <code>RforProteomics</code> package, please contact <a href="http://proteome.sysbiol.cam.ac.uk/lgatto/">me</a>. For help about the packages presented in the vignette or manuscript, please refer to the <a href="https://stat.ethz.ch/mailman/listinfo/r-help">R mailing list</a>, <a href="http://www.bioconductor.org/help/mailing-list/#bioconductor">Bioconductor mailing list</a> (if the package is in Bioconductor) and/or the respective package authors. </p>
+<p>To obtain help or additional information about the <code>RforProteomics</code>
+package, please contact
+<a href="http://proteome.sysbiol.cam.ac.uk/lgatto/">me</a>. For help about the
+packages presented in the vignette or manuscript, please refer to the
+<a href="https://stat.ethz.ch/mailman/listinfo/r-help">R mailing list</a>,
+<a href="http://www.bioconductor.org/help/mailing-list/#bioconductor">Bioconductor mailing list</a>
+(if the package is in Bioconductor) and/or the respective package
+authors.</p>
 
-<p>For general resources about <code>R</code>, see the corresponding section in the vignettes and the <a href="https://github.com/lgatto/TeachingMaterial">TeachingMaterial</a> repository.</p>
+<p>For general resources about <code>R</code>, see the corresponding section in the
+vignettes and the
+<a href="https://github.com/lgatto/TeachingMaterial">TeachingMaterial</a>
+repository.</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/lgatto">lgatto</a></p>
