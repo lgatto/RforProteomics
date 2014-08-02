@@ -25,7 +25,10 @@ their software.  The
 group has tentatively been set up to provide an question and
 discussion forum for interested parties. Do not hesitate to
 [get in touch](http://proteome.sysbiol.cam.ac.uk/lgatto/) for
-questions, comments or further suggestions.
+questions, comments or further suggestions. Note taking about
+plans/ideas/direction for R/Bioc and proteomics can be contributed to
+the
+[`RforProteomics` wiki](https://github.com/lgatto/RforProteomics/wiki).
 
 ## Data and vignette
 
