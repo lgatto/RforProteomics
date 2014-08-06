@@ -15,6 +15,7 @@ LATEXFILES = *.aux\
 
 all: 
 	make vig
+	make viz
 	make poster
 	make clean
 
@@ -34,6 +35,9 @@ poster:
 	cp vigsrc/Bioc2013_poster.pdf .
 
 .PHONY: clean allclean 
+
+viz: 
+	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('ProtViz.Rmd');"
 
 cache:
 	mv cache/ vigsrc/.
@@ -78,6 +82,7 @@ clean:
 	rm -rf output*xml
 	rm -f RforProteomics.tex 
 	rm -f cache figure
+	rm -f ProtViz.md ProtViz.html
 
 allclean: clean 
 	rm -fr cache figure 
