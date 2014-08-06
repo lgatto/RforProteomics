@@ -1,0 +1,105 @@
+<!-- \VignetteEngine{knitr} -->
+<!-- \VignetteIndexEntry{Visualisation of proteomics data using R and Bioconductor} -->
+<!-- \VignetteKeywords{bioinformatics, proteomics, mass spectrometry} -->
+<!-- \VignettePackage{RforProteomics} -->
+
+# Visualisation of proteomics data using R and Bioconductor
+
+```{r env, message=FALSE}
+library("MSnbase")
+library("rpx")
+```
+
+## General information:
+
+- CRAN Task View: Graphic Displays & Dynamic Graphics & Graphic
+  Devices & Visualization:
+  http://cran.r-project.org/web/views/Graphics.html
+
+```{r, makemadata}
+library("rpx")
+px1 <- PXDataset("PXD000001")
+mztab <- pxget(px1, "PXD000001_mztab.txt")
+
+library("MSnbase")
+qnt <- readMzTabData(mztab, what = "PEP")
+sampleNames(qnt) <- reporterNames(TMT6)
+qnt <- filterNA(qnt)
+
+spikes <- c("P02769", "P00924", "P62894", "P00489")
+protclasses <- as.character(fData(qnt)$accession)
+protclasses[!protclasses %in% spikes] <- "Background"
+
+
+madata42 <- data.frame(A = rowMeans(log(exprs(qnt[, c(4, 2)]), 2)),
+                       M = log(exprs(qnt)[, 4], 2) - log(exprs(qnt)[, 2], 2),
+                       data = rep("4vs2", nrow(qnt)),
+                       protein = fData(qnt)$accession,
+                       class = protclasses)
+                       
+madata62 <- data.frame(A = rowMeans(log(exprs(qnt[, c(6, 2)]), 2)),
+                       M = log(exprs(qnt)[, 6], 2) - log(exprs(qnt)[, 2], 2),
+                       data = rep("6vs2", nrow(qnt)),
+                       protein = fData(qnt)$accession,
+                       class = protclasses)
+
+
+madata <- rbind(madata42, madata62)
+```
+
+```{r, macols}
+
+library("RColorBrewer")
+bcols <- brewer.pal(4, "Set1")
+macols <- rep("#BEBEBE", nrow(qnt))
+
+macols[madata42$protein == "P02769"] <- bcols[1]
+macols[madata42$protein == "P00924"] <- bcols[2]
+macols[madata42$protein == "P62894"] <- bcols[3]
+macols[madata42$protein == "P00489"] <- bcols[4]
+
+```
+
+### The traditional plotting system
+
+```{r, mafig1}
+
+par(mfrow = c(1, 2))
+plot(M ~ A, data = madata42, main = "4vs2",
+     xlab = "A", ylab = "M", col = madata62$class)
+plot(M ~ A, data = madata62, main = "6vs2",
+     xlab = "A", ylab = "M", col = madata62$class)
+
+```
+
+```{r mafig1pdf, ref.label='mafig1', echo=FALSE, dev='pdf', fig.width=9, fig.height=6}
+```
+
+### lattice
+
+```{r mafig2}
+library("lattice")
+latma <- xyplot(M ~ A | data, data = madata,
+                groups = madata$class,
+                auto.key = TRUE)
+print(latma)
+
+```
+
+```{r mafig2pdf, ref.label='mafig2', echo=FALSE, dev='pdf', fig.width=8, fig.height=6}
+```
+
+### ggplot2
+
+```{r mafig3}
+
+library("ggplot2")
+ggma <- ggplot(aes(x = A, y = M, colour = class), data = madata,
+               colour = class) + 
+                   geom_point() +
+                       facet_grid(. ~ data) 
+print(ggma)
+```
+
+```{r mafig3pdf, ref.label='mafig3', echo=FALSE, dev='pdf', fig.width=8, fig.height=6}
+```
