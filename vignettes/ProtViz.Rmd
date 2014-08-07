@@ -12,11 +12,22 @@ library("MSnbase")
 library("rpx")
 ```
 
-## General information:
+## General information
 
 - CRAN Task View: Graphic Displays & Dynamic Graphics & Graphic
   Devices & Visualization:
   http://cran.r-project.org/web/views/Graphics.html
+
+- ggplot2
+  [book](http://link.springer.com/book/10.1007%2F978-0-387-98141-3)
+  ([code](http://ggplot2.org/book/)), [web page](http://ggplot2.org/)
+  and [on-line docs](http://docs.ggplot2.org/current/)
+- lattice
+  [book](http://lmdvr.r-forge.r-project.org/figures/figures.html) and
+  [web page](http://lattice.r-forge.r-project.org/)
+- *R Graphics* [book](https://www.stat.auckland.ac.nz/~paul/RG2e/)
+- [R Cookbook](http://www.cookbook-r.com/Graphs/) and
+  [R Graphics Cookbook](http://shop.oreilly.com/product/0636920023135.do)
 
 ## The MA plot example
 
