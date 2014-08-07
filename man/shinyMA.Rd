@@ -27,8 +27,11 @@ shinyMA()
 }
 
 \references{
+  
   The application is an adaptation of Michael Love's \code{shinyMA} app
-  available on \url{https://github.com/mikelove/shinyMA}.
+  available on
+  \href{https://github.com/mikelove/shinyMA}{https://github.com/mikelove/shinyMA}.
+
 }
 
 \author{

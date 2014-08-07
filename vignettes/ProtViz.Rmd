@@ -122,7 +122,10 @@ MAplot(qnt, cex = .8)
 
 ### An interactive `shiny` app for MA plots
 
-A screen shot is displayed below. To start the application:
+This app is based on Mike Love's
+[shinyMA](https://github.com/mikelove/shinyMA) application, adapted
+for a proteomics data. A screen shot is displayed below. To start the
+application:
 
 ```{r shinyMA, eval=FALSE}
 shinyMA()
