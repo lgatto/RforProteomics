@@ -1,9 +1,18 @@
+---
+title: "Visualisation of proteomics data using R and Bioconductor"
+author: "[Laurent Gatto](http://proteome.sysbiol.cam.ac.uk/lgatto/)"
+output:
+  html_document:
+    theme: united	
+    toc: true
+---
+
 <!-- \VignetteEngine{knitr} -->
 <!-- \VignetteIndexEntry{Visualisation of proteomics data using R and Bioconductor} -->
 <!-- \VignetteKeywords{bioinformatics, proteomics, mass spectrometry} -->
 <!-- \VignettePackage{RforProteomics} -->
 
-# Visualisation of proteomics data using R and Bioconductor
+
 
 ```{r env, message=FALSE}
 library("MSnbase")
@@ -16,6 +25,13 @@ library("rpx")
   Devices & Visualization:
   http://cran.r-project.org/web/views/Graphics.html
 
+## The MA plot example
+
+The following code chunk connects to the `PXD000001` data set on the
+ProteomeXchange repository and fetches the `mzTab` file. After missing
+values filtering, we extract relevant data (log2 fold-changes and
+log10 mean expression intensities) into `data.frames`.
+
 ```{r, makemadata}
 library("rpx")
 px1 <- PXDataset("PXD000001")
@@ -25,19 +41,20 @@ library("MSnbase")
 qnt <- readMzTabData(mztab, what = "PEP")
 sampleNames(qnt) <- reporterNames(TMT6)
 qnt <- filterNA(qnt)
+## may be combineFeatuers
 
 spikes <- c("P02769", "P00924", "P62894", "P00489")
 protclasses <- as.character(fData(qnt)$accession)
 protclasses[!protclasses %in% spikes] <- "Background"
 
 
-madata42 <- data.frame(A = rowMeans(log(exprs(qnt[, c(4, 2)]), 2)),
+madata42 <- data.frame(A = rowMeans(log(exprs(qnt[, c(4, 2)]), 10)),
                        M = log(exprs(qnt)[, 4], 2) - log(exprs(qnt)[, 2], 2),
                        data = rep("4vs2", nrow(qnt)),
                        protein = fData(qnt)$accession,
                        class = protclasses)
                        
-madata62 <- data.frame(A = rowMeans(log(exprs(qnt[, c(6, 2)]), 2)),
+madata62 <- data.frame(A = rowMeans(log(exprs(qnt[, c(6, 2)]), 10)),
                        M = log(exprs(qnt)[, 6], 2) - log(exprs(qnt)[, 2], 2),
                        data = rep("6vs2", nrow(qnt)),
                        protein = fData(qnt)$accession,
@@ -47,8 +64,7 @@ madata62 <- data.frame(A = rowMeans(log(exprs(qnt[, c(6, 2)]), 2)),
 madata <- rbind(madata42, madata62)
 ```
 
-```{r, macols}
-
+```{r, macols, echo=FALSE}
 library("RColorBrewer")
 bcols <- brewer.pal(4, "Set1")
 macols <- rep("#BEBEBE", nrow(qnt))
@@ -99,7 +115,25 @@ ggma <- ggplot(aes(x = A, y = M, colour = class), data = madata,
                    geom_point() +
                        facet_grid(. ~ data) 
 print(ggma)
+
 ```
 
 ```{r mafig3pdf, ref.label='mafig3', echo=FALSE, dev='pdf', fig.width=8, fig.height=6}
+```
+
+### The `MAplot' method for `MSnSet` instances
+
+```{r mafigmsnset}
+MAplot(qnt, cex = .8)
+```
+
+```{r, echo = FALSE}
+library("shiny")
+
+shinyAppDir(
+  system.file("examples/06_tabsets", package="shiny"),
+  options=list(
+    width="100%", height=700
+  )
+)
 ```

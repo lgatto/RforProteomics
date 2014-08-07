@@ -4,6 +4,7 @@ importFrom("BiocInstaller", "biocVersion")
 import("R.utils")
 import("biocViews")
 import("rpx")
+import("shiny")
 
 export(getPXD000001mzXML,
        getPXD000001mzTab,
@@ -14,5 +15,6 @@ export(getPXD000001mzXML,
        proteomicsPackages,
        massSpectrometryPackages,
        massSpectrometryDataPackages,
-       display)
+       display,
+       shinyMA)
 

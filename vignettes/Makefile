@@ -81,11 +81,11 @@ clean:
 	rm -f PXD000001_mztab.txt
 	rm -rf output*xml
 	rm -f RforProteomics.tex 
-	rm -f cache figure
 	rm -f ProtViz.md ProtViz.html
 
 allclean: clean 
-	rm -fr cache figure 
+	rm -fr cache 
+	for i in $( ls figure/* | grep -v shinyMA.png); do rm $i; done
 	rm -fr vigsrc/cache vigsrc/figure 
 	rm -f vigsrc/F063721.dat-mztab.txt
 	rm -f vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML
