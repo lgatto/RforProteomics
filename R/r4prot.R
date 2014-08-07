@@ -1,13 +1,20 @@
 ##' Opens the package vignettes.
 ##'
-##' @title Opens RforProteomics vignettes
-##' @return An instance of class \code{vignette},
-##' as returned by \code{\link{vignette}}
+##' @title Opens the RforProteomics vignette
+##' @return An instance of class \code{vignette}. Used for its side
+##' effect, opening the vignette.
 ##' @author Laurent Gatto
 RforProteomics <- function()
   vignette("RforProteomics", package = "RforProteomics")
 
-
+##' Opens the visualisation vignette
+##'
+##' @title Opens the visualisation vignette
+##' @return An instance of class \code{vignette}. Used for its side
+##' effect, opening the vignette.
+##' @author Laurent Gatto
+ProtViz <- function()
+    vignette("ProtViz", package = "RforProteomics")
 
 ##' Finds the package names that have a specific biocView.
 ##'

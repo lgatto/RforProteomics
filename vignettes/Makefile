@@ -27,17 +27,17 @@ endif
 
 
 vig:
-	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
+	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.Rnw
 	cp vigsrc/RforProteomics.pdf .
 
 poster:
 	"$(R_HOME)/bin/R" CMD pdflatex Bioc2013_poster.Rnw
 	cp vigsrc/Bioc2013_poster.pdf .
 
-.PHONY: clean allclean 
-
 viz: 
 	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('ProtViz.Rmd');"
+
+.PHONY: clean allclean 
 
 cache:
 	mv cache/ vigsrc/.
@@ -81,13 +81,14 @@ clean:
 	rm -f PXD000001_mztab.txt
 	rm -rf output*xml
 	rm -f RforProteomics.tex 
-	rm -f ProtViz.md ProtViz.html
+	rm -f ProtViz.md 
 
 allclean: clean 
 	rm -fr cache 
-	for i in $( ls figure/* | grep -v shinyMA.png); do rm $i; done
+	find -path "./figure/*" ! -name shinyMA.png -delete
+
+srcclean: 
 	rm -fr vigsrc/cache vigsrc/figure 
 	rm -f vigsrc/F063721.dat-mztab.txt
 	rm -f vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML
 	rm -f vigsrc/P00924.fasta
-

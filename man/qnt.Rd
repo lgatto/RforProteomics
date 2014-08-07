@@ -7,17 +7,6 @@
 }
 
 \description{
-%%  ~~ A concise (1-5 lines) description of the dataset. ~~
-}
-
-\usage{data("qnt")}
-
-\format{
-  An instance of class \code{MSnSet}
-}
-
-\details{
-
   In this TMT 6-plex experiment, four exogenous proteins were spiked
   into an equimolar \emph{Erwinia carotovora} lysate with varying
   proportions in each channel of quantitation; yeast enolase (ENO) at
@@ -33,9 +22,17 @@
   the data.
 
   The data has been downloaded from the ProteomeXchange repository and
-  imported into R as illustrated in the example.
+  imported into R as illustrated in the example. It is of class
+  \code{\link{MSnSet}}. See also the \code{MSnbase-demo} vignette for
+  more details.
+
 }
 
+\usage{data("qnt")}
+
+\format{
+  An instance of class \code{MSnSet}
+}
 
 \references{
 
@@ -71,7 +68,9 @@
 }
 
 library("RforProteomics")
+library("MSnbase")
 data(qnt)
+class(qnt)
 head(exprs(qnt))
 head(fData(qnt))
 }

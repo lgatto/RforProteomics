@@ -13,10 +13,9 @@
   on the expression plot on the right.
 
   The data has been prepared using the mzTab file from the
-  ProteomeXchange spiked-in data PXD000001 (see \link{\code{qnt}} for
+  ProteomeXchange spiked-in data PXD000001 (see \code{\link{qnt}} for
   details). Sample 1, 2, 6 and 3, 4, 5 have been arbitrarily chosen to
-  define two groups.
-}
+  define two groups.  }
 
 \usage{
 shinyMA()
@@ -29,7 +28,7 @@ shinyMA()
 
 \references{
   The application is an adaptation of Michael Love's \code{shinyMA} app
-  availbale on \link{https://github.com/mikelove/shinyMA}. 
+  availbale on https://github.com/mikelove/shinyMA.
 }
 
 \author{

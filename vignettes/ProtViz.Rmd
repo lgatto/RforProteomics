@@ -1,20 +1,13 @@
----
-title: "Visualisation of proteomics data using R and Bioconductor"
-author: "[Laurent Gatto](http://proteome.sysbiol.cam.ac.uk/lgatto/)"
-output:
-  html_document:
-    theme: united	
-    toc: true
----
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Visualisation of proteomics data using R and Bioconductor}
+%\VignetteKeyword{bioinformatics, proteomics, mass spectrometry, visualisation}
+-->
 
-<!-- \VignetteEngine{knitr} -->
-<!-- \VignetteIndexEntry{Visualisation of proteomics data using R and Bioconductor} -->
-<!-- \VignetteKeywords{bioinformatics, proteomics, mass spectrometry} -->
-<!-- \VignettePackage{RforProteomics} -->
+# Visualisation of proteomics data using R and Bioconductor
+[Laurent Gatto](http://proteome.sysbiol.cam.ac.uk/lgatto/)
 
-
-
-```{r env, message=FALSE}
+```{r env, message=FALSE, echo=FALSE}
 library("MSnbase")
 library("rpx")
 ```
@@ -32,7 +25,7 @@ ProteomeXchange repository and fetches the `mzTab` file. After missing
 values filtering, we extract relevant data (log2 fold-changes and
 log10 mean expression intensities) into `data.frames`.
 
-```{r, makemadata}
+```{r, makemadata, warning=FALSE, cache=TRUE}
 library("rpx")
 px1 <- PXDataset("PXD000001")
 mztab <- pxget(px1, "PXD000001_mztab.txt")
@@ -121,19 +114,18 @@ print(ggma)
 ```{r mafig3pdf, ref.label='mafig3', echo=FALSE, dev='pdf', fig.width=8, fig.height=6}
 ```
 
-### The `MAplot' method for `MSnSet` instances
+### The `MAplot` method for `MSnSet` instances
 
 ```{r mafigmsnset}
 MAplot(qnt, cex = .8)
 ```
 
-```{r, echo = FALSE}
-library("shiny")
+### An interactive `shiny` app for MA plots
 
-shinyAppDir(
-  system.file("examples/06_tabsets", package="shiny"),
-  options=list(
-    width="100%", height=700
-  )
-)
+A screen shot is displayed below. To start the application:
+
+```{r shinyMA, eval=FALSE}
+shinyMA()
 ```
+
+![shinyMA screeshot](./figure/shinyMA.png)
