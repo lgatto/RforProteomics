@@ -1,5 +1,5 @@
 shinyMA <- function() {
-    
+    qnt <- NULL
     data(qnt, envir = environment())
     findClosest <- function(input) {
         if (is.null(input$plotma_click)) {
