@@ -17,7 +17,8 @@ library("rpx")
 - CRAN Task View: Graphic Displays & Dynamic Graphics & Graphic
   Devices & Visualization:
   http://cran.r-project.org/web/views/Graphics.html
-
+- CRAN Task View: Web Technologies and Services:
+  http://cran.r-project.org/web/views/WebTechnologies.html
 - ggplot2
   [book](http://link.springer.com/book/10.1007%2F978-0-387-98141-3)
   ([code](http://ggplot2.org/book/)), [web page](http://ggplot2.org/)
@@ -68,18 +69,6 @@ madata62 <- data.frame(A = rowMeans(log(exprs(qnt[, c(6, 2)]), 10)),
 madata <- rbind(madata42, madata62)
 ```
 
-```{r, macols, echo=FALSE}
-library("RColorBrewer")
-bcols <- brewer.pal(4, "Set1")
-macols <- rep("#BEBEBE", nrow(qnt))
-
-macols[madata42$protein == "P02769"] <- bcols[1]
-macols[madata42$protein == "P00924"] <- bcols[2]
-macols[madata42$protein == "P62894"] <- bcols[3]
-macols[madata42$protein == "P00489"] <- bcols[4]
-
-```
-
 ### The traditional plotting system
 
 ```{r, mafig1}
@@ -125,6 +114,34 @@ print(ggma)
 ```{r mafig3pdf, ref.label='mafig3', echo=FALSE, dev='pdf', fig.width=8, fig.height=6}
 ```
 
+### Customization 
+
+```{r macols}
+
+library("RColorBrewer")
+bcols <- brewer.pal(4, "Set1")
+cls <- c("Background" = "#12121230",
+         "P02769" = bcols[1],
+         "P00924" = bcols[2],
+         "P62894" = bcols[3],
+         "P00489" = bcols[4])
+
+```
+
+
+```{r macust}
+
+ggma2 <- ggplot(aes(x = A, y = M, colour = class),
+                data = madata) + geom_point(shape = 19) +
+                    facet_grid(. ~ data) + scale_colour_manual(values = cls) +
+                        guides(colour = guide_legend(override.aes = list(alpha = 1)))
+print(ggma2)
+
+```
+
+```{r macustpdf, ref.label='macust', echo=FALSE, dev='pdf', fig.width=8, fig.height=6}
+```
+
 ### The `MAplot` method for `MSnSet` instances
 
 ```{r mafigmsnset}
@@ -142,4 +159,30 @@ application:
 shinyMA()
 ```
 
-![shinyMA screeshot](./figure/shinyMA.png)
+![shinyMA screenshot](./figure/shinyMA.png)
+
+## Visualising mass spectrometry data
+
+```{r msviz}
+library("MSnbase")
+data(itraqdata)
+itraqdata2 <- pickPeaks(itraqdata, verbose = FALSE)
+plot(itraqdata[[25]], full=TRUE, reporters = iTRAQ4)
+par(oma = c(0, 0, 0, 0))
+par(mar = c(4, 4, 1, 1))
+plot(itraqdata2[[25]], itraqdata2[[28]], sequences = rep("IMIDLDGTENK", 2))
+```
+
+
+## Genomic and protein sequences
+
+These visualisations originate from the `Pbase`
+[`Pbase-data`](http://bioconductor.org/packages/devel/bioc/vignettes/Pbase/inst/doc/Pbase-data.html)
+and
+[`mapping`](http://bioconductor.org/packages/devel/bioc/vignettes/Pbase/inst/doc/mapping.html) vignettes.
+
+## MS imaging
+
+## Spatial proteomics
+
+
