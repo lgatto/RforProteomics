@@ -84,7 +84,7 @@ getPXD000001mzXML <- function(destdir = ".") {
                 msg = paste0("Please use the rpx package to download data ",
                     "from the ProteomeXchaneg repository."))
   ## src <- "http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML.gz"
-  src2 <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML"
+  src2 <- "ftp://ftp.pride.ebi.ac.uk/pride/data/archive/2012/03/PXD000001/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML"
   downloadData(src2, destdir, FALSE)
 }
 
@@ -102,7 +102,7 @@ getPXD000001mzTab <- function(destdir = ".") {
                 package = "rpx",
                 msg = paste0("Please use the rpx package to download data ",
                     "from the ProteomeXchaneg repository."))
-    src <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/F063721.dat-mztab.txt"
+    src <- "ftp://ftp.pride.ebi.ac.uk/pride/data/archive/2012/03/PXD000001/F063721.dat-mztab.txt"
     downloadData(src, destdir, FALSE)
 }
 
@@ -120,7 +120,7 @@ getPXD000001mzData <- function(destdir = ".") {
                 package = "rpx",
                 msg = paste0("Please use the rpx package to download data ",
                     "from the ProteomeXchaneg repository."))
-    src <- "ftp://ftp.pride.ebi.ac.uk/2012/03/PXD000001/PRIDE_Exp_Complete_Ac_22134.xml.gz"
+    src <- "ftp://ftp.pride.ebi.ac.uk/pride/data/archive/2012/03/PXD000001/PRIDE_Exp_Complete_Ac_22134.xml.gz"
     downloadData(src, destdir, TRUE)
 }
 
