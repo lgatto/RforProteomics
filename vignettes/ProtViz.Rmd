@@ -57,7 +57,7 @@ madata42 <- data.frame(A = rowMeans(log(exprs(qnt[, c(4, 2)]), 10)),
                        data = rep("4vs2", nrow(qnt)),
                        protein = fData(qnt)$accession,
                        class = protclasses)
-                       
+
 madata62 <- data.frame(A = rowMeans(log(exprs(qnt[, c(6, 2)]), 10)),
                        M = log(exprs(qnt)[, 6], 2) - log(exprs(qnt)[, 2], 2),
                        data = rep("6vs2", nrow(qnt)),
@@ -115,9 +115,9 @@ print(latma)
 
 library("ggplot2")
 ggma <- ggplot(aes(x = A, y = M, colour = class), data = madata,
-               colour = class) + 
+               colour = class) +
                    geom_point() +
-                       facet_grid(. ~ data) 
+                       facet_grid(. ~ data)
 print(ggma)
 
 ```
@@ -143,3 +143,99 @@ shinyMA()
 ```
 
 ![shinyMA screeshot](./figure/shinyMA.png)
+
+### Preprocessing of MALDI-MS spectra
+
+The following code chunks demonstrate the usage of the mass spectrometry
+preprocessing and plotting routines in the *MALDIquant* package. *MALDIquant*
+uses the traditional graphics system. Therefore *MALDIquant* overloads the
+traditional functions `plot`, `lines` and `points` for its own data types. These
+data types represents spectrum and peak lists as S4 classes.
+
+After loading some example data a simple `plot` draws the raw spectrum.
+```{r mqraw}
+library("MALDIquant")
+
+data("fiedler2009subset", package="MALDIquant")
+
+plot(fiedler2009subset[[14]])
+```
+
+After some preprocessing, namely variance stabilization and smoothing, we use
+`lines` to draw our baseline estimate in our processed spectrum.
+
+```{r mqestimatebaseline}
+transformedSpectra <- transformIntensity(fiedler2009subset, method = "sqrt")
+smoothedSpectra <- smoothIntensity(transformedSpectra, method = "SavitzkyGolay")
+
+plot(smoothedSpectra[[14]])
+lines(estimateBaseline(smoothedSpectra[[14]]), lwd = 2, col="red")
+```
+
+After removing the background removal we could use `plot` again to draw our
+baseline corrected spectrum.
+```{r mqremovebaseline}
+rbSpectra <- removeBaseline(smoothedSpectra)
+plot(rbSpectra[[14]])
+```
+
+`detectPeaks` returns a `MassPeaks` object that offers the same traditional
+graphics functions. The next code chunk demonstrates how to mark the detected
+peaks in a spectrum.
+
+```{r mqpeaks}
+cbSpectra <- calibrateIntensity(rbSpectra, method = "TIC")
+peaks <- detectPeaks(cbSpectra, SNR=5)
+
+plot(cbSpectra[[14]])
+points(peaks[[14]], col = "red", pch = 4, lwd = 2)
+```
+
+Additional there is a special function `labelPeaks` that allows to draw the m/z
+values above the corresponding peaks. Next we mark the 5 top peaks in the
+spectrum.
+```{r mqlabelpeaks}
+top5 <- intensity(peaks[[14]]) %in% sort(intensity(peaks[[14]]),
+                                         decreasing = TRUE)[1:5]
+labelPeaks(peaks[[14]], index = top5, avoidOverlap = TRUE)
+```
+
+Often multiple spectra have to be recalibrated to be comparable. Therefore
+*MALDIquant* warps the spectra according to so called reference or landmark
+peaks. For debugging the `determineWarpingFunctions` function offers some
+warping plots. Here we show only the last 4 plots:
+```{r mqwarp}
+par(mfrow = c(2, 2))
+warpingFunctions <- determineWarpingFunctions(peaks, tolerance=0.001,
+                                              plot = TRUE,
+                                              plotInteractive = TRUE)
+par(mfrow = c(1, 1))
+
+warpedSpectra <- warpMassSpectra(cbSpectra, warpingFunctions)
+warpedPeaks <- warpMassPeaks(peaks, warpingFunctions)
+```
+
+In the next code chunk we visualise the need and the effect of the
+recalibration.
+```{r mqwarped}
+sel <- c(2, 10, 14, 16)
+xlim <- c(4180, 4240)
+ylim <- c(0, 1.9e-3)
+lty <- c(1, 4, 2, 6)
+
+par(mfrow = c(1, 2))
+plot(cbSpectra[[1]], xlim=xlim, ylim=ylim, type="n")
+
+for (i in seq(along=sel)) {
+  lines(peaks[[sel[i]]], lty=lty[i], col=i)
+  lines(cbSpectra[[sel[i]]], lty=lty[i], col=i)
+}
+
+plot(cbSpectra[[1]], xlim=xlim, ylim=ylim, type="n")
+
+for (i in seq(along=sel)) {
+  lines(warpedPeaks[[sel[i]]], lty=lty[i], col=i)
+  lines(warpedSpectra[[sel[i]]], lty=lty[i], col=i)
+}
+par(mfrow = c(1, 1))
+```
