@@ -1219,7 +1219,7 @@ pp <- proteomicsPackages()
 display(pp)
 @
 
-\subsection{The Chemometrics and Computational Physics CRAN Task View}
+\subsection{Other CRAN packages}
 
 <<cntCRAN, echo=FALSE>>=
 X <- readLines("http://cran.r-project.org/web/views/ChemPhys.html")
@@ -1230,10 +1230,9 @@ np <- length(grep("../packages/", X[x1:x2]))
 
 The CRAN task view on Chemometrics and Computational
 Physics\footnote{\url{http://cran.r-project.org/web/views/ChemPhys.html}}
-lists \Sexpr{np} packages, including a set of packages for mass
-spectrometry and proteomics, some of which are illustrated in this
-document.  The most relevant (non Bioconductor) packages are
-summarised below.
+is another useful ressource listing \Sexpr{np} packages, including a
+set of packages for mass spectrometry and proteomics, some of which
+are illustrated in this document.
 
 \begin{description}
 \item[MALDIquant] provides tools for quantitative analysis of
@@ -1254,17 +1253,17 @@ summarised below.
   relative abundance
   of two substances from a titration series \\
   (\url{http://cran.r-project.org/web/packages/titan/index.html}).
+\item[digeR] provides a GUI interface for analysing 2D DIGE data. It
+  allows to perform correlation analysis, score plot, classification,
+  feature selection and power analysis for
+  2D DIGE experiment data. \\
+  (\url{http://cran.r-project.org/web/packages/digeR/index.html})
+\item[protViz] helps with quality checks, visualizations and analysis
+  of mass spectrometry data, coming from proteomics experiments. The
+  package is developed, tested and used at the Functional Genomics
+  Center Zurich. \\
+  (\url{http://cran.r-project.org/web/packages/protViz/index.html})
 \end{description}
-
-\subsection{Other CRAN packages}
-
-Finally,
-\Rpackage{digeR}\footnote{\url{http://cran.r-project.org/web/packages/digeR/index.html}},
-which is available on CRAN but not listed in the Chemometrics and
-Computational Physics Task View, provides a GUI interface for
-analysing 2D DIGE data. It allows to perform correlation analysis,
-score plot, classification, feature selection and power analysis for
-2D DIGE experiment data.
 
 \bigskip
 

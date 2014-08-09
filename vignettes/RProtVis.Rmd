@@ -8,28 +8,98 @@
 [Laurent Gatto](http://proteome.sysbiol.cam.ac.uk/lgatto/)
 
 ```{r env, message=FALSE, echo=FALSE}
+library("RforProteomics")
+library("BiocInstaller")
 library("MSnbase")
+library("knitr")
 library("rpx")
+library("xtable")
+library("RColorBrewer")
 library("MALDIquant")
 library("MALDIquantForeign")
 ```
 
-## General information
+## Introduction
+
+### References
 
 - CRAN Task View: Graphic Displays & Dynamic Graphics & Graphic
   Devices & Visualization:
   http://cran.r-project.org/web/views/Graphics.html
-
+- CRAN Task View: Web Technologies and Services:
+  http://cran.r-project.org/web/views/WebTechnologies.html
 - ggplot2
   [book](http://link.springer.com/book/10.1007%2F978-0-387-98141-3)
-  ([code](http://ggplot2.org/book/)), [web page](http://ggplot2.org/)
-  and [on-line docs](http://docs.ggplot2.org/current/)
+  (syntax is slightly outdated) ([code](http://ggplot2.org/book/)),
+  [web page](http://ggplot2.org/) and
+  [on-line docs](http://docs.ggplot2.org/current/)
 - lattice
   [book](http://lmdvr.r-forge.r-project.org/figures/figures.html) and
   [web page](http://lattice.r-forge.r-project.org/)
 - *R Graphics* [book](https://www.stat.auckland.ac.nz/~paul/RG2e/)
 - [R Cookbook](http://www.cookbook-r.com/Graphs/) and
   [R Graphics Cookbook](http://shop.oreilly.com/product/0636920023135.do)
+
+### Relevant packages
+
+```{r packs, cache=TRUE, warning=FALSE, echo=FALSE}
+library("RforProteomics")
+pp <- proteomicsPackages()
+msp <- massSpectrometryPackages()
+```
+
+There are currently `r nrow(pp)` Proteomics and `r nrow(msp)`
+MassSpectrometry packages in Bioconductor version `r as.character(biocVersion())`.
+Other non-Bioconductor packages are described in the `RforProteomics` vignette.
+
+```{r, pptab, echo=FALSE}
+kable(pp)
+```
+
+```{r, msptab, echo=FALSE}
+kable(msp)
+```
+
+## Ascombe's quartet
+
+```{r anscombe}
+anscombe
+```
+
+```{r anscombetab}
+
+tab <- matrix(NA, 5, 4)
+colnames(tab) <- 1:4
+rownames(tab) <- c("var(x)", "mean(x)",
+                   "var(y)", "mean(y)",
+                   "cor(x,y)")
+
+for (i in 1:4)
+    tab[, i] <- c(var(anscombe[, i]),
+                  mean(anscombe[, i]),
+                  var(anscombe[, i+4]),
+                  mean(anscombe[, i+4]),
+                  cor(anscombe[, i], anscombe[, i+4]))
+
+```
+
+```{r anstabdisplay, echo=FALSE}
+kable(tab)
+```
+
+```{r anscombefig}
+ff <- y ~ x
+
+par(mfrow = c(2, 2), mar = c(4, 4, 1, 1))
+for (i in 1:4) {
+    ff[2:3] <- lapply(paste0(c("y","x"), i), as.name)
+    plot(ff, data = anscombe, pch = 19, xlim = c(3, 19), ylim = c(3, 13))
+    abline(lm(ff, data = anscombe))
+}
+```
+
+```{r anscombe, ref.label='anscombefig', echo=FALSE, dev='pdf'}
+```
 
 ## The MA plot example
 
@@ -68,18 +138,6 @@ madata62 <- data.frame(A = rowMeans(log(exprs(qnt[, c(6, 2)]), 10)),
 
 
 madata <- rbind(madata42, madata62)
-```
-
-```{r, macols, echo=FALSE}
-library("RColorBrewer")
-bcols <- brewer.pal(4, "Set1")
-macols <- rep("#BEBEBE", nrow(qnt))
-
-macols[madata42$protein == "P02769"] <- bcols[1]
-macols[madata42$protein == "P00924"] <- bcols[2]
-macols[madata42$protein == "P62894"] <- bcols[3]
-macols[madata42$protein == "P00489"] <- bcols[4]
-
 ```
 
 ### The traditional plotting system
@@ -127,6 +185,34 @@ print(ggma)
 ```{r mafig3pdf, ref.label='mafig3', echo=FALSE, dev='pdf', fig.width=8, fig.height=6}
 ```
 
+### Customization
+
+```{r macols}
+
+library("RColorBrewer")
+bcols <- brewer.pal(4, "Set1")
+cls <- c("Background" = "#12121230",
+         "P02769" = bcols[1],
+         "P00924" = bcols[2],
+         "P62894" = bcols[3],
+         "P00489" = bcols[4])
+
+```
+
+
+```{r macust}
+
+ggma2 <- ggplot(aes(x = A, y = M, colour = class),
+                data = madata) + geom_point(shape = 19) +
+                    facet_grid(. ~ data) + scale_colour_manual(values = cls) +
+                        guides(colour = guide_legend(override.aes = list(alpha = 1)))
+print(ggma2)
+
+```
+
+```{r macustpdf, ref.label='macust', echo=FALSE, dev='pdf', fig.width=8, fig.height=6}
+```
+
 ### The `MAplot` method for `MSnSet` instances
 
 ```{r mafigmsnset}
@@ -145,6 +231,18 @@ shinyMA()
 ```
 
 ![shinyMA screeshot](./figure/shinyMA.png)
+
+## Visualising mass spectrometry data
+
+```{r msviz}
+library("MSnbase")
+data(itraqdata)
+itraqdata2 <- pickPeaks(itraqdata, verbose = FALSE)
+plot(itraqdata[[25]], full=TRUE, reporters = iTRAQ4)
+par(oma = c(0, 0, 0, 0))
+par(mar = c(4, 4, 1, 1))
+plot(itraqdata2[[25]], itraqdata2[[28]], sequences = rep("IMIDLDGTENK", 2))
+```
 
 ### Preprocessing of MALDI-MS spectra
 
@@ -245,6 +343,14 @@ for (i in seq(along=sel)) {
 par(mfrow = c(1, 1))
 ```
 
+## Genomic and protein sequences
+
+These visualisations originate from the `Pbase`
+[`Pbase-data`](http://bioconductor.org/packages/devel/bioc/vignettes/Pbase/inst/doc/Pbase-data.html)
+and
+[`mapping`](http://bioconductor.org/packages/devel/bioc/vignettes/Pbase/inst/doc/mapping.html) vignettes.
+
+
 ### Imaging mass spectrometry
 
 The following code chunk downloads a MALDI-IMS dataset from a mouse kidney
@@ -325,4 +431,13 @@ plotImsSlice(spectra, range = c(3361.8, 3362.8), main = "foo")
 plot(avgSpectrum, main = "mean spectrum")
 abline(v = 3362.3, col = "red")
 par(mfrow = c(1, 1))
+
+## Spatial proteomics
+
+
+## Session information
+
+```{r si}
+print(sessionInfo(), locale = FALSE)
+>>>>>>> 61c21715dd98553424d27829b66bc3d36bd6f3db:vignettes/RProtVis.Rmd
 ```
