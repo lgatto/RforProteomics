@@ -8,6 +8,8 @@
 [Laurent Gatto](http://proteome.sysbiol.cam.ac.uk/lgatto/)
 
 ```{r env, message=FALSE, echo=FALSE}
+library("RforProteomics")
+library("BiocInstaller")
 library("MSnbase")
 library("knitr")
 library("rpx")
@@ -15,7 +17,9 @@ library("xtable")
 library("RColorBrewer")
 ```
 
-## General information
+## Introduction
+
+### References
 
 - CRAN Task View: Graphic Displays & Dynamic Graphics & Graphic
   Devices & Visualization:
@@ -33,6 +37,26 @@ library("RColorBrewer")
 - *R Graphics* [book](https://www.stat.auckland.ac.nz/~paul/RG2e/)
 - [R Cookbook](http://www.cookbook-r.com/Graphs/) and
   [R Graphics Cookbook](http://shop.oreilly.com/product/0636920023135.do)
+
+### Relevant packages
+
+```{r packs, cache=TRUE, warning=FALSE, echo=FALSE}
+library("RforProteomics")
+pp <- proteomicsPackages()
+msp <- massSpectrometryPackages()
+```
+
+There are currently `r nrow(pp)` Proteomics and `r nrow(msp)`
+MassSpectrometry packages in Bioconductor version `r as.character(biocVersion())`.
+Other non-Bioconductor packages are described in the `RforProteomics` vignette. 
+
+```{r, pptab, echo=FALSE}
+kable(pp)
+```
+
+```{r, msptab, echo=FALSE}
+kable(msp)
+```
 
 ## Ascombe's quartet
 
