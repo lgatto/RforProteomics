@@ -228,7 +228,7 @@ application:
 shinyMA()
 ```
 
-![shinyMA screenshot](./figure/shinyMA.png)
+![shinyMA screenshot](./figures/shinyMA.png)
 
 ## Visualising mass spectrometry data
 
@@ -255,3 +255,8 @@ and
 ## Spatial proteomics
 
 
+## Session information
+
+```{r si}
+print(sessionInfo(), locale = FALSE)
+```
