@@ -244,3 +244,85 @@ for (i in seq(along=sel)) {
 }
 par(mfrow = c(1, 1))
 ```
+
+### Imaging mass spectrometry
+
+The following code chunk downloads a MALDI-IMS dataset from a mouse kidney
+shared by [Adrien Nyakas and Stefan Schürch](http://figshare.com/articles/MALDI_Imaging_Mass_Spectrometry_of_a_Mouse_Kidney/735961).
+```{r mqimsimport}
+library("MALDIquant")
+library("MALDIquantForeign")
+
+spectra <- importBrukerFlex("http://files.figshare.com/1106682/MouseKidney_IMS_testdata.zip", verbose = FALSE)
+```
+
+After retrieving the data we do some preprocessing a plot a slice of the image
+for an interesting peak region.
+```{r mqimsplotslicedef, echo = FALSE}
+## will be part of MALDIquant in the near future
+plotImsSlice <- function(x, range, main,
+                         removeEmptyRows = TRUE,
+                         removeEmptyCols = TRUE) {
+
+  MALDIquant:::.stopIfNotIsMassObjectList(x)
+
+  ## display only mass in range
+  suppressWarnings(x <- trim(x, range=range))
+
+  ## find x and y positions
+  pos <- lapply(x, function(y)metaData(y)$imaging$pos)
+  pos <- do.call(rbind, pos)
+
+  ## max x/y to build image matrix
+  nc <- max(pos[, "x"])
+  nr <- max(pos[, "y"])
+
+  ## init matrix
+  m <- matrix(NA, nrow=nr, ncol=nc)
+
+  ## fill matrix with intensity values
+  for (i in seq(along=x)) {
+    m[pos[i, "y"], pos[i, "x"]] <- sum(intensity(x[[i]]), na.rm=TRUE)
+  }
+
+  ## scale matrix (better contrast)
+  m <- m/max(m, na.rm=TRUE)
+
+  if (removeEmptyRows) {
+    kr <- rowSums(is.na(m)) != ncol(m)
+    m <- m[kr, ]
+    nr <- nrow(m)
+  }
+  if (removeEmptyCols) {
+    kc <- colSums(is.na(m)) != nrow(m)
+    m <- m[, kc]
+    nc <- ncol(m)
+  }
+
+  ## build title
+  if (missing(main)) {
+    main <- paste0(" (m/z: ", range[1], "-", range[2], ")")
+  }
+
+  ## prepare plot area
+  plot(NA, type="n", xlim=c(1, nc), ylim=c(1, nr), axes=FALSE, asp=1,
+       xlab="", ylab="", main=main)
+  ## plot image
+  rasterImage(m, xleft=1, xright=nc, ybottom=1, ytop=nr, interpolate=FALSE)
+}
+```
+```{r mqimssmooth, echo = FALSE}
+spectra <- suppressWarnings(smoothIntensity(spectra, "SavitzkyGolay",  halfWindowSize = 8))
+```
+```{r mqimspreproc, eval = -1}
+spectra <- smoothIntensity(spectra, "SavitzkyGolay",  halfWindowSize = 8)
+spectra <- removeBaseline(spectra, method = "TopHat", halfWindowSize = 16)
+spectra <- calibrateIntensity(spectra, method = "TIC")
+avgSpectrum <- averageMassSpectra(spectra)
+
+par(mfrow = c(2, 1))
+plotImsSlice(spectra, range = c(3361.8, 3362.8), main = "foo")
+plot(avgSpectrum, main = "mean spectrum")
+abline(v = 3362.3, col = "red")
+par(mfrow = c(1, 1))
+```
