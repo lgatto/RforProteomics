@@ -22,8 +22,8 @@ interaction between computational biologists working in the field of
 proteomics, in particular by facilitating interoperability between
 their software.  The
 [rbioc-sig-proteomics](https://groups.google.com/forum/#!forum/rbioc-sig-proteomics)
-group has tentatively been set up to provide an question and
-discussion forum for interested parties. Do not hesitate to
+group has tentatively been set up to provide a forum for questions and
+discussion for interested parties. Do not hesitate to
 [get in touch](http://proteome.sysbiol.cam.ac.uk/lgatto/) for
 questions, comments or further suggestions. Note taking about
 plans/ideas/direction for R/Bioc and proteomics can be contributed to
@@ -32,30 +32,38 @@ the
 
 ## Data and vignette
 
-The package also distributes a set of function to access data from the
-[ProteomeXchange](http://www.proteomexchange.org/)
+The package uses the dataset
 [`PXD000001`](http://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD000001)
-data, used in several examples, as well as a detailed document
+from the [ProteomeXchange](http://www.proteomexchange.org/) repository
+in several examples. The data can be queries and downloaded from `R`
+with the
+[`rpx`](http://bioconductor.org/packages/release/bioc/html/rpx.html)
+package. The `RforProteomics` vignette is a detailed document
 containing the exact code to reproduce all the analyses presented in
-the manuscript as well as other application examples. The latter
-document is called the package vignette, and can be accessed once the
-package is installed (see below) with the `RforProteomics()`
-function. Alternatively, the vignette can be downloaded as a pdf file
+the manuscript as well as other application examples. It can be
+accessed once the package is installed (see below) with the
+`RforProteomics()` function. Alternatively, the vignette can be
+downloaded as a pdf file
 [here](http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf).
+
+A second vignette, `RProtVis` is currently underdevelopmenet and will
+focus on the visualisation of mass spectrometry and proteomics data
+with `R` and Bioconductor. It can be accessed with the `RProtViz()`
+function.
 
 ## Installation
 
-The package is now available in
+The package is available on
 [Bioconductor](http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html)
-version 2.13. To install the package and its documentation, start `R`
-(>= `3.0.0` required) and type:
+(version >= 2.13). To install the package and its documentation, start
+`R` (>= `3.0.0` required) and type:
 
 ```c
 source("http://bioconductor.org/biocLite.R")
 biocLite("RforProteomics")
 ```
 
-To install all dependencies (78 packages, including `RforProteomics`)
+To install all dependencies (75+ packages, including `RforProteomics`)
 and reproduce the code in the vignette, replace the last line in the
 code chunk above with:
 
