@@ -10,6 +10,8 @@
 ```{r env, message=FALSE, echo=FALSE}
 library("MSnbase")
 library("rpx")
+library("MALDIquant")
+library("MALDIquantForeign")
 ```
 
 ## General information
@@ -206,7 +208,10 @@ peaks. For debugging the `determineWarpingFunctions` function offers some
 warping plots. Here we show only the last 4 plots:
 ```{r mqwarp}
 par(mfrow = c(2, 2))
-warpingFunctions <- determineWarpingFunctions(peaks, tolerance=0.001,
+reference <- referencePeaks(peaks)
+warpingFunctions <- determineWarpingFunctions(peaks[13:16],
+                                              reference = reference,
+                                              tolerance=0.001,
                                               plot = TRUE,
                                               plotInteractive = TRUE)
 par(mfrow = c(1, 1))
