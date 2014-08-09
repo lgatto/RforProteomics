@@ -50,7 +50,7 @@ stub:
 
 vig2: 
 	## Only locally, using default R-devel
-	rm -f $(LATEXFILES)
+	make allclean
 	cp vigsrc/RforProteomics.Rnw .
 	cp vigsrc/RforProteomics.bib .
 	if [ -d 'vigsrc/cache' ]; then \
@@ -83,9 +83,10 @@ clean:
 	rm -f RforProteomics.tex 
 	rm -f RProtVis.md 
 
-allclean: clean 
+allclean: 
+	make clean 
 	rm -fr cache 
-	find -path "./figure/*" ! -name shinyMA.png -delete
+	rm -fr figure
 
 srcclean: 
 	rm -fr vigsrc/cache vigsrc/figure 
