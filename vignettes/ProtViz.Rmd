@@ -9,7 +9,10 @@
 
 ```{r env, message=FALSE, echo=FALSE}
 library("MSnbase")
+library("knitr")
 library("rpx")
+library("xtable")
+library("RColorBrewer")
 ```
 
 ## General information
@@ -21,14 +24,56 @@ library("rpx")
   http://cran.r-project.org/web/views/WebTechnologies.html
 - ggplot2
   [book](http://link.springer.com/book/10.1007%2F978-0-387-98141-3)
-  ([code](http://ggplot2.org/book/)), [web page](http://ggplot2.org/)
-  and [on-line docs](http://docs.ggplot2.org/current/)
+  (syntax is slightly outdated) ([code](http://ggplot2.org/book/)),
+  [web page](http://ggplot2.org/) and
+  [on-line docs](http://docs.ggplot2.org/current/)
 - lattice
   [book](http://lmdvr.r-forge.r-project.org/figures/figures.html) and
   [web page](http://lattice.r-forge.r-project.org/)
 - *R Graphics* [book](https://www.stat.auckland.ac.nz/~paul/RG2e/)
 - [R Cookbook](http://www.cookbook-r.com/Graphs/) and
   [R Graphics Cookbook](http://shop.oreilly.com/product/0636920023135.do)
+
+## Ascombe's quartet
+
+```{r anscombe}
+anscombe
+```
+
+```{r anscombetab}
+
+tab <- matrix(NA, 5, 4)
+colnames(tab) <- 1:4
+rownames(tab) <- c("var(x)", "mean(x)",
+                   "var(y)", "mean(y)",
+                   "cor(x,y)")
+
+for (i in 1:4) 
+    tab[, i] <- c(var(anscombe[, i]),
+                  mean(anscombe[, i]),
+                  var(anscombe[, i+4]),
+                  mean(anscombe[, i+4]),
+                  cor(anscombe[, i], anscombe[, i+4]))
+    
+```
+
+```{r anstabdisplay, echo=FALSE}
+kable(tab)
+```
+
+```{r anscombefig}
+ff <- y ~ x
+
+par(mfrow = c(2, 2), mar = c(4, 4, 1, 1))
+for (i in 1:4) {
+    ff[2:3] <- lapply(paste0(c("y","x"), i), as.name)
+    plot(ff, data = anscombe, pch = 19, xlim = c(3, 19), ylim = c(3, 13))
+    abline(lm(ff, data = anscombe))
+}    
+```
+
+```{r anscombe, ref.label='anscombefig', echo=FALSE, dev='pdf'}
+```
 
 ## The MA plot example
 
