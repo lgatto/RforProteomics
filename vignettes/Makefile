@@ -35,7 +35,7 @@ poster:
 	cp vigsrc/Bioc2013_poster.pdf .
 
 viz: 
-	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('ProtViz.Rmd');"
+	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('RProtVis.Rmd');"
 
 .PHONY: clean allclean 
 
@@ -50,7 +50,7 @@ stub:
 
 vig2: 
 	## Only locally, using default R-devel
-	rm -f $(LATEXFILES)
+	make allclean
 	cp vigsrc/RforProteomics.Rnw .
 	cp vigsrc/RforProteomics.bib .
 	if [ -d 'vigsrc/cache' ]; then \
@@ -81,11 +81,12 @@ clean:
 	rm -f PXD000001_mztab.txt
 	rm -rf output*xml
 	rm -f RforProteomics.tex 
-	rm -f ProtViz.md 
+	rm -f RProtVis.md 
 
-allclean: clean 
+allclean: 
+	make clean 
 	rm -fr cache 
-	find -path "./figure/*" ! -name shinyMA.png -delete
+	rm -fr figure
 
 srcclean: 
 	rm -fr vigsrc/cache vigsrc/figure 
