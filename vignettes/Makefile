@@ -37,6 +37,15 @@ poster:
 viz: 
 	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('RProtVis.Rmd');"
 
+viz2: 
+	if [ -d 'vigsrc/cache' ]; then  \
+		ln -sf vigsrc/cache .;  \
+		ln -sf vigsrc/figure .; \
+		ln -sf vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML .; \
+	fi
+	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('RProtVis.Rmd');"
+
+
 .PHONY: clean allclean 
 
 cache:
