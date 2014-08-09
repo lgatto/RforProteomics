@@ -1,11 +1,12 @@
-!--
+<!--
 %\VignetteEngine{knitr::knitr}
 %\VignetteIndexEntry{Visualisation of proteomics data using R and Bioconductor}
 %\VignetteKeyword{bioinformatics, proteomics, mass spectrometry, visualisation}
 -->
 
 # Visualisation of proteomics data using R and Bioconductor
-[Laurent Gatto](http://proteome.sysbiol.cam.ac.uk/lgatto/)
+
+[Laurent Gatto](http://proteome.sysbiol.cam.ac.uk/lgatto/) and Sebastian Gibb
 
 ```{r env, message=FALSE, echo=FALSE}
 library("RforProteomics")
@@ -409,7 +410,6 @@ for (i in seq(along=sel)) {
 }
 par(mfrow = c(1, 1))
 ```
->>>>>>> 0f0065d89450b7b4f0b249a23cb52c16b34bcf66
 
 ## Genomic and protein sequences
 
@@ -423,7 +423,8 @@ and
 
 The following code chunk downloads a MALDI-IMS dataset from a mouse kidney
 shared by [Adrien Nyakas and Stefan Schürch](http://figshare.com/articles/MALDI_Imaging_Mass_Spectrometry_of_a_Mouse_Kidney/735961).
-```{r mqimsimport}
+
+```{r mqimsimport, cache=TRUE}
 library("MALDIquant")
 library("MALDIquantForeign")
 
@@ -485,10 +486,12 @@ plotImsSlice <- function(x, range, main,
   rasterImage(m, xleft=1, xright=nc, ybottom=1, ytop=nr, interpolate=FALSE)
 }
 ```
+
 ```{r mqimssmooth, echo = FALSE}
 spectra <- suppressWarnings(smoothIntensity(spectra, "SavitzkyGolay",  halfWindowSize = 8))
 ```
-```{r mqimspreproc, eval = -1}
+
+```{r mqimspreproc, eval = TRUE, cache=TRUE}
 spectra <- smoothIntensity(spectra, "SavitzkyGolay",  halfWindowSize = 8)
 spectra <- removeBaseline(spectra, method = "TopHat", halfWindowSize = 16)
 spectra <- calibrateIntensity(spectra, method = "TIC")
@@ -499,12 +502,18 @@ plotImsSlice(spectra, range = c(3361.8, 3362.8), main = "foo")
 plot(avgSpectrum, main = "mean spectrum")
 abline(v = 3362.3, col = "red")
 par(mfrow = c(1, 1))
+```
 
 ## Spatial proteomics
+
+See
+[`pRoloc-tutorial`](http://bioconductor.org/packages/release/bioc/vignettes/pRoloc/inst/doc/pRoloc-tutorial.pdf)
+(pdf) from the
+[`pRoloc`](http://bioconductor.org/packages/release/bioc/html/pRoloc.html)
+package for details.
 
 ## Session information
 
 ```{r si}
 print(sessionInfo(), locale = FALSE)
->>>>>>> 61c21715dd98553424d27829b66bc3d36bd6f3db:vignettes/RProtVis.Rmd
 ```
