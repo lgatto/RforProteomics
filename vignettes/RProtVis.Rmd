@@ -10,6 +10,7 @@
 ```{r env, message=FALSE, echo=FALSE}
 library("RforProteomics")
 library("BiocInstaller")
+library("mzR")
 library("MSnbase")
 library("knitr")
 library("rpx")
@@ -46,9 +47,13 @@ pp <- proteomicsPackages()
 msp <- massSpectrometryPackages()
 ```
 
-There are currently `r nrow(pp)` Proteomics and `r nrow(msp)`
-MassSpectrometry packages in Bioconductor version `r as.character(biocVersion())`.
-Other non-Bioconductor packages are described in the `RforProteomics` vignette. 
+There are currently `r nrow(pp)`
+[Proteomics](http://bioconductor.org/packages/devel/BiocViews.html#___Proteomics)
+and `r nrow(msp)`
+[MassSpectrometry](http://bioconductor.org/packages/devel/BiocViews.html#___MassSpectrometry)
+packages in Bioconductor version `r as.character(biocVersion())`.
+Other non-Bioconductor packages are described in the `RforProteomics`
+[vignette](http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf).
 
 ```{r, pptab, echo=FALSE}
 kable(pp)
@@ -230,9 +235,71 @@ shinyMA()
 
 ![shinyMA screenshot](./figures/shinyMA.png)
 
+
 ## Visualising mass spectrometry data
 
-```{r msviz}
+### Direct access to the raw data
+
+```{r maps0}
+library("lattice")
+library("mzR")
+mzf <- pxget(px1, 6)
+ms <- openMSfile(mzf)
+
+hd <- header(ms)
+ms1 <- which(hd$msLevel == 1)
+
+rtsel <- hd$retentionTime[ms1] / 60 > 30 & hd$retentionTime[ms1] / 60 < 35
+
+M <- MSmap(ms, ms1[rtsel], 521, 523, .005, hd)
+plot(M, aspect = 1, allTicks = FALSE)
+```
+
+```{r maps1}
+plot3D(M, FALSE)
+```
+
+```{r rglmap, eval=FALSE}
+library("rgl")
+plot3D(M, TRUE)
+```
+
+```{r msdetails}
+lout <- matrix(NA, ncol = 5, nrow = 4)
+lout[1, ] <- 1
+lout[2, ] <- 2
+lout[3, ] <- 3:7
+lout[4, ] <- 8:12
+i <- ms1[which(rtsel)][1]
+j <- ms1[which(rtsel)][2]
+ms2 <- (i+1):(j-1)
+layout(lout)
+plot(peaks(ms, i), type = "l", xlim = c(521, 523), xlab = "M/Z", ylab = "Intensity")
+abline(h = 0, col = "grey")
+abline(v = hd[ms2, "precursorMZ"], col = "grey")
+plot(peaks(ms, i), type = "h", xlab = "M/Z", ylab = "Intensity")
+abline(h = 0, col = "grey")
+abline(v = hd[ms2, "precursorMZ"], col = "grey")
+omar <- par("mar")
+par(mar = c(2, 2, 0, 1))
+for (ii in ms2) {
+    p <- peaks(ms, ii)
+    plot(p, xlab = "", ylab = "", type = "h", cex.axis = .7)
+    legend("topright", legend = round(hd[ii, "precursorMZ"], 2),
+           bty = "n", cex = .8)
+}
+par(mar = omar)
+```
+
+
+```{r maps2} 
+M2 <- MSmap(ms, i:j, 100, 1000, 1, hd)
+plot3D(M2)
+```
+
+### The MSnbase infrastructure
+
+```{r msnbviz}
 library("MSnbase")
 data(itraqdata)
 itraqdata2 <- pickPeaks(itraqdata, verbose = FALSE)
@@ -241,6 +308,8 @@ par(oma = c(0, 0, 0, 0))
 par(mar = c(4, 4, 1, 1))
 plot(itraqdata2[[25]], itraqdata2[[28]], sequences = rep("IMIDLDGTENK", 2))
 ```
+
+### `MALDIquant` data processing
 
 
 ## Genomic and protein sequences
@@ -253,7 +322,6 @@ and
 ## MS imaging
 
 ## Spatial proteomics
-
 
 ## Session information
 
