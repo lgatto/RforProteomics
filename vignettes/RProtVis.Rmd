@@ -315,10 +315,12 @@ plot(itraqdata2[[25]], itraqdata2[[28]], sequences = rep("IMIDLDGTENK", 2))
 ### Preprocessing of MALDI-MS spectra
 
 The following code chunks demonstrate the usage of the mass spectrometry
-preprocessing and plotting routines in the *MALDIquant* package. *MALDIquant*
-uses the traditional graphics system. Therefore *MALDIquant* overloads the
+preprocessing and plotting routines in the `MALDIquant` package. `MALDIquant`
+uses the traditional graphics system. Therefore `MALDIquant` overloads the
 traditional functions `plot`, `lines` and `points` for its own data types. These
-data types represents spectrum and peak lists as S4 classes.
+data types represents spectrum and peak lists as S4 classes. Please see the
+`MALDIquant` [vignette](http://cran.r-project.org/web/packages/MALDIquant/vignettes/MALDIquant.pdf)
+for more details.
 
 After loading some example data a simple `plot` draws the raw spectrum.
 ```{r mqraw}
@@ -369,7 +371,7 @@ labelPeaks(peaks[[14]], index = top5, avoidOverlap = TRUE)
 ```
 
 Often multiple spectra have to be recalibrated to be comparable. Therefore
-*MALDIquant* warps the spectra according to so called reference or landmark
+`MALDIquant` warps the spectra according to so called reference or landmark
 peaks. For debugging the `determineWarpingFunctions` function offers some
 warping plots. Here we show only the last 4 plots:
 ```{r mqwarp}
@@ -423,6 +425,10 @@ and
 
 The following code chunk downloads a MALDI-IMS dataset from a mouse kidney
 shared by [Adrien Nyakas and Stefan Schürch](http://figshare.com/articles/MALDI_Imaging_Mass_Spectrometry_of_a_Mouse_Kidney/735961).
+
+There is also an interactive
+[MALDIquant IMS shiny app](https://github.com/sgibb/ims-shiny) for demonstration
+purposes.
 
 ```{r mqimsimport, cache=TRUE}
 library("MALDIquant")
