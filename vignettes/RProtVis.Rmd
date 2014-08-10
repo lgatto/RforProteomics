@@ -295,7 +295,7 @@ par(mar = omar)
 ```
 
 
-```{r maps2} 
+```{r maps2}
 M2 <- MSmap(ms, i:j, 100, 1000, 1, hd)
 plot3D(M2)
 ```
@@ -319,8 +319,8 @@ preprocessing and plotting routines in the `MALDIquant` package. `MALDIquant`
 uses the traditional graphics system. Therefore `MALDIquant` overloads the
 traditional functions `plot`, `lines` and `points` for its own data types. These
 data types represents spectrum and peak lists as S4 classes. Please see the
-`MALDIquant` [vignette](http://cran.r-project.org/web/packages/MALDIquant/vignettes/MALDIquant.pdf)
-for more details.
+`MALDIquant` [vignette](http://cran.r-project.org/web/packages/MALDIquant/vignettes/MALDIquant.pdf) and the corresponding
+[website](http://strimmerlab.org/software/maldiquant/) for more details.
 
 After loading some example data a simple `plot` draws the raw spectrum.
 ```{r mqraw}
@@ -426,10 +426,6 @@ and
 The following code chunk downloads a MALDI-IMS dataset from a mouse kidney
 shared by [Adrien Nyakas and Stefan Schürch](http://figshare.com/articles/MALDI_Imaging_Mass_Spectrometry_of_a_Mouse_Kidney/735961).
 
-There is also an interactive
-[MALDIquant IMS shiny app](https://github.com/sgibb/ims-shiny) for demonstration
-purposes.
-
 ```{r mqimsimport, cache=TRUE}
 library("MALDIquant")
 library("MALDIquantForeign")
@@ -511,6 +507,19 @@ par(mar = rep(0.5, 4))
 plotImsSlice(spectra, range = c(3361.8, 3362.8))
 par(mfrow = c(1, 1), mar = oldMar)
 ```
+
+### An interactive `shiny` app for IMS
+
+There is also an interactive
+[MALDIquant IMS shiny app](https://github.com/sgibb/ims-shiny) for demonstration
+purposes. A screen shot is displayed below. To start the application:
+
+```{r ims-shiny, eval=FALSE}
+library("shiny")
+runGitHub("sgibb/ims-shiny")
+```
+
+![ims-shiny screeshot](./figure/ims-shiny.png)
 
 ## Spatial proteomics
 
