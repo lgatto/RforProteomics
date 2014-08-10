@@ -337,7 +337,7 @@ transformedSpectra <- transformIntensity(fiedler2009subset, method = "sqrt")
 smoothedSpectra <- smoothIntensity(transformedSpectra, method = "SavitzkyGolay")
 
 plot(smoothedSpectra[[14]])
-lines(estimateBaseline(smoothedSpectra[[14]]), lwd = 2, col="red")
+lines(estimateBaseline(smoothedSpectra[[14]]), lwd = 2, col = "red")
 ```
 
 After removing the background removal we could use `plot` again to draw our
@@ -353,7 +353,7 @@ peaks in a spectrum.
 
 ```{r mqpeaks}
 cbSpectra <- calibrateIntensity(rbSpectra, method = "TIC")
-peaks <- detectPeaks(cbSpectra, SNR=5)
+peaks <- detectPeaks(cbSpectra, SNR = 5)
 
 plot(cbSpectra[[14]])
 points(peaks[[14]], col = "red", pch = 4, lwd = 2)
@@ -377,7 +377,7 @@ par(mfrow = c(2, 2))
 reference <- referencePeaks(peaks)
 warpingFunctions <- determineWarpingFunctions(peaks[13:16],
                                               reference = reference,
-                                              tolerance=0.001,
+                                              tolerance = 0.001,
                                               plot = TRUE,
                                               plotInteractive = TRUE)
 par(mfrow = c(1, 1))
@@ -395,18 +395,18 @@ ylim <- c(0, 1.9e-3)
 lty <- c(1, 4, 2, 6)
 
 par(mfrow = c(1, 2))
-plot(cbSpectra[[1]], xlim=xlim, ylim=ylim, type="n")
+plot(cbSpectra[[1]], xlim = xlim, ylim = ylim, type = "n")
 
-for (i in seq(along=sel)) {
-  lines(peaks[[sel[i]]], lty=lty[i], col=i)
-  lines(cbSpectra[[sel[i]]], lty=lty[i], col=i)
+for (i in seq(along = sel)) {
+  lines(peaks[[sel[i]]], lty = lty[i], col = i)
+  lines(cbSpectra[[sel[i]]], lty = lty[i], col = i)
 }
 
-plot(cbSpectra[[1]], xlim=xlim, ylim=ylim, type="n")
+plot(cbSpectra[[1]], xlim = xlim, ylim = ylim, type = "n")
 
-for (i in seq(along=sel)) {
-  lines(warpedPeaks[[sel[i]]], lty=lty[i], col=i)
-  lines(warpedSpectra[[sel[i]]], lty=lty[i], col=i)
+for (i in seq(along = sel)) {
+  lines(warpedPeaks[[sel[i]]], lty = lty[i], col = i)
+  lines(warpedSpectra[[sel[i]]], lty = lty[i], col = i)
 }
 par(mfrow = c(1, 1))
 ```
