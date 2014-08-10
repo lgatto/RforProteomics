@@ -497,11 +497,13 @@ spectra <- removeBaseline(spectra, method = "TopHat", halfWindowSize = 16)
 spectra <- calibrateIntensity(spectra, method = "TIC")
 avgSpectrum <- averageMassSpectra(spectra)
 
+oldMar <- par("mar")
 par(mfrow = c(2, 1))
-plotImsSlice(spectra, range = c(3361.8, 3362.8), main = "foo")
 plot(avgSpectrum, main = "mean spectrum")
 abline(v = 3362.3, col = "red")
-par(mfrow = c(1, 1))
+par(mar = rep(0.5, 4))
+plotImsSlice(spectra, range = c(3361.8, 3362.8))
+par(mfrow = c(1, 1), mar = oldMar)
 ```
 
 ## Spatial proteomics
