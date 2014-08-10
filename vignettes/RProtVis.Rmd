@@ -246,7 +246,8 @@ shinyMA()
 ```{r maps0}
 library("lattice")
 library("mzR")
-mzf <- pxget(px1, 6)
+## mzf <- pxget(px1, 6)
+mzf <- "TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML"
 ms <- openMSfile(mzf)
 
 hd <- header(ms)
@@ -254,6 +255,7 @@ ms1 <- which(hd$msLevel == 1)
 
 rtsel <- hd$retentionTime[ms1] / 60 > 30 & hd$retentionTime[ms1] / 60 < 35
 
+library("MSnbase")
 M <- MSmap(ms, ms1[rtsel], 521, 523, .005, hd)
 plot(M, aspect = 1, allTicks = FALSE)
 ```
@@ -268,6 +270,7 @@ plot3D(M, TRUE)
 ```
 
 ```{r msdetails}
+
 lout <- matrix(NA, ncol = 5, nrow = 4)
 lout[1, ] <- 1
 lout[2, ] <- 2
@@ -298,6 +301,20 @@ par(mar = omar)
 ```{r maps2} 
 M2 <- MSmap(ms, i:j, 100, 1000, 1, hd)
 plot3D(M2)
+```
+
+MS barcoding
+
+```{r barcode, fig.height=2, fig.width=12}
+
+par(mar=c(4,1,1,1))
+image(t(matrix(hd$msLevel, 1, nrow(hd))),
+      xlab="Retention time",
+      xaxt="n", yaxt="n", col=c("black","steelblue"))
+k <- round(range(hd$retentionTime) / 60)
+nk <- 5
+axis(side=1, at=seq(0,1,1/nk), labels=seq(k[1],k[2],k[2]/nk))
+
 ```
 
 ### The MSnbase infrastructure
@@ -487,7 +504,7 @@ plotImsSlice <- function(x, range, main,
 }
 ```
 
-```{r mqimssmooth, echo = FALSE}
+```{r mqimssmooth, echo = FALSE, warning=FALSE}
 spectra <- suppressWarnings(smoothIntensity(spectra, "SavitzkyGolay",  halfWindowSize = 8))
 ```
 
