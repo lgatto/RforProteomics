@@ -6,7 +6,8 @@
 
 # Visualisation of proteomics data using R and Bioconductor
 
-[Laurent Gatto](http://proteome.sysbiol.cam.ac.uk/lgatto/) and Sebastian Gibb
+[Laurent Gatto](http://proteome.sysbiol.cam.ac.uk/lgatto/) and
+[Sebastian Gibb](http://sebastiangibb.de/research.html)
 
 ```{r env, message=FALSE, echo=FALSE}
 library("RforProteomics")
