@@ -298,7 +298,7 @@ par(mar = omar)
 ```
 
 
-```{r maps2} 
+```{r maps2}
 M2 <- MSmap(ms, i:j, 100, 1000, 1, hd)
 plot3D(M2)
 ```
@@ -332,10 +332,12 @@ plot(itraqdata2[[25]], itraqdata2[[28]], sequences = rep("IMIDLDGTENK", 2))
 ### Preprocessing of MALDI-MS spectra
 
 The following code chunks demonstrate the usage of the mass spectrometry
-preprocessing and plotting routines in the *MALDIquant* package. *MALDIquant*
-uses the traditional graphics system. Therefore *MALDIquant* overloads the
+preprocessing and plotting routines in the `MALDIquant` package. `MALDIquant`
+uses the traditional graphics system. Therefore `MALDIquant` overloads the
 traditional functions `plot`, `lines` and `points` for its own data types. These
-data types represents spectrum and peak lists as S4 classes.
+data types represents spectrum and peak lists as S4 classes. Please see the
+`MALDIquant` [vignette](http://cran.r-project.org/web/packages/MALDIquant/vignettes/MALDIquant.pdf) and the corresponding
+[website](http://strimmerlab.org/software/maldiquant/) for more details.
 
 After loading some example data a simple `plot` draws the raw spectrum.
 ```{r mqraw}
@@ -354,7 +356,7 @@ transformedSpectra <- transformIntensity(fiedler2009subset, method = "sqrt")
 smoothedSpectra <- smoothIntensity(transformedSpectra, method = "SavitzkyGolay")
 
 plot(smoothedSpectra[[14]])
-lines(estimateBaseline(smoothedSpectra[[14]]), lwd = 2, col="red")
+lines(estimateBaseline(smoothedSpectra[[14]]), lwd = 2, col = "red")
 ```
 
 After removing the background removal we could use `plot` again to draw our
@@ -370,7 +372,7 @@ peaks in a spectrum.
 
 ```{r mqpeaks}
 cbSpectra <- calibrateIntensity(rbSpectra, method = "TIC")
-peaks <- detectPeaks(cbSpectra, SNR=5)
+peaks <- detectPeaks(cbSpectra, SNR = 5)
 
 plot(cbSpectra[[14]])
 points(peaks[[14]], col = "red", pch = 4, lwd = 2)
@@ -386,7 +388,7 @@ labelPeaks(peaks[[14]], index = top5, avoidOverlap = TRUE)
 ```
 
 Often multiple spectra have to be recalibrated to be comparable. Therefore
-*MALDIquant* warps the spectra according to so called reference or landmark
+`MALDIquant` warps the spectra according to so called reference or landmark
 peaks. For debugging the `determineWarpingFunctions` function offers some
 warping plots. Here we show only the last 4 plots:
 ```{r mqwarp}
@@ -394,7 +396,7 @@ par(mfrow = c(2, 2))
 reference <- referencePeaks(peaks)
 warpingFunctions <- determineWarpingFunctions(peaks[13:16],
                                               reference = reference,
-                                              tolerance=0.001,
+                                              tolerance = 0.001,
                                               plot = TRUE,
                                               plotInteractive = TRUE)
 par(mfrow = c(1, 1))
@@ -412,18 +414,18 @@ ylim <- c(0, 1.9e-3)
 lty <- c(1, 4, 2, 6)
 
 par(mfrow = c(1, 2))
-plot(cbSpectra[[1]], xlim=xlim, ylim=ylim, type="n")
+plot(cbSpectra[[1]], xlim = xlim, ylim = ylim, type = "n")
 
-for (i in seq(along=sel)) {
-  lines(peaks[[sel[i]]], lty=lty[i], col=i)
-  lines(cbSpectra[[sel[i]]], lty=lty[i], col=i)
+for (i in seq(along = sel)) {
+  lines(peaks[[sel[i]]], lty = lty[i], col = i)
+  lines(cbSpectra[[sel[i]]], lty = lty[i], col = i)
 }
 
-plot(cbSpectra[[1]], xlim=xlim, ylim=ylim, type="n")
+plot(cbSpectra[[1]], xlim = xlim, ylim = ylim, type = "n")
 
-for (i in seq(along=sel)) {
-  lines(warpedPeaks[[sel[i]]], lty=lty[i], col=i)
-  lines(warpedSpectra[[sel[i]]], lty=lty[i], col=i)
+for (i in seq(along = sel)) {
+  lines(warpedPeaks[[sel[i]]], lty = lty[i], col = i)
+  lines(warpedSpectra[[sel[i]]], lty = lty[i], col = i)
 }
 par(mfrow = c(1, 1))
 ```
@@ -514,12 +516,27 @@ spectra <- removeBaseline(spectra, method = "TopHat", halfWindowSize = 16)
 spectra <- calibrateIntensity(spectra, method = "TIC")
 avgSpectrum <- averageMassSpectra(spectra)
 
+oldMar <- par("mar")
 par(mfrow = c(2, 1))
-plotImsSlice(spectra, range = c(3361.8, 3362.8), main = "foo")
 plot(avgSpectrum, main = "mean spectrum")
 abline(v = 3362.3, col = "red")
-par(mfrow = c(1, 1))
+par(mar = rep(0.5, 4))
+plotImsSlice(spectra, range = c(3361.8, 3362.8))
+par(mfrow = c(1, 1), mar = oldMar)
 ```
+
+### An interactive `shiny` app for IMS
+
+There is also an interactive
+[MALDIquant IMS shiny app](https://github.com/sgibb/ims-shiny) for demonstration
+purposes. A screen shot is displayed below. To start the application:
+
+```{r ims-shiny, eval=FALSE}
+library("shiny")
+runGitHub("sgibb/ims-shiny")
+```
+
+![ims-shiny screeshot](./figure/ims-shiny.png)
 
 ## Spatial proteomics
 
