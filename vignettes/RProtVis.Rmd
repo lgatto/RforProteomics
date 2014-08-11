@@ -337,8 +337,9 @@ preprocessing and plotting routines in the `MALDIquant` package. `MALDIquant`
 uses the traditional graphics system. Therefore `MALDIquant` overloads the
 traditional functions `plot`, `lines` and `points` for its own data types. These
 data types represents spectrum and peak lists as S4 classes. Please see the
-`MALDIquant` [vignette](http://cran.r-project.org/web/packages/MALDIquant/vignettes/MALDIquant.pdf) and the corresponding
-[website](http://strimmerlab.org/software/maldiquant/) for more details.
+`MALDIquant` [vignette](http://cran.r-project.org/web/packages/MALDIquant/vignettes/MALDIquant-intro.pdf)
+and the corresponding [website](http://strimmerlab.org/software/maldiquant/)
+for more details.
 
 After loading some example data a simple `plot` draws the raw spectrum.
 ```{r mqraw}
