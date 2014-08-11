@@ -236,7 +236,7 @@ application:
 shinyMA()
 ```
 
-![shinyMA screeshot](./figure/shinyMA.png)
+![shinyMA screeshot](./figures/shinyMA.png)
 
 
 ## Visualising mass spectrometry data
@@ -536,7 +536,7 @@ library("shiny")
 runGitHub("sgibb/ims-shiny")
 ```
 
-![ims-shiny screeshot](./figure/ims-shiny.png)
+![ims-shiny screeshot](./figures/ims-shiny.png)
 
 ## Spatial proteomics
 
