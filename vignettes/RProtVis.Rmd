@@ -381,7 +381,9 @@ points(peaks[[14]], col = "red", pch = 4, lwd = 2)
 Additional there is a special function `labelPeaks` that allows to draw the m/z
 values above the corresponding peaks. Next we mark the 5 top peaks in the
 spectrum.
-```{r mqlabelpeaks}
+```{r mqlabelpeaks, echo = -(1:2)}
+plot(cbSpectra[[14]])
+points(peaks[[14]], col = "red", pch = 4, lwd = 2)
 top5 <- intensity(peaks[[14]]) %in% sort(intensity(peaks[[14]]),
                                          decreasing = TRUE)[1:5]
 labelPeaks(peaks[[14]], index = top5, avoidOverlap = TRUE)
