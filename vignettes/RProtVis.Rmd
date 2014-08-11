@@ -510,7 +510,7 @@ plotImsSlice <- function(x, range, main,
 spectra <- suppressWarnings(smoothIntensity(spectra, "SavitzkyGolay",  halfWindowSize = 8))
 ```
 
-```{r mqimspreproc, eval = TRUE, cache=TRUE}
+```{r mqimspreproc, eval = TRUE, cache=TRUE, warning=FALSE}
 spectra <- smoothIntensity(spectra, "SavitzkyGolay",  halfWindowSize = 8)
 spectra <- removeBaseline(spectra, method = "TopHat", halfWindowSize = 16)
 spectra <- calibrateIntensity(spectra, method = "TIC")
