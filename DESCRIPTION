@@ -10,7 +10,7 @@ Maintainer: Laurent Gatto <lg390@cam.ac.uk>
 Depends: MSnbase
 Imports: R.utils, Biobase, rpx, biocViews, BiocInstaller,
 	 interactiveDisplay, shiny
-Suggests: mzR, xcms, msdata, isobar, MALDIquant, MALDIquantForeign,
+Suggests: mzR, xcms, msdata, isobar, MALDIquant (>= 1.11), MALDIquantForeign,
 	  readBrukerFlexData, rTANDEM, synapter, synapterdata, IPPD,
 	  Rdisop, OrgMassSpecR, BRAIN, rols, hpar, GO.db,
 	  org.Hs.eg.db, biomaRt, RColorBrewer, ggplot2, reshape2,
