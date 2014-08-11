@@ -393,11 +393,9 @@ Often multiple spectra have to be recalibrated to be comparable. Therefore
 `MALDIquant` warps the spectra according to so called reference or landmark
 peaks. For debugging the `determineWarpingFunctions` function offers some
 warping plots. Here we show only the last 4 plots:
-```{r mqwarp}
+```{r mqwarp, fig.keep = "last"}
 par(mfrow = c(2, 2))
-reference <- referencePeaks(peaks)
-warpingFunctions <- determineWarpingFunctions(peaks[13:16],
-                                              reference = reference,
+warpingFunctions <- determineWarpingFunctions(peaks,
                                               tolerance = 0.001,
                                               plot = TRUE,
                                               plotInteractive = TRUE)
