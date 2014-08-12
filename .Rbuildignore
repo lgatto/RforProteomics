@@ -6,5 +6,7 @@ vignettes/vigsrc/cache
 vignettes/vigsrc/F063721.dat-mztab.txt
 vignettes/vigsrc/P00924.fasta
 vignettes/vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML
+vignettes/vigsrc/PXD000001_mztab.txt
+vignettes/vigsrc/RforProteomics-stub.Rnw
 .gitignore
 README.md
