@@ -28,6 +28,7 @@ endif
 
 vig:
 	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.Rnw
+	cp vigsrc/RforProteomics.R .
 	cp vigsrc/RforProteomics.pdf .
 
 poster:
@@ -35,7 +36,7 @@ poster:
 	cp vigsrc/Bioc2013_poster.pdf .
 
 viz: 
-	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('RProtVis.Rmd');"
+	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('RProtVis.Rmd'); purl('RProtVis.Rmd');"
 
 viz2: 
 	if [ -d 'vigsrc/cache' ]; then  \
@@ -76,6 +77,7 @@ vig2:
 	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
 	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
 	cp RforProteomics.pdf vigsrc/.
+	cp RforProteomics.R vigsrc/.
 	## scp RforProteomics.pdf lg390@proteome.sysbiol.cam.ac.uk:/var/www/htdocs/lgatto/RforProteomics/.
 	cp vigsrc/RforProteomics-stub.Rnw RforProteomics.Rnw
 	rm RforProteomics.bib RforProteomics.tex
@@ -97,7 +99,7 @@ allclean:
 	make clean 
 	rm -fr cache 
 	rm -fr figure
-	rm -r RforProteomics.R RProtVis.R
+	rm -f RforProteomics.R RProtVis.R
 
 srcclean: 
 	rm -fr vigsrc/cache vigsrc/figure 
