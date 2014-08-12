@@ -91,11 +91,13 @@ clean:
 	rm -rf output*xml
 	rm -f RforProteomics.tex 
 	rm -f RProtVis.md 
+	rm -f Bioc2013_poster.tex
 
 allclean: 
 	make clean 
 	rm -fr cache 
 	rm -fr figure
+	rm -r RforProteomics.R RProtVis.R
 
 srcclean: 
 	rm -fr vigsrc/cache vigsrc/figure 

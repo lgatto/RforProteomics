@@ -247,8 +247,7 @@ shinyMA()
 ```{r maps0}
 library("lattice")
 library("mzR")
-## mzf <- pxget(px1, 6)
-mzf <- "TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML"
+mzf <- pxget(px1, 6)
 ms <- openMSfile(mzf)
 
 hd <- header(ms)
