@@ -15,6 +15,7 @@ LATEXFILES = *.aux\
 
 all: 
 	make vig
+	make viz
 	make poster
 	make clean
 
@@ -25,13 +26,25 @@ R_HOME= $(shell R RHOME)
 endif
 
 
-vig0:
-	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
+vig:
+	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.Rnw
 	cp vigsrc/RforProteomics.pdf .
 
 poster:
 	"$(R_HOME)/bin/R" CMD pdflatex Bioc2013_poster.Rnw
 	cp vigsrc/Bioc2013_poster.pdf .
+
+viz: 
+	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('RProtVis.Rmd');"
+
+viz2: 
+	if [ -d 'vigsrc/cache' ]; then  \
+		ln -sf vigsrc/cache .;  \
+		ln -sf vigsrc/figure .; \
+		ln -sf vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML .; \
+	fi
+	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('RProtVis.Rmd');"
+
 
 .PHONY: clean allclean 
 
@@ -46,7 +59,7 @@ stub:
 
 vig2: 
 	## Only locally, using default R-devel
-	rm -f $(LATEXFILES)
+	make allclean
 	cp vigsrc/RforProteomics.Rnw .
 	cp vigsrc/RforProteomics.bib .
 	if [ -d 'vigsrc/cache' ]; then \
@@ -77,12 +90,17 @@ clean:
 	rm -f PXD000001_mztab.txt
 	rm -rf output*xml
 	rm -f RforProteomics.tex 
-	rm -f cache figure
+	rm -f RProtVis.md 
+	rm -f Bioc2013_poster.tex
 
-allclean: clean 
-	rm -fr cache figure 
+allclean: 
+	make clean 
+	rm -fr cache 
+	rm -fr figure
+	rm -r RforProteomics.R RProtVis.R
+
+srcclean: 
 	rm -fr vigsrc/cache vigsrc/figure 
 	rm -f vigsrc/F063721.dat-mztab.txt
 	rm -f vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML
 	rm -f vigsrc/P00924.fasta
-
