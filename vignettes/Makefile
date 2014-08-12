@@ -72,7 +72,7 @@ vig2:
 		ln -sf vigsrc/F063721.dat-mztab.txt .; \
 		ln -sf vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML .; \
 	fi
-	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2pdf('RforProteomics.Rnw');"
+	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2pdf('RforProteomics.Rnw'); purl('RforProteomics.Rnw');"
 	bibtex RforProteomics
 	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
 	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
