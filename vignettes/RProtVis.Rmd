@@ -357,6 +357,7 @@ axis(side=1, at=seq(0,1,1/nk), labels=seq(k[1],k[2],k[2]/nk))
 
 ```
 
+
 ### The MSnbase infrastructure
 
 ```{r msnbviz}
@@ -367,6 +368,9 @@ plot(itraqdata[[25]], full=TRUE, reporters = iTRAQ4)
 par(oma = c(0, 0, 0, 0))
 par(mar = c(4, 4, 1, 1))
 plot(itraqdata2[[25]], itraqdata2[[28]], sequences = rep("IMIDLDGTENK", 2))
+```
+
+```{r msnbvizpdf, ref.label='msnbviz', echo=FALSE, dev='pdf', fig.width=8, fig.height=8}
 ```
 
 ### Preprocessing of MALDI-MS spectra
