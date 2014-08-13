@@ -304,7 +304,7 @@ abline(v = hd[i, "retentionTime"], col = "red")
 
 par(mar = c(3, 2, 1, 0))
 plot(peaks(ms, i), type = "l", xlim = c(400, 1000))
-legend("topright", bty = "n",  
+legend("topright", bty = "n",
        legend = paste0(
            "Acquisition ", hd[i, "acquisitionNum"],  "\n",
            "Retention time ", formatRt(hd[i, "retentionTime"])))
@@ -485,19 +485,17 @@ and
 
 ### Imaging mass spectrometry
 
-The following code chunk downloads a MALDI-IMS dataset from a mouse kidney
-shared by [Adrien Nyakas and Stefan Schürch](http://figshare.com/articles/MALDI_Imaging_Mass_Spectrometry_of_a_Mouse_Kidney/735961).
+The following code chunk downloads a MALDI imaging dataset from a mouse kidney
+shared by [Adrien Nyakas and Stefan Schürch](http://figshare.com/articles/MALDI_Imaging_Mass_Spectrometry_of_a_Mouse_Kidney/735961)
+and generates a plot with the mean spectrum and three slices of interesting
+*m/z* regions.
 
-```{r mqimsimport, cache=TRUE}
+```{r mqims, cache=TRUE, warning=FALSE}
 library("MALDIquant")
 library("MALDIquantForeign")
 
 spectra <- importBrukerFlex("http://files.figshare.com/1106682/MouseKidney_IMS_testdata.zip", verbose = FALSE)
-```
 
-After retrieving the data we do some preprocessing a plot a slice of the image
-for an interesting peak region.
-```{r mqimspreproc, eval = TRUE, cache=TRUE, warning=FALSE}
 spectra <- smoothIntensity(spectra, "SavitzkyGolay",  halfWindowSize = 8)
 spectra <- removeBaseline(spectra, method = "TopHat", halfWindowSize = 16)
 spectra <- calibrateIntensity(spectra, method = "TIC")
@@ -519,6 +517,9 @@ for (i in seq(along = avgPeaks)) {
                main = paste(round(range, 2), collapse = " - "))
 }
 par(oldPar)
+```
+
+```{r mqimspdf, ref.label='mqims', echo=FALSE, warning=FALSE, dev='pdf', fig.width=10, fig.height=6}
 ```
 
 ### An interactive `shiny` app for IMS
