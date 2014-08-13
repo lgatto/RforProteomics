@@ -1,6 +1,6 @@
 %\VignetteEngine{knitr}
-%\VignetteIndexEntry{R for Proteomics}
-%\VignetteKeywords{bioinformatics, proteomics, mass spectrometry}
+%\VignetteIndexEntry{Using R for proteomics data analysis}
+%\VignetteKeywords{Bioinformatics, proteomics, mass spectrometry, tutorial, data}
 %\VignettePackage{RforProteomics}
 
 \documentclass[10pt]{article}
