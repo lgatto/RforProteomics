@@ -6,7 +6,8 @@
 
 # Visualisation of proteomics data using R and Bioconductor
 
-[Laurent Gatto](http://proteome.sysbiol.cam.ac.uk/lgatto/) and
+[Laurent Gatto](http://proteome.sysbiol.cam.ac.uk/lgatto/),
+[Lisa Breckels](http://cpu.sysbiol.cam.ac.uk/) and
 [Sebastian Gibb](http://sebastiangibb.de/research.html)
 
 ```{r env, message=FALSE, echo=FALSE}
@@ -20,6 +21,8 @@ library("xtable")
 library("RColorBrewer")
 library("MALDIquant")
 library("MALDIquantForeign")
+library("pRoloc")
+library("pRolocdata")
 ```
 
 ## Introduction
@@ -59,18 +62,18 @@ packages in Bioconductor version `r as.character(biocVersion())`.
 Other non-Bioconductor packages are described in the `RforProteomics`
 [vignette](http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf).
 
-```{r, pptab, echo=FALSE}
-kable(pp)
+```{r pptab, echo=FALSE, results='asis'}
+kable(pp, format = "html")
 ```
 
-```{r, msptab, echo=FALSE}
-kable(msp)
+```{r msptab, echo=FALSE, results='asis'}
+kable(msp, format = "html")
 ```
 
 ## Ascombe's quartet
 
-```{r anscombe}
-anscombe
+```{r anscombe, echo = FALSE, results='asis'}
+kable(anscombe, format = "html")
 ```
 
 ```{r anscombetab}
@@ -244,7 +247,7 @@ shinyMA()
 
 ### Direct access to the raw data
 
-```{r maps0}
+```{r mapsprep}
 library("lattice")
 library("mzR")
 mzf <- pxget(px1, 6)
@@ -254,14 +257,25 @@ hd <- header(ms)
 ms1 <- which(hd$msLevel == 1)
 
 rtsel <- hd$retentionTime[ms1] / 60 > 30 & hd$retentionTime[ms1] / 60 < 35
-
 library("MSnbase")
-M <- MSmap(ms, ms1[rtsel], 521, 523, .005, hd)
+(M <- MSmap(ms, ms1[rtsel], 521, 523, .005, hd))
+```
+
+```{r mapsheat}
+ff <- colorRampPalette(c("yellow", "steelblue"))
+trellis.par.set(regions=list(col=ff(100)))
 plot(M, aspect = 1, allTicks = FALSE)
 ```
 
-```{r maps1}
+```{r mapsheadpdf, ref.label='mapsheat', echo=FALSE, dev='pdf'}
+```
+
+```{r maps3D}
+M@map[msMap(M) == 0] <- NA
 plot3D(M, FALSE)
+```
+
+```{r maps3Dpdf, ref.label='maps3D', echo=FALSE, dev='pdf'}
 ```
 
 ```{r rglmap, eval=FALSE}
@@ -271,36 +285,65 @@ plot3D(M, TRUE)
 
 ```{r msdetails}
 
-lout <- matrix(NA, ncol = 5, nrow = 4)
-lout[1, ] <- 1
-lout[2, ] <- 2
-lout[3, ] <- 3:7
-lout[4, ] <- 8:12
+lout <- matrix(NA, ncol = 10, nrow = 8)
+lout[1:2, ] <- 1
+for (ii in 3:4)
+    lout[ii, ] <- c(2, 2, 2, 2, 2, 2, 3, 3, 3, 3)
+lout[5, ] <- rep(4:8, each = 2)
+lout[6, ] <- rep(4:8, each = 2)
+lout[7, ] <- rep(9:13, each = 2)
+lout[8, ] <- rep(9:13, each = 2)
+
 i <- ms1[which(rtsel)][1]
 j <- ms1[which(rtsel)][2]
 ms2 <- (i+1):(j-1)
+
 layout(lout)
-plot(peaks(ms, i), type = "l", xlim = c(521, 523), xlab = "M/Z", ylab = "Intensity")
-abline(h = 0, col = "grey")
-abline(v = hd[ms2, "precursorMZ"], col = "grey")
-plot(peaks(ms, i), type = "h", xlab = "M/Z", ylab = "Intensity")
-abline(h = 0, col = "grey")
-abline(v = hd[ms2, "precursorMZ"], col = "grey")
-omar <- par("mar")
+
+par(mar=c(4,2,1,1))
+chromatogram(ms)
+abline(v = hd[i, "retentionTime"], col = "red")
+
+
+par(mar = c(3, 2, 1, 0))
+plot(peaks(ms, i), type = "l", xlim = c(400, 1000))
+legend("topright", bty = "n",
+       legend = paste0(
+           "Acquisition ", hd[i, "acquisitionNum"],  "\n",
+           "Retention time ", formatRt(hd[i, "retentionTime"])))
+abline(h = 0)
+abline(v = hd[ms2, "precursorMZ"],
+       col = c("#FF000080",
+           rep("#12121280", 9)))
+
+par(mar = c(3, 0.5, 1, 1))
+plot(peaks(ms, i), type = "l", xlim = c(521, 522.5),
+     yaxt = "n")
+abline(h = 0)
+abline(v = hd[ms2, "precursorMZ"], col = "#FF000080")
+
+##par(mar = omar)
 par(mar = c(2, 2, 0, 1))
 for (ii in ms2) {
     p <- peaks(ms, ii)
-    plot(p, xlab = "", ylab = "", type = "h", cex.axis = .7)
-    legend("topright", legend = round(hd[ii, "precursorMZ"], 2),
+    plot(p, xlab = "", ylab = "", type = "h", cex.axis = .6)
+    legend("topright", legend = paste0("Prec M/Z\n",
+                           round(hd[ii, "precursorMZ"], 2)),
            bty = "n", cex = .8)
 }
-par(mar = omar)
+
+```
+
+```{r msdetailspdf, ref.label='msdetails', echo=FALSE, dev='pdf', fig.width=10, fig.height=8}
 ```
 
 
-```{r maps2}
+```{r maps3D2}
 M2 <- MSmap(ms, i:j, 100, 1000, 1, hd)
 plot3D(M2)
+```
+
+```{r maps3D2pdf, ref.label='maps3D2', echo=FALSE, dev='pdf'}
 ```
 
 MS barcoding
@@ -317,6 +360,7 @@ axis(side=1, at=seq(0,1,1/nk), labels=seq(k[1],k[2],k[2]/nk))
 
 ```
 
+
 ### The MSnbase infrastructure
 
 ```{r msnbviz}
@@ -327,6 +371,9 @@ plot(itraqdata[[25]], full=TRUE, reporters = iTRAQ4)
 par(oma = c(0, 0, 0, 0))
 par(mar = c(4, 4, 1, 1))
 plot(itraqdata2[[25]], itraqdata2[[28]], sequences = rep("IMIDLDGTENK", 2))
+```
+
+```{r msnbvizpdf, ref.label='msnbviz', echo=FALSE, dev='pdf', fig.width=8, fig.height=8}
 ```
 
 ### Preprocessing of MALDI-MS spectra
@@ -379,7 +426,7 @@ plot(cbSpectra[[14]])
 points(peaks[[14]], col = "red", pch = 4, lwd = 2)
 ```
 
-Additional there is a special function `labelPeaks` that allows to draw the m/z
+Additional there is a special function `labelPeaks` that allows to draw the *M/Z*
 values above the corresponding peaks. Next we mark the 5 top peaks in the
 spectrum.
 ```{r mqlabelpeaks, echo = -(1:2)}
@@ -441,19 +488,18 @@ and
 
 ### Imaging mass spectrometry
 
-The following code chunk downloads a MALDI-IMS dataset from a mouse kidney
-shared by [Adrien Nyakas and Stefan Schürch](http://figshare.com/articles/MALDI_Imaging_Mass_Spectrometry_of_a_Mouse_Kidney/735961).
+The following code chunk downloads a MALDI imaging dataset from a
+mouse kidney shared by
+[Adrien Nyakas and Stefan Schurch](http://figshare.com/articles/MALDI_Imaging_Mass_Spectrometry_of_a_Mouse_Kidney/735961)
+and generates a plot with the mean spectrum and three slices of
+interesting *M/Z* regions.
 
-```{r mqimsimport, cache=TRUE}
+```{r mqims, cache=TRUE, warning=FALSE}
 library("MALDIquant")
 library("MALDIquantForeign")
 
 spectra <- importBrukerFlex("http://files.figshare.com/1106682/MouseKidney_IMS_testdata.zip", verbose = FALSE)
-```
 
-After retrieving the data we do some preprocessing a plot a slice of the image
-for an interesting peak region.
-```{r mqimspreproc, eval = TRUE, cache=TRUE, warning=FALSE}
 spectra <- smoothIntensity(spectra, "SavitzkyGolay",  halfWindowSize = 8)
 spectra <- removeBaseline(spectra, method = "TopHat", halfWindowSize = 16)
 spectra <- calibrateIntensity(spectra, method = "TIC")
@@ -468,6 +514,7 @@ plot(avgSpectrum, main = "mean spectrum",
      xlim = c(3000, 6000), ylim = c(0, 0.007))
 lines(avgPeaks, col = "red")
 labelPeaks(avgPeaks, cex = 1)
+
 par(mar = c(0.5, 0.5, 1.5, 0.5))
 for (i in seq(along = avgPeaks)) {
   range <- mass(avgPeaks)[i] + c(-1, 1)
@@ -477,7 +524,10 @@ for (i in seq(along = avgPeaks)) {
 par(oldPar)
 ```
 
-### An interactive `shiny` app for IMS
+```{r mqimspdf, ref.label='mqims', echo=FALSE, warning=FALSE, dev='pdf', fig.width=10, fig.height=6}
+```
+
+### An interactive `shiny` app for Imaging mass spectrometry
 
 There is also an interactive
 [MALDIquant IMS shiny app](https://github.com/sgibb/ims-shiny) for demonstration
@@ -492,11 +542,68 @@ runGitHub("sgibb/ims-shiny")
 
 ## Spatial proteomics
 
-See
+
+```{r spatprot}
+library("pRoloc")
+library("pRolocdata")
+
+data(tan2009r1)
+
+## these params use class weights
+fn <- dir(system.file("extdata", package = "pRoloc"), 
+          full.names = TRUE, pattern = "params2.rda")
+load(fn)
+
+setStockcol(NULL)
+setStockcol(paste0(getStockcol(), 90))
+
+w <- table(fData(tan2009r1)[, "pd.markers"])
+(w <- 1/w[names(w) != "unknown"])
+tan2009r1 <- svmClassification(tan2009r1, params2, 
+                               class.weights = w,
+                               fcol = "pd.markers")
+ptsze <- exp(fData(tan2009r1)$svm.scores) - 1
+```
+
+```{r spatplot, fig.width=12, fig.height=6}
+lout <- matrix(c(1:4, rep(5, 4)), ncol = 4, nrow = 2)
+layout(lout)
+cls <- getStockcol()
+par(mar = c(4, 4, 1, 1))
+plotDist(tan2009r1[which(fData(tan2009r1)$PLSDA == "mitochondrion"), ],
+         markers = featureNames(tan2009r1)
+         [which(fData(tan2009r1)$markers == "mitochondrion")],
+         mcol = cls[5])
+legend("topright", legend = "mitochondrion", bty = "n")
+plotDist(tan2009r1[which(fData(tan2009r1)$PLSDA == "ER/Golgi"), ],
+         markers = featureNames(tan2009r1)
+         [which(fData(tan2009r1)$markers == "ER")],
+         mcol = cls[2])
+legend("topright", legend = "ER", bty = "n")
+plotDist(tan2009r1[which(fData(tan2009r1)$PLSDA == "ER/Golgi"), ],
+         markers = featureNames(tan2009r1)
+         [which(fData(tan2009r1)$markers == "Golgi")],
+         mcol = cls[3])
+legend("topright", legend = "Golgi", bty = "n")
+plotDist(tan2009r1[which(fData(tan2009r1)$PLSDA == "PM"), ],
+         markers = featureNames(tan2009r1)
+         [which(fData(tan2009r1)$markers == "PM")],
+         mcol = cls[8])
+legend("topright", legend = "PM", bty = "n")
+plot2D(tan2009r1, fcol = "svm", cex = ptsze, method = "kpca")
+addLegend(tan2009r1, where = "bottomleft", fcol = "svm", bty = "n")
+```
+
+```{r spatplotpdf, ref.label='spatplot', echo=FALSE, dev='pdf', fig.width=12, fig.height=6}
+```
+
+
+
+See the 
 [`pRoloc-tutorial`](http://bioconductor.org/packages/release/bioc/vignettes/pRoloc/inst/doc/pRoloc-tutorial.pdf)
-(pdf) from the
+vignette (pdf) from the
 [`pRoloc`](http://bioconductor.org/packages/release/bioc/html/pRoloc.html)
-package for details.
+package for details about spatial proteomics data analysis and visualisation. 
 
 ## Session information
 
