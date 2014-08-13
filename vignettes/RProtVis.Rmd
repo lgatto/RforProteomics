@@ -488,10 +488,11 @@ and
 
 ### Imaging mass spectrometry
 
-The following code chunk downloads a MALDI imaging dataset from a mouse kidney
-shared by [Adrien Nyakas and Stefan Schürch](http://figshare.com/articles/MALDI_Imaging_Mass_Spectrometry_of_a_Mouse_Kidney/735961)
-and generates a plot with the mean spectrum and three slices of interesting
-*M/Z* regions.
+The following code chunk downloads a MALDI imaging dataset from a
+mouse kidney shared by
+[Adrien Nyakas and Stefan Schurch](http://figshare.com/articles/MALDI_Imaging_Mass_Spectrometry_of_a_Mouse_Kidney/735961)
+and generates a plot with the mean spectrum and three slices of
+interesting *M/Z* regions.
 
 ```{r mqims, cache=TRUE, warning=FALSE}
 library("MALDIquant")
