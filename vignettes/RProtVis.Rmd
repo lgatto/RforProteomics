@@ -423,7 +423,7 @@ plot(cbSpectra[[14]])
 points(peaks[[14]], col = "red", pch = 4, lwd = 2)
 ```
 
-Additional there is a special function `labelPeaks` that allows to draw the m/z
+Additional there is a special function `labelPeaks` that allows to draw the *M/Z*
 values above the corresponding peaks. Next we mark the 5 top peaks in the
 spectrum.
 ```{r mqlabelpeaks, echo = -(1:2)}
@@ -488,7 +488,7 @@ and
 The following code chunk downloads a MALDI imaging dataset from a mouse kidney
 shared by [Adrien Nyakas and Stefan Schürch](http://figshare.com/articles/MALDI_Imaging_Mass_Spectrometry_of_a_Mouse_Kidney/735961)
 and generates a plot with the mean spectrum and three slices of interesting
-*m/z* regions.
+*M/Z* regions.
 
 ```{r mqims, cache=TRUE, warning=FALSE}
 library("MALDIquant")
@@ -510,6 +510,7 @@ plot(avgSpectrum, main = "mean spectrum",
      xlim = c(3000, 6000), ylim = c(0, 0.007))
 lines(avgPeaks, col = "red")
 labelPeaks(avgPeaks, cex = 1)
+
 par(mar = c(0.5, 0.5, 1.5, 0.5))
 for (i in seq(along = avgPeaks)) {
   range <- mass(avgPeaks)[i] + c(-1, 1)
@@ -522,7 +523,7 @@ par(oldPar)
 ```{r mqimspdf, ref.label='mqims', echo=FALSE, warning=FALSE, dev='pdf', fig.width=10, fig.height=6}
 ```
 
-### An interactive `shiny` app for IMS
+### An interactive `shiny` app for Imaging mass spectrometry
 
 There is also an interactive
 [MALDIquant IMS shiny app](https://github.com/sgibb/ims-shiny) for demonstration
