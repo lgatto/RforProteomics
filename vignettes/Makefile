@@ -14,8 +14,8 @@ LATEXFILES = *.aux\
 	*.dpth
 
 all: 
-	make vig
-	make viz
+	make RforProteomics.pdf
+	make RProtVis.html
 	make poster
 	make clean
 
@@ -26,7 +26,7 @@ R_HOME= $(shell R RHOME)
 endif
 
 
-vig:
+RforProteomics.pdf: 
 	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.Rnw
 	cp vigsrc/RforProteomics.R .
 	cp vigsrc/RforProteomics.pdf .
@@ -35,7 +35,7 @@ poster:
 	"$(R_HOME)/bin/R" CMD pdflatex Bioc2013_poster.Rnw
 	cp vigsrc/Bioc2013_poster.pdf .
 
-viz: 
+RProtVis.html: RProtVis.Rmd
 	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('RProtVis.Rmd'); purl('RProtVis.Rmd');"
 
 viz2: 
@@ -63,19 +63,16 @@ vig2:
 	make allclean
 	cp vigsrc/RforProteomics.Rnw .
 	cp vigsrc/RforProteomics.bib .
-	if [ -d 'vigsrc/cache' ]; then \
-		ln -sf vigsrc/cache .; \
-		ln -sf vigsrc/figure .; \
-	fi
-	if [ -f 'vigsrc/F063721.dat-mztab.txt' ]; then \
-		ln -sf vigsrc/P00924.fasta .; \
-		ln -sf vigsrc/F063721.dat-mztab.txt .; \
-		ln -sf vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML .; \
-	fi
-	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2pdf('RforProteomics.Rnw'); purl('RforProteomics.Rnw');"
+#	ln -sf vigsrc/cache .
+#	ln -sf vigsrc/figure .
+	ln -sf vigsrc/P00924.fasta .
+	ln -sf vigsrc/F063721.dat-mztab.txt .
+	ln -sf vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML .
+	"$(R_HOME)/bin/R" CMD Sweave --engine=knitr::knitr --pdf RforProteomics.Rnw
 	bibtex RforProteomics
 	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
 	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
+	"$(R_HOME)/bin/R" --vanilla -e "knitr::purl('RforProteomics.Rnw');"
 	cp RforProteomics.pdf vigsrc/.
 	cp RforProteomics.R vigsrc/.
 	## scp RforProteomics.pdf lg390@proteome.sysbiol.cam.ac.uk:/var/www/htdocs/lgatto/RforProteomics/.
