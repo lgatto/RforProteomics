@@ -489,6 +489,11 @@ for (i in seq(along = sel)) {
 par(mfrow = c(1, 1))
 ```
 
+The code chunks above generate plots that are very similar to the figure 7 in
+the corresponding paper *"Visualisation of proteomics data using R"*. Please
+find the code to exactly reproduce the figure at:
+https://github.com/sgibb/MALDIquantExamples/blob/master/R/createFigure1_color.R
+
 ## Genomic and protein sequences
 
 These visualisations originate from the `Pbase`
@@ -561,7 +566,7 @@ library("pRolocdata")
 data(tan2009r1)
 
 ## these params use class weights
-fn <- dir(system.file("extdata", package = "pRoloc"), 
+fn <- dir(system.file("extdata", package = "pRoloc"),
           full.names = TRUE, pattern = "params2.rda")
 load(fn)
 
@@ -570,7 +575,7 @@ setStockcol(paste0(getStockcol(), 90))
 
 w <- table(fData(tan2009r1)[, "pd.markers"])
 (w <- 1/w[names(w) != "unknown"])
-tan2009r1 <- svmClassification(tan2009r1, params2, 
+tan2009r1 <- svmClassification(tan2009r1, params2,
                                class.weights = w,
                                fcol = "pd.markers")
 ptsze <- exp(fData(tan2009r1)$svm.scores) - 1
@@ -610,11 +615,11 @@ addLegend(tan2009r1, where = "bottomleft", fcol = "svm", bty = "n")
 
 
 
-See the 
+See the
 [`pRoloc-tutorial`](http://bioconductor.org/packages/release/bioc/vignettes/pRoloc/inst/doc/pRoloc-tutorial.pdf)
 vignette (pdf) from the
 [`pRoloc`](http://bioconductor.org/packages/release/bioc/html/pRoloc.html)
-package for details about spatial proteomics data analysis and visualisation. 
+package for details about spatial proteomics data analysis and visualisation.
 
 ## Session information
 
