@@ -15,7 +15,7 @@ Suggests: mzR, xcms, msdata, isobar, MALDIquant (>= 1.11),
         MALDIquantForeign, readBrukerFlexData, rTANDEM, synapter,
         synapterdata, IPPD, Rdisop, OrgMassSpecR, BRAIN, rols, hpar,
         GO.db, org.Hs.eg.db, biomaRt, RColorBrewer, ggplot2, reshape2,
-        knitr, xtable, lattice, mzID, pRoloc, pRolocdata
+        xtable, lattice, mzID, pRoloc, pRolocdata, knitr, BiocStyle 
 Enhances: cleaver
 Description: This package contains code to illustrate the 'Using R and
 	     Bioconductor for proteomics data analysis' paper. Two

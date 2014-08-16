@@ -1,14 +1,25 @@
+---
+output:
+  BiocStyle::html_document
+---
+
 <!--
-%\VignetteEngine{knitr::knitr}
 %\VignetteIndexEntry{Visualisation of proteomics data using R and Bioconductor}
 %\VignetteKeyword{bioinformatics, proteomics, mass spectrometry, visualisation}
+%\VignettePackage{RforProteomics}
+%\VignetteEngine{knitr::knitr}
 -->
+
+```{r style, echo = FALSE}
+BiocStyle::markdown()
+```
 
 # Visualisation of proteomics data using R and Bioconductor
 
 [Laurent Gatto](http://proteome.sysbiol.cam.ac.uk/lgatto/),
 [Lisa Breckels](http://cpu.sysbiol.cam.ac.uk/) and
 [Sebastian Gibb](http://sebastiangibb.de/research.html)
+
 
 ```{r env, message=FALSE, echo=FALSE}
 library("RforProteomics")

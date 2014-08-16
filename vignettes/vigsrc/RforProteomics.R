@@ -1,19 +1,8 @@
+## ----biocstyle, eval=TRUE, echo=FALSE, results="asis"-----------------------------------
+BiocStyle::latex()
 
-## ----'setup', include = FALSE, cache = FALSE-----------------------------
-library("knitr")
-opts_chunk$set(tidy.opts = 
-               list(width.cutoff = 50, 
-                    tidy = FALSE),
-               fig.align = 'center',
-               stop_on_error = 1L,
-               comment = "##",
-               prompt = FALSE)
-options(width = 60)
-
-
-## ----'env0', echo = FALSE, warning = FALSE, message=FALSE----------------
+## ----env0, echo = FALSE, warning = FALSE, message=FALSE---------------------------------
 suppressPackageStartupMessages(library("BiocInstaller"))
-library("xtable")
 ## suppressPackageStartupMessages(library("parallel"))
 suppressPackageStartupMessages(library("MSnbase"))
 suppressPackageStartupMessages(library("mzID"))
@@ -30,33 +19,37 @@ suppressPackageStartupMessages(library("GO.db"))
 suppressPackageStartupMessages(library("Rdisop"))
 suppressPackageStartupMessages(library("rTANDEM")) 
 
+## ----'setup', include = FALSE, cache = FALSE--------------
+library("knitr")
+opts_chunk$set(tidy.opts =
+                   list(width.cutoff = 50,
+                   tidy = FALSE),
+               fig.align = 'center',
+               stop_on_error = 1L)
+options(width = 60)
 
-## ----vignette1, echo = TRUE, eval = FALSE--------------------------------
-## ## list all the vignettes in the RforProteomics package
-## vignette(package = "RforProteomics")
-## ## Open the vignette called RforProteomics
-## vignette("RforProteomics", package = "RforProteomics")
-## ## or just
-## vignette("RforProteomics")
+## ----vignette1, echo = TRUE, eval = FALSE-----------------
+#  ## list all the vignettes in the RforProteomics package
+#  vignette(package = "RforProteomics")
+#  ## Open the vignette called RforProteomics
+#  vignette("RforProteomics", package = "RforProteomics")
+#  ## or just
+#  vignette("RforProteomics")
 
+## ----installation, eval = FALSE---------------------------
+#  ## only first time you install Bioconductor packages
+#  source("http://www.bioconductor.org/biocLite.R")
+#  ## else
+#  library("BiocInstaller")
+#  biocLite("RforProteomics")
 
-## ----installation, eval = FALSE------------------------------------------
-## ## only first time you install Bioconductor packages
-## source("http://www.bioconductor.org/biocLite.R")
-## ## else
-## library("BiocInstaller")
-## biocLite("RforProteomics")
+## ----installation2, eval = FALSE--------------------------
+#  biocLite("RforProteomics", dependencies = TRUE)
 
-
-## ----installation2, eval = FALSE-----------------------------------------
-## biocLite("RforProteomics", dependencies = TRUE)
-
-
-## ----loadR4Prot----------------------------------------------------------
+## ----loadR4Prot-------------------------------------------
 library("RforProteomics")
 
-
-## ----stangle, eval=TRUE, tidy=FALSE, error=FALSE-------------------------
+## ----stangle, eval=TRUE, tidy=FALSE, error=FALSE----------
 ## gets the vignette source
 rnwfile <- system.file("doc/vigsrc/RforProteomics.Rnw",
                        package = "RforProteomics")
@@ -64,14 +57,12 @@ rnwfile <- system.file("doc/vigsrc/RforProteomics.Rnw",
 library("knitr")
 purl(rnwfile, quiet = TRUE)
 
-
-## ----env-----------------------------------------------------------------
+## ----env--------------------------------------------------
 library("RColorBrewer") ## Color palettes
 library("ggplot2")  ## Convenient and nice plotting
 library("reshape2") ## Flexibly reshape data 
 
-
-## ----mzr-----------------------------------------------------------------
+## ----mzr--------------------------------------------------
 ## load the required packages
 library("mzR") ## the software package
 library("msdata") ## the data package
@@ -91,20 +82,17 @@ instrumentInfo(mz)
 ## close the connection
 close(mz)
 
-
-## ----mzid----------------------------------------------------------------
+## ----mzid-------------------------------------------------
 library("mzID")
 id <- mzID("http://psi-pi.googlecode.com/svn/trunk/examples/1_1examples/55merge_tandem.mzid")
 id
 
-
-## ----flatid--------------------------------------------------------------
+## ----flatid-----------------------------------------------
 fid <- flatten(id)
 names(fid)
 dim(fid)
 
-
-## ----msnexp--------------------------------------------------------------
+## ----msnexp-----------------------------------------------
 library("MSnbase")
 ## uses a simple dummy test included in the package
 mzXML <- dir(system.file(package="MSnbase",dir="extdata"),
@@ -117,13 +105,11 @@ raw
 ## Extract a single spectrum
 raw[[3]]
 
-
-## ----msnexpPlot, dev='pdf', echo=TRUE, fig.width=5, fig.height=5, fig.keep='all', out.width='.7\\linewidth'----
+## ----msnexpPlot, dev='pdf', echo=TRUE, fig.width=5, fig.height=5, fig.keep='all', out.width='.48\\linewidth'----
 plot(raw, full=TRUE)
 plot(raw[[3]], full=TRUE, reporters=iTRAQ4)
 
-
-## ----downloadmztab, tidy = FALSE-----------------------------------------
+## ----downloadmztab, tidy = FALSE--------------------------
 ## Experiment information
 library("rpx")
 px1 <- PXDataset("PXD000001")
@@ -133,8 +119,7 @@ pxfiles(px1)
 mztab <- pxget(px1, "PXD000001_mztab.txt")
 mztab
 
-
-## ----mztab, tidy = FALSE-------------------------------------------------
+## ----mztab, tidy = FALSE----------------------------------
 ## Load mzTab peptide data 
 qnt <- readMzTabData(mztab, what = "PEP")
 sampleNames(qnt) <- reporterNames(TMT6)
@@ -150,7 +135,6 @@ protqnt <- combineFeatures(qnt,
                            groupBy = fData(qnt)$accession, 
                            fun = sum)
 
-
 ## ----matplot, dev='pdf', echo=TRUE, fig.width=5.5, fig.height=5.5, fig.keep='last', out.width='.6\\linewidth', tidy=FALSE----
 cls <- brewer.pal(5, "Set1")
 matplot(t(tail(exprs(protqnt), n = 5)), type = "b", 
@@ -160,8 +144,7 @@ matplot(t(tail(exprs(protqnt), n = 5)), type = "b",
 legend("topright", tail(featureNames(protqnt), n=5), 
        lty = 1, bty = "n", cex = .8, col = cls)
 
-
-## ----mztab2--------------------------------------------------------------
+## ----mztab2-----------------------------------------------
 qntS <- normalise(qnt, "sum")
 qntV <- normalise(qntS, "vsn")
 qntV2 <- normalise(qnt, "vsn")
@@ -192,10 +175,8 @@ cls <- c(brewer.pal(length(unique(rownames(m)))-1, "Set1"),
 names(cls) <- unique(rownames(m))
 wbcol <- colorRampPalette(c("white", "darkblue"))(256)
 
-
 ## ----heatmap, dev='pdf', echo=TRUE, fig.width=5.5, fig.height=5.5, fig.keep='last', out.width='.6\\linewidth'----
 heatmap(m, col = wbcol, RowSideColors=cls[rownames(m)])
-
 
 ## ----spikes, dev='pdf', echo=TRUE, fig.width=9, fig.height=5, fig.keep='all', out.width='1\\linewidth', tidy=FALSE----
 dfr <- data.frame(exprs(small),
@@ -217,15 +198,7 @@ ggplot(aes(x = variable, y = value, colour = Protein),
   facet_grid(. ~ Protein) + theme(legend.position="none") +
   labs(x = "Reporters", y = "Normalised intensity")
 
-
-## ----mzxmlqnt, cache=TRUE------------------------------------------------
-mzxml <- pxget(px1, "TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML")
-rawms <- readMSData(mzxml, centroided = TRUE, verbose = FALSE)
-qntms <- quantify(rawms, reporters = TMT7, method = "max")
-qntms
-
-
-## ----qntdf---------------------------------------------------------------
+## ----qntdf------------------------------------------------
 d <- data.frame(Signal = rowSums(exprs(qntms)[, 1:6]),
                 Incomplete = exprs(qntms)[, 7])
 d <- log(d)
@@ -240,14 +213,8 @@ pch[grep("P00924", fData(qnt)$accession)] <- 19
 pch[grep("P62894", fData(qnt)$accession)] <- 19
 pch[grep("P00489", fData(qnt)$accession)] <- 19
 
-
-## ----mzp, cache = TRUE, fig.keep='none', warning = FALSE-----------------
-mzp <- plotMzDelta(rawms, reporters = TMT6, verbose = FALSE) + ggtitle("")
-
-
 ## ----plotmzdelta, dev='pdf', echo=TRUE, fig.width=8, fig.height=5, fig.keep='last', out.width='0.9\\linewidth', warning = FALSE----
 mzp
-
 
 ## ----incompl, dev='pdf', echo=TRUE, fig.width=5.5, fig.height=5.5, fig.keep='last', out.width='.6\\linewidth', tidy=FALSE----
 plot(Signal ~ Incomplete, data = d, 
@@ -259,12 +226,10 @@ grid()
 abline(0, 1, lty = "dotted")
 abline(lm(Signal ~ Incomplete, data = d), col = "darkblue")
 
-
 ## ----maplot, dev='pdf', echo=TRUE, fig.width=5.5, fig.height=5.5, fig.keep='last', out.width='.6\\linewidth'----
 MAplot(qnt[, c(4, 2)], cex = .9, col = cls, pch = pch, show.statistics = FALSE)
 
-
-## ----mqload, tidy=FALSE--------------------------------------------------
+## ----mqload, tidy=FALSE-----------------------------------
 ## load packages
 library("MALDIquant")
 library("MALDIquantForeign")
@@ -282,12 +247,10 @@ summary(mass(s))
 summary(intensity(s))
 head(as.matrix(s))
 
-
 ## ----mqplot, dev='pdf', echo=TRUE, fig.width=7, fig.height=5.5, fig.keep='last', out.width='.6\\linewidth'----
 plot(s)
 
-
-## ----mqpreproc-----------------------------------------------------------
+## ----mqpreproc--------------------------------------------
 ## sqrt transform (for variance stabilization)
 s2 <- transformIntensity(s, method="sqrt")
 s2
@@ -300,13 +263,11 @@ s3
 s4 <- removeBaseline(s3, method="SNIP")
 s4
 
-
-## ----mqred---------------------------------------------------------------
+## ----mqred------------------------------------------------
 ## peak picking
 p <- detectPeaks(s4)
 length(p) # 181
 peak.data <- as.matrix(p) # extract peak information
-
 
 ## ----mqplot2, dev='pdf', echo=TRUE, fig.width=10, fig.height=5, fig.keep='high', out.width='1\\linewidth'----
 par(mfrow=c(2,3))
@@ -323,8 +284,7 @@ labelPeaks(p, index=top20, underline=TRUE)
 plot(p, sub="", main="6: peak plot", xlim=xl)
 labelPeaks(p, index=top20, underline=TRUE)
 
-
-## ----isotopes, tidy = FALSE, warning = FALSE-----------------------------
+## ----isotopes, tidy = FALSE, warning = FALSE--------------
 library(IPPD)
 library(BRAIN)
 atoms <- getAtomsFromSeq("SIVPSGASTGVHEALEMR")
@@ -380,107 +340,16 @@ sum(nchar(enopep$peptide) >= minlength) ## 68
 pepcnt <- enopep[enopep[, 1] %in% exppep, ]
 nrow(pepcnt) ## 13
 
-
-## ----cleaver, tidy = FALSE-----------------------------------------------
+## ----cleaver, tidy = FALSE--------------------------------
 library(cleaver)
 cleave("LAAGKVEDSD", enzym = "trypsin")
 
-
-## ----cleaver_missing, tidy = FALSE---------------------------------------
+## ----cleaver_missing, tidy = FALSE------------------------
 ## miss one cleavage position
 cleave("LAAGKVEDSD", enzym = "trypsin", missedCleavages = 1)
 
 ## miss zero or one cleavage positions
 cleave("LAAGKVEDSD", enzym = "trypsin", missedCleavages = 0:1)
-
-
-## ----n15, dev='pdf', echo=TRUE, fig.width=8, fig.height=7, fig.keep='high', out.width='.9\\linewidth', tidy=FALSE, cache=TRUE----
-## 15N incorporation rates from 0, 0.1, ..., 0.9, 0.95, 1
-incrate <- c(seq(0, 0.9, 0.1), 0.95, 1)
-inc <- lapply(incrate, function(inc)               
-              IsotopicDistributionN("YEVQGEVFTKPQLWP", inc))
-par(mfrow = c(4,3))
-for (i in 1:length(inc))
-  plot(inc[[i]][, c(1, 3)], xlim = c(1823, 1848), type = "h",        
-       main = paste0("15N incorporation at ", incrate[i]*100, "%"))
-
-
-## ----isobar, cache=TRUE, tidy=FALSE--------------------------------------
-library(isobar)
-
-## Prepare the PXD000001 data for isobar analysis
-.ions <- exprs(qnt)
-.mass <- matrix(mz(TMT6), nrow(qnt), byrow=TRUE, ncol = 6)
-colnames(.ions) <- colnames(.mass) <- 
-  reporterTagNames(new("TMT6plexSpectra"))
-rownames(.ions) <- rownames(.mass) <- 
-  paste(fData(qnt)$accession, fData(qnt)$sequence, sep = ".")
-pgtbl <- data.frame(spectrum = rownames(.ions),
-                    peptide = fData(qnt)$sequence,
-                    modif = ":",
-                    start.pos = 1,
-                    protein = fData(qnt)$accession,
-                    accession = fData(qnt)$accession)
-x <- new("TMT6plexSpectra", pgtbl, .ions, .mass)
-featureData(x)$proteins <- as.character(fData(qnt)$accession)
-
-x <- correctIsotopeImpurities(x) ## using identity matrix here
-x <- normalize(x, per.file = FALSE) 
-## spikes
-spks <- c(protein.g(proteinGroup(x), "P00489"),
-          protein.g(proteinGroup(x), "P00924"),
-          protein.g(proteinGroup(x), "P02769"),
-          protein.g(proteinGroup(x), "P62894"))
-
-cls2 <- rep("#00000040", nrow(x))
-pch2 <- rep(1, nrow(x))
-cls2[grep("P02769", featureNames(x))] <- "gold4" ## BSA
-cls2[grep("P00924", featureNames(x))] <- "dodgerblue" ## ENO
-cls2[grep("P62894", featureNames(x))] <- "springgreen4" ## CYT
-cls2[grep("P00489", featureNames(x))] <- "darkorchid2" ## PHO
-pch2[grep("P02769", featureNames(x))] <- 19
-pch2[grep("P00924", featureNames(x))] <- 19
-pch2[grep("P62894", featureNames(x))] <- 19
-pch2[grep("P00489", featureNames(x))] <- 19
-
-nm <- NoiseModel(x)
-ib.background <- subsetIBSpectra(x, protein=spks, 
-                                 direction = "exclude")
-nm.background <- NoiseModel(ib.background)
-ib.spks <- subsetIBSpectra(x, protein = spks,
-                           direction="include",
-                           specificity="reporter-specific")
-nm.spks <- NoiseModel(ib.spks, one.to.one=FALSE, pool=TRUE)
-
-ratios <- 10^estimateRatio(x, nm,
-                           channel1="127", channel2="129",
-                           protein = spks,
-                           combine = FALSE)[, "lratio"]
-
-res <- estimateRatio(x, nm,
-                     channel1="127", channel2="129",
-                     protein = unique(fData(x)$proteins), 
-                     combine = FALSE,
-                     sign.level = 0.01)[, c(1, 2, 6, 8)]
-res <- as.data.frame(res)
-res$lratio <- -(res$lratio)
-
-cls3 <- rep("#00000050", nrow(res))
-pch3 <- rep(1, nrow(res))
-cls3[grep("P02769", rownames(res))] <- "gold4" ## BSA
-cls3[grep("P00924", rownames(res))] <- "dodgerblue" ## ENO
-cls3[grep("P62894", rownames(res))] <- "springgreen4" ## CYT
-cls3[grep("P00489", rownames(res))] <- "darkorchid2" ## PHO
-pch3[grep("P02769", rownames(res))] <- 19
-pch3[grep("P00924", rownames(res))] <- 19
-pch3[grep("P62894", rownames(res))] <- 19
-pch3[grep("P00489", rownames(res))] <- 19
-
-rat.exp <- c(PHO = 2/2, 
-             ENO = 5/1, 
-             BSA = 2.5/10, 
-             CYT = 1/1)
-
 
 ## ----ibplot, dev='pdf', echo=TRUE, fig.width=5, fig.height=5, fig.keep='last'----
 maplot(x,
@@ -495,14 +364,12 @@ legend("topright",
                    "springgreen4", "darkorchid2"),
        bty = "n", cex = .7) 
 
+## ----synapter, eval=FALSE---------------------------------
+#  ## open the synapter vignette
+#  library("synapter")
+#  synapterGuide()
 
-## ----synapter, eval=FALSE------------------------------------------------
-## ## open the synapter vignette
-## library("synapter")
-## synapterGuide()
-
-
-## ----rtandem1, tidy = FALSE----------------------------------------------
+## ----rtandem1, tidy = FALSE-------------------------------
 library(rTANDEM)
 taxonomy <- rTTaxo(taxon = "yeast",
                    format = "peptide", 
@@ -532,13 +399,11 @@ param <- setParamValue(param, 'output', 'path',
                        value = paste(getwd(), 
                          "output.xml", sep="/"))
 
-
-## ----rtanem2-------------------------------------------------------------
+## ----rtanem2----------------------------------------------
 resultPath <- tandem(param)
 basename(resultPath)
 
-
-## ----rtandem3------------------------------------------------------------
+## ----rtandem3---------------------------------------------
 res <- GetResultsFromXML(resultPath)
 ## the inferred proteins
 proteins <- GetProteins(res, 
@@ -551,14 +416,12 @@ peptides <- GetPeptides(protein.uid = 1811,
                         expect = 0.05)
 peptides[, c(1:4, 9, 10:16), with = FALSE]
 
-
-## ----annot1, cache=FALSE-------------------------------------------------
+## ----annot1, cache=FALSE----------------------------------
 id <- "ENSG00000002746"
 library("hpar")
 getHpa(id, "SubcellularLoc")
 
-
-## ----annot2, cache=FALSE, warning = FALSE--------------------------------
+## ----annot2, cache=FALSE, warning = FALSE-----------------
 library(org.Hs.eg.db)
 library(GO.db)
 ans <- select(org.Hs.eg.db, 
@@ -568,26 +431,10 @@ ans <- ans[ans$ONTOLOGY == "CC", ]
 ans
 sapply(as.list(GOTERM[ans$GO]), slot, "Term")
 
+## ----xtabpkg, echo=FALSE, message=FALSE-------------------
+library("xtable")
 
-## ----annot3, cache=TRUE--------------------------------------------------
-library("biomaRt")
-ensembl <- useMart("ensembl",dataset="hsapiens_gene_ensembl")
-efilter <- "ensembl_gene_id"
-eattr <- c("go_id", "name_1006", "namespace_1003")
-bmres <- getBM(attributes=eattr, filters = efilter, values = id, mart = ensembl)
-bmres[bmres$namespace_1003 == "cellular_component", "name_1006"]
-
-
-## ----protpacks, echo=FALSE, warning=FALSE, cache=TRUE--------------------
-# biocVersion has to be of type character
-biocv <- as.character(biocVersion())
-
-pkTab <- list(Proteomics = proteomicsPackages(biocv),
-              MassSpectrometry = massSpectrometryPackages(biocv),
-              MassSpectrometryData = massSpectrometryDataPackages(biocv))
-
-
-## ----protstab, echo=FALSE, results='asis'--------------------------------
+## ----protstab, echo=FALSE, results='asis'-----------------
 t1 <- xtable(pkTab[["Proteomics"]],
              caption = "Packages available under the \\texttt{Proteomics} \\textit{biocViews} category.",
              table.placement = "thb",
@@ -599,8 +446,7 @@ print(t1,
       tabular.environment = 'longtable',
       size = "scriptsize")
 
-
-## ----mstab, echo=FALSE, results='asis'-----------------------------------
+## ----mstab, echo=FALSE, results='asis'--------------------
 t2 <- xtable(pkTab[["MassSpectrometry"]],
              caption = "Packages available under the \\texttt{MassSpectrometry} \\textit{biocViews} category.",
              table.placement = "thb",
@@ -613,8 +459,7 @@ print(t2,
       size = "scriptsize")
 
 
-
-## ----msdatatab, echo=FALSE, results='asis'-------------------------------
+## ----msdatatab, echo=FALSE, results='asis'----------------
 t3 <- xtable(pkTab[["MassSpectrometryData"]],
              caption = "Experimental Packages available under the \\texttt{MassSpectrometryData} \\textit{biocViews} category.",
              table.placement = "thb",
@@ -626,20 +471,16 @@ print(t3,
       tabular.environment = 'longtable',
       size = "scriptsize")
 
+## ----pkgs, eval=FALSE-------------------------------------
+#  pp <- proteomicsPackages()
+#  display(pp)
 
-## ----pkgs, eval=FALSE----------------------------------------------------
-## pp <- proteomicsPackages()
-## display(pp)
-
-
-## ----cntCRAN, echo=FALSE-------------------------------------------------
+## ----cntCRAN, echo=FALSE----------------------------------
 X <- readLines("http://cran.r-project.org/web/views/ChemPhys.html")
 x2 <- grep("Related links:", X)
 x1 <- grep("CRAN packages:", X)
 np <- length(grep("../packages/", X[x1:x2]))
 
-
-## ----sessioninfo, results='asis', echo=FALSE, echo=FALSE-----------------
+## ----sessioninfo, results='asis', echo=FALSE, echo=FALSE----
 toLatex(sessionInfo(), locale = FALSE)
-
 
