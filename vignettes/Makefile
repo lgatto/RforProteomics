@@ -38,6 +38,10 @@ poster:
 RProtVis.html: RProtVis.Rmd
 	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('RProtVis.Rmd'); purl('RProtVis.Rmd');"
 
+ProteomicsWorkflow.html: ProteomicsWorkflow.Rmd
+	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('ProteomicsWorkflow.Rmd'); purl('ProteomicsWorkflow.Rmd');"
+
+
 viz2: 
 	if [ -d 'vigsrc/cache' ]; then  \
 		ln -sf vigsrc/cache .;  \
@@ -91,12 +95,13 @@ clean:
 	rm -f RforProteomics.tex 
 	rm -f RProtVis.md 
 	rm -f Bioc2013_poster.tex
+	rm -f ProteomicsWorkflow.md ProteomicsWorkflow.html 
 
 allclean: 
 	make clean 
 	rm -fr cache 
 	rm -fr figure
-	rm -f RforProteomics.R RProtVis.R
+	rm -f RforProteomics.R RProtVis.R ProteomicsWorkflow.R
 
 srcclean: 
 	rm -fr vigsrc/cache vigsrc/figure 
