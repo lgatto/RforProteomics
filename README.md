@@ -46,10 +46,12 @@ accessed once the package is installed (see below) with the
 downloaded as a pdf file
 [here](http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf).
 
-A second vignette, `RProtVis` is currently underdevelopmenet and will
-focus on the visualisation of mass spectrometry and proteomics data
-with `R` and Bioconductor. It can be accessed with the `RProtViz()`
-function.
+A second vignette, `RProtVis` focuses on the visualisation of mass
+spectrometry and proteomics data with `R` and Bioconductor. From `R`,
+it is currently only available with Bioconductor `>= 3.0` using the
+`RProtViz()` function. It can also be consulted
+[on-line](http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RProtVis.html)
+on the 'RforProteomics' development version page.
 
 ## Installation
 
