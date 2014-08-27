@@ -66,8 +66,8 @@ biocLite("RforProteomics")
 ```
 
 To install all dependencies (75+ packages, including `RforProteomics`)
-and reproduce the code in the vignette, replace the last line in the
-code chunk above with:
+and fully reproduce the code in the vignette, replace the last line in
+the code chunk above with:
 
 ```c
 biocLite("RforProteomics", dependencies = TRUE)
