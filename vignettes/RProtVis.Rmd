@@ -253,6 +253,8 @@ shinyMA()
 
 ![shinyMA screeshot](./figures/shinyMA.png)
 
+The application is also available online at
+[https://lgatto.shinyapps.io/shinyMA/](https://lgatto.shinyapps.io/shinyMA/).
 
 ## Visualising mass spectrometry data
 
