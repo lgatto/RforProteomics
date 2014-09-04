@@ -1,8 +1,9 @@
 ## Introduction
 
-The `RforProteomics` package distributes and extends the use-cases
-described in the _Using `R` and Bioconductor for proteomics data
-analysis_ manuscript
+The
+[`RforProteomics` package](http://www.bioconductor.org/packages/release/data/experiment/html/RforProteomics.html)
+distributes and extends the use-cases described in the _Using `R` and
+Bioconductor for proteomics data analysis_ manuscript
 ([pubmed](http://www.ncbi.nlm.nih.gov/pubmed/23692960) and
 [pre-print](http://arxiv.org/abs/1305.6559)).  The package illustrates
 how `R` and a selection of dedicated packages that can be used to
