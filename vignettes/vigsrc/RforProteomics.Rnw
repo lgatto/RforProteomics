@@ -711,8 +711,10 @@ exppep <-
   as.character(fData(qnt[grep("ENO", fData(qnt)[, 2]), ])[, 1]) ## 13
 minlength <- min(nchar(exppep))
 
-eno <- download.file("http://www.uniprot.org/uniprot/P00924.fasta", 
-                     destfile = "P00924.fasta")
+
+if (!file.exists("P00924.fasta"))
+    eno <- download.file("http://www.uniprot.org/uniprot/P00924.fasta", 
+                         destfile = "P00924.fasta")
 eno <- paste(readLines("P00924.fasta")[-1], collapse = "")
 enopep <- Digest(eno, missed = 1)
 nrow(enopep) ## 103
@@ -1029,7 +1031,24 @@ degenerated peptides, i.e. peptides found in multiple proteins.
 The \Biocpkg{shinyTANDEM} package offers a web-based graphical
 interface to \Biocpkg{rTANDEM}.
 
-\section{Annotation}
+\section{Quality control}\label{sec:qc}
+
+Quality control (QC) is an essential part of any high throughput data
+driven approach. Bioconductor has a rich history of QC for various
+genomics data and currently two packages support proteomics QC.
+
+\Biocpkg{proteoQC} provides a dedicated a dedicated pipeline that will
+produce a dynamic and extensive html report. It uses the
+\Biocpkg{rTANDEM} package to automate the generation of identification
+data and uses information about the experimental/replication design.
+
+
+The \Biocpkg{qcmetrics} package is a general framework to define QC
+metrics and bundle them together to generate html or pdf reports. It
+provides some ready made metrics for MS data and $^{15}$N labelled
+data.
+
+\section{Annotation}\label{sec:annot}
 
 In this section, we briefly present some \Bioconductor{} annotation
 infrastructure.
