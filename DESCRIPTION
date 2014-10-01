@@ -30,5 +30,5 @@ biocViews: ExperimentData, MassSpectrometry, Proteomics,
         MassSpectrometryData
 License: Artistic-2.0
 VignetteBuilder: knitr
-Author: Laurent Gatto [aut, cre], Thomas Lin Perdersen [ctb],
+Author: Laurent Gatto [aut, cre], Thomas Lin Pedersen [ctb],
 	Sebastian Gibb [ctb]
