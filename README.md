@@ -74,6 +74,22 @@ in the code chunk above with:
 biocLite("RforProteomics", dependencies = TRUE)
 ```
 
+## Collaborative editing
+
+The community and package authors are invited to contribute to the
+package. If you have or know of a package of interest, please
+[fork](https://help.github.com/articles/fork-a-repo) the
+[repository](https://github.com/lgatto/RforProteomics), add a new
+section to the vignette and send a
+[pull request](https://help.github.com/articles/creating-a-pull-request). If
+you update the vignette, please also add yourself as a contributor to
+the package.
+
+There is also a [wiki](https://github.com/lgatto/RforProteomics/wiki)
+than any github user can
+[edit](https://help.github.com/articles/editing-wiki-pages-via-the-online-interface)
+to gather specific `R`/Bioconductor proteomics needs and ideas. 
+
 ## Help
 
 To obtain help or additional information about the `RforProteomics`
