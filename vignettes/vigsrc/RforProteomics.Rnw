@@ -311,10 +311,21 @@ The \Biocpkg{mzID} package allows to load and manipulate MS$^2$ data
 in the \texttt{mzIdentML} format. The main \Rfunction{mzID} function
 reads such a file and constructs an instance of class \Robject{mzID}.
 
-<<mzid>>=
+<<mzid1>>=
 library("mzID")
 id <- mzID("http://psi-pi.googlecode.com/svn/trunk/examples/1_1examples/55merge_tandem.mzid")
 id
+@
+
+Multiple files can be parsed in one go, possibly in parallel if the 
+environment supports it. When this is done an mzIDCollection object 
+is returned:
+
+<<mzid2>>=
+ids <- mzID(c(
+    "http://psi-pi.googlecode.com/svn/trunk/examples/1_1examples/55merge_tandem.mzid",
+    "http://psi-pi.googlecode.com/svn/trunk/examples/1_1examples/55merge_omssa.mzid")
+ids
 @
 
 Peptides, scans, parameters, \ldots can be extracted with the
