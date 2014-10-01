@@ -1,0 +1,18 @@
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{Using R for proteomics data analysis}
+%\VignetteKeywords{Bioinformatics, proteomics, mass spectrometry, tutorial, data}
+%\VignettePackage{RforProteomics}
+
+\documentclass[10pt]{article}
+
+\usepackage{hyperref}
+\usepackage{breakurl}
+
+\begin{document}
+This vignette is a stub. Look at \texttt{vignettes/vigsrc/RforProteomics.Rnw} for the complete Rnw file or on the github repository \url{https://github.com/lgatto/RforProteomics}.
+
+<<session>>=
+sessionInfo()
+@
+
+\end{document}
