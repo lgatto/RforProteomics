@@ -18,6 +18,8 @@ suppressPackageStartupMessages(library("org.Hs.eg.db"))
 suppressPackageStartupMessages(library("GO.db"))
 suppressPackageStartupMessages(library("Rdisop"))
 suppressPackageStartupMessages(library("rTANDEM")) 
+suppressPackageStartupMessages(library("MSGFplus"))
+suppressPackageStartupMessages(library("MSGFgui"))
 
 ## ----'setup', include = FALSE, cache = FALSE--------------
 library("knitr")
@@ -25,7 +27,6 @@ opts_chunk$set(tidy.opts =
                    list(width.cutoff = 50,
                    tidy = FALSE),
                fig.align = 'center',
-               base.dir = "figures-r4p/",
                stop_on_error = 1L)
 options(width = 60)
 
@@ -83,10 +84,16 @@ instrumentInfo(mz)
 ## close the connection
 close(mz)
 
-## ----mzid-------------------------------------------------
+## ----mzid1------------------------------------------------
 library("mzID")
 id <- mzID("http://psi-pi.googlecode.com/svn/trunk/examples/1_1examples/55merge_tandem.mzid")
 id
+
+## ----mzid2------------------------------------------------
+ids <- mzID(c(
+    "http://psi-pi.googlecode.com/svn/trunk/examples/1_1examples/55merge_tandem.mzid",
+    "http://psi-pi.googlecode.com/svn/trunk/examples/1_1examples/55merge_omssa.mzid"))
+ids
 
 ## ----flatid-----------------------------------------------
 fid <- flatten(id)
@@ -354,82 +361,6 @@ cleave("LAAGKVEDSD", enzym = "trypsin", missedCleavages = 1)
 ## miss zero or one cleavage positions
 cleave("LAAGKVEDSD", enzym = "trypsin", missedCleavages = 0:1)
 
-## ----isobar, cache=TRUE, tidy=FALSE-----------------------
-library(isobar)
-
-## Prepare the PXD000001 data for isobar analysis
-.ions <- exprs(qnt)
-.mass <- matrix(mz(TMT6), nrow(qnt), byrow=TRUE, ncol = 6)
-colnames(.ions) <- colnames(.mass) <- 
-  reporterTagNames(new("TMT6plexSpectra"))
-rownames(.ions) <- rownames(.mass) <- 
-  paste(fData(qnt)$accession, fData(qnt)$sequence, sep = ".")
-pgtbl <- data.frame(spectrum = rownames(.ions),
-                    peptide = fData(qnt)$sequence,
-                    modif = ":",
-                    start.pos = 1,
-                    protein = fData(qnt)$accession,
-                    accession = fData(qnt)$accession)
-x <- new("TMT6plexSpectra", pgtbl, .ions, .mass)
-featureData(x)$proteins <- as.character(fData(qnt)$accession)
-
-x <- correctIsotopeImpurities(x) ## using identity matrix here
-x <- normalize(x, per.file = FALSE) 
-## spikes
-spks <- c(protein.g(proteinGroup(x), "P00489"),
-          protein.g(proteinGroup(x), "P00924"),
-          protein.g(proteinGroup(x), "P02769"),
-          protein.g(proteinGroup(x), "P62894"))
-
-cls2 <- rep("#00000040", nrow(x))
-pch2 <- rep(1, nrow(x))
-cls2[grep("P02769", featureNames(x))] <- "gold4" ## BSA
-cls2[grep("P00924", featureNames(x))] <- "dodgerblue" ## ENO
-cls2[grep("P62894", featureNames(x))] <- "springgreen4" ## CYT
-cls2[grep("P00489", featureNames(x))] <- "darkorchid2" ## PHO
-pch2[grep("P02769", featureNames(x))] <- 19
-pch2[grep("P00924", featureNames(x))] <- 19
-pch2[grep("P62894", featureNames(x))] <- 19
-pch2[grep("P00489", featureNames(x))] <- 19
-
-nm <- NoiseModel(x)
-ib.background <- subsetIBSpectra(x, protein=spks, 
-                                 direction = "exclude")
-nm.background <- NoiseModel(ib.background)
-ib.spks <- subsetIBSpectra(x, protein = spks,
-                           direction="include",
-                           specificity="reporter-specific")
-nm.spks <- NoiseModel(ib.spks, one.to.one=FALSE, pool=TRUE)
-
-ratios <- 10^estimateRatio(x, nm,
-                           channel1="127", channel2="129",
-                           protein = spks,
-                           combine = FALSE)[, "lratio"]
-
-res <- estimateRatio(x, nm,
-                     channel1="127", channel2="129",
-                     protein = unique(fData(x)$proteins), 
-                     combine = FALSE,
-                     sign.level = 0.01)[, c(1, 2, 6, 8)]
-res <- as.data.frame(res)
-res$lratio <- -(res$lratio)
-
-cls3 <- rep("#00000050", nrow(res))
-pch3 <- rep(1, nrow(res))
-cls3[grep("P02769", rownames(res))] <- "gold4" ## BSA
-cls3[grep("P00924", rownames(res))] <- "dodgerblue" ## ENO
-cls3[grep("P62894", rownames(res))] <- "springgreen4" ## CYT
-cls3[grep("P00489", rownames(res))] <- "darkorchid2" ## PHO
-pch3[grep("P02769", rownames(res))] <- 19
-pch3[grep("P00924", rownames(res))] <- 19
-pch3[grep("P62894", rownames(res))] <- 19
-pch3[grep("P00489", rownames(res))] <- 19
-
-rat.exp <- c(PHO = 2/2, 
-             ENO = 5/1, 
-             BSA = 2.5/10, 
-             CYT = 1/1)
-
 ## ----ibplot, dev='pdf', echo=TRUE, fig.width=5, fig.height=5, fig.keep='last'----
 maplot(x,
        noise.model = c(nm.background, nm.spks, nm),
@@ -478,7 +409,7 @@ param <- setParamValue(param, 'output', 'path',
                        value = paste(getwd(), 
                          "output.xml", sep="/"))
 
-## ----rtanem2----------------------------------------------
+## ----rtandem2---------------------------------------------
 resultPath <- tandem(param)
 basename(resultPath)
 
@@ -495,6 +426,33 @@ peptides <- GetPeptides(protein.uid = 1811,
                         expect = 0.05)
 peptides[, c(1:4, 9, 10:16), with = FALSE]
 
+## ----msgf1------------------------------------------------
+library(MSGFplus)
+## Create a parameter object with a set of parameters
+param <- msgfPar(database = system.file('extdata', 
+                                        'milk-proteins.fasta', 
+                                        package='MSGFplus'),
+                 tolerance = '10 ppm',
+                 enzyme = 'Trypsin')
+
+## Add parameters after creation
+instrument(param) <- 'QExactive'
+tda(param) <- TRUE
+
+## Add expected modifications
+mods(param)[[1]] <- msgfParModification('Carbamidomethyl',
+                                        composition = 'C2H3N1O1',
+                                        residues = 'C',
+                                        type = 'fix',
+                                        position = 'any')
+nMod(param) <- 2    # Number of allowed modifications per peptide
+
+## Get a summary of your parameters
+show(param)
+
+## ----msgfplus2, eval=FALSE--------------------------------
+#  result <- runMSGF(param, 'path/to/a/rawfile.mzML')
+
 ## ----annot1, cache=FALSE----------------------------------
 id <- "ENSG00000002746"
 library("hpar")
@@ -509,22 +467,6 @@ ans <- select(org.Hs.eg.db,
 ans <- ans[ans$ONTOLOGY == "CC", ]
 ans
 sapply(as.list(GOTERM[ans$GO]), slot, "Term")
-
-## ----annot3, cache=TRUE-----------------------------------
-library("biomaRt")
-ensembl <- useMart("ensembl",dataset="hsapiens_gene_ensembl")
-efilter <- "ensembl_gene_id"
-eattr <- c("go_id", "name_1006", "namespace_1003")
-bmres <- getBM(attributes=eattr, filters = efilter, values = id, mart = ensembl)
-bmres[bmres$namespace_1003 == "cellular_component", "name_1006"]
-
-## ----protpacks, echo=FALSE, warning=FALSE, cache=TRUE-----
-# biocVersion has to be of type character
-biocv <- as.character(biocVersion())
-
-pkTab <- list(Proteomics = proteomicsPackages(biocv),
-              MassSpectrometry = massSpectrometryPackages(biocv),
-              MassSpectrometryData = massSpectrometryDataPackages(biocv))
 
 ## ----xtabpkg, echo=FALSE, message=FALSE-------------------
 library("xtable")
