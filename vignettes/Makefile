@@ -67,11 +67,12 @@ vig2:
 	make allclean
 	cp vigsrc/RforProteomics.Rnw .
 	cp vigsrc/RforProteomics.bib .
-#	ln -sf vigsrc/cache .
-#	ln -sf vigsrc/figure .
-	ln -sf vigsrc/P00924.fasta .
-	ln -sf vigsrc/F063721.dat-mztab.txt .
-	ln -sf vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML .
+	ln -s vigsrc/cache .
+	ln -s vigsrc/figure .
+	ln -s vigsrc/P00924.fasta .
+	ln -s vigsrc/F063721.dat-mztab.txt .
+	ln -s vigsrc/PXD000001_mztab.txt
+	ln -s vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML .
 	"$(R_HOME)/bin/R" CMD Sweave --engine=knitr::knitr --pdf RforProteomics.Rnw
 	bibtex RforProteomics
 	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
@@ -104,7 +105,7 @@ allclean:
 	rm -f RforProteomics.R RProtVis.R ProteomicsWorkflow.R
 
 srcclean: 
-	rm -fr vigsrc/cache vigsrc/figure 
+	rm -fr vigsrc/cache vigsrc/figure
 	rm -f vigsrc/F063721.dat-mztab.txt
 	rm -f vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML
 	rm -f vigsrc/P00924.fasta
