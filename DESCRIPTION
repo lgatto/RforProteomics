@@ -17,7 +17,7 @@ Suggests: mzR, MSnbase, xcms, msdata, isobar,
 	  IPPD, Rdisop, OrgMassSpecR, BRAIN, 
 	  rols, hpar, GO.db, org.Hs.eg.db, biomaRt, 
   	  RColorBrewer, ggplot2, reshape2,
-	  knitr, biocViews, xtable
+	  knitr, biocViews, xtable, mzID, MSGFplus, MSGFgui
 Enhances: cleaver
 Description: This package contains code to illustrate the	
 	     'Using R and Bioconductor for proteomics data analysis'
