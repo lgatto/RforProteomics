@@ -5,9 +5,7 @@ Version: 1.0.13
 Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
                     email="lg390@cam.ac.uk"),
              person("Sebastian", "Gibb", role="ctb",
-                    email="mail@sebastiangibb.de"),
-             person('Thomas', 'Pedersen', 'Lin', role='ctb',
-                    email='thomasp85@gmail.com'))
+                    email="mail@sebastiangibb.de"))
 Maintainer: Laurent Gatto <lg390@cam.ac.uk>
 Imports: R.utils, Biobase
 Suggests: mzR, MSnbase, xcms, msdata, isobar, 
@@ -17,7 +15,7 @@ Suggests: mzR, MSnbase, xcms, msdata, isobar,
 	  IPPD, Rdisop, OrgMassSpecR, BRAIN, 
 	  rols, hpar, GO.db, org.Hs.eg.db, biomaRt, 
   	  RColorBrewer, ggplot2, reshape2,
-	  knitr, biocViews, xtable, mzID, MSGFplus, MSGFgui
+	  knitr, biocViews, xtable
 Enhances: cleaver
 Description: This package contains code to illustrate the	
 	     'Using R and Bioconductor for proteomics data analysis'
