@@ -1,103 +1,30 @@
+%\VignetteEngine{knitr}
 %\VignetteIndexEntry{Using R for proteomics data analysis}
 %\VignetteKeywords{Bioinformatics, proteomics, mass spectrometry, tutorial, data}
 %\VignettePackage{RforProteomics}
 
-\documentclass[12pt,a4paper,english]{scrartcl}
-\usepackage{amsmath,amsfonts,amssymb}
-\usepackage{tikz}
-\usepackage{hyperref}
-\usepackage{natbib}
-\usepackage[auth-sc]{authblk}
-\usepackage{setspace}
-\onehalfspacing
-
-% caption formatting
-\setcapindent{0em}
-\setkomafont{captionlabel}{\sffamily\bfseries}
-\setkomafont{caption}{\sffamily}
-
-\renewcommand\Authands{ and }
-
-\usepackage{color}
-\usepackage{graphicx}
-\usepackage{xstring}
+\documentclass{article}
 
 \usepackage{longtable}
-\usepackage{tabulary}
 
+<<biocstyle, eval=TRUE, echo=FALSE, results="asis">>=
+BiocStyle::latex()
+@
 
-%% colors
-\definecolor{Red}{rgb}{0.7,0,0}
-\definecolor{Blue}{rgb}{0,0,0.8}
+\author{Laurent Gatto\footnote{\email{lg390@cam.ac.uk}}, Sebastian Gibb}
 
-\newcommand{\R}{\textbf{\texttt{R} }}
-\newcommand{\Rfunction}[1]{{\textbf{\texttt{#1}}}}
-\newcommand{\Rclass}[1]{{\textbf{\texttt{#1}}}}
-\newcommand{\Robject}[1]{{\textbf{\texttt{#1}}}}
-\newcommand{\Rpackage}[1]{{\mbox{\normalfont\textbf{\textsf{#1}}}}}
-\newcommand{\email}[1]{\href{mailto:#1}{\normalfont\texttt{#1}}}
-
-\usepackage{hyperref}
-\usepackage{breakurl}
-\hypersetup{%
-  pdfauthor={Laurent Gatto},%
-  pdfusetitle,
-  bookmarks = {true},
-  bookmarksnumbered = {true},
-  bookmarksopen = {true},
-  bookmarksopenlevel = 2,
-  unicode = {true},
-  breaklinks = {false},
-  hyperindex = {true},
-  colorlinks = {true},
-  linktocpage = {true},
-  plainpages = {false},
-  linkcolor = {Blue},
-  citecolor = {Blue},
-  urlcolor = {Red},
-  pdfstartview = {Fit},
-  pdfpagemode = {UseOutlines},
-  pdfview = {XYZ null null null}
-}
-
-
-\author{
-  Laurent Gatto$^1$\thanks{\email{lg390@cam.ac.uk}}
-}
-
-\author{
-  Sebastian Gibb$^2$
-}
-
-\affil{
-  \small
-  $^1$Cambridge Center for Proteomics, University of Cambridge, UK \\
-  $^2$Institute for Medical Informatics, Statistics and Epidemiology, University of Leipzig, Germany 
-}
-
-\title{Using \R and Bioconductor for Proteomics Data Analysis}
+\title{Using \R{} and \Bioconductor{} for Proteomics Data Analysis}
 
 \begin{document}
 
 \maketitle
 
-<<'setup', include = FALSE, cache = FALSE>>=
-library("knitr")
-opts_chunk$set(tidy.opts = 
-               list(width.cutoff = 50, 
-                    tidy = FALSE),
-               fig.align = 'center',
-               stop_on_error = 1L,
-               comment = "##",
-               prompt = FALSE)
-options(width = 60)
-@
-%% $
-
-<<'env0', echo = FALSE>>=
-library(xtable)
+<<env0, echo = FALSE, warning = FALSE, message=FALSE>>=
+suppressPackageStartupMessages(library("BiocInstaller"))
 ## suppressPackageStartupMessages(library("parallel"))
 suppressPackageStartupMessages(library("MSnbase"))
+suppressPackageStartupMessages(library("mzID"))
+suppressPackageStartupMessages(library("rpx"))
 suppressPackageStartupMessages(library("isobar"))
 suppressPackageStartupMessages(library("MALDIquant"))   
 suppressPackageStartupMessages(library("MALDIquantForeign"))  
@@ -111,16 +38,29 @@ suppressPackageStartupMessages(library("Rdisop"))
 suppressPackageStartupMessages(library("rTANDEM")) 
 @ 
 
+<<'setup', include = FALSE, cache = FALSE>>=
+library("knitr")
+opts_chunk$set(tidy.opts =
+                   list(width.cutoff = 50,
+                   tidy = FALSE),
+               fig.align = 'center',
+               stop_on_error = 1L)
+options(width = 60)
+@
+%% $
+
 %% Abstract and keywords %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \vskip 0.3in minus 0.1in
 \hrule
 \begin{abstract}
-  This vignette shows and executes the code presented in the manuscript \textit{Using \R for proteomics data analysis}.  
-  It also aims at being a general overview useful for new users who wish to explore the \R environment 
-  and programming language for the analysis of proteomics data.
+  This vignette shows and executes the code presented in the
+  manuscript \textit{Using \R{} for proteomics data analysis}.  It also
+  aims at being a general overview for users who wish to explore the
+  \R{} environment and programming language for the analysis of
+  proteomics data.
 \end{abstract}
 
-\textit{Keywords}: bioinformatics, proteomics, mass spectrometry, tutorial.
+\textit{Keywords}: proteomics, mass spectrometry, tutorial.
 \vskip 0.1in minus 0.05in
 \hrule
 \vskip 0.2in minus 0.1in
@@ -138,39 +78,60 @@ suppressPackageStartupMessages(library("rTANDEM"))
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}\label{sec:intro} 
 
-This document illustrates some existing \R infrastructure for the analysis of proteomics data. 
-It presents the code for the use cases taken from \cite{R4prot2013}. A pre-print of the manuscript 
-is avaiable on arXiv\footnote{\url{http://arxiv.org/abs/1305.6559}}.
+This document illustrates some existing \R{} infrastructure for the
+analysis of proteomics data.  It presents the code for the use cases
+taken from \cite{R4prot2013}. A pre-print of the manuscript is
+available on arXiv\footnote{\url{http://arxiv.org/abs/1305.6559}}.
 
-There are however numerous additional \R resources
-distributed by the Bioconductor\footnote{\url{http://www.bioconductor.org}} and 
-CRAN\footnote{\url{http://cran.r-project.org/web/packages/}} repositories, as well as packages hosted on 
-personal websites. Section \ref{sec:packages} on page \pageref{sec:packages} tries to provide a wider 
-picture of available packages, without going into details. 
+There are however numerous additional \R{} resources distributed by the
+\Bioconductor{}\footnote{\url{http://www.bioconductor.org}} and
+CRAN\footnote{\url{http://cran.r-project.org/web/packages/}}
+repositories, as well as packages hosted on personal websites. Section
+\ref{sec:packages} on page \pageref{sec:packages} tries to provide a
+wider picture of available packages, without going into details.
 
-\subsection{General \R resources}
+\subsection{General \R{} resources}
 
-The reader is expected to have basic \R knowledge to find the document helpful. 
-There are numerous \R introductions freely available, some of which are listed below. 
+The reader is expected to have basic \R{} knowledge to find the document
+helpful. There are numerous \R{} introductions freely available, some of
+which are listed below.
 
-From the \R project web-page:
+From the \R{} project web-page:
 \begin{itemize}
 \item \textbf{An Introduction to R} is based on the former \textit{Notes on R}, 
   gives an introduction to the language and how to use R for doing statistical 
   analysis and graphics. 
   [\href{http://cran.r-project.org/doc/manuals/R-intro.html}{browse HTML} | 
     \href{http://cran.r-project.org/doc/manuals/R-intro.pdf}{download PDF}]
-\item Several introductory tutorials in the 
-  \href{http://cran.r-project.org/other-docs.html}{contributed documentation} section.
-\item The \texttt{TeachingMaterial} repository\footnote{\href{https://github.com/lgatto/TeachingMaterial}{https://github.com/lgatto/TeachingMaterial}} contains several sets of slides and vignettes about \R programming.
+  \item Several introductory tutorials in the
+    \href{http://cran.r-project.org/other-docs.html}{contributed
+      documentation} section.
+  \item The \texttt{TeachingMaterial}
+    repository\footnote{\href{https://github.com/lgatto/TeachingMaterial}{https://github.com/lgatto/TeachingMaterial}}
+    contains several sets of slides and vignettes about \R{}
+    programming.
 \end{itemize}
 
-Relevant background on the \R software and its application to computational biology in general and proteomics in particular  
-can also be found in \cite{R4prot2013}. For details about the Bioconductor project, the reader is referred to \cite{Gentleman2004}.
+Relevant background on the \R{} software and its application to
+computational biology in general and proteomics in particular can also
+be found in \cite{R4prot2013}. For details about the \Bioconductor{}
+project, the reader is referred to \cite{Gentleman2004}.
 
 \subsection{Getting help}
 
-All \R packages come with ample documentation. Every command (function, class or method) a user is susceptible to use is documented. The documentation can be accessed by preceding the command by a \texttt{?} in the \R console. For example, to obtain help about the \Rfunction{library} function, that will be used in the next section, one would type \Rfunction{?library}. In addition, all Bioconductor packages come with at least one vignette (this document is the vignette that comes with the \Rpackage{RforProteomics} package), a document that combines text and \R code that is executed before the pdf is assembled. To look up all vignettes that come with a package, say \Rpackage{RforProteomics} and then open the vignette of interest, one uses the \Rfunction{vignette} function as illustrated below. More details can be found in \Rfunction{?vignette}.
+All \R{} packages come with ample documentation. Every command
+(function, class or method) a user is susceptible to use is
+documented. The documentation can be accessed by preceding the command
+by a \texttt{?} in the \R{} console. For example, to obtain help about
+the \Rfunction{library} function, that will be used in the next
+section, one would type \Rfunction{?library}. In addition, all
+\Bioconductor{} packages come with at least one vignette (this document
+is the vignette that comes with the \Biocpkg{RforProteomics}
+package), a document that combines text and \R{} code that is executed
+before the pdf is assembled. To look up all vignettes that come with a
+package, say \Biocpkg{RforProteomics} and then open the vignette of
+interest, one uses the \Rfunction{vignette} function as illustrated
+below. More details can be found in \Rfunction{?vignette}.
 
 <<vignette1, echo = TRUE, eval = FALSE>>=
 ## list all the vignettes in the RforProteomics package
@@ -182,9 +143,32 @@ vignette("RforProteomics")
 @ 
 
 
-\R has several mailing lists\footnote{\url{http://www.r-project.org/mail.html}}. The most relevant here being the main \texttt{R-help} list, \textit{for discussion about problem and solutions using \R}. This one is for general \R content and is not suitable for bioinformatics or proteomics questions. Bioconductor also offers several mailing lists\footnote{\url{http://bioconductor.org/help/mailing-list/}} dedicated to bioinformatics matters and Bioconductor packages. The main \texttt{Bioconductor} list is the most relevant one. It is possible to post\footnote{\url{http://bioconductor.org/help/mailing-list/mailform/}} questions without subscribing to the list. Finally, the dedicated \Rpackage{RforProteomics} google group\footnote{\url{https://groups.google.com/forum/\#!forum/rbioc-sig-proteomics}} welcomes questions/comments/annoucements related to \R and mass-spectrometry/proteomics. 
+\R{} has several mailing
+lists\footnote{\url{http://www.r-project.org/mail.html}}. The most
+relevant here being the main \texttt{R-help} list, \textit{for
+  discussion about problem and solutions using \R{}}. This one is for
+general \R{} content and is not suitable for bioinformatics or
+proteomics questions. \Bioconductor{} also offers several mailing
+lists\footnote{\url{http://bioconductor.org/help/mailing-list/}}
+dedicated to bioinformatics matters and \Bioconductor{} packages. The
+main \Bioconductor{} list is the most relevant one. It is possible to
+post\footnote{\url{http://bioconductor.org/help/mailing-list/mailform/}}
+questions without subscribing to the list. Finally, the dedicated
+\Biocpkg{RforProteomics} Google
+group\footnote{\url{https://groups.google.com/forum/\#!forum/rbioc-sig-proteomics}}
+welcomes questions/comments/annoucements related to \R{} and
+mass-spectrometry/proteomics.
 
-It is important to read and comply to the posting guides (\href{http://www.r-project.org/posting-guide.html}{here} and \href{http://bioconductor.org/help/mailing-list/posting-guide/}{here}) to maximise the chances to obtain good responses. It is important to specify the software versions using the \Rfunction{sessionInfo()} functions (see an example output at the end of this document, on page \pageref{sec:sessionInfo}). It the question involves some code, make sure to isolate the relevant portion and report it with your question, trying to make your code/example reproducible\footnote{\url{https://github.com/hadley/devtools/wiki/Reproducibility}}.
+It is important to read and comply to the posting guides
+(\href{http://www.r-project.org/posting-guide.html}{here} and
+\href{http://bioconductor.org/help/mailing-list/posting-guide/}{here})
+to maximise the chances to obtain good responses. It is important to
+specify the software versions using the \Rfunction{sessionInfo()}
+functions (see an example output at the end of this document, on page
+\pageref{sec:sessionInfo}). It the question involves some code, make
+sure to isolate the relevant portion and report it with your question,
+trying to make your code/example
+reproducible\footnote{\url{https://github.com/hadley/devtools/wiki/Reproducibility}}.
 
 All lists have browsable archives.
 
@@ -200,7 +184,8 @@ library("BiocInstaller")
 biocLite("RforProteomics")
 @ 
 
-To install all dependencies (78 packages) and reproduce the code in the vignette, replace the last line in the code chunk above with:)
+To install all dependencies and reproduce the code in the vignette,
+replace the last line in the code chunk above with:)
 
 <<installation2, eval = FALSE>>=
 biocLite("RforProteomics", dependencies = TRUE)
@@ -212,28 +197,47 @@ Finally, the package can be loaded with
 library("RforProteomics")
 @ 
 
-See also the `RforProteomics` web page\footnote{\url{http://lgatto.github.io/RforProteomics/}} 
-for more information on installation. 
+See also the \Biocpkg{RforProteomics} web
+page\footnote{\url{http://lgatto.github.io/RforProteomics/}} for more
+information on installation.
 
 \subsection{External dependencies}
 
-Some packages used in the document depend on external libraries that need to be installed prior to the \R packages:
+Some packages used in the document depend on external libraries that
+need to be installed prior to the \R{} packages:
 
 \begin{description}
-  \item[\Rpackage{mzR}] depends on the Common Data Format\footnote{\url{http://cdf.gsfc.nasa.gov/}} (CDF) 
-    to CDF-based raw mass-spectrometry data. On linux, the \texttt{libcdf} library is required. 
-    On debian-based systems, for instance, one needs to install the \texttt{libnetcdf-dev} package.
-  \item[\Rpackage{IPPD}] (and others) depend on the \Rpackage{XML} package which requires the \texttt{libxml2} 
-    infrastructure on linux. On debian-based systems, one needs to install \texttt{libxml2-dev}.
-  \item [\Rpackage{biomaRt}] performs on-line requests using the 
-    \texttt{curl}\footnote{\url{http://curl.haxx.se/}} 
-    infrastructure. On debian-based systems, you one needs to install  
-    \texttt{libcurl-dev} or \texttt{libcurl4-openssl-dev}.
+\item[\Biocpkg{mzR}] depends on the Common Data
+  Format\footnote{\url{http://cdf.gsfc.nasa.gov/}} (CDF) to CDF-based
+  raw mass-spectrometry data. On Linux, the \texttt{libcdf} library is
+  required.  On Debian-based systems, for instance, one needs to
+  install the \texttt{libnetcdf-dev} package.
+\item[\Biocpkg{IPPD}] (and others) depend on the \CRANpkg{XML}
+  package which requires the \texttt{libxml2} infrastructure on
+  Linux. On Debian-based systems, one needs to install
+  \texttt{libxml2-dev}.
+\item [\Biocpkg{biomaRt}] performs on-line requests using the 
+  \texttt{curl}\footnote{\url{http://curl.haxx.se/}} 
+  infrastructure. On Debian-based systems, you one needs to install  
+  \texttt{libcurl-dev} or \texttt{libcurl4-openssl-dev}.
 \end{description}
 
 \subsection{Obtaining the code}
 
-The code in this document describes all the examples presented in \cite{R4prot2013} and can be copy, pasted and executed. It is however more convenient to have it in a separate text file for better interaction with \R (using ESS\footnote{\url{http://ess.r-project.org/}} for emacs or RStudio\footnote{\url{http://rstudio.org/}} for instance) to easily modify and explore it. This can be achieved with the \Rfunction{Stangle} function. One needs the Sweave source of this document (a document combining the narration and the \R code) and the \Rfunction{Stangle} then specifically extracts the code chunks and produces a clean \R source file. If the package is installed, the following code chunk will create a \texttt{RforProteomics.R} file in your working directory containing all the annotated source code contained in this document.
+The code in this document describes all the examples presented in
+\cite{R4prot2013} and can be copy, pasted and executed. It is however
+more convenient to have it in a separate text file for better
+interaction with \R{} (using
+ESS\footnote{\url{http://ess.r-project.org/}} for Emacs or
+RStudio\footnote{\url{http://rstudio.org/}} for instance) to easily
+modify and explore it. This can be achieved with the
+\Rfunction{Stangle} function. One needs the Sweave source of this
+document (a document combining the narration and the \R{} code) and the
+\Rfunction{Stangle} then specifically extracts the code chunks and
+produces a clean \R{} source file. If the package is installed, the
+following code chunk will create a \texttt{RforProteomics.R} file in
+your working directory containing all the annotated source code
+contained in this document.
 
 <<stangle, eval=TRUE, tidy=FALSE, error=FALSE>>= 
 ## gets the vignette source
@@ -244,11 +248,14 @@ library("knitr")
 purl(rnwfile, quiet = TRUE)
 @ %% $
 
-Alternatively, you can obtain the \texttt{Rnw} file on the github page \url{https://github.com/lgatto/RforProteomics/blob/master/inst/doc/vigsrc/RforProteomics.Rnw}.
+Alternatively, you can obtain the \texttt{Rnw} file on the github page
+\url{https://github.com/lgatto/RforProteomics/blob/master/inst/doc/vigsrc/RforProteomics.Rnw}.
 
 \subsection{Prepare the working environment}
 
-The packages that we will depend on to execute the examples will be loaded in the respective sections. Here, we pre-load packages that provide general functionality used throughout the document.
+The packages that we will depend on to execute the examples will be
+loaded in the respective sections. Here, we pre-load packages that
+provide general functionality used throughout the document.
 
 <<env>>=
 library("RColorBrewer") ## Color palettes
@@ -258,12 +265,15 @@ library("reshape2") ## Flexibly reshape data
 
 \section{Data standards and input/output}
 
-\subsection{The \Rpackage{mzR} package}
+\subsection{The \Biocpkg{mzR} package}
 
-The \Rpackage{mzR} package \cite{Chambers2012} provides a unified interface to various mass spectrometry open formats. 
-This code chunk, taken mainly from the \Rfunction{openMSfile} documentation illustrated how to open a connection to an 
-raw data file. The example \texttt{mzML} data is taken from the \Rpackage{msdata} data package. 
-The code below would also be applicable to an \texttt{mzXML}, \texttt{mzData} or \texttt{netCDF} file.
+The \Biocpkg{mzR} package \cite{Chambers2012} provides a unified
+interface to various mass spectrometry open formats.  This code chunk,
+taken mainly from the \Rfunction{openMSfile} documentation illustrated
+how to open a connection to an raw data file. The example
+\texttt{mzML} data is taken from the \Biocexptpkg{msdata} data package.
+The code below would also be applicable to an \texttt{mzXML},
+\texttt{mzData} or \texttt{netCDF} file.
 
 <<mzr>>=
 ## load the required packages
@@ -286,16 +296,42 @@ instrumentInfo(mz)
 close(mz)
 @ 
 
-\Rpackage{mzR} is used by other packages, like \Rpackage{MSnbase} \cite{Gatto2012}, 
-\Rpackage{TargetSearch} \cite{TargetSearch2009}
-and \Rpackage{xcms} \cite{Smith2006, Benton2008, Tautenhahn2008}, 
-that provide a higher level abstraction to the data.
+\Biocpkg{mzR} is used by other packages, like \Biocpkg{MSnbase}
+\cite{Gatto2012}, \Biocpkg{TargetSearch} \cite{TargetSearch2009} and
+\Biocpkg{xcms} \cite{Smith2006, Benton2008, Tautenhahn2008}, that
+provide a higher level abstraction to the data.
+
+\subsection{Handling MS$^2$ identification data with \Biocpkg{mzID}}
+
+The \Biocpkg{mzID} package allows to load and manipulate MS$^2$ data
+in the \texttt{mzIdentML} format. The main \Rfunction{mzID} function
+reads such a file and constructs an instance of class \Robject{mzID}.
+
+<<mzid>>=
+library("mzID")
+id <- mzID("http://psi-pi.googlecode.com/svn/trunk/examples/1_1examples/55merge_tandem.mzid")
+id
+@
+
+Peptides, scans, parameters, \ldots can be extracted with the
+respective \Rfunction{pepetides}, \Rfunction{scans},
+\Rfunction{parameters}, \ldots functions. The \Robject{mzID} object
+can also be converted into a \texttt{data.frame} using the
+\Rfunction{flatten} function.
+
+<<flatid>>=
+fid <- flatten(id)
+names(fid)
+dim(fid)
+@
+
 
 \section{Raw data abstraction with \Robject{MSnExp} objects}
 
-\Rpackage{MSnbase} \cite{Gatto2012} provides base functions and classes for MS-based proteomics 
-that allow facile data and meta-data processing, manipulation and plotting 
-(see for instance figure \ref{fig:msnexp} on page \pageref{fig:msnexp}).
+\Biocpkg{MSnbase} \cite{Gatto2012} provides base functions and
+classes for MS-based proteomics that allow facile data and meta-data
+processing, manipulation and plotting (see for instance figure
+\ref{fig:msnexp} on page \pageref{fig:msnexp}).
 
 <<msnexp>>= 
 library("MSnbase")
@@ -313,11 +349,12 @@ raw[[3]]
 %% $
 
 \begin{figure}[!ht]
-<<msnexpPlot, dev='pdf', echo=TRUE, fig.width=5, fig.height=5, fig.keep='all', out.width='.7\\linewidth'>>=
+<<msnexpPlot, dev='pdf', echo=TRUE, fig.width=5, fig.height=5, fig.keep='all', out.width='.48\\linewidth'>>=
 plot(raw, full=TRUE)
 plot(raw[[3]], full=TRUE, reporters=iTRAQ4)
 @ 
-\caption{The \Rfunction{plot} method can be used on experiments, i.e. spectrum collections (left), or individual spectra (right). }
+\caption{The \Rfunction{plot} method can be used on experiments,
+  i.e. spectrum collections (top), or individual spectra (bottom). }
 \label{fig:msnexp}
 \end{figure}
 
@@ -325,35 +362,52 @@ plot(raw[[3]], full=TRUE, reporters=iTRAQ4)
 
 \subsection{\texttt{mgf} read/write support}
 
-Read and write support for data in the 
-\texttt{mgf}\footnote{\url{http://www.matrixscience.com/help/data_file_help.html\#GEN}} 
-and \texttt{mzTab}\footnote{\url{https://code.google.com/p/mztab/}} formats
-are available via the \Rfunction{readMgfData}/\Rfunction{writeMgfData} 
-and \Rfunction{readMzTabData}/\Rfunction{writeMzTabData} functions, respectively.
-An example for the latter is shown in the next section.
+Read and write support for data in the
+\texttt{mgf}\footnote{\url{http://www.matrixscience.com/help/data_file_help.html\#GEN}}
+and \texttt{mzTab}\footnote{\url{https://code.google.com/p/mztab/}}
+formats are available via the
+\Rfunction{readMgfData}/\Rfunction{writeMgfData} and
+\Rfunction{readMzTabData}/\Rfunction{writeMzTabData} functions,
+respectively. An example for the latter is shown in the next section.
 
 \section{Quantitative proteomics}
 
-As an running example throughout this document, we will use a TMT 6-plex data set, 
-\texttt{PXD000001} to illustrate quantitative data processing. 
-The code chunk below first downloads this data file from the ProteomeXchange server using 
-the \Rfunction{getPXD000001mzTab} function from the \Rpackage{RforProteomics} package.
+As an running example throughout this document, we will use a TMT
+6-plex data set, \texttt{PXD000001} to illustrate quantitative data
+processing.  The code chunk below first downloads this data file from
+the ProteomeXchange server using the \Biocpkg{rpx} package.
 
 \subsection{The \texttt{mzTab} format}
 
-The first code chunk downloads the data, reads it into \R and generates 
-an \Robject{MSnSet} instance and then calculates protein intensities 
-by summing the peptide quantitation data.
-Figure \ref{fig:matplot} illustrates the intensities for 5 proteins.
+The first code chunk downloads the \texttt{mzTab} data from the
+ProteomeXchange repository \cite{Vizcaino2014}.
+
+<<downloadmztab, tidy = FALSE>>=
+## Experiment information
+library("rpx")
+px1 <- PXDataset("PXD000001")
+px1
+pxfiles(px1)
+## Downloading the mzTab data
+mztab <- pxget(px1, "PXD000001_mztab.txt")
+mztab
+@
+
+The code below loads the \texttt{mzTab} file into \R{} and generates an
+\Robject{MSnSet} instance, removes missing values and calculates
+protein intensities by summing the peptide quantitation data. Figure
+\ref{fig:matplot} illustrates the intensities for 5 proteins.
+
 
 <<mztab, tidy = FALSE>>=
-## Downloads the experiment
-mztab <- getPXD000001mzTab()
-mztab ## the mzTab file name
 ## Load mzTab peptide data 
 qnt <- readMzTabData(mztab, what = "PEP")
 sampleNames(qnt) <- reporterNames(TMT6)
 head(exprs(qnt))
+## remove missing values
+qnt <- filterNA(qnt)
+processingData(qnt)
+
 ## combine into proteins
 ## - using the 'accession' feature meta data
 ## - sum the peptide intensities
@@ -361,6 +415,7 @@ protqnt <- combineFeatures(qnt,
                            groupBy = fData(qnt)$accession, 
                            fun = sum)
 @ 
+
 
 
 \begin{figure}[!ht]
@@ -439,7 +494,7 @@ ggplot(aes(x = variable, y = value, colour = Protein),
   facet_grid(. ~ Protein) + theme(legend.position="none") +
   labs(x = "Reporters", y = "Normalised intensity")
 @ %% $
-\caption{Spikes plot using \Rpackage{ggplot2}.}
+\caption{Spikes plot using \CRANpkg{ggplot2}.}
 \label{fig:spikes}
 \end{figure}
 
@@ -447,12 +502,28 @@ ggplot(aes(x = variable, y = value, colour = Protein),
 
 \subsection{Working with raw data}
 
-<<mzxml, cache=TRUE>>=
-mzxml <- getPXD000001mzXML()
-rawms <- readMSData(mzxml, centroided = TRUE, verbose = FALSE)
-qntms <- quantify(rawms, reporters = TMT7, method = "max", 
-                  verbose = FALSE, parallel = FALSE)
+We reuse our dedicated \Robject{px1} ProteomeXchange data object to
+download the raw data (in \texttt{mzXML} format) and load it with the
+\Rfunction{readMSData} from the \Biocpkg{MSnbase} package that
+produces a raw data experiment object of class \Robject{MSnExp}. The
+raw data is then quantified using the \Rfunction{quantify} method
+specifying the TMT 6-plex isobaric tags and a 7$^{th}$ peak of
+interest corresponding to the un-dissociated reporter tag peaks (see
+the \texttt{MSnbase-demo} vignette in \Biocpkg{MSnbase} for details).
 
+<<mzxmlqnt, cache=TRUE>>=
+mzxml <- pxget(px1, "TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML")
+rawms <- readMSData(mzxml, centroided = TRUE, verbose = FALSE)
+qntms <- quantify(rawms, reporters = TMT7, method = "max")
+qntms
+@
+
+Identification data in the \texttt{mzIdentML} format can be added to
+\Robject{MSnExp} or \Robject{MSnSet} instances with the
+\Rfunction{addIdentificationData} function. See the function
+documentation for examples.
+
+<<qntdf>>=
 d <- data.frame(Signal = rowSums(exprs(qntms)[, 1:6]),
                 Incomplete = exprs(qntms)[, 7])
 d <- log(d)
@@ -507,10 +578,11 @@ MAplot(qnt[, c(4, 2)], cex = .9, col = cls, pch = pch, show.statistics = FALSE)
 
 \clearpage
 
-\subsection{The \Rpackage{MALDIquant} package}
+\subsection{The \CRANpkg{MALDIquant} package}
 
-This section illustrates some of \Rpackage{MALDIquant}'s data processing capabilities \cite{Gibb2012}. 
-The code is taken from the \texttt{processing-peaks.R} script downloaded from the package 
+This section illustrates some of \CRANpkg{MALDIquant}'s data
+processing capabilities \cite{Gibb2012}.  The code is taken from the
+\texttt{processing-peaks.R} script downloaded from the package
 homepage\footnote{\url{http://strimmerlab.org/software/maldiquant/}}.
 
 \subsubsection*{Loading the data}
@@ -538,7 +610,7 @@ head(as.matrix(s))
 <<mqplot, dev='pdf', echo=TRUE, fig.width=7, fig.height=5.5, fig.keep='last', out.width='.6\\linewidth'>>=
 plot(s)
 @ 
-\caption{Spectrum plotting in \Rpackage{MALDIquant}.}
+\caption{Spectrum plotting in \CRANpkg{MALDIquant}.}
 \label{fig:mqplot}
 \end{figure}
 
@@ -584,7 +656,7 @@ labelPeaks(p, index=top20, underline=TRUE)
 plot(p, sub="", main="6: peak plot", xlim=xl)
 labelPeaks(p, index=top20, underline=TRUE)
 @ 
-\caption{Spectrum plotting in \Rpackage{MALDIquant}.}
+\caption{Spectrum plotting in \CRANpkg{MALDIquant}.}
 \label{fig:mqplot}
 \end{figure}
 
@@ -639,8 +711,10 @@ exppep <-
   as.character(fData(qnt[grep("ENO", fData(qnt)[, 2]), ])[, 1]) ## 13
 minlength <- min(nchar(exppep))
 
-eno <- download.file("http://www.uniprot.org/uniprot/P00924.fasta", 
-                     destfile = "P00924.fasta")
+
+if (!file.exists("P00924.fasta"))
+    eno <- download.file("http://www.uniprot.org/uniprot/P00924.fasta", 
+                         destfile = "P00924.fasta")
 eno <- paste(readLines("P00924.fasta")[-1], collapse = "")
 enopep <- Digest(eno, missed = 1)
 nrow(enopep) ## 103
@@ -649,7 +723,7 @@ pepcnt <- enopep[enopep[, 1] %in% exppep, ]
 nrow(pepcnt) ## 13
 @ 
 
-The following code chunks demonstrate how to use the \Rpackage{cleaver} package
+The following code chunks demonstrate how to use the \Biocpkg{cleaver} package
 for in-silico cleavage of polypeptides, e.g. cleaving of
 \emph{Gastric juice peptide 1 (P01358)} using \emph{Trypsin}:
 <<cleaver, tidy = FALSE>>=
@@ -668,9 +742,11 @@ cleave("LAAGKVEDSD", enzym = "trypsin", missedCleavages = 0:1)
 @
 
 
-Example code to generate an Texshade image to be included directly in a Latex document or \R vignette is presented below. 
-The \R code generates a Texshade environment and the annotated sequence display code that is written to a \TeX~file that can 
-itself be included into a \LaTeX~of Sweave document. 
+Example code to generate an Texshade image to be included directly in
+a Latex document or \R{} vignette is presented below.  The \R{} code
+generates a Texshade environment and the annotated sequence display
+code that is written to a \TeX~file that can itself be included into a
+\LaTeX~of Sweave document.
 
 {\scriptsize
 \begin{verbatim}
@@ -719,12 +795,10 @@ for (i in 1:length(inc))
 
 \clearpage
 
-\subsection{The \Rpackage{isobar} package}
+\subsection{The \Biocpkg{isobar} package}
 
-The \Rpackage{isobar} package \cite{Breitwieser2011} provides methods for the statistical
+The \Biocpkg{isobar} package \cite{Breitwieser2011} provides methods for the statistical
 analysis of isobarically tagged MS$^2$ experiments.
-
-
 
 %% <<isobarfix, echo=TRUE>>=
 %% ## temporary local fix 
@@ -837,8 +911,7 @@ rat.exp <- c(PHO = 2/2,
 
 
 \begin{figure}[!ht]
-<<ibplot, dev='pdf', echo=TRUE, fig.width=10, fig.height=5, fig.keep='last', out.width='1\\linewidth'>>=
-par(mfrow = c(1,2))
+<<ibplot, dev='pdf', echo=TRUE, fig.width=5, fig.height=5, fig.keep='last'>>=
 maplot(x,
        noise.model = c(nm.background, nm.spks, nm),
        channel1="127", channel2="129",
@@ -850,33 +923,22 @@ legend("topright",
        pch = 19, col = c("gold4", "dodgerblue", 
                    "springgreen4", "darkorchid2"),
        bty = "n", cex = .7) 
-plot(res$lratio, -log10(res$p.value.rat), col = cls3, pch = pch3,
-     xlab = expression(log[10]~fold-change),
-     ylab = expression(-log[10]~p-value),
-     main = "Protein volcano plot", 
-     xlim = c(-0.7, 0.7))
-grid()
-abline(h = -log10(0.01), lty = "dotted")
-abline(v = log10(c(2, 0.5)), lty = "dotted")
-abline(v = -0.003, col = "springgreen4", lty = "dashed", lwd = 2)
-abline(v = 0.003, col = "darkorchid2", lty = "dashed", lwd = 2)
-abline(v = log10(5), col = "dodgerblue", lty = "dashed", lwd = 2)
-abline(v = log10(0.25), col = "gold4", lty = "dashed", lwd = 2)
-points(res[spks, "lratio"], 
-       -log10(res[spks, "p.value.rat"]), 
-       col = c("darkorchid2", "dodgerblue", 
-         "gold4", "springgreen4"),
-       pch = 19)
 @ 
-\caption{Result from the \Rpackage{isobar} pipeline. }
+\caption{Result from the \Biocpkg{isobar} pipeline. }
 \label{fig:ibplot}
 \end{figure}
 
 \clearpage
 
-\subsection{The \Rpackage{synapter} package}
+\subsection{The \Biocpkg{synapter} package}
 
-The \Rpackage{synapter} \cite{synapter} package comes with a detailed vignette that describes how to prepare the MS$^E$ data and then process it in \R. Several interfaces are available provided the user with maximum control, easy batch processing capabilities or a graphical user interface. The conversion into \Robject{MSnSet} instances and filter and combination thereof as well as statistical analysis are also described. 
+The \Biocpkg{synapter} \cite{synapter} package comes with a detailed
+vignette that describes how to prepare the MS$^E$ data and then
+process it in \R{}. Several interfaces are available provided the user
+with maximum control, easy batch processing capabilities or a
+graphical user interface. The conversion into \Robject{MSnSet}
+instances and filter and combination thereof as well as statistical
+analysis are also described.
 
 <<synapter, eval=FALSE>>=
 ## open the synapter vignette
@@ -886,9 +948,9 @@ synapterGuide()
 
 \section{MS$^2$ spectra identification}
 
-A recent addition to Bioconductor 2.12 is the \Rpackage{rTANDEM} package, 
-that provides a direct interface to the X!Tandem software \cite{Craig2004}. 
-A typical \Rpackage{rTANDEM} pipeline comprises
+A recent addition to \Bioconductor{} is the \Biocpkg{rTANDEM} package,
+that provides a direct interface to the X!Tandem software
+\cite{Craig2004}.  A typical \Biocpkg{rTANDEM} pipeline comprises
 
 \begin{enumerate}
 \item Prepare the input data.
@@ -896,7 +958,8 @@ A typical \Rpackage{rTANDEM} pipeline comprises
 \item Import the search results and extract the peptides and proteins
 \end{enumerate}
 
-Using example code/data from the \Rpackage{rTANDEM} vignette/package, these steps are executed as described below.
+Using example code/data from the \Biocpkg{rTANDEM} vignette/package,
+these steps are executed as described below.
 
 \subsection{Preparation of the input data}
 
@@ -934,8 +997,9 @@ param <- setParamValue(param, 'output', 'path',
 
 \subsection{Performing the search}
 
-The analysis is run using the \Rfunction{tandem} function (see also the \Rfunction{rtandem} function), 
-which returns the results data file path (only the file name is displayed below).
+The analysis is run using the \Rfunction{tandem} function (see also
+the \Rfunction{rtandem} function), which returns the results data file
+path (only the file name is displayed below).
 
 <<rtanem2>>=
 resultPath <- tandem(param)
@@ -958,16 +1022,41 @@ peptides <- GetPeptides(protein.uid = 1811,
 peptides[, c(1:4, 9, 10:16), with = FALSE]
 @ 
 
-More details are provided in the vignette available with \Rfunction(vignette("rTANDEM")), 
-for instance the extraction of degenerated peptides, i.e. peptides found in multiple proteins.
+More details are provided in the vignette available with
+\Rfunction(vignette("rTANDEM")), for instance the extraction of
+degenerated peptides, i.e. peptides found in multiple proteins.
 
-\section{Annotation}
+\bigskip
 
-In this section, we briefly present some Bioconductor annotation infrastructure. 
+The \Biocpkg{shinyTANDEM} package offers a web-based graphical
+interface to \Biocpkg{rTANDEM}.
 
-We start with the \Rpackage{hpar} package, an interface to the \textit{Human Protein Atlas} 
-\cite{Uhlen2005, Uhlen2010}, to retrieve subcellular localisation information for the 
-\texttt{ENSG00000002746} ensemble gene.
+\section{Quality control}\label{sec:qc}
+
+Quality control (QC) is an essential part of any high throughput data
+driven approach. Bioconductor has a rich history of QC for various
+genomics data and currently two packages support proteomics QC.
+
+\Biocpkg{proteoQC} provides a dedicated a dedicated pipeline that will
+produce a dynamic and extensive html report. It uses the
+\Biocpkg{rTANDEM} package to automate the generation of identification
+data and uses information about the experimental/replication design.
+
+
+The \Biocpkg{qcmetrics} package is a general framework to define QC
+metrics and bundle them together to generate html or pdf reports. It
+provides some ready made metrics for MS data and $^{15}$N labelled
+data.
+
+\section{Annotation}\label{sec:annot}
+
+In this section, we briefly present some \Bioconductor{} annotation
+infrastructure.
+
+We start with the \Biocpkg{hpar} package, an interface to the
+\textit{Human Protein Atlas} \cite{Uhlen2005, Uhlen2010}, to retrieve
+subcellular localisation information for the \texttt{ENSG00000002746}
+ensemble gene.
 
 <<annot1, cache=FALSE>>=
 id <- "ENSG00000002746"
@@ -975,25 +1064,25 @@ library("hpar")
 getHpa(id, "SubcellularLoc")
 @
 
-Below, we make use of the human annotation package \Rpackage{org.Hs.eg.db} and 
-the Gene Ontology annotation package \Rpackage{GO.db} to retrieve the same 
-information as above.
+Below, we make use of the human annotation package
+\Biocannopkg{org.Hs.eg.db} and the Gene Ontology annotation package
+\Biocannopkg{GO.db} to retrieve the same information as above.
 
 <<annot2, cache=FALSE, warning = FALSE>>=
 library(org.Hs.eg.db)
 library(GO.db)
 ans <- select(org.Hs.eg.db, 
-              keys = id, cols = c("ENSEMBL", "GO", "ONTOLOGY"), 
+              keys = id, columns = c("ENSEMBL", "GO", "ONTOLOGY"), 
               keytype = "ENSEMBL")
 ans <- ans[ans$ONTOLOGY == "CC", ]
 ans
 sapply(as.list(GOTERM[ans$GO]), slot, "Term")
 @ 
 
-Finally, this information can also be retrieved from on-line databases using the 
-\Rpackage{biomaRt} package \cite{Durinck2005}.
+Finally, this information can also be retrieved from on-line databases
+using the \Biocpkg{biomaRt} package \cite{Durinck2005}.
 
-<<annot3, cache=FALSE>>=
+<<annot3, cache=TRUE>>=
 library("biomaRt")
 ensembl <- useMart("ensembl",dataset="hsapiens_gene_ensembl")
 efilter <- "ensembl_gene_id"
@@ -1010,90 +1099,85 @@ bmres[bmres$namespace_1003 == "cellular_component", "name_1006"]
 
 \section{Other packages}\label{sec:packages}
 
-\subsection{Bioconductor packages}
+\subsection{\Bioconductor{} packages}
 
-<<gist4493747, echo=FALSE, warning=FALSE, cache=TRUE>>=
-biocv <- 2.13
 
-getPackagesInBiocView <- function(view, 
-                                  rep = c("BioCsoft", "BioCann",
-                                      "BioCexp", "BioCextra"),
-                                  biocVersion = biocv) {
-    suppressPackageStartupMessages(require("biocViews"))
-    data(biocViewsVocab)
-    rep <- match.arg(rep)
-    biocMirror <- getOption("BioC_mirror", "http://bioconductor.org")
-    biocPaths <- switch(rep,         
-                        BioCsoft = "bioc",
-                        BioCann = "data/annotation", 
-                        BioCexp = "data/experiment",
-                        BioCextra = "extra")   
-    rep <- paste(biocMirror,
-                 "packages",
-                 biocVersion,
-                 biocPaths, 
-                 sep = "/") 
-    bv <- getBiocViews(rep, biocViewsVocab, "NoViewProvided")
-    if (!view %in% names(bv)) {
-        warning("BiocView ", view, " not found.")
-        return(NULL)
-    }  
-    return(bv[[view]])
-}
+<<protpacks, echo=FALSE, warning=FALSE, cache=TRUE>>=
+# biocVersion has to be of type character
+biocv <- as.character(biocVersion())
 
-pk <- list(Proteomics = getPackagesInBiocView("Proteomics"),
-           MassSpectrometryData = getPackagesInBiocView("MassSpectrometryData", rep = "BioCexp"),
-           MassSpectrometry = getPackagesInBiocView("MassSpectrometry"))
-
-.makePackageTable <- function(x, nsub = TRUE) {
-  Package <- sapply(x@packageList, function(x) x@Package)
-  Title <- sapply(x@packageList, function(x) x@Title)
-  if (nsub)
-    Title <- sub("\n", " ", Title)
-  return(data.frame(Package, Title))
-}
-
-pkTab <- lapply(pk, .makePackageTable)
+pkTab <- list(Proteomics = proteomicsPackages(biocv),
+              MassSpectrometry = massSpectrometryPackages(biocv),
+              MassSpectrometryData = massSpectrometryDataPackages(biocv))
 @ 
 
-This section provides a complete list of packages available in the relevant Bioconductor version \Sexpr{biocv} 
-(as of \today) \textit{biocView}\footnote{\url{http://www.bioconductor.org/packages/devel/BiocViews.html}} categories. 
-Tables \ref{tab:prot}, \ref{tab:ms} and \ref{tab:msdata} represent the packages for the 
-\texttt{Proteomics} (\Sexpr{nrow(pkTab[["Proteomics"]])} packages), 
-\texttt{MassSpectrometry} (\Sexpr{nrow(pkTab[["MassSpectrometry"]])} packages) and
-\texttt{MassSpectrometryData} (\Sexpr{nrow(pkTab[["MassSpectrometryData"]])} experiment packages)
+This section provides a complete list of packages available in the
+relevant \Bioconductor{} version \Sexpr{biocv} (as of \today)
+\textit{biocView}\footnote{\url{http://www.bioconductor.org/packages/devel/BiocViews.html}}
+categories.  Tables \ref{tab:prot}, \ref{tab:ms} and \ref{tab:msdata}
+represent the packages for the \texttt{Proteomics}
+(\Sexpr{nrow(pkTab[["Proteomics"]])} packages),
+\texttt{MassSpectrometry} (\Sexpr{nrow(pkTab[["MassSpectrometry"]])}
+packages) and \texttt{MassSpectrometryData}
+(\Sexpr{nrow(pkTab[["MassSpectrometryData"]])} experiment packages)
 categories.
 
+<< xtabpkg, echo=FALSE, message=FALSE>>=
+library("xtable")
+@
+
 <<protstab, echo=FALSE, results='asis'>>=
-print(xtable(pkTab[["Proteomics"]],
+t1 <- xtable(pkTab[["Proteomics"]],
              caption = "Packages available under the \\texttt{Proteomics} \\textit{biocViews} category.",
              table.placement = "thb",
-             align = c("llL"),
-             label = "tab:prot"),
+             label = "tab:prot")
+align(t1) <- c("l", "l", "p{10cm}", "l")
+print(t1, 
       include.rownames = FALSE,
-      tabular.environment = "tabulary",       
-      width = "1\\textwidth",
+      floating = FALSE,
+      tabular.environment = 'longtable',
       size = "scriptsize")
 @ 
 
 <<mstab, echo=FALSE, results='asis'>>=
-print(xtable(pkTab[["MassSpectrometry"]],
+t2 <- xtable(pkTab[["MassSpectrometry"]],
              caption = "Packages available under the \\texttt{MassSpectrometry} \\textit{biocViews} category.",
              table.placement = "thb",
-             label = "tab:ms"),
+             label = "tab:ms")
+align(t2) <- c("l", "l", "p{10cm}", "l")
+print(t2, 
       include.rownames = FALSE,
+      floating = FALSE,
+      tabular.environment = 'longtable',
       size = "scriptsize")
+
 @ 
 
 <<msdatatab, echo=FALSE, results='asis'>>=
-print(xtable(pkTab[["MassSpectrometryData"]],
+t3 <- xtable(pkTab[["MassSpectrometryData"]],
              caption = "Experimental Packages available under the \\texttt{MassSpectrometryData} \\textit{biocViews} category.",
              table.placement = "thb",
-             label = "tab:msdata"),
+             label = "tab:msdata")
+align(t3) <- c("l", "l", "p{10cm}", "l")
+print(t3, 
       include.rownames = FALSE,
+      floating = FALSE,
+      tabular.environment = 'longtable',
       size = "scriptsize")
 @ 
 
+The tables can easily be generated with the
+\Rfunction{proteomicsPackages}, \Rfunction{massSpectrometryPackages}
+and \Rfunction{massSpectrometryDataPackages} functions. The respective
+package tables can then be interactively explored using the
+\Rfunction{display} function.
+
+<<pkgs, eval=FALSE>>=
+pp <- proteomicsPackages()
+display(pp)
+@
+
+\subsection{Other CRAN packages}
 
 <<cntCRAN, echo=FALSE>>=
 X <- readLines("http://cran.r-project.org/web/views/ChemPhys.html")
@@ -1102,50 +1186,52 @@ x1 <- grep("CRAN packages:", X)
 np <- length(grep("../packages/", X[x1:x2]))
 @ 
 
-\subsection{The Chemometrics and Computational Physics CRAN Task View}
-
-The CRAN task view on Chemometrics and Computational 
+The CRAN task view on Chemometrics and Computational
 Physics\footnote{\url{http://cran.r-project.org/web/views/ChemPhys.html}}
-lists \Sexpr{np} packages, including a set of packages for 
-mass spectrometry and proteomics, some of which are illustrated in this document. 
-The most relevant (non Bioconductor) packages are summarised below.
+is another useful ressource listing \Sexpr{np} packages, including a
+set of packages for mass spectrometry and proteomics, some of which
+are illustrated in this document.
 
 \begin{description}
-  \item[MALDIquant] 
-    provides tools for quantitative analysis of MALDI-TOF mass spectrometry data, 
-    with support for baseline correction, peak detection and plotting of 
-    mass spectra \\
-    (\url{http://cran.r-project.org/web/packages/MALDIquant/index.html}).
-  \item[OrgMassSpecR] 
-    is for organic/biological mass spectrometry, with a focus on graphical display, 
-    quantification using stable isotope dilution, and protein hydrogen/deuterium exchange 
-    experiments \\
-    (\url{http://cran.r-project.org/web/packages/OrgMassSpecR/index.html}).
-  \item[FTICRMS] 
-    provides functions for Analyzing Fourier Transform-Ion Cyclotron 
-    Resonance Mass Spectrometry Data \\
-    (\url{http://cran.r-project.org/web/packages/FTICRMS/index.html}).
-  \item[titan]
-    provides a GUI to analyze mass spectrometric data on the relative abundance 
-    of two substances from a titration series \\
-    (\url{http://cran.r-project.org/web/packages/titan/index.html}).
+\item[\CRANpkg{MALDIquant}] provides tools for quantitative analysis of
+  MALDI-TOF mass spectrometry data, with support for baseline
+  correction, peak detection and plotting of
+  mass spectra \\
+  (\url{http://cran.r-project.org/web/packages/MALDIquant/index.html}).
+\item[\CRANpkg{OrgMassSpecR}] is for organic/biological mass spectrometry, with
+  a focus on graphical display, quantification using stable isotope
+  dilution, and protein hydrogen/deuterium exchange
+  experiments \\
+  (\url{http://cran.r-project.org/web/packages/OrgMassSpecR/index.html}).
+\item[\CRANpkg{FTICRMS}] provides functions for Analyzing Fourier Transform-Ion
+  Cyclotron
+  Resonance Mass Spectrometry Data \\
+  (\url{http://cran.r-project.org/web/packages/FTICRMS/index.html}).
+\item[\CRANpkg{titan}] provides a GUI to analyze mass spectrometric data on the
+  relative abundance
+  of two substances from a titration series \\
+  (\url{http://cran.r-project.org/web/packages/titan/index.html}).
+\item[\CRANpkg{digeR}] provides a GUI interface for analysing 2D DIGE data. It
+  allows to perform correlation analysis, score plot, classification,
+  feature selection and power analysis for
+  2D DIGE experiment data. \\
+  (\url{http://cran.r-project.org/web/packages/digeR/index.html})
+\item[\CRANpkg{protViz}] helps with quality checks, visualizations and analysis
+  of mass spectrometry data, coming from proteomics experiments. The
+  package is developed, tested and used at the Functional Genomics
+  Center Zurich. \\
+  (\url{http://cran.r-project.org/web/packages/protViz/index.html})
 \end{description}
-
-\subsection{Other CRAN packages}
-
-Finally, \Rpackage{digeR}\footnote{\url{http://cran.r-project.org/web/packages/digeR/index.html}}, 
-which is available on CRAN but not listed in the Chemometrics and Computational Physics Task View, 
-provides a GUI interface for analysing 2D DIGE data. It allows to 
-perform correlation analysis, score plot, classification, 
-feature selection and power analysis for 2D DIGE experiment data.
 
 \bigskip
 
-Suggestions for additional \R packages are welcome and will be added to the vignette. 
-Please send suggestions and possibly a short description and/or a example utilisation with code 
-to \url{lg390@cam.ac.uk}. The only requirement is that the package must be available 
-on an official package channel (CRAN, Bioconductor, R-forge, Omegahat), 
-i.e. not only available through a personal web page. 
+Suggestions for additional \R{} packages are welcome and will be added
+to the vignette.  Please send suggestions and possibly a short
+description and/or a example utilisation with code to
+\url{lg390@cam.ac.uk}. The only requirement is that the package must
+be available on an official package channel (CRAN, \Bioconductor{},
+R-forge, Omegahat), i.e. not only available through a personal web
+page.
 
 \clearpage
 
@@ -1153,17 +1239,15 @@ i.e. not only available through a personal web page.
 %% Section
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\singlespacing
-
 \section{Session information}\label{sec:sessionInfo} 
 
-All software and respective versions used in this document, as returned by \Rfunction{sessionInfo()} are detailed below.
+All software and respective versions used in this document, as
+returned by \Rfunction{sessionInfo()} are detailed below.
 
 <<sessioninfo, results='asis', echo=FALSE, echo=FALSE>>=
 toLatex(sessionInfo(), locale = FALSE)
 @
 
-\bibliographystyle{abbrv}
 \bibliography{RforProteomics}
 
 \end{document}
