@@ -1,8 +1,9 @@
 ## Introduction
 
-The `RforProteomics` package distributes and extends the use-cases
-described in the _Using `R` and Bioconductor for proteomics data
-analysis_ manuscript
+The
+[`RforProteomics` package](http://www.bioconductor.org/packages/release/data/experiment/html/RforProteomics.html)
+distributes and extends the use-cases described in the _Using `R` and
+Bioconductor for proteomics data analysis_ manuscript
 ([pubmed](http://www.ncbi.nlm.nih.gov/pubmed/23692960) and
 [pre-print](http://arxiv.org/abs/1305.6559)).  The package illustrates
 how `R` and a selection of dedicated packages that can be used to
@@ -46,10 +47,12 @@ accessed once the package is installed (see below) with the
 downloaded as a pdf file
 [here](http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf).
 
-A second vignette, `RProtVis` is currently underdevelopmenet and will
-focus on the visualisation of mass spectrometry and proteomics data
-with `R` and Bioconductor. It can be accessed with the `RProtViz()`
-function.
+A second vignette, `RProtVis` focuses on the visualisation of mass
+spectrometry and proteomics data with `R` and Bioconductor. From `R`,
+it is currently only available with Bioconductor `>= 3.0` using the
+`RProtViz()` function. It can also be consulted
+[on-line](http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RProtVis.html)
+on the 'RforProteomics' development version page.
 
 ## Installation
 
@@ -64,12 +67,28 @@ biocLite("RforProteomics")
 ```
 
 To install all dependencies (75+ packages, including `RforProteomics`)
-and reproduce the code in the vignette, replace the last line in the
-code chunk above with:
+and fully reproduce the code in the vignettes, replace the last line
+in the code chunk above with:
 
 ```c
 biocLite("RforProteomics", dependencies = TRUE)
 ```
+
+## Collaborative editing
+
+The community and package authors are invited to contribute to the
+package. If you have or know of a package of interest, please
+[fork](https://help.github.com/articles/fork-a-repo) the
+[repository](https://github.com/lgatto/RforProteomics), add a new
+section to the vignette and send a
+[pull request](https://help.github.com/articles/creating-a-pull-request). If
+you update the vignette, please also add yourself as a contributor to
+the package.
+
+There is also a [wiki](https://github.com/lgatto/RforProteomics/wiki)
+than any github user can
+[edit](https://help.github.com/articles/editing-wiki-pages-via-the-online-interface)
+to gather specific `R`/Bioconductor proteomics needs and ideas. 
 
 ## Help
 
