@@ -2,7 +2,7 @@ Package: RforProteomics
 Type: Package
 Title: Companion package to the 'Using R and Bioconductor for
         proteomics data analysis' publication
-Version: 1.3.5
+Version: 1.3.6
 Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
                     email="lg390@cam.ac.uk"),
              person("Sebastian", "Gibb", role="ctb",
@@ -30,6 +30,5 @@ biocViews: ExperimentData, MassSpectrometry, Proteomics,
         MassSpectrometryData
 License: Artistic-2.0
 VignetteBuilder: knitr
-Packaged: 2014-08-12 08:21:42 UTC; lg390
-Author: Laurent Gatto [aut, cre],
-  Sebastian Gibb [ctb]
+Author: Laurent Gatto [aut, cre], Thomas Lin Perdersen [ctb],
+	Sebastian Gibb [ctb]

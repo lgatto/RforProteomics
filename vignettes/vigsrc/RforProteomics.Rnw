@@ -11,7 +11,10 @@
 BiocStyle::latex()
 @
 
-\author{Laurent Gatto\footnote{\email{lg390@cam.ac.uk}}, Sebastian Gibb}
+\author{
+  Laurent Gatto\footnote{\email{lg390@cam.ac.uk}, \url{http://cpu.sysbiol.cam.ac.uk}}~, 
+  Thomas Lin Perdersen, 
+  Sebastian Gibb}
 
 \title{Using \R{} and \Bioconductor{} for Proteomics Data Analysis}
 
@@ -222,7 +225,7 @@ need to be installed prior to the \R{} packages:
   \texttt{curl}\footnote{\url{http://curl.haxx.se/}} 
   infrastructure. On Debian-based systems, you one needs to install  
   \texttt{libcurl-dev} or \texttt{libcurl4-openssl-dev}.
-  \item[\Rpackage{MSGFplus}] Is based on the MS-GF+ java program and thus 
+  \item[\Biocpkg{MSGFplus}] Is based on the MS-GF+ java program and thus 
   requires Java 1.7\footnote{\url{https://java.com}} in order to work.
 \end{description}
 
@@ -324,7 +327,7 @@ is returned:
 <<mzid2>>=
 ids <- mzID(c(
     "http://psi-pi.googlecode.com/svn/trunk/examples/1_1examples/55merge_tandem.mzid",
-    "http://psi-pi.googlecode.com/svn/trunk/examples/1_1examples/55merge_omssa.mzid")
+    "http://psi-pi.googlecode.com/svn/trunk/examples/1_1examples/55merge_omssa.mzid"))
 ids
 @
 
@@ -1045,8 +1048,14 @@ More details are provided in the vignette available with
 \Rfunction(vignette("rTANDEM")), for instance the extraction of degenerated 
 peptides, i.e. peptides found in multiple proteins.
 
+
+\bigskip
+
+The \Biocpkg{shinyTANDEM} package offers a web-based graphical
+interface to \Biocpkg{rTANDEM}.
+
 \subsection{MS-GF+}
-With the release of Bioconductor 3.0 the \Rpackage{MSGFplus} package has 
+With the release of Bioconductor 3.0 the \Biocpkg{MSGFplus} package has 
 provided an interface to MS-GF+ \cite{Kim:2008go, Kim:2010ks}. The package 
 vignette describe in detail the different ways an MS-GF+ analysis can be 
 initiated and only a simple example will be given here:
@@ -1082,7 +1091,7 @@ Initiating the search is done using the \Rfunction{runMSGF} method. As a minimum
 it takes a parameter object and a list of raw data files and performs the search
 for each data file in sequence. More specialised operations are also possible
 such as running it asynchronously, but interested readers should refer to the 
-MSGFplus vignette for additional information.
+\Biocpkg{MSGFplus} vignette for additional information.
 
 The first time a search is initialised the MS-GF+ code is downloaded, so be sure
 to have an active internet connection (only applies to the first time a search
@@ -1101,16 +1110,21 @@ If \texttt{import=FALSE} the results are not imported and can be accessed at a
 later time using the \Rpackage{mzID} package (see below).
 
 \subsubsection{Running MS-GF+ through a GUI}
-\Rpackage{MSGFplus} comes with a sister package, \Rpackage{MSGFgui}, which
-provide a graphic interface to setting up and running MS-GF+ through R. Besides
-facilitating MS-GF+ analyses, which is arguably just as easy from the command 
-line, it provides an intuitive way to investigate and evaluate the resulting 
-identification data. 
+\Biocpkg{MSGFplus} comes with a sister package, \Rpackage{MSGFgui},
+which provide a graphic interface to setting up and running MS-GF+
+through \R. \Rpackage{MSGFgui} is currently available on
+GitHub\footnote{\url{https://github.com/thomasp85/MSGFgui}} and will
+become available in Bioconductor in the the release. Besides
+facilitating MS-GF+ analyses, which is arguably just as easy from the
+command line, it provides an intuitive way to investigate and evaluate
+the resulting identification data.
+
 
 \begin{figure}[!ht]
-\includegraphics[width=\textwidth]{MSGFgui}
-\caption{A screenshot of MSGFgui}
-\label{fig:MSGFgui}
+  \centering
+    \includegraphics[width=.6\textwidth]{figure/MSGFgui.png}
+    \caption{A screenshot of MSGFgui}
+    \label{fig:MSGFgui}
 \end{figure}
 
 Figure \ref{fig:MSGFgui} shows an example of using \Rpackage{MSGFgui}. It is 
@@ -1120,11 +1134,6 @@ MS-GF+ (using \Rpackage{MSGFplus} or in other ways) can easily be imported into
 the gui to take advantage of the visualisation features, and results can be 
 exported as either rds (for R), xlsx (for excel) or txt (for everything else) 
 files.
-
-\bigskip
-
-The \Biocpkg{shinyTANDEM} package offers a web-based graphical
-interface to \Biocpkg{rTANDEM}.
 
 \section{Quality control}\label{sec:qc}
 
