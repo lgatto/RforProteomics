@@ -222,6 +222,8 @@ need to be installed prior to the \R{} packages:
   \texttt{curl}\footnote{\url{http://curl.haxx.se/}} 
   infrastructure. On Debian-based systems, you one needs to install  
   \texttt{libcurl-dev} or \texttt{libcurl4-openssl-dev}.
+  \item[\Rpackage{MSGFplus}] Is based on the MS-GF+ java program and thus 
+  requires Java 1.7\footnote{\url{https://java.com}} in order to work.
 \end{description}
 
 \subsection{Obtaining the code}
