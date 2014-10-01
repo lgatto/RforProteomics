@@ -109,9 +109,6 @@ suppressPackageStartupMessages(library("org.Hs.eg.db"))
 suppressPackageStartupMessages(library("GO.db"))
 suppressPackageStartupMessages(library("Rdisop"))
 suppressPackageStartupMessages(library("rTANDEM")) 
-suppressPackageStartupMessages(library("mzID"))
-suppressPackageStartupMessages(library("MSGFplus"))
-suppressPackageStartupMessages(library("MSGFgui"))
 @ 
 
 %% Abstract and keywords %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -232,8 +229,6 @@ Some packages used in the document depend on external libraries that need to be 
     \texttt{curl}\footnote{\url{http://curl.haxx.se/}} 
     infrastructure. On debian-based systems, you one needs to install  
     \texttt{libcurl-dev} or \texttt{libcurl4-openssl-dev}.
-  \item[\Rpackage{MSGFplus}] Is based on the MS-GF+ java program and thus 
-    requires Java 1.7\footnote{\url{https://java.com}} in order to work.
 \end{description}
 
 \subsection{Obtaining the code}
@@ -890,9 +885,10 @@ synapterGuide()
 @ 
 
 \section{MS$^2$ spectra identification}
-At the moment two packages allow the user to run peptide identifications from
-within R. Each of the packages interface to an external peptide database search
-tool and have more or less the same workflow, though their syntax differs:
+
+A recent addition to Bioconductor 2.12 is the \Rpackage{rTANDEM} package, 
+that provides a direct interface to the X!Tandem software \cite{Craig2004}. 
+A typical \Rpackage{rTANDEM} pipeline comprises
 
 \begin{enumerate}
 \item Prepare the input data.
@@ -900,14 +896,9 @@ tool and have more or less the same workflow, though their syntax differs:
 \item Import the search results and extract the peptides and proteins
 \end{enumerate}
 
-\subsection{X! Tandem}
-Following Bioconductor 2.12 the \Rpackage{rTANDEM} package provides the means
-to run the popular X! Tandem software \cite{Craig2004}.
+Using example code/data from the \Rpackage{rTANDEM} vignette/package, these steps are executed as described below.
 
-Using example code/data from the \Rpackage{rTANDEM} vignette/package, the 
-following is an example of a typical workflow
-
-\subsubsection{Preparation of the input data}
+\subsection{Preparation of the input data}
 
 <<rtandem1, tidy = FALSE>>=
 library(rTANDEM)
@@ -941,18 +932,17 @@ param <- setParamValue(param, 'output', 'path',
 @ 
 
 
-\subsubsection{Performing the search}
+\subsection{Performing the search}
 
-The analysis is run using the \Rfunction{tandem} function (see also the 
-\Rfunction{rtandem} function), which returns the results data file path (only 
-the file name is displayed below).
+The analysis is run using the \Rfunction{tandem} function (see also the \Rfunction{rtandem} function), 
+which returns the results data file path (only the file name is displayed below).
 
-<<rtandem2>>=
+<<rtanem2>>=
 resultPath <- tandem(param)
 basename(resultPath)
 @ 
 
-\subsubsection{Import and analyse results}
+\subsection{Import and analyse results}
 
 <<rtandem3>>=
 res <- GetResultsFromXML(resultPath)
@@ -968,136 +958,8 @@ peptides <- GetPeptides(protein.uid = 1811,
 peptides[, c(1:4, 9, 10:16), with = FALSE]
 @ 
 
-More details are provided in the vignette available with 
-\Rfunction(vignette("rTANDEM")), for instance the extraction of degenerated 
-peptides, i.e. peptides found in multiple proteins.
-
-\subsection{MS-GF+}
-With the release of Bioconductor 3.0 the \Rpackage{MSGFplus} package has 
-provided an interface to MS-GF+ \cite{Kim:2008go, Kim:2010ks}. The package 
-vignette describe in detail the different ways an MS-GF+ analysis can be 
-initiated and only a simple example will be given here:
-
-\subsubsection{Preparation of the input data}
-<<msgf1>>=
-library(MSGFplus)
-## Create a parameter object with a set of parameters
-param <- msgfPar(database = system.file('extdata', 
-                                        'milk-proteins.fasta', 
-                                        package='MSGFplus'),
-                 tolerance = '10 ppm',
-                 enzyme = 'Trypsin')
-
-## Add parameters after creation
-instrument(param) <- 'QExactive'
-tda(param) <- TRUE
-
-## Add expected modifications
-mods(param)[[1]] <- msgfParModification('Carbamidomethyl',
-                                        composition = 'C2H3N1O1',
-                                        residues = 'C',
-                                        type = 'fix',
-                                        position = 'any')
-nMod(param) <- 2    # Number of allowed modifications per peptide
-
-## Get a summary of your parameters
-show(param)
-@
-
-\subsubsection{Performing the search}
-Initiating the search is done using the \Rfunction{runMSGF} method. As a minimum
-it takes a parameter object and a list of raw data files and performs the search
-for each data file in sequence. More specialised operations are also possible
-such as running it asynchronously, but interested readers should refer to the 
-MSGFplus vignette for additional information.
-
-The first time a search is initialised the MS-GF+ code is downloaded, so be sure
-to have an active internet connection (only applies to the first time a search
-is run).
-
-<<msgfplus2, eval=FALSE>>=
-result <- runMSGF(param, 'path/to/a/rawfile.mzML')
-@
-
-\subsubsection{Import and analyse results}
-By default MSGFplus imports the results automatically using \Rpackage{mzID}. If
-only one file was analysed, the return value is an mzID object; if multiple 
-files are analysed at once the return value is an mzIDCollection object.
-
-If \texttt{import=FALSE} the results are not imported and can be accessed at a 
-later time using the \Rpackage{mzID} package (see below).
-
-\subsubsection{Running MS-GF+ through a GUI}
-\Rpackage{MSGFplus} comes with a sister package, \Rpackage{MSGFgui}, which
-provide a graphic interface to setting up and running MS-GF+ through R. Besides
-facilitating MS-GF+ analyses, which is arguably just as easy from the command 
-line, it provides an intuitive way to investigate and evaluate the resulting 
-identification data. 
-
-\begin{figure}[!ht]
-\includegraphics[width=\textwidth]{MSGFgui}
-\caption{A screenshot of MSGFgui}
-\label{fig:MSGFgui}
-\end{figure}
-
-\ref{fig:MSGFgui} shows an example of using \Rpackage{MSGFgui}. It is possible
-to gradually drill down in the results starting from the protein level and
-ending at the raw spectrum level. mzIdentML files already created with MS-GF+ 
-(using \Rpackage{MSGFplus} or in other ways) can easily be imported into the gui
-to take advantage of the visualisation features, and results can be exported as
-either rds (for R), xlsx (for excel) or txt (for everything else) files.
-
-\subsection{Importing identification results}
-In the same way the mzML format has been proposed as the default open standard 
-for storing raw mass spectrometry data, the mzIdentML format has been developed
-to store identification data in a structured manner. Most current search tools
-supports outputting to this format (see the implementation 
-homepage\footnote{\url{http://www.psidev.info/tools-implementing-mzidentml}} for
-a list of all software), even though it is not necessarily the default. Support 
-for mzIdentML reading was added to Bioconductor 2.14 with the \Rpackage{mzID} 
-package. \Rpackage{mzID} supports both reading af single files and multiple 
-files in parallel using the \Rpackage{foreach} package.
-
-<<mzid1>>=
-results <- mzID(
-    "http://psi-pi.googlecode.com/svn/trunk/examples/1_1examples/55merge_tandem.mzid"
-    )
-show(results)
-## In parallel if supported
-resultlist <- mzID(c(
-    "http://psi-pi.googlecode.com/svn/trunk/examples/1_1examples/55merge_tandem.mzid",
-    "http://psi-pi.googlecode.com/svn/trunk/examples/1_1examples/55merge_omssa.mzid"
-    ))
-show(resultlist)
-@
-
-The imported data contains information regarding the software and parameters
-used for the search as well as the database searched against in addition to the
-actual search results. The search results are stored in a manner that reflects
-the mzIdentML structure, so instead of having a flat table with a row per match
-several interconnected tables exists, all related to their own type of 
-information. These tables can be accessed with their respective getter 
-functions:
-
-<<mzid2>>=
-pep <- peptides(results)
-head(pep)
-
-psm <- id(results)
-head(psm)
-@
-
-If a flat table format is needed (e.g. for exporting to excel etc), the 
-\Rfunction{flatten} method is provided:
-
-<<mzid3>>=
-flatResults <- flatten(results)
-
-names(flatResults)
-head(flatResults)[, 1:6]
-@
-
-More information can be found in the \Rpackage{mzID} package vignette.
+More details are provided in the vignette available with \Rfunction(vignette("rTANDEM")), 
+for instance the extraction of degenerated peptides, i.e. peptides found in multiple proteins.
 
 \section{Annotation}
 
@@ -1121,7 +983,7 @@ information as above.
 library(org.Hs.eg.db)
 library(GO.db)
 ans <- select(org.Hs.eg.db, 
-              keys = id, columns = c("ENSEMBL", "GO", "ONTOLOGY"), 
+              keys = id, cols = c("ENSEMBL", "GO", "ONTOLOGY"), 
               keytype = "ENSEMBL")
 ans <- ans[ans$ONTOLOGY == "CC", ]
 ans
