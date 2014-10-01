@@ -44,6 +44,7 @@ opts_chunk$set(tidy.opts =
                    list(width.cutoff = 50,
                    tidy = FALSE),
                fig.align = 'center',
+               base.dir = "figures-r4p/",
                stop_on_error = 1L)
 options(width = 60)
 @
@@ -1029,7 +1030,24 @@ degenerated peptides, i.e. peptides found in multiple proteins.
 The \Biocpkg{shinyTANDEM} package offers a web-based graphical
 interface to \Biocpkg{rTANDEM}.
 
-\section{Annotation}
+\section{Quality control}\label{sec:qc}
+
+Quality control (QC) is an essential part of any high throughput data
+driven approach. Bioconductor has a rich history of QC for various
+genomics data and currently two packages support proteomics QC.
+
+\Biocpkg{proteoQC} provides a dedicated a dedicated pipeline that will
+produce a dynamic and extensive html report. It uses the
+\Biocpkg{rTANDEM} package to automate the generation of identification
+data and uses information about the experimental/replication design.
+
+
+The \Biocpkg{qcmetrics} package is a general framework to define QC
+metrics and bundle them together to generate html or pdf reports. It
+provides some ready made metrics for MS data and $^{15}$N labelled
+data.
+
+\section{Annotation}\label{sec:annot}
 
 In this section, we briefly present some \Bioconductor{} annotation
 infrastructure.
