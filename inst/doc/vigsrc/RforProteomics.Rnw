@@ -1046,6 +1046,59 @@ ending at the raw spectrum level. mzIdentML files already created with MS-GF+
 (using \Rpackage{MSGFplus} or in other ways) can easily be imported into the gui
 to take advantage of the visualisation features, and results can be exported as
 either rds (for R), xlsx (for excel) or txt (for everything else) files.
+
+\subsection{Importing identification results}
+In the same way the mzML format has been proposed as the default open standard 
+for storing raw mass spectrometry data, the mzIdentML format has been developed
+to store identification data in a structured manner. Most current search tools
+supports outputting to this format (see the implementation 
+homepage\footnote{\url{http://www.psidev.info/tools-implementing-mzidentml}} for
+a list of all software), even though it is not necessarily the default. Support 
+for mzIdentML reading was added to Bioconductor 2.14 with the \Rpackage{mzID} 
+package. \Rpackage{mzID} supports both reading af single files and multiple 
+files in parallel using the \Rpackage{foreach} package.
+
+<<mzid1>>=
+results <- mzID(
+    "http://psi-pi.googlecode.com/svn/trunk/examples/1_1examples/55merge_tandem.mzid"
+    )
+show(results)
+## In parallel if supported
+resultlist <- mzID(c(
+    "http://psi-pi.googlecode.com/svn/trunk/examples/1_1examples/55merge_tandem.mzid",
+    "http://psi-pi.googlecode.com/svn/trunk/examples/1_1examples/55merge_omssa.mzid"
+    ))
+show(resultlist)
+@
+
+The imported data contains information regarding the software and parameters
+used for the search as well as the database searched against in addition to the
+actual search results. The search results are stored in a manner that reflects
+the mzIdentML structure, so instead of having a flat table with a row per match
+several interconnected tables exists, all related to their own type of 
+information. These tables can be accessed with their respective getter 
+functions:
+
+<<mzid2>>=
+pep <- peptides(results)
+head(pep)
+
+psm <- id(results)
+head(psm)
+@
+
+If a flat table format is needed (e.g. for exporting to excel etc), the 
+\Rfunction{flatten} method is provided:
+
+<<mzid3>>=
+flatResults <- flatten(results)
+
+names(flatResults)
+head(flatResults)[, 1:6]
+@
+
+More information can be found in the \Rpackage{mzID} package vignette.
+
 \section{Annotation}
 
 In this section, we briefly present some Bioconductor annotation infrastructure. 
