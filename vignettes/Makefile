@@ -79,7 +79,7 @@ vig2:
 	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
 	"$(R_HOME)/bin/R" --vanilla -e "knitr::purl('RforProteomics.Rnw');"
 	cp RforProteomics.pdf vigsrc/.
-	cp RforProteomics.R vigsrc/.
+	mv RforProteomics.R vigsrc/.
 	## scp RforProteomics.pdf lg390@proteome.sysbiol.cam.ac.uk:/var/www/htdocs/lgatto/RforProteomics/.
 	cp vigsrc/RforProteomics-stub.Rnw RforProteomics.Rnw
 	rm RforProteomics.bib RforProteomics.tex
@@ -88,6 +88,7 @@ clean:
 	rm -f $(LATEXFILES)
 	rm -f .Rhistory
 	rm -f *~
+	rm -f .R
 	rm -f */*~
 	rm -f PRIDE_Exp_Complete_Ac_22134.xml
 	rm -f F063721.dat-mztab.txt TMT*mzXML* P00924.fasta
