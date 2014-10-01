@@ -1121,7 +1121,7 @@ information as above.
 library(org.Hs.eg.db)
 library(GO.db)
 ans <- select(org.Hs.eg.db, 
-              keys = id, cols = c("ENSEMBL", "GO", "ONTOLOGY"), 
+              keys = id, columns = c("ENSEMBL", "GO", "ONTOLOGY"), 
               keytype = "ENSEMBL")
 ans <- ans[ans$ONTOLOGY == "CC", ]
 ans
