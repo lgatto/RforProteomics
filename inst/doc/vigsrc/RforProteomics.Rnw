@@ -890,10 +890,9 @@ synapterGuide()
 @ 
 
 \section{MS$^2$ spectra identification}
-
-A recent addition to Bioconductor 2.12 is the \Rpackage{rTANDEM} package, 
-that provides a direct interface to the X!Tandem software \cite{Craig2004}. 
-A typical \Rpackage{rTANDEM} pipeline comprises
+At the moment two packages allow the user to run peptide identifications from
+within R. Each of the packages interface to an external peptide database search
+tool and have more or less the same workflow, though their syntax differs:
 
 \begin{enumerate}
 \item Prepare the input data.
@@ -901,9 +900,14 @@ A typical \Rpackage{rTANDEM} pipeline comprises
 \item Import the search results and extract the peptides and proteins
 \end{enumerate}
 
-Using example code/data from the \Rpackage{rTANDEM} vignette/package, these steps are executed as described below.
+\subsection{X! Tandem}
+Following Bioconductor 2.12 the \Rpackage{rTANDEM} package provides the means
+to run the popular X! Tandem software \cite{Craig2004}.
 
-\subsection{Preparation of the input data}
+Using example code/data from the \Rpackage{rTANDEM} vignette/package, the 
+following is an example of a typical workflow
+
+\subsubsection{Preparation of the input data}
 
 <<rtandem1, tidy = FALSE>>=
 library(rTANDEM)
@@ -937,17 +941,18 @@ param <- setParamValue(param, 'output', 'path',
 @ 
 
 
-\subsection{Performing the search}
+\subsubsection{Performing the search}
 
-The analysis is run using the \Rfunction{tandem} function (see also the \Rfunction{rtandem} function), 
-which returns the results data file path (only the file name is displayed below).
+The analysis is run using the \Rfunction{tandem} function (see also the 
+\Rfunction{rtandem} function), which returns the results data file path (only 
+the file name is displayed below).
 
-<<rtanem2>>=
+<<rtandem2>>=
 resultPath <- tandem(param)
 basename(resultPath)
 @ 
 
-\subsection{Import and analyse results}
+\subsubsection{Import and analyse results}
 
 <<rtandem3>>=
 res <- GetResultsFromXML(resultPath)
@@ -963,8 +968,9 @@ peptides <- GetPeptides(protein.uid = 1811,
 peptides[, c(1:4, 9, 10:16), with = FALSE]
 @ 
 
-More details are provided in the vignette available with \Rfunction(vignette("rTANDEM")), 
-for instance the extraction of degenerated peptides, i.e. peptides found in multiple proteins.
+More details are provided in the vignette available with 
+\Rfunction(vignette("rTANDEM")), for instance the extraction of degenerated 
+peptides, i.e. peptides found in multiple proteins.
 
 \section{Annotation}
 
