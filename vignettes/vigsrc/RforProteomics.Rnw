@@ -44,7 +44,6 @@ opts_chunk$set(tidy.opts =
                    list(width.cutoff = 50,
                    tidy = FALSE),
                fig.align = 'center',
-               base.dir = "figures-r4p/",
                stop_on_error = 1L)
 options(width = 60)
 @
@@ -712,8 +711,10 @@ exppep <-
   as.character(fData(qnt[grep("ENO", fData(qnt)[, 2]), ])[, 1]) ## 13
 minlength <- min(nchar(exppep))
 
-eno <- download.file("http://www.uniprot.org/uniprot/P00924.fasta", 
-                     destfile = "P00924.fasta")
+
+if (!file.exists("P00924.fasta"))
+    eno <- download.file("http://www.uniprot.org/uniprot/P00924.fasta", 
+                         destfile = "P00924.fasta")
 eno <- paste(readLines("P00924.fasta")[-1], collapse = "")
 enopep <- Digest(eno, missed = 1)
 nrow(enopep) ## 103
