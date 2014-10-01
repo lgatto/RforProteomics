@@ -109,6 +109,9 @@ suppressPackageStartupMessages(library("org.Hs.eg.db"))
 suppressPackageStartupMessages(library("GO.db"))
 suppressPackageStartupMessages(library("Rdisop"))
 suppressPackageStartupMessages(library("rTANDEM")) 
+suppressPackageStartupMessages(library("mzID"))
+suppressPackageStartupMessages(library("MSGFplus"))
+suppressPackageStartupMessages(library("MSGFgui"))
 @ 
 
 %% Abstract and keywords %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
