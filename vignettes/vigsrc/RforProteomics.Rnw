@@ -1045,6 +1045,81 @@ More details are provided in the vignette available with
 \Rfunction(vignette("rTANDEM")), for instance the extraction of degenerated 
 peptides, i.e. peptides found in multiple proteins.
 
+\subsection{MS-GF+}
+With the release of Bioconductor 3.0 the \Rpackage{MSGFplus} package has 
+provided an interface to MS-GF+ \cite{Kim:2008go, Kim:2010ks}. The package 
+vignette describe in detail the different ways an MS-GF+ analysis can be 
+initiated and only a simple example will be given here:
+
+\subsubsection{Preparation of the input data}
+<<msgf1>>=
+library(MSGFplus)
+## Create a parameter object with a set of parameters
+param <- msgfPar(database = system.file('extdata', 
+                                        'milk-proteins.fasta', 
+                                        package='MSGFplus'),
+                 tolerance = '10 ppm',
+                 enzyme = 'Trypsin')
+
+## Add parameters after creation
+instrument(param) <- 'QExactive'
+tda(param) <- TRUE
+
+## Add expected modifications
+mods(param)[[1]] <- msgfParModification('Carbamidomethyl',
+                                        composition = 'C2H3N1O1',
+                                        residues = 'C',
+                                        type = 'fix',
+                                        position = 'any')
+nMod(param) <- 2    # Number of allowed modifications per peptide
+
+## Get a summary of your parameters
+show(param)
+@
+
+\subsubsection{Performing the search}
+Initiating the search is done using the \Rfunction{runMSGF} method. As a minimum
+it takes a parameter object and a list of raw data files and performs the search
+for each data file in sequence. More specialised operations are also possible
+such as running it asynchronously, but interested readers should refer to the 
+MSGFplus vignette for additional information.
+
+The first time a search is initialised the MS-GF+ code is downloaded, so be sure
+to have an active internet connection (only applies to the first time a search
+is run).
+
+<<msgfplus2, eval=FALSE>>=
+result <- runMSGF(param, 'path/to/a/rawfile.mzML')
+@
+
+\subsubsection{Import and analyse results}
+By default MSGFplus imports the results automatically using \Rpackage{mzID}. If
+only one file was analysed, the return value is an mzID object; if multiple 
+files are analysed at once the return value is an mzIDCollection object.
+
+If \texttt{import=FALSE} the results are not imported and can be accessed at a 
+later time using the \Rpackage{mzID} package (see below).
+
+\subsubsection{Running MS-GF+ through a GUI}
+\Rpackage{MSGFplus} comes with a sister package, \Rpackage{MSGFgui}, which
+provide a graphic interface to setting up and running MS-GF+ through R. Besides
+facilitating MS-GF+ analyses, which is arguably just as easy from the command 
+line, it provides an intuitive way to investigate and evaluate the resulting 
+identification data. 
+
+\begin{figure}[!ht]
+\includegraphics[width=\textwidth]{MSGFgui}
+\caption{A screenshot of MSGFgui}
+\label{fig:MSGFgui}
+\end{figure}
+
+Figure \ref{fig:MSGFgui} shows an example of using \Rpackage{MSGFgui}. It is 
+possible to gradually drill down in the results starting from the protein level 
+and ending at the raw spectrum level. mzIdentML files already created with 
+MS-GF+ (using \Rpackage{MSGFplus} or in other ways) can easily be imported into 
+the gui to take advantage of the visualisation features, and results can be 
+exported as either rds (for R), xlsx (for excel) or txt (for everything else) 
+files.
 
 \bigskip
 
