@@ -84,6 +84,17 @@ instrumentInfo(mz)
 ## close the connection
 close(mz)
 
+## ----mzrid------------------------------------------------
+file <- system.file("mzid", "Tandem.mzid.gz", package="msdata")
+mzid <- openIDfile(file)
+mzid
+
+## ----mzrid2-----------------------------------------------
+softwareInfo(mzid)
+enzymes(mzid)
+names(psms(mzid))
+head(psms(mzid))[, 1:13]
+
 ## ----mzid1------------------------------------------------
 library("mzID")
 id <- mzID("http://psi-pi.googlecode.com/svn/trunk/examples/1_1examples/55merge_tandem.mzid")
