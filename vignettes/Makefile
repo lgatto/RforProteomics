@@ -34,6 +34,8 @@ RforProteomics.pdf:
 poster:
 	"$(R_HOME)/bin/R" CMD pdflatex Bioc2013_poster.Rnw
 	cp vigsrc/Bioc2013_poster.pdf .
+	"$(R_HOME)/bin/R" CMD pdflatex HUPO2014_poster.Rnw
+	cp vigsrc/HUPO2014_rbioc_poster.pdf ./HUPO2014_poster.pdf
 
 RProtVis.html: RProtVis.Rmd
 	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('RProtVis.Rmd'); purl('RProtVis.Rmd');"
@@ -87,6 +89,7 @@ vig2:
 clean:	
 	rm -f $(LATEXFILES)
 	rm -f .Rhistory
+	rm -f Bioc2013_poster.pdf HUPO2014_poster.pdf
 	rm -f *~
 	rm -f .R
 	rm -f */*~
