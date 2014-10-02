@@ -13,7 +13,7 @@ BiocStyle::latex()
 
 \author{
   Laurent Gatto\footnote{\email{lg390@cam.ac.uk}, \url{http://cpu.sysbiol.cam.ac.uk}}~, 
-  Thomas Lin Perdersen, 
+  Thomas Lin Pedersen, 
   Sebastian Gibb}
 
 \title{Using \R{} and \Bioconductor{} for Proteomics Data Analysis}
@@ -272,15 +272,17 @@ library("reshape2") ## Flexibly reshape data
 
 \section{Data standards and input/output}
 
-\subsection{The \Biocpkg{mzR} package}
+\subsection{The \Biocpkg{mzR} package}\ref{sec:mzr}
+
+\subsubsection{Raw MS data}
 
 The \Biocpkg{mzR} package \cite{Chambers2012} provides a unified
 interface to various mass spectrometry open formats.  This code chunk,
-taken mainly from the \Rfunction{openMSfile} documentation illustrated
-how to open a connection to an raw data file. The example
-\texttt{mzML} data is taken from the \Biocexptpkg{msdata} data package.
-The code below would also be applicable to an \texttt{mzXML},
-\texttt{mzData} or \texttt{netCDF} file.
+taken from the \Rfunction{openMSfile} documentation, illustrated how
+to open a connection to an raw data file. The example \texttt{mzML}
+data is taken from the \Biocexptpkg{msdata} data package.  The code
+below would also be applicable to an \texttt{mzXML}, \texttt{mzData}
+or \texttt{netCDF} file.
 
 <<mzr>>=
 ## load the required packages
@@ -308,7 +310,31 @@ close(mz)
 \Biocpkg{xcms} \cite{Smith2006, Benton2008, Tautenhahn2008}, that
 provide a higher level abstraction to the data.
 
+\subsubsection{Identification data}
+
+The \Biocpkg{mzR} package also provides very fast access to
+\texttt{mzIdentML} data by leveraging proteowizard's \texttt{C++}
+parser.
+
+<<mzrid>>=
+file <- system.file("mzid", "Tandem.mzid.gz", package="msdata")
+mzid <- openIDfile(file)
+mzid
+@
+
+Once and \Robject{mzRident} identification file handle has been
+established, various data and metadata can be extracted, as
+illustrated below.
+
+<<mzrid2>>=
+softwareInfo(mzid)
+enzymes(mzid)
+names(psms(mzid))
+head(psms(mzid))[, 1:13]
+@
+
 \subsection{Handling MS$^2$ identification data with \Biocpkg{mzID}}
+\label{subsec:mzID}
 
 The \Biocpkg{mzID} package allows to load and manipulate MS$^2$ data
 in the \texttt{mzIdentML} format. The main \Rfunction{mzID} function
@@ -977,10 +1003,10 @@ tool and have more or less the same workflow, though their syntax differs:
 \end{enumerate}
 
 \subsection{X! Tandem}
-Following Bioconductor 2.12 the \Rpackage{rTANDEM} package provides the means
+Following Bioconductor 2.12 the \Biocpkg{rTANDEM} package provides the means
 to run the popular X! Tandem software \cite{Craig2004}.
 
-Using example code/data from the \Rpackage{rTANDEM} vignette/package, the 
+Using example code/data from the \Biocpkg{rTANDEM} vignette/package, the 
 following is an example of a typical workflow
 
 \subsubsection{Preparation of the input data}
@@ -1102,12 +1128,13 @@ result <- runMSGF(param, 'path/to/a/rawfile.mzML')
 @
 
 \subsubsection{Import and analyse results}
-By default MSGFplus imports the results automatically using \Rpackage{mzID}. If
+By default MSGFplus imports the results automatically using \Biocpkg{mzID}. If
 only one file was analysed, the return value is an mzID object; if multiple 
 files are analysed at once the return value is an mzIDCollection object.
 
 If \texttt{import=FALSE} the results are not imported and can be accessed at a 
-later time using the \Rpackage{mzID} package (see below).
+later time using the \Biocpkg{mzID} package (see section~\ref{subsec:mzID} on 
+page~\pageref{subsec:mzID}).
 
 \subsubsection{Running MS-GF+ through a GUI}
 \Biocpkg{MSGFplus} comes with a sister package, \Rpackage{MSGFgui},
@@ -1127,10 +1154,10 @@ the resulting identification data.
     \label{fig:MSGFgui}
 \end{figure}
 
-Figure \ref{fig:MSGFgui} shows an example of using \Rpackage{MSGFgui}. It is 
+Figure~\ref{fig:MSGFgui} shows an example of using \Rpackage{MSGFgui}. It is 
 possible to gradually drill down in the results starting from the protein level 
 and ending at the raw spectrum level. mzIdentML files already created with 
-MS-GF+ (using \Rpackage{MSGFplus} or in other ways) can easily be imported into 
+MS-GF+ (using \Biocpkg{MSGFplus} or in other ways) can easily be imported into 
 the gui to take advantage of the visualisation features, and results can be 
 exported as either rds (for R), xlsx (for excel) or txt (for everything else) 
 files.
