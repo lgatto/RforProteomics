@@ -1,27 +1,34 @@
 Package: RforProteomics
 Type: Package
-Title: Companion package to the 'Using R and Bioconductor for proteomics data analysis' publication
-Version: 1.3.2
+Title: Companion package to the 'Using R and Bioconductor for
+        proteomics data analysis' publication
+Version: 1.3.7
 Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
                     email="lg390@cam.ac.uk"),
              person("Sebastian", "Gibb", role="ctb",
-                    email="mail@sebastiangibb.de"))
+                    email="mail@sebastiangibb.de"),
+             person('Thomas', 'Pedersen', 'Lin', role='ctb',
+                    email='thomasp85@gmail.com'))
 Maintainer: Laurent Gatto <lg390@cam.ac.uk>
-Imports: R.utils, Biobase, rpx, biocViews, interactiveDisplay,
-	 BiocInstaller
-Suggests: mzR, MSnbase, xcms, msdata, isobar, MALDIquant,
-	  MALDIquantForeign, readBrukerFlexData, rTANDEM, synapter,
-	  synapterdata, IPPD, Rdisop, OrgMassSpecR, BRAIN, rols, hpar,
-	  GO.db, org.Hs.eg.db, biomaRt, RColorBrewer, ggplot2,
-	  reshape2, knitr, xtable
+Depends: MSnbase
+Imports: R.utils, Biobase, rpx, biocViews, BiocInstaller,
+        interactiveDisplay, shiny
+Suggests: mzR, xcms, msdata, isobar, MALDIquant (>= 1.11),
+        MALDIquantForeign, readBrukerFlexData, rTANDEM, synapter,
+        synapterdata, IPPD, Rdisop, OrgMassSpecR, BRAIN, rols, hpar,
+        GO.db, org.Hs.eg.db, biomaRt, RColorBrewer, ggplot2, reshape2,
+        xtable, lattice, mzID, pRoloc, pRolocdata, knitr, BiocStyle, 
+        MSGFplus, MSGFgui
 Enhances: cleaver
-Description: This package contains code to illustrate the	
-	     'Using R and Bioconductor for proteomics data analysis'
-	     manuscript. The vignette describes the code and data 
-	     needed to reproduce the examples and figures descibed 
-	     in the paper as well as functions to download the 
-	     PXD000001 data files.
+Description: This package contains code to illustrate the 'Using R and
+	     Bioconductor for proteomics data analysis' paper. Two
+	     vignettes describe the code and data needed to reproduce
+	     the examples and figures descibed in the paper and
+	     functionality for proteomics visualisation.
 URL: http://lgatto.github.com/RforProteomics/
-biocViews: ExperimentData, MassSpectrometry, Proteomics, MassSpectrometryData
+biocViews: ExperimentData, MassSpectrometry, Proteomics,
+        MassSpectrometryData
 License: Artistic-2.0
 VignetteBuilder: knitr
+Author: Laurent Gatto [aut, cre], Thomas Lin Pedersen [ctb],
+	Sebastian Gibb [ctb]

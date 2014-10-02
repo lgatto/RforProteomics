@@ -1,9 +1,14 @@
-importFrom("Biobase", "addVigs2WinMenu")
-importFrom("interactiveDisplay", "display")
-importFrom("BiocInstaller", "biocVersion")
-import("R.utils")
 import("biocViews")
 import("rpx")
+import("shiny")
+import("MSnbase")
+
+importFrom("Biobase", "addVigs2WinMenu")
+importFrom("BiocInstaller", "biocVersion")
+importFrom("R.utils", "gunzip")
+importFrom("interactiveDisplay", "display") 
+
+
 
 export(getPXD000001mzXML,
        getPXD000001mzTab,
@@ -11,8 +16,10 @@ export(getPXD000001mzXML,
        getThermoHelaPRTC,
        downloadData,
        RforProteomics,
+       ProtViz,
        proteomicsPackages,
        massSpectrometryPackages,
        massSpectrometryDataPackages,
-       display)
+       display,
+       shinyMA)
 

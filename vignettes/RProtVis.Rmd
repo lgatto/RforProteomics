@@ -1,0 +1,630 @@
+---
+output:
+  BiocStyle::html_document
+---
+
+<!--
+%\VignetteIndexEntry{Visualisation of proteomics data using R and Bioconductor}
+%\VignetteKeyword{bioinformatics, proteomics, mass spectrometry, visualisation}
+%\VignettePackage{RforProteomics}
+%\VignetteEngine{knitr::knitr}
+-->
+
+```{r style, echo = FALSE}
+BiocStyle::markdown()
+```
+
+# Visualisation of proteomics data using R and Bioconductor
+
+[Laurent Gatto](http://proteome.sysbiol.cam.ac.uk/lgatto/),
+[Lisa Breckels](http://cpu.sysbiol.cam.ac.uk/) and
+[Sebastian Gibb](http://sebastiangibb.de/research.html)
+
+
+```{r env, message=FALSE, echo=FALSE}
+library("RforProteomics")
+library("BiocInstaller")
+library("mzR")
+library("MSnbase")
+library("knitr")
+library("rpx")
+library("xtable")
+library("RColorBrewer")
+library("MALDIquant")
+library("MALDIquantForeign")
+library("pRoloc")
+library("pRolocdata")
+```
+
+## Introduction
+
+### References
+
+- CRAN Task View: Graphic Displays & Dynamic Graphics & Graphic
+  Devices & Visualization:
+  http://cran.r-project.org/web/views/Graphics.html
+- CRAN Task View: Web Technologies and Services:
+  http://cran.r-project.org/web/views/WebTechnologies.html
+- ggplot2
+  [book](http://link.springer.com/book/10.1007%2F978-0-387-98141-3)
+  (syntax is slightly outdated) ([code](http://ggplot2.org/book/)),
+  [web page](http://ggplot2.org/) and
+  [on-line docs](http://docs.ggplot2.org/current/)
+- lattice
+  [book](http://lmdvr.r-forge.r-project.org/figures/figures.html) and
+  [web page](http://lattice.r-forge.r-project.org/)
+- *R Graphics* [book](https://www.stat.auckland.ac.nz/~paul/RG2e/)
+- [R Cookbook](http://www.cookbook-r.com/Graphs/) and
+  [R Graphics Cookbook](http://shop.oreilly.com/product/0636920023135.do)
+
+### Relevant packages
+
+```{r packs, cache=TRUE, warning=FALSE, echo=FALSE}
+library("RforProteomics")
+pp <- proteomicsPackages()
+msp <- massSpectrometryPackages()
+```
+
+There are currently `r nrow(pp)`
+[Proteomics](http://bioconductor.org/packages/devel/BiocViews.html#___Proteomics)
+and `r nrow(msp)`
+[MassSpectrometry](http://bioconductor.org/packages/devel/BiocViews.html#___MassSpectrometry)
+packages in Bioconductor version `r as.character(biocVersion())`.
+Other non-Bioconductor packages are described in the `RforProteomics`
+[vignette](http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf).
+
+```{r pptab, echo=FALSE, results='asis'}
+kable(pp, format = "html")
+```
+
+```{r msptab, echo=FALSE, results='asis'}
+kable(msp, format = "html")
+```
+
+## Ascombe's quartet
+
+```{r anscombe, echo = FALSE, results='asis'}
+kable(anscombe, format = "html")
+```
+
+```{r anscombetab}
+
+tab <- matrix(NA, 5, 4)
+colnames(tab) <- 1:4
+rownames(tab) <- c("var(x)", "mean(x)",
+                   "var(y)", "mean(y)",
+                   "cor(x,y)")
+
+for (i in 1:4)
+    tab[, i] <- c(var(anscombe[, i]),
+                  mean(anscombe[, i]),
+                  var(anscombe[, i+4]),
+                  mean(anscombe[, i+4]),
+                  cor(anscombe[, i], anscombe[, i+4]))
+
+```
+
+```{r anstabdisplay, echo=FALSE}
+kable(tab)
+```
+
+```{r anscombefig}
+ff <- y ~ x
+
+par(mfrow = c(2, 2), mar = c(4, 4, 1, 1))
+for (i in 1:4) {
+    ff[2:3] <- lapply(paste0(c("y","x"), i), as.name)
+    plot(ff, data = anscombe, pch = 19, xlim = c(3, 19), ylim = c(3, 13))
+    abline(lm(ff, data = anscombe))
+}
+```
+
+```{r anscombe, ref.label='anscombefig', echo=FALSE, dev='pdf'}
+```
+
+## The MA plot example
+
+The following code chunk connects to the `PXD000001` data set on the
+ProteomeXchange repository and fetches the `mzTab` file. After missing
+values filtering, we extract relevant data (log2 fold-changes and
+log10 mean expression intensities) into `data.frames`.
+
+```{r, makemadata, warning=FALSE, cache=TRUE}
+library("rpx")
+px1 <- PXDataset("PXD000001")
+mztab <- pxget(px1, "PXD000001_mztab.txt")
+
+library("MSnbase")
+qnt <- readMzTabData(mztab, what = "PEP")
+sampleNames(qnt) <- reporterNames(TMT6)
+qnt <- filterNA(qnt)
+## may be combineFeatuers
+
+spikes <- c("P02769", "P00924", "P62894", "P00489")
+protclasses <- as.character(fData(qnt)$accession)
+protclasses[!protclasses %in% spikes] <- "Background"
+
+
+madata42 <- data.frame(A = rowMeans(log(exprs(qnt[, c(4, 2)]), 10)),
+                       M = log(exprs(qnt)[, 4], 2) - log(exprs(qnt)[, 2], 2),
+                       data = rep("4vs2", nrow(qnt)),
+                       protein = fData(qnt)$accession,
+                       class = protclasses)
+
+madata62 <- data.frame(A = rowMeans(log(exprs(qnt[, c(6, 2)]), 10)),
+                       M = log(exprs(qnt)[, 6], 2) - log(exprs(qnt)[, 2], 2),
+                       data = rep("6vs2", nrow(qnt)),
+                       protein = fData(qnt)$accession,
+                       class = protclasses)
+
+
+madata <- rbind(madata42, madata62)
+```
+
+### The traditional plotting system
+
+```{r, mafig1}
+
+par(mfrow = c(1, 2))
+plot(M ~ A, data = madata42, main = "4vs2",
+     xlab = "A", ylab = "M", col = madata62$class)
+plot(M ~ A, data = madata62, main = "6vs2",
+     xlab = "A", ylab = "M", col = madata62$class)
+
+```
+
+```{r mafig1pdf, ref.label='mafig1', echo=FALSE, dev='pdf', fig.width=9, fig.height=6}
+```
+
+### lattice
+
+```{r mafig2}
+library("lattice")
+latma <- xyplot(M ~ A | data, data = madata,
+                groups = madata$class,
+                auto.key = TRUE)
+print(latma)
+
+```
+
+```{r mafig2pdf, ref.label='mafig2', echo=FALSE, dev='pdf', fig.width=8, fig.height=6}
+```
+
+### ggplot2
+
+```{r mafig3}
+
+library("ggplot2")
+ggma <- ggplot(aes(x = A, y = M, colour = class), data = madata,
+               colour = class) +
+                   geom_point() +
+                       facet_grid(. ~ data)
+print(ggma)
+
+```
+
+```{r mafig3pdf, ref.label='mafig3', echo=FALSE, dev='pdf', fig.width=8, fig.height=6}
+```
+
+### Customization
+
+```{r macols}
+
+library("RColorBrewer")
+bcols <- brewer.pal(4, "Set1")
+cls <- c("Background" = "#12121230",
+         "P02769" = bcols[1],
+         "P00924" = bcols[2],
+         "P62894" = bcols[3],
+         "P00489" = bcols[4])
+
+```
+
+
+```{r macust}
+
+ggma2 <- ggplot(aes(x = A, y = M, colour = class),
+                data = madata) + geom_point(shape = 19) +
+                    facet_grid(. ~ data) + scale_colour_manual(values = cls) +
+                        guides(colour = guide_legend(override.aes = list(alpha = 1)))
+print(ggma2)
+
+```
+
+```{r macustpdf, ref.label='macust', echo=FALSE, dev='pdf', fig.width=8, fig.height=6}
+```
+
+### The `MAplot` method for `MSnSet` instances
+
+```{r mafigmsnset}
+MAplot(qnt, cex = .8)
+```
+
+### An interactive `shiny` app for MA plots
+
+This app is based on Mike Love's
+[shinyMA](https://github.com/mikelove/shinyMA) application, adapted
+for a proteomics data. A screen shot is displayed below. To start the
+application:
+
+```{r shinyMA, eval=FALSE}
+shinyMA()
+```
+
+![shinyMA screeshot](./figures/shinyMA.png)
+
+The application is also available online at
+[https://lgatto.shinyapps.io/shinyMA/](https://lgatto.shinyapps.io/shinyMA/).
+
+## Visualising mass spectrometry data
+
+### Direct access to the raw data
+
+```{r mapsprep}
+library("lattice")
+library("mzR")
+mzf <- pxget(px1, 6)
+ms <- openMSfile(mzf)
+
+hd <- header(ms)
+ms1 <- which(hd$msLevel == 1)
+
+rtsel <- hd$retentionTime[ms1] / 60 > 30 & hd$retentionTime[ms1] / 60 < 35
+library("MSnbase")
+(M <- MSmap(ms, ms1[rtsel], 521, 523, .005, hd))
+```
+
+```{r mapsheat}
+ff <- colorRampPalette(c("yellow", "steelblue"))
+trellis.par.set(regions=list(col=ff(100)))
+plot(M, aspect = 1, allTicks = FALSE)
+```
+
+```{r mapsheadpdf, ref.label='mapsheat', echo=FALSE, dev='pdf'}
+```
+
+```{r maps3D}
+M@map[msMap(M) == 0] <- NA
+plot3D(M, FALSE)
+```
+
+```{r maps3Dpdf, ref.label='maps3D', echo=FALSE, dev='pdf'}
+```
+
+```{r rglmap, eval=FALSE}
+library("rgl")
+plot3D(M, TRUE)
+```
+
+```{r msdetails}
+
+lout <- matrix(NA, ncol = 10, nrow = 8)
+lout[1:2, ] <- 1
+for (ii in 3:4)
+    lout[ii, ] <- c(2, 2, 2, 2, 2, 2, 3, 3, 3, 3)
+lout[5, ] <- rep(4:8, each = 2)
+lout[6, ] <- rep(4:8, each = 2)
+lout[7, ] <- rep(9:13, each = 2)
+lout[8, ] <- rep(9:13, each = 2)
+
+i <- ms1[which(rtsel)][1]
+j <- ms1[which(rtsel)][2]
+ms2 <- (i+1):(j-1)
+
+layout(lout)
+
+par(mar=c(4,2,1,1))
+chromatogram(ms)
+abline(v = hd[i, "retentionTime"], col = "red")
+
+
+par(mar = c(3, 2, 1, 0))
+plot(peaks(ms, i), type = "l", xlim = c(400, 1000))
+legend("topright", bty = "n",
+       legend = paste0(
+           "Acquisition ", hd[i, "acquisitionNum"],  "\n",
+           "Retention time ", formatRt(hd[i, "retentionTime"])))
+abline(h = 0)
+abline(v = hd[ms2, "precursorMZ"],
+       col = c("#FF000080",
+           rep("#12121280", 9)))
+
+par(mar = c(3, 0.5, 1, 1))
+plot(peaks(ms, i), type = "l", xlim = c(521, 522.5),
+     yaxt = "n")
+abline(h = 0)
+abline(v = hd[ms2, "precursorMZ"], col = "#FF000080")
+
+##par(mar = omar)
+par(mar = c(2, 2, 0, 1))
+for (ii in ms2) {
+    p <- peaks(ms, ii)
+    plot(p, xlab = "", ylab = "", type = "h", cex.axis = .6)
+    legend("topright", legend = paste0("Prec M/Z\n",
+                           round(hd[ii, "precursorMZ"], 2)),
+           bty = "n", cex = .8)
+}
+
+```
+
+```{r msdetailspdf, ref.label='msdetails', echo=FALSE, dev='pdf', fig.width=10, fig.height=8}
+```
+
+
+```{r maps3D2}
+M2 <- MSmap(ms, i:j, 100, 1000, 1, hd)
+plot3D(M2)
+```
+
+```{r maps3D2pdf, ref.label='maps3D2', echo=FALSE, dev='pdf'}
+```
+
+MS barcoding
+
+```{r barcode, fig.height=2, fig.width=12}
+
+par(mar=c(4,1,1,1))
+image(t(matrix(hd$msLevel, 1, nrow(hd))),
+      xlab="Retention time",
+      xaxt="n", yaxt="n", col=c("black","steelblue"))
+k <- round(range(hd$retentionTime) / 60)
+nk <- 5
+axis(side=1, at=seq(0,1,1/nk), labels=seq(k[1],k[2],k[2]/nk))
+
+```
+
+
+### The MSnbase infrastructure
+
+```{r msnbviz}
+library("MSnbase")
+data(itraqdata)
+itraqdata2 <- pickPeaks(itraqdata, verbose = FALSE)
+plot(itraqdata[[25]], full=TRUE, reporters = iTRAQ4)
+par(oma = c(0, 0, 0, 0))
+par(mar = c(4, 4, 1, 1))
+plot(itraqdata2[[25]], itraqdata2[[28]], sequences = rep("IMIDLDGTENK", 2))
+```
+
+```{r msnbvizpdf, ref.label='msnbviz', echo=FALSE, dev='pdf', fig.width=8, fig.height=8}
+```
+
+### Preprocessing of MALDI-MS spectra
+
+The following code chunks demonstrate the usage of the mass spectrometry
+preprocessing and plotting routines in the `MALDIquant` package. `MALDIquant`
+uses the traditional graphics system. Therefore `MALDIquant` overloads the
+traditional functions `plot`, `lines` and `points` for its own data types. These
+data types represents spectrum and peak lists as S4 classes. Please see the
+`MALDIquant` [vignette](http://cran.r-project.org/web/packages/MALDIquant/vignettes/MALDIquant-intro.pdf)
+and the corresponding [website](http://strimmerlab.org/software/maldiquant/)
+for more details.
+
+After loading some example data a simple `plot` draws the raw spectrum.
+```{r mqraw}
+library("MALDIquant")
+
+data("fiedler2009subset", package="MALDIquant")
+
+plot(fiedler2009subset[[14]])
+```
+
+After some preprocessing, namely variance stabilization and smoothing, we use
+`lines` to draw our baseline estimate in our processed spectrum.
+
+```{r mqestimatebaseline}
+transformedSpectra <- transformIntensity(fiedler2009subset, method = "sqrt")
+smoothedSpectra <- smoothIntensity(transformedSpectra, method = "SavitzkyGolay")
+
+plot(smoothedSpectra[[14]])
+lines(estimateBaseline(smoothedSpectra[[14]]), lwd = 2, col = "red")
+```
+
+After removing the background removal we could use `plot` again to draw our
+baseline corrected spectrum.
+```{r mqremovebaseline}
+rbSpectra <- removeBaseline(smoothedSpectra)
+plot(rbSpectra[[14]])
+```
+
+`detectPeaks` returns a `MassPeaks` object that offers the same traditional
+graphics functions. The next code chunk demonstrates how to mark the detected
+peaks in a spectrum.
+
+```{r mqpeaks}
+cbSpectra <- calibrateIntensity(rbSpectra, method = "TIC")
+peaks <- detectPeaks(cbSpectra, SNR = 5)
+
+plot(cbSpectra[[14]])
+points(peaks[[14]], col = "red", pch = 4, lwd = 2)
+```
+
+Additional there is a special function `labelPeaks` that allows to draw the *M/Z*
+values above the corresponding peaks. Next we mark the 5 top peaks in the
+spectrum.
+```{r mqlabelpeaks, echo = -(1:2)}
+plot(cbSpectra[[14]])
+points(peaks[[14]], col = "red", pch = 4, lwd = 2)
+top5 <- intensity(peaks[[14]]) %in% sort(intensity(peaks[[14]]),
+                                         decreasing = TRUE)[1:5]
+labelPeaks(peaks[[14]], index = top5, avoidOverlap = TRUE)
+```
+
+Often multiple spectra have to be recalibrated to be comparable. Therefore
+`MALDIquant` warps the spectra according to so called reference or landmark
+peaks. For debugging the `determineWarpingFunctions` function offers some
+warping plots. Here we show only the last 4 plots:
+```{r mqwarp, fig.keep = "last"}
+par(mfrow = c(2, 2))
+warpingFunctions <- determineWarpingFunctions(peaks,
+                                              tolerance = 0.001,
+                                              plot = TRUE,
+                                              plotInteractive = TRUE)
+par(mfrow = c(1, 1))
+
+warpedSpectra <- warpMassSpectra(cbSpectra, warpingFunctions)
+warpedPeaks <- warpMassPeaks(peaks, warpingFunctions)
+```
+
+In the next code chunk we visualise the need and the effect of the
+recalibration.
+```{r mqwarped}
+sel <- c(2, 10, 14, 16)
+xlim <- c(4180, 4240)
+ylim <- c(0, 1.9e-3)
+lty <- c(1, 4, 2, 6)
+
+par(mfrow = c(1, 2))
+plot(cbSpectra[[1]], xlim = xlim, ylim = ylim, type = "n")
+
+for (i in seq(along = sel)) {
+  lines(peaks[[sel[i]]], lty = lty[i], col = i)
+  lines(cbSpectra[[sel[i]]], lty = lty[i], col = i)
+}
+
+plot(cbSpectra[[1]], xlim = xlim, ylim = ylim, type = "n")
+
+for (i in seq(along = sel)) {
+  lines(warpedPeaks[[sel[i]]], lty = lty[i], col = i)
+  lines(warpedSpectra[[sel[i]]], lty = lty[i], col = i)
+}
+par(mfrow = c(1, 1))
+```
+
+The code chunks above generate plots that are very similar to the figure 7 in
+the corresponding paper *"Visualisation of proteomics data using R"*. Please
+find the code to exactly reproduce the figure at:
+https://github.com/sgibb/MALDIquantExamples/blob/master/R/createFigure1_color.R
+
+## Genomic and protein sequences
+
+These visualisations originate from the `Pbase`
+[`Pbase-data`](http://bioconductor.org/packages/devel/bioc/vignettes/Pbase/inst/doc/Pbase-data.html)
+and
+[`mapping`](http://bioconductor.org/packages/devel/bioc/vignettes/Pbase/inst/doc/mapping.html) vignettes.
+
+
+### Imaging mass spectrometry
+
+The following code chunk downloads a MALDI imaging dataset from a
+mouse kidney shared by
+[Adrien Nyakas and Stefan Schurch](http://figshare.com/articles/MALDI_Imaging_Mass_Spectrometry_of_a_Mouse_Kidney/735961)
+and generates a plot with the mean spectrum and three slices of
+interesting *M/Z* regions.
+
+```{r mqims, cache=TRUE, warning=FALSE}
+library("MALDIquant")
+library("MALDIquantForeign")
+
+spectra <- importBrukerFlex("http://files.figshare.com/1106682/MouseKidney_IMS_testdata.zip", verbose = FALSE)
+
+spectra <- smoothIntensity(spectra, "SavitzkyGolay",  halfWindowSize = 8)
+spectra <- removeBaseline(spectra, method = "TopHat", halfWindowSize = 16)
+spectra <- calibrateIntensity(spectra, method = "TIC")
+avgSpectrum <- averageMassSpectra(spectra)
+avgPeaks <- detectPeaks(avgSpectrum, SNR = 5)
+
+avgPeaks <- avgPeaks[intensity(avgPeaks) > 0.0015]
+
+oldPar <- par(no.readonly = TRUE)
+layout(matrix(c(1,1,1,2,3,4), nrow = 2, byrow = TRUE))
+plot(avgSpectrum, main = "mean spectrum",
+     xlim = c(3000, 6000), ylim = c(0, 0.007))
+lines(avgPeaks, col = "red")
+labelPeaks(avgPeaks, cex = 1)
+
+par(mar = c(0.5, 0.5, 1.5, 0.5))
+for (i in seq(along = avgPeaks)) {
+  range <- mass(avgPeaks)[i] + c(-1, 1)
+  plotImsSlice(spectra, range = range,
+               main = paste(round(range, 2), collapse = " - "))
+}
+par(oldPar)
+```
+
+```{r mqimspdf, ref.label='mqims', echo=FALSE, warning=FALSE, dev='pdf', fig.width=10, fig.height=6}
+```
+
+### An interactive `shiny` app for Imaging mass spectrometry
+
+There is also an interactive
+[MALDIquant IMS shiny app](https://github.com/sgibb/ims-shiny) for demonstration
+purposes. A screen shot is displayed below. To start the application:
+
+```{r ims-shiny, eval=FALSE}
+library("shiny")
+runGitHub("sgibb/ims-shiny")
+```
+
+![ims-shiny screeshot](./figures/ims-shiny.png)
+
+## Spatial proteomics
+
+
+```{r spatprot}
+library("pRoloc")
+library("pRolocdata")
+
+data(tan2009r1)
+
+## these params use class weights
+fn <- dir(system.file("extdata", package = "pRoloc"),
+          full.names = TRUE, pattern = "params2.rda")
+load(fn)
+
+setStockcol(NULL)
+setStockcol(paste0(getStockcol(), 90))
+
+w <- table(fData(tan2009r1)[, "pd.markers"])
+(w <- 1/w[names(w) != "unknown"])
+tan2009r1 <- svmClassification(tan2009r1, params2,
+                               class.weights = w,
+                               fcol = "pd.markers")
+ptsze <- exp(fData(tan2009r1)$svm.scores) - 1
+```
+
+```{r spatplot, fig.width=12, fig.height=6}
+lout <- matrix(c(1:4, rep(5, 4)), ncol = 4, nrow = 2)
+layout(lout)
+cls <- getStockcol()
+par(mar = c(4, 4, 1, 1))
+plotDist(tan2009r1[which(fData(tan2009r1)$PLSDA == "mitochondrion"), ],
+         markers = featureNames(tan2009r1)
+         [which(fData(tan2009r1)$markers == "mitochondrion")],
+         mcol = cls[5])
+legend("topright", legend = "mitochondrion", bty = "n")
+plotDist(tan2009r1[which(fData(tan2009r1)$PLSDA == "ER/Golgi"), ],
+         markers = featureNames(tan2009r1)
+         [which(fData(tan2009r1)$markers == "ER")],
+         mcol = cls[2])
+legend("topright", legend = "ER", bty = "n")
+plotDist(tan2009r1[which(fData(tan2009r1)$PLSDA == "ER/Golgi"), ],
+         markers = featureNames(tan2009r1)
+         [which(fData(tan2009r1)$markers == "Golgi")],
+         mcol = cls[3])
+legend("topright", legend = "Golgi", bty = "n")
+plotDist(tan2009r1[which(fData(tan2009r1)$PLSDA == "PM"), ],
+         markers = featureNames(tan2009r1)
+         [which(fData(tan2009r1)$markers == "PM")],
+         mcol = cls[8])
+legend("topright", legend = "PM", bty = "n")
+plot2D(tan2009r1, fcol = "svm", cex = ptsze, method = "kpca")
+addLegend(tan2009r1, where = "bottomleft", fcol = "svm", bty = "n")
+```
+
+```{r spatplotpdf, ref.label='spatplot', echo=FALSE, dev='pdf', fig.width=12, fig.height=6}
+```
+
+
+
+See the
+[`pRoloc-tutorial`](http://bioconductor.org/packages/release/bioc/vignettes/pRoloc/inst/doc/pRoloc-tutorial.pdf)
+vignette (pdf) from the
+[`pRoloc`](http://bioconductor.org/packages/release/bioc/html/pRoloc.html)
+package for details about spatial proteomics data analysis and visualisation.
+
+## Session information
+
+```{r si}
+print(sessionInfo(), locale = FALSE)
+```

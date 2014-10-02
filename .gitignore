@@ -2,6 +2,7 @@ IMPORTANT
 sandbox/
 vignettes/Bioc2013_poster.pdf
 vignettes/RforProteomics.pdf
+vignettes/RProtVis.html
 vignettes/vigsrc/F063721.dat-mztab.txt
 vignettes/vigsrc/P00924.fasta
 vignettes/vigsrc/PXD000001_mztab.txt
@@ -9,3 +10,6 @@ vignettes/vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML
 vignettes/vigsrc/cache/
 vignettes/vigsrc/figure/
 
+vignettes/cache
+vignettes/figure
+vignettes/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML
