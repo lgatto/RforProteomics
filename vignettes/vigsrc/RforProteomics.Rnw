@@ -1139,12 +1139,9 @@ page~\pageref{subsec:mzID}).
 \subsubsection{Running MS-GF+ through a GUI}
 \Biocpkg{MSGFplus} comes with a sister package, \Rpackage{MSGFgui},
 which provide a graphic interface to setting up and running MS-GF+
-through \R. \Rpackage{MSGFgui} is currently available on
-GitHub\footnote{\url{https://github.com/thomasp85/MSGFgui}} and will
-become available in Bioconductor in the the release. Besides
-facilitating MS-GF+ analyses, which is arguably just as easy from the
-command line, it provides an intuitive way to investigate and evaluate
-the resulting identification data.
+through \R. Besides facilitating MS-GF+ analyses, which is arguably
+just as easy from the command line, it provides an intuitive way to
+investigate and evaluate the resulting identification data.
 
 
 \begin{figure}[!ht]
