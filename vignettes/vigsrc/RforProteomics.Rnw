@@ -13,6 +13,7 @@ BiocStyle::latex()
 
 \author{
   Laurent Gatto\footnote{\email{lg390@cam.ac.uk}, \url{http://cpu.sysbiol.cam.ac.uk}}~,
+  Vlad Petyuk,
   Thomas Lin Pedersen,
   Sebastian Gibb}
 
