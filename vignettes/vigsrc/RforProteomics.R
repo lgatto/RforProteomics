@@ -8,16 +8,16 @@ suppressPackageStartupMessages(library("MSnbase"))
 suppressPackageStartupMessages(library("mzID"))
 suppressPackageStartupMessages(library("rpx"))
 suppressPackageStartupMessages(library("isobar"))
-suppressPackageStartupMessages(library("MALDIquant"))   
-suppressPackageStartupMessages(library("MALDIquantForeign"))  
-suppressPackageStartupMessages(library("IPPD"))                           
+suppressPackageStartupMessages(library("MALDIquant"))
+suppressPackageStartupMessages(library("MALDIquantForeign"))
+suppressPackageStartupMessages(library("IPPD"))
 suppressPackageStartupMessages(library("rols"))
 suppressPackageStartupMessages(library("hpar"))
 suppressPackageStartupMessages(library("BRAIN"))
 suppressPackageStartupMessages(library("org.Hs.eg.db"))
 suppressPackageStartupMessages(library("GO.db"))
 suppressPackageStartupMessages(library("Rdisop"))
-suppressPackageStartupMessages(library("rTANDEM")) 
+suppressPackageStartupMessages(library("rTANDEM"))
 suppressPackageStartupMessages(library("MSGFplus"))
 suppressPackageStartupMessages(library("MSGFgui"))
 
@@ -62,14 +62,14 @@ purl(rnwfile, quiet = TRUE)
 ## ----env--------------------------------------------------
 library("RColorBrewer") ## Color palettes
 library("ggplot2")  ## Convenient and nice plotting
-library("reshape2") ## Flexibly reshape data 
+library("reshape2") ## Flexibly reshape data
 
 ## ----mzr--------------------------------------------------
 ## load the required packages
 library("mzR") ## the software package
 library("msdata") ## the data package
-## below, we extract the releavant example file 
-## from the local 'msdata' installation 
+## below, we extract the releavant example file
+## from the local 'msdata' installation
 filepath <- system.file("microtofq", package = "msdata")
 file <- list.files(filepath, pattern="MM14.mzML",
                    full.names=TRUE, recursive = TRUE)
@@ -80,7 +80,7 @@ basename(fileName(mz))
 isInitialized(mz)
 runInfo(mz)
 instrumentInfo(mz)
-## once finished, it is good to explicitely 
+## once finished, it is good to explicitely
 ## close the connection
 close(mz)
 
@@ -139,7 +139,7 @@ mztab <- pxget(px1, "PXD000001_mztab.txt")
 mztab
 
 ## ----mztab, tidy = FALSE----------------------------------
-## Load mzTab peptide data 
+## Load mzTab peptide data
 qnt <- readMzTabData(mztab, what = "PEP")
 sampleNames(qnt) <- reporterNames(TMT6)
 head(exprs(qnt))
@@ -150,17 +150,17 @@ processingData(qnt)
 ## combine into proteins
 ## - using the 'accession' feature meta data
 ## - sum the peptide intensities
-protqnt <- combineFeatures(qnt, 
-                           groupBy = fData(qnt)$accession, 
+protqnt <- combineFeatures(qnt,
+                           groupBy = fData(qnt)$accession,
                            fun = sum)
 
 ## ----matplot, dev='pdf', echo=TRUE, fig.width=5.5, fig.height=5.5, fig.keep='last', out.width='.6\\linewidth', tidy=FALSE----
 cls <- brewer.pal(5, "Set1")
-matplot(t(tail(exprs(protqnt), n = 5)), type = "b", 
+matplot(t(tail(exprs(protqnt), n = 5)), type = "b",
         lty = 1, col = cls,
         ylab = "Protein intensity (summed peptides)",
         xlab = "TMT reporters")
-legend("topright", tail(featureNames(protqnt), n=5), 
+legend("topright", tail(featureNames(protqnt), n=5),
        lty = 1, bty = "n", cex = .8, col = cls)
 
 ## ----mztab2-----------------------------------------------
@@ -168,7 +168,7 @@ qntS <- normalise(qnt, "sum")
 qntV <- normalise(qntS, "vsn")
 qntV2 <- normalise(qnt, "vsn")
 
-acc <- c("P00489", "P00924", 
+acc <- c("P00489", "P00924",
          "P02769", "P62894",
          "ECA")
 
@@ -202,7 +202,7 @@ dfr <- data.frame(exprs(small),
                   Protein = as.character(fData(small)$accession),
                   Feature = featureNames(small),
                   stringsAsFactors = FALSE)
-colnames(dfr) <- c("126", "127", "128", "129", "130", "131", 
+colnames(dfr) <- c("126", "127", "128", "129", "130", "131",
                    "Protein", "Feature")
 dfr$Protein[dfr$Protein == "sp|P00924|ENO1_YEAST"] <- "ENO"
 dfr$Protein[dfr$Protein == "sp|P62894|CYC_BOVIN"]  <- "CYT"
@@ -210,9 +210,9 @@ dfr$Protein[dfr$Protein == "sp|P02769|ALBU_BOVIN"] <- "BSA"
 dfr$Protein[dfr$Protein == "sp|P00489|PYGM_RABIT"] <- "PHO"
 dfr$Protein[grep("ECA", dfr$Protein)] <- "Background"
 dfr2 <- melt(dfr)
-ggplot(aes(x = variable, y = value, colour = Protein), 
+ggplot(aes(x = variable, y = value, colour = Protein),
        data = dfr2) +
-  geom_point() + 
+  geom_point() +
   geom_line(aes(group=as.factor(Feature)), alpha = 0.5) +
   facet_grid(. ~ Protein) + theme(legend.position="none") +
   labs(x = "Reporters", y = "Normalised intensity")
@@ -236,8 +236,8 @@ pch[grep("P00489", fData(qnt)$accession)] <- 19
 mzp
 
 ## ----incompl, dev='pdf', echo=TRUE, fig.width=5.5, fig.height=5.5, fig.keep='last', out.width='.6\\linewidth', tidy=FALSE----
-plot(Signal ~ Incomplete, data = d, 
-     xlab = expression(Incomplete~dissociation), 
+plot(Signal ~ Incomplete, data = d,
+     xlab = expression(Incomplete~dissociation),
      ylab = expression(Sum~of~reporters~intensities),
      pch = 19,
      col = "#4582B380")
@@ -253,14 +253,14 @@ MAplot(qnt[, c(4, 2)], cex = .9, col = cls, pch = pch, show.statistics = FALSE)
 library("MALDIquant")
 library("MALDIquantForeign")
 ## getting test data
-datapath <- 
-  file.path(system.file("Examples", 
-                        package = "readBrukerFlexData"), 
+datapath <-
+  file.path(system.file("Examples",
+                        package = "readBrukerFlexData"),
             "2010_05_19_Gibb_C8_A1")
 dir(datapath)
 sA1 <- importBrukerFlex(datapath, verbose=FALSE)
 # in the following we use only the first spectrum
-s <- sA1[[1]] 
+s <- sA1[[1]]
 
 summary(mass(s))
 summary(intensity(s))
@@ -274,7 +274,7 @@ plot(s)
 s2 <- transformIntensity(s, method="sqrt")
 s2
 
-## smoothing - 5 point moving average 
+## smoothing - 5 point moving average
 s3 <- smoothIntensity(s2, method="MovingAverage", halfWindowSize=2)
 s3
 
@@ -290,7 +290,7 @@ peak.data <- as.matrix(p) # extract peak information
 
 ## ----mqplot2, dev='pdf', echo=TRUE, fig.width=10, fig.height=5, fig.keep='high', out.width='1\\linewidth'----
 par(mfrow=c(2,3))
-xl <- range(mass(s)) 
+xl <- range(mass(s))
 # use same xlim on all plots for better comparison
 plot(s, sub="", main="1: raw", xlim=xl)
 plot(s2, sub="", main="2: variance stabilisation", xlim=xl)
@@ -310,8 +310,8 @@ atoms <- getAtomsFromSeq("SIVPSGASTGVHEALEMR")
 unlist(atoms)
 
 library(Rdisop)
-pepmol <- getMolecule(paste0(names(atoms), 
-                             unlist(atoms), 
+pepmol <- getMolecule(paste0(names(atoms),
+                             unlist(atoms),
                              collapse = ""))
 pepmol
 
@@ -319,7 +319,7 @@ pepmol
 library(OrgMassSpecR)
 data(itraqdata)
 
-simplottest <- 
+simplottest <-
   itraqdata[featureNames(itraqdata) %in% paste0("X", 46:47)]
 sim <- SpectrumSimilarity(as(simplottest[[1]], "data.frame"),
                           as(simplottest[[2]], "data.frame"),
@@ -346,18 +346,18 @@ molecule$exactmass
 ## molecules <- decomposeIsotopes(masses, intensities)
 
 ## experimental eno peptides
-exppep <- 
+exppep <-
   as.character(fData(qnt[grep("ENO", fData(qnt)[, 2]), ])[, 1]) ## 13
 minlength <- min(nchar(exppep))
 
 
 if (!file.exists("P00924.fasta"))
-    eno <- download.file("http://www.uniprot.org/uniprot/P00924.fasta", 
+    eno <- download.file("http://www.uniprot.org/uniprot/P00924.fasta",
                          destfile = "P00924.fasta")
 eno <- paste(readLines("P00924.fasta")[-1], collapse = "")
 enopep <- Digest(eno, missed = 1)
 nrow(enopep) ## 103
-sum(nchar(enopep$peptide) >= minlength) ## 68 
+sum(nchar(enopep$peptide) >= minlength) ## 68
 pepcnt <- enopep[enopep[, 1] %in% exppep, ]
 nrow(pepcnt) ## 13
 
@@ -379,11 +379,11 @@ maplot(x,
        pch = 19, col = cls2,
        main = "Spectra MA plot")
 abline(h = 1, lty = "dashed", col = "grey")
-legend("topright", 
+legend("topright",
        c("BSA", "ENO", "CYT", "PHO"),
-       pch = 19, col = c("gold4", "dodgerblue", 
+       pch = 19, col = c("gold4", "dodgerblue",
                    "springgreen4", "darkorchid2"),
-       bty = "n", cex = .7) 
+       bty = "n", cex = .7)
 
 ## ----synapter, eval=FALSE---------------------------------
 #  ## open the synapter vignette
@@ -393,31 +393,31 @@ legend("topright",
 ## ----rtandem1, tidy = FALSE-------------------------------
 library(rTANDEM)
 taxonomy <- rTTaxo(taxon = "yeast",
-                   format = "peptide", 
+                   format = "peptide",
                    URL = system.file(
-                     "extdata/fasta/scd.fasta.pro", 
+                     "extdata/fasta/scd.fasta.pro",
                      package="rTANDEM"))
 param <- rTParam()
-param <- setParamValue(param, 
-                       'protein', 'taxon', 
+param <- setParamValue(param,
+                       'protein', 'taxon',
                        value="yeast")
-param <- setParamValue(param, 'list path', 
+param <- setParamValue(param, 'list path',
                        'taxonomy information', taxonomy)
-param <- setParamValue(param, 
+param <- setParamValue(param,
                        'list path', 'default parameters',
                        value = system.file(
                          "extdata/default_input.xml",
                          package="rTANDEM"))
 param <- setParamValue(param, 'spectrum', 'path',
                        value = system.file(
-                         "extdata/test_spectra.mgf", 
+                         "extdata/test_spectra.mgf",
                          package="rTANDEM"))
 param <- setParamValue(param, 'output', 'xsl path',
                        value = system.file(
-                         "extdata/tandem-input-style.xsl", 
+                         "extdata/tandem-input-style.xsl",
                          package="rTANDEM"))
 param <- setParamValue(param, 'output', 'path',
-                       value = paste(getwd(), 
+                       value = paste(getwd(),
                          "output.xml", sep="/"))
 
 ## ----rtandem2---------------------------------------------
@@ -427,8 +427,8 @@ basename(resultPath)
 ## ----rtandem3---------------------------------------------
 res <- GetResultsFromXML(resultPath)
 ## the inferred proteins
-proteins <- GetProteins(res, 
-                        log.expect = -1.3, 
+proteins <- GetProteins(res,
+                        log.expect = -1.3,
                         min.peptides = 2)
 proteins[, -(4:5), with = FALSE]
 ## the identified peptides for YFR053C
@@ -440,8 +440,8 @@ peptides[, c(1:4, 9, 10:16), with = FALSE]
 ## ----msgf1------------------------------------------------
 library(MSGFplus)
 ## Create a parameter object with a set of parameters
-param <- msgfPar(database = system.file('extdata', 
-                                        'milk-proteins.fasta', 
+param <- msgfPar(database = system.file('extdata',
+                                        'milk-proteins.fasta',
                                         package='MSGFplus'),
                  tolerance = '10 ppm',
                  enzyme = 'Trypsin')
@@ -464,6 +464,105 @@ show(param)
 ## ----msgfplus2, eval=FALSE--------------------------------
 #  result <- runMSGF(param, 'path/to/a/rawfile.mzML')
 
+## ----MSnIDstart-------------------------------------------
+library("MSnID")
+msnid <- MSnID(".")
+
+## ----MSnIDdataImport--------------------------------------
+PSMresults <- read.delim(system.file("extdata", "human_brain.txt",
+                                     package="MSnID"),
+                         stringsAsFactors=FALSE)
+psms(msnid) <- PSMresults
+show(msnid)
+
+mzids <- system.file("extdata", "c_elegans.mzid.gz", package="MSnID")
+msnid <- read_mzIDs(msnid, mzids)
+show(msnid)
+
+## ----MSnIDsequence----------------------------------------
+msnid <- assess_termini(msnid, validCleavagePattern="[KR]\\.[^P]")
+msnid <- assess_missed_cleavages(msnid, missedCleavagePattern="[KR](?=[^P$])")
+
+## ----MSnIDmissedCleavagesPlot, dev='pdf', fig.width=8, fig.height=4, out.width='.7\\textwidth'----
+pepCleav <- unique(psms(msnid)[,c("numMissCleavages", "isDecoy", "peptide")])
+pepCleav <- as.data.frame(table(pepCleav[,c("numMissCleavages", "isDecoy")]))
+library("ggplot2")
+ggplot(pepCleav, aes(x=numMissCleavages, y=Freq, fill=isDecoy)) +
+    geom_bar(stat='identity', position='dodge') +
+    ggtitle("Number of Missed Cleavages")
+
+## ----MSnIDfilteringCriteria-------------------------------
+msnid$msmsScore <- -log10(msnid$`MS-GF:SpecEValue`)
+msnid$absParentMassErrorPPM <- abs(mass_measurement_error(msnid))
+
+## ----MSnIDsettingFilter-----------------------------------
+filtObj <- MSnIDFilter(msnid)
+filtObj$absParentMassErrorPPM <- list(comparison="<", threshold=5.0)
+filtObj$msmsScore <- list(comparison=">", threshold=8.0)
+show(filtObj)
+
+## ----MSnIDfilterAssessment--------------------------------
+evaluate_filter(msnid, filtObj, level="PSM")
+evaluate_filter(msnid, filtObj, level="peptide")
+evaluate_filter(msnid, filtObj, level="accession")
+
+## ----MSnIDfilterOptimization1-----------------------------
+filtObj.grid <- optimize_filter(filtObj, msnid, fdr.max=0.01,
+                                method="Grid", level="peptide",
+                                n.iter=500)
+show(filtObj.grid)
+
+## ----MSnIDfilterOptimization2-----------------------------
+filtObj.nm <- optimize_filter(filtObj.grid, msnid, fdr.max=0.01,
+                                method="Nelder-Mead", level="peptide",
+                                n.iter=500)
+show(filtObj.nm)
+
+## ----MSnIDfilterAssessment2-------------------------------
+evaluate_filter(msnid, filtObj, level="peptide")
+evaluate_filter(msnid, filtObj.grid, level="peptide")
+evaluate_filter(msnid, filtObj.nm, level="peptide")
+
+## ----MSnIDapplyFilter-------------------------------------
+msnid <- apply_filter(msnid, filtObj.nm)
+show(msnid)
+
+## ----MSnIDremovingDecoyAndContaminants--------------------
+msnid <- apply_filter(msnid, "isDecoy == FALSE")
+show(msnid)
+msnid <- apply_filter(msnid, "!grepl('Contaminant',accession)")
+show(msnid)
+
+## ----MSnIDgetDataOut1-------------------------------------
+psm.df <- psms(msnid)
+psm.dt <- as(msnid, "data.table")
+
+## ----MSnIDgetDataOut2-------------------------------------
+peps <- peptides(msnid)
+head(peps)
+prots <- accessions(msnid)
+head(prots)
+prots <- proteins(msnid) # may be more intuitive then accessions
+head(prots)
+
+## ----MSnIDconvertingToMSnSet------------------------------
+msnset <- as(msnid, "MSnSet")
+library("MSnbase")
+head(fData(msnset))
+head(exprs(msnset))
+
+## ----MSnIDsummingPeptidesToProteins-----------------------
+msnset <- combineFeatures(msnset,
+                            fData(msnset)$accession,
+                            redundancy.handler="unique",
+                            fun="sum",
+                            cv=FALSE)
+head(fData(msnset))
+head(exprs(msnset))
+
+## ----eval=TRUE, echo=FALSE, results='hide'----------------
+unlink(".Rcache", recursive=TRUE)
+
 ## ----annot1, cache=FALSE----------------------------------
 id <- "ENSG00000002746"
 library("hpar")
@@ -472,8 +571,8 @@ getHpa(id, "SubcellularLoc")
 ## ----annot2, cache=FALSE, warning = FALSE-----------------
 library(org.Hs.eg.db)
 library(GO.db)
-ans <- select(org.Hs.eg.db, 
-              keys = id, columns = c("ENSEMBL", "GO", "ONTOLOGY"), 
+ans <- select(org.Hs.eg.db,
+              keys = id, columns = c("ENSEMBL", "GO", "ONTOLOGY"),
               keytype = "ENSEMBL")
 ans <- ans[ans$ONTOLOGY == "CC", ]
 ans
@@ -488,7 +587,7 @@ t1 <- xtable(pkTab[["Proteomics"]],
              table.placement = "thb",
              label = "tab:prot")
 align(t1) <- c("l", "l", "p{10cm}", "l")
-print(t1, 
+print(t1,
       include.rownames = FALSE,
       floating = FALSE,
       tabular.environment = 'longtable',
@@ -500,7 +599,7 @@ t2 <- xtable(pkTab[["MassSpectrometry"]],
              table.placement = "thb",
              label = "tab:ms")
 align(t2) <- c("l", "l", "p{10cm}", "l")
-print(t2, 
+print(t2,
       include.rownames = FALSE,
       floating = FALSE,
       tabular.environment = 'longtable',
@@ -513,7 +612,7 @@ t3 <- xtable(pkTab[["MassSpectrometryData"]],
              table.placement = "thb",
              label = "tab:msdata")
 align(t3) <- c("l", "l", "p{10cm}", "l")
-print(t3, 
+print(t3,
       include.rownames = FALSE,
       floating = FALSE,
       tabular.environment = 'longtable',
