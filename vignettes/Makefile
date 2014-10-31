@@ -96,7 +96,7 @@ clean:
 	rm -f PXD000001_mztab.txt
 	rm -rf output*xml
 	rm -f RforProteomics.tex 
-	rm -f RProtVis.md 
+	rm -f RProtVis.md RProtVis.R
 	rm -f Bioc2013_poster.tex HUPO2014_poster.tex
 	rm -f Bioc2013_poster.R HUPO2014_poster.R
 	rm -f ProteomicsWorkflow.md ProteomicsWorkflow.html 
