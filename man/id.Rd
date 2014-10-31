@@ -23,7 +23,8 @@ library("rpx")
 px <- PXDataset("PXD000001")
 pxfiles(px)
 
-f <- dir(system.file("mzid", package = "RforProteomics"), full.names=TRUE)
+f <- dir(system.file("extdata", package = "RforProteomics"),
+         pattern = "mzid", full.names=TRUE)
 library("mzID")
 id <- mzID(f)
 id
