@@ -512,7 +512,10 @@ mouse kidney shared by
 and generates a plot with the mean spectrum and three slices of
 interesting *M/Z* regions.
 
-```{r mqims, cache=TRUE, warning=FALSE}
+<!-- Not running this code chunk as the access to the data (75M) -->
+<!-- on figshare seems to hang or become very slow at times -->
+
+```{r mqims, cache=TRUE, eval=FALSE, warning=FALSE}
 library("MALDIquant")
 library("MALDIquantForeign")
 
@@ -542,8 +545,10 @@ for (i in seq(along = avgPeaks)) {
 par(oldPar)
 ```
 
-```{r mqimspdf, ref.label='mqims', echo=FALSE, warning=FALSE, dev='pdf', fig.width=10, fig.height=6}
-```
+<!-- ```{r mqimspdf, ref.label='mqims', echo=FALSE, warning=FALSE, dev='pdf', fig.width=10, fig.height=6} -->
+<!-- ``` -->
+
+![ims-shiny screeshot](./figures/mqims-1.png.png)
 
 ### An interactive `shiny` app for Imaging mass spectrometry
 
