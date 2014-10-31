@@ -152,20 +152,20 @@ vignette("RforProteomics")
 \R{} has several mailing
 lists\footnote{\url{http://www.r-project.org/mail.html}}. The most
 relevant here being the main \texttt{R-help} list, \textit{for
-  discussion about problem and solutions using \R{}}. This one is for
+  discussion about problem and solutions using \R{}}, ideal for
 general \R{} content and is not suitable for bioinformatics or
-proteomics questions. \Bioconductor{} also offers several mailing
-lists\footnote{\url{http://bioconductor.org/help/mailing-list/}}
-dedicated to bioinformatics matters and \Bioconductor{} packages. The
-main \Bioconductor{} list is the most relevant one. It is possible to
-post\footnote{\url{http://bioconductor.org/help/mailing-list/mailform/}}
-questions without subscribing to the list. Finally, the dedicated
-\Biocpkg{RforProteomics} Google
+proteomics questions. \Bioconductor{} also offers several resources
+dedicated to bioinformatics matters and \Bioconductor{} packages, in
+particular the main \Bioconductor{} support
+forum\footnote{\url{https://support.bioconductor.org/}} for
+Bioconductor-related queries. A dedicated \Biocpkg{RforProteomics}
+Google
 group\footnote{\url{https://groups.google.com/forum/\#!forum/rbioc-sig-proteomics}}
-welcomes questions/comments/annoucements related to \R{} and
-mass-spectrometry/proteomics.
+also welcomes questions/comments/annoucements related to \R{} and
+mass-spectrometry/proteomics, although the Bioconductor forum is the
+preferred channel.
 
-It is important to read and comply to the posting guides
+It is advised to read and comply to the posting guides
 (\href{http://www.r-project.org/posting-guide.html}{here} and
 \href{http://bioconductor.org/help/mailing-list/posting-guide/}{here})
 to maximise the chances to obtain good responses. It is important to
@@ -175,8 +175,6 @@ functions (see an example output at the end of this document, on page
 sure to isolate the relevant portion and report it with your question,
 trying to make your code/example
 reproducible\footnote{\url{https://github.com/hadley/devtools/wiki/Reproducibility}}.
-
-All lists have browsable archives.
 
 \subsection{Installation}
 
@@ -1147,7 +1145,7 @@ investigate and evaluate the resulting identification data.
 
 \begin{figure}[!ht]
   \centering
-    \includegraphics[width=.6\textwidth]{figure/MSGFgui.png}
+    \includegraphics[width=.6\textwidth]{figures/MSGFgui.png}
     \caption{A screenshot of MSGFgui}
     \label{fig:MSGFgui}
 \end{figure}

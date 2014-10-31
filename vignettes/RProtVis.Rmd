@@ -589,23 +589,19 @@ layout(lout)
 cls <- getStockcol()
 par(mar = c(4, 4, 1, 1))
 plotDist(tan2009r1[which(fData(tan2009r1)$PLSDA == "mitochondrion"), ],
-         markers = featureNames(tan2009r1)
-         [which(fData(tan2009r1)$markers == "mitochondrion")],
+         markers = featureNames(tan2009r1)[which(fData(tan2009r1)$markers.orig == "mitochondrion")],
          mcol = cls[5])
 legend("topright", legend = "mitochondrion", bty = "n")
 plotDist(tan2009r1[which(fData(tan2009r1)$PLSDA == "ER/Golgi"), ],
-         markers = featureNames(tan2009r1)
-         [which(fData(tan2009r1)$markers == "ER")],
+         markers = featureNames(tan2009r1)[which(fData(tan2009r1)$markers.orig == "ER")],
          mcol = cls[2])
 legend("topright", legend = "ER", bty = "n")
 plotDist(tan2009r1[which(fData(tan2009r1)$PLSDA == "ER/Golgi"), ],
-         markers = featureNames(tan2009r1)
-         [which(fData(tan2009r1)$markers == "Golgi")],
+         markers = featureNames(tan2009r1)[which(fData(tan2009r1)$markers.orig == "Golgi")],
          mcol = cls[3])
 legend("topright", legend = "Golgi", bty = "n")
 plotDist(tan2009r1[which(fData(tan2009r1)$PLSDA == "PM"), ],
-         markers = featureNames(tan2009r1)
-         [which(fData(tan2009r1)$markers == "PM")],
+         markers = featureNames(tan2009r1)[which(fData(tan2009r1)$markers.orig == "PM")],
          mcol = cls[8])
 legend("topright", legend = "PM", bty = "n")
 plot2D(tan2009r1, fcol = "svm", cex = ptsze, method = "kpca")

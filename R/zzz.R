@@ -5,8 +5,9 @@
                                "    http://lgatto.github.com/RforProteomics/\n\n",
                                "  or, in R, open package vignettes by typing\n", 
                                "    RforProteomics() # R/Bioc for proteomics overview\n",
-                               "    ProtViz()        # R/Bioc for proteomics visualisation\n\n"))
-  
+                               "    ProtViz()        # R/Bioc for proteomics visualisation\n\n",
+                               "  For a full list of available documents:\n",
+                               "    vignette(package='RforProteomics')\n\n"))  
   addVigs2WinMenu("RforProteomics")
 }
 

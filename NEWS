@@ -1,3 +1,15 @@
+CHANGES IN VERSION 1.5.1
+------------------------
+ o update vignette and fixing errors [2014-10-31 Fri]
+
+CHANGES IN VERSION 1.5.0
+------------------------
+ o new devel version for Bioc 3.1
+
+CHANGES IN VERSION 1.4.0
+------------------------
+ o new release version for Bioc 3.0
+ 
 CHANGES IN VERSION 1.3.8
 ------------------------
  o remove github link to MSGFgui since it has now been accepted
