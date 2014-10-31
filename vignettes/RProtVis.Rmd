@@ -1,4 +1,4 @@
----
+--
 output:
   BiocStyle::html_document
 ---
