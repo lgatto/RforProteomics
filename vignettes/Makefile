@@ -15,9 +15,9 @@ LATEXFILES = *.aux\
 
 all: 
 	make RforProteomics.pdf
-	make RProtVis.html
 	make poster
-	make clean
+	make RProtVis.html
+	# make clean
 
 
 setvars:
@@ -32,10 +32,8 @@ RforProteomics.pdf:
 	cp vigsrc/RforProteomics.pdf .
 
 poster:
-	"$(R_HOME)/bin/R" CMD pdflatex Bioc2013_poster.Rnw
-	cp vigsrc/Bioc2013_poster.pdf .
-	"$(R_HOME)/bin/R" CMD pdflatex HUPO2014_poster.Rnw
-	cp vigsrc/HUPO2014_rbioc_poster.pdf ./HUPO2014_poster.pdf
+	cp vigsrc/Bioc2013_poster.pdf ./Bioc2013poster.pdf 
+	cp vigsrc/HUPO2014_rbioc_poster.pdf ./HUPO2014poster.pdf
 
 RProtVis.html: RProtVis.Rmd
 	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('RProtVis.Rmd'); purl('RProtVis.Rmd');"
@@ -66,7 +64,7 @@ stub:
 
 vig2: 
 	## Only locally, using default R-devel
-	make allclean
+	# make allclean
 	cp vigsrc/RforProteomics.Rnw .
 	cp vigsrc/RforProteomics.bib .
 	ln -s vigsrc/cache .
@@ -99,7 +97,8 @@ clean:
 	rm -rf output*xml
 	rm -f RforProteomics.tex 
 	rm -f RProtVis.md 
-	rm -f Bioc2013_poster.tex
+	rm -f Bioc2013_poster.tex HUPO2014_poster.tex
+	rm -f Bioc2013_poster.R HUPO2014_poster.R
 	rm -f ProteomicsWorkflow.md ProteomicsWorkflow.html 
 
 allclean: 
