@@ -14,7 +14,7 @@ RforProteomics <- function()
 ##' effect, opening the vignette.
 ##' @author Laurent Gatto
 ProtViz <- function()
-    vignette("ProtViz", package = "RforProteomics")
+    vignette("RProtViz", package = "RforProteomics")
 
 ##' Finds the package names that have a specific biocView.
 ##'
