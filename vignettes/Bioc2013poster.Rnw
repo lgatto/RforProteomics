@@ -1,4 +1,4 @@
-%\VignetteEngine{knitr}
+%\VignetteEngine{knitr::knitr}
 %\VignetteIndexEntry{RforProteomics Bioc2013 poster}
 %\VignetteKeywords{bioinformatics, proteomics, mass spectrometry}
 %\VignettePackage{RforProteomics}
@@ -10,7 +10,7 @@
 
 \begin{document}
 
-This vignette is a stub. Look at \url{https://github.com/lgatto/Bioc2013-poster} for the complete Rnw file.
+This vignette is a stub. 
 
 <<session>>=
 sessionInfo()
