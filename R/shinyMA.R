@@ -29,7 +29,8 @@ shinyMA <- function() {
                 idx <- findClosest( input )
                 par(mar = c(5,5,3,2), cex.lab = 1.5)
                 ## MA-plot of all genes
-                plot(fData(qnt)$baseMean, fData(qnt)$log2FC,
+                plot(fData(qnt)$baseMean,
+		     fData(qnt)$log2FC,
                      xlab = "A", ylab = "M")
                 grid()
                 abline(v = 0)
