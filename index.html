@@ -29,7 +29,7 @@
       </header>
       <section>
         <h2>
-<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h2>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h2>
 
 <p>The
 <a href="http://www.bioconductor.org/packages/release/data/experiment/html/RforProteomics.html"><code>RforProteomics</code> package</a>
@@ -55,7 +55,10 @@ proteomics, in particular by facilitating interoperability between
 their software.  The
 <a href="https://groups.google.com/forum/#!forum/rbioc-sig-proteomics">rbioc-sig-proteomics</a>
 group has tentatively been set up to provide a forum for questions and
-discussion for interested parties. Do not hesitate to
+discussion for interested parties. The officiall
+<a href="https://support.bioconductor.org/">Bioconductor support site</a> is the
+channel of choice to ask questions about specific Bioconductor
+packages. Do not hesitate to
 <a href="http://proteome.sysbiol.cam.ac.uk/lgatto/">get in touch</a> for
 questions, comments or further suggestions. Note taking about
 plans/ideas/direction for R/Bioc and proteomics can be contributed to
@@ -63,7 +66,7 @@ the
 <a href="https://github.com/lgatto/RforProteomics/wiki"><code>RforProteomics</code> wiki</a>.</p>
 
 <h2>
-<a name="data-and-vignette" class="anchor" href="#data-and-vignette"><span class="octicon octicon-link"></span></a>Data and vignette</h2>
+<a id="data-and-vignette" class="anchor" href="#data-and-vignette" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data and vignette</h2>
 
 <p>The package uses the dataset
 <a href="http://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD000001"><code>PXD000001</code></a>
@@ -77,36 +80,34 @@ the manuscript as well as other application examples. It can be
 accessed once the package is installed (see below) with the
 <code>RforProteomics()</code> function. Alternatively, the vignette can be
 downloaded as a pdf file
-<a href="http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf">here</a>.</p>
+<a href="http://bioconductor.org/packages/release/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf">here</a>.</p>
 
 <p>A second vignette, <code>RProtVis</code> focuses on the visualisation of mass
 spectrometry and proteomics data with <code>R</code> and Bioconductor. From <code>R</code>,
 it is currently only available with Bioconductor <code>&gt;= 3.0</code> using the
 <code>RProtViz()</code> function. It can also be consulted
-<a href="http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RProtVis.html">on-line</a>
+<a href="http://bioconductor.org/packages/release/data/experiment/vignettes/RforProteomics/inst/doc/RProtVis.html">on-line</a>
 on the 'RforProteomics' development version page.</p>
 
 <h2>
-<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
 
 <p>The package is available on
-<a href="http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html">Bioconductor</a>
+<a href="http://bioconductor.org/packages/release/data/experiment/html/RforProteomics.html">Bioconductor</a>
 (version &gt;= 2.13). To install the package and its documentation, start
 <code>R</code> (&gt;= <code>3.0.0</code> required) and type:</p>
 
-<div class="highlight highlight-c"><pre><span class="n">source</span><span class="p">(</span><span class="s">"http://bioconductor.org/biocLite.R"</span><span class="p">)</span>
-<span class="n">biocLite</span><span class="p">(</span><span class="s">"RforProteomics"</span><span class="p">)</span>
-</pre></div>
+<div class="highlight highlight-c"><pre><span class="pl-enf">source</span>(<span class="pl-s1"><span class="pl-pds">"</span>http://bioconductor.org/biocLite.R<span class="pl-pds">"</span></span>)
+biocLite(<span class="pl-s1"><span class="pl-pds">"</span>RforProteomics<span class="pl-pds">"</span></span>)</pre></div>
 
 <p>To install all dependencies (75+ packages, including <code>RforProteomics</code>)
 and fully reproduce the code in the vignettes, replace the last line
 in the code chunk above with:</p>
 
-<div class="highlight highlight-c"><pre><span class="n">biocLite</span><span class="p">(</span><span class="s">"RforProteomics"</span><span class="p">,</span> <span class="n">dependencies</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">)</span>
-</pre></div>
+<div class="highlight highlight-c"><pre><span class="pl-enf">biocLite</span>(<span class="pl-s1"><span class="pl-pds">"</span>RforProteomics<span class="pl-pds">"</span></span>, dependencies = <span class="pl-c1">TRUE</span>)</pre></div>
 
 <h2>
-<a name="collaborative-editing" class="anchor" href="#collaborative-editing"><span class="octicon octicon-link"></span></a>Collaborative editing</h2>
+<a id="collaborative-editing" class="anchor" href="#collaborative-editing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Collaborative editing</h2>
 
 <p>The community and package authors are invited to contribute to the
 package. If you have or know of a package of interest, please
@@ -123,7 +124,7 @@ than any github user can
 to gather specific <code>R</code>/Bioconductor proteomics needs and ideas. </p>
 
 <h2>
-<a name="help" class="anchor" href="#help"><span class="octicon octicon-link"></span></a>Help</h2>
+<a id="help" class="anchor" href="#help" aria-hidden="true"><span class="octicon octicon-link"></span></a>Help</h2>
 
 <p>To obtain help or additional information about the <code>RforProteomics</code>
 package, please contact
