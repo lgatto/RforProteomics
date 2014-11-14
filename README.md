@@ -24,7 +24,10 @@ proteomics, in particular by facilitating interoperability between
 their software.  The
 [rbioc-sig-proteomics](https://groups.google.com/forum/#!forum/rbioc-sig-proteomics)
 group has tentatively been set up to provide a forum for questions and
-discussion for interested parties. Do not hesitate to
+discussion for interested parties. The officiall
+[Bioconductor support site](https://support.bioconductor.org/) is the
+channel of choice to ask questions about specific Bioconductor
+packages. Do not hesitate to
 [get in touch](http://proteome.sysbiol.cam.ac.uk/lgatto/) for
 questions, comments or further suggestions. Note taking about
 plans/ideas/direction for R/Bioc and proteomics can be contributed to
@@ -45,19 +48,19 @@ the manuscript as well as other application examples. It can be
 accessed once the package is installed (see below) with the
 `RforProteomics()` function. Alternatively, the vignette can be
 downloaded as a pdf file
-[here](http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf).
+[here](http://bioconductor.org/packages/release/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf).
 
 A second vignette, `RProtVis` focuses on the visualisation of mass
 spectrometry and proteomics data with `R` and Bioconductor. From `R`,
 it is currently only available with Bioconductor `>= 3.0` using the
 `RProtViz()` function. It can also be consulted
-[on-line](http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RProtVis.html)
+[on-line](http://bioconductor.org/packages/release/data/experiment/vignettes/RforProteomics/inst/doc/RProtVis.html)
 on the 'RforProteomics' development version page.
 
 ## Installation
 
 The package is available on
-[Bioconductor](http://bioconductor.org/packages/devel/data/experiment/html/RforProteomics.html)
+[Bioconductor](http://bioconductor.org/packages/release/data/experiment/html/RforProteomics.html)
 (version >= 2.13). To install the package and its documentation, start
 `R` (>= `3.0.0` required) and type:
 
