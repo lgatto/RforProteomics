@@ -19,15 +19,18 @@
   (\code{data.frame} formatting).  }
 
 \usage{
-proteomicsPackages(biocv)
-massSpectrometryPackages(biocv)
-massSpectrometryDataPackages(biocv)
+proteomicsPackages(biocv, cache=FALSE)
+massSpectrometryPackages(biocv, cache=FALSE)
+massSpectrometryDataPackages(biocv, cache=FALSE)
 }
 
 \arguments{
-  \item{biocv}{ A \code{character} with the Bioconductor version to
+  \item{biocv}{A \code{character} with the Bioconductor version to
     search for relevant packages. If missing, the running version is used.
-  }  
+  }
+  \item{cache}{A \code{logical} indicating whether cached package
+  information should be used. Default is \code{FALSE}. All except
+  development versions are up-to-date.}
 }
 
 \value{
@@ -39,3 +42,8 @@ massSpectrometryDataPackages(biocv)
   Laurent Gatto
 }
 
+\examples{
+head(pp <- proteomicsPackages("3.0"))
+ppc <- proteomicsPackages("3.0", cache = TRUE)
+all.equal(pp, ppc)
+}
