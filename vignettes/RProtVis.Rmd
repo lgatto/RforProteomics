@@ -589,6 +589,7 @@ ptsze <- exp(fData(tan2009r1)$svm.scores) - 1
 ```
 
 ```{r spatplot, fig.width=12, fig.height=6}
+
 lout <- matrix(c(1:4, rep(5, 4)), ncol = 4, nrow = 2)
 layout(lout)
 cls <- getStockcol()
@@ -611,6 +612,7 @@ plotDist(tan2009r1[which(fData(tan2009r1)$PLSDA == "PM"), ],
 legend("topright", legend = "PM", bty = "n")
 plot2D(tan2009r1, fcol = "svm", cex = ptsze, method = "kpca")
 addLegend(tan2009r1, where = "bottomleft", fcol = "svm", bty = "n")
+
 ```
 
 ```{r spatplotpdf, ref.label='spatplot', echo=FALSE, dev='pdf', fig.width=12, fig.height=6}
