@@ -75,7 +75,7 @@ datatab <-
                    "mzIdentML", "mzQuantML", "mgf", "mzTab"),
                Package = c(
                    "[`mzR`](http://bioconductor.org/packages/release/bioc/html/mzR.html) (read)",
-                   "[`mzID`](http://bioconductor.org/packages/release/bioc/html/mzID.html) (read)",
+                   "[`mzR`] and [`mzID`](http://bioconductor.org/packages/release/bioc/html/mzID.html) (read)",
                    "",
                    "[`MSnbase`](http://bioconductor.org/packages/release/bioc/html/MSnbase.html) (read/write)", 
                    "[`MSnbase`](http://bioconductor.org/packages/release/bioc/html/MSnbase.html) (read/write)"))

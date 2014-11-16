@@ -49,7 +49,7 @@ display(pp)
 |Type           |Format                      |Package                                                                                   |
 |:--------------|:---------------------------|:-----------------------------------------------------------------------------------------|
 |raw            |mzML, mzXML, netCDF, mzData |[`mzR`](http://bioconductor.org/packages/release/bioc/html/mzR.html) (read)               |
-|identification |mzIdentML                   |[`mzID`](http://bioconductor.org/packages/release/bioc/html/mzID.html) (read)             |
+|identification |mzIdentML                   |[`mzR`] and [`mzID`](http://bioconductor.org/packages/release/bioc/html/mzID.html) (read) |
 |quantitation   |mzQuantML                   |                                                                                          |
 |peak lists     |mgf                         |[`MSnbase`](http://bioconductor.org/packages/release/bioc/html/MSnbase.html) (read/write) |
 |other          |mzTab                       |[`MSnbase`](http://bioconductor.org/packages/release/bioc/html/MSnbase.html) (read/write) |
@@ -522,7 +522,7 @@ msexp
 ##  MSn M/Z range: 100 2016.66 
 ##  MSn retention times: 25:1 - 25:2 minutes
 ## - - - Processing information - - -
-## Data loaded: Sun Nov 16 02:53:47 2014 
+## Data loaded: Sun Nov 16 02:59:07 2014 
 ##  MSnbase version: 1.14.0 
 ## - - - Meta data  - - -
 ## phenoData
@@ -698,8 +698,8 @@ processingData(msset)
 
 ```
 ## - - - Processing information - - -
-## Data loaded: Sun Nov 16 02:53:47 2014 
-## iTRAQ4 quantification by trapezoidation: Sun Nov 16 02:53:48 2014 
+## Data loaded: Sun Nov 16 02:59:07 2014 
+## iTRAQ4 quantification by trapezoidation: Sun Nov 16 02:59:09 2014 
 ##  MSnbase version: 1.14.0
 ```
 
@@ -785,7 +785,7 @@ mztf <- pxget(px, pxfiles(px)[2])
 ## experimentData: use 'experimentData(object)'
 ## Annotation:  
 ## - - - Processing information - - -
-## mzTab read: Sun Nov 16 02:53:50 2014 
+## mzTab read: Sun Nov 16 02:59:11 2014 
 ##  MSnbase version: 1.14.0
 ```
 
@@ -884,8 +884,8 @@ processingData(qnt.crct)
 ```
 ## - - - Processing information - - -
 ## Data loaded: Wed May 11 18:54:39 2011 
-## iTRAQ4 quantification by trapezoidation: Sun Nov 16 02:53:53 2014 
-## Purity corrected: Sun Nov 16 02:53:53 2014 
+## iTRAQ4 quantification by trapezoidation: Sun Nov 16 02:59:13 2014 
+## Purity corrected: Sun Nov 16 02:59:14 2014 
 ##  MSnbase version: 1.1.22
 ```
 
@@ -947,10 +947,10 @@ processingData(prt)
 ```
 ## - - - Processing information - - -
 ## Data loaded: Wed May 11 18:54:39 2011 
-## iTRAQ4 quantification by trapezoidation: Sun Nov 16 02:53:53 2014 
-## Purity corrected: Sun Nov 16 02:53:53 2014 
-## Normalised (quantiles): Sun Nov 16 02:53:53 2014 
-## Combined 55 features into 3 using sum: Sun Nov 16 02:53:53 2014 
+## iTRAQ4 quantification by trapezoidation: Sun Nov 16 02:59:13 2014 
+## Purity corrected: Sun Nov 16 02:59:14 2014 
+## Normalised (quantiles): Sun Nov 16 02:59:14 2014 
+## Combined 55 features into 3 using sum: Sun Nov 16 02:59:14 2014 
 ##  MSnbase version: 1.1.22
 ```
 
