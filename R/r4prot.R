@@ -79,23 +79,53 @@ packageDF <- function(x, nsub = TRUE, version = TRUE) {
 
 
 
-proteomicsPackages <- function(biocv) {
+proteomicsPackages <- function(biocv, cache=FALSE) {
     if (missing(biocv))
         biocv <- as.character(BiocInstaller::biocVersion())
+    if (cache) {
+        f <- dir(system.file("extdata", package = "RforProteomics"),
+                 full.names = TRUE, pattern = "lpp.rds")
+        x <- readRDS(f)
+        x <- x[[biocv]]
+        if (is.null(x))
+            warning(biocv, " not cached, retrieving from Bioconductor.org",
+                    call. = FALSE, immediate. = TRUE)
+        else return(x)
+    }
     packageDF(getPackagesInBiocView("Proteomics",
                                     biocVersion = biocv))
 }
 
-massSpectrometryPackages <- function(biocv) {
+massSpectrometryPackages <- function(biocv, cache=FALSE) {
     if (missing(biocv))
         biocv <- as.character(BiocInstaller::biocVersion())
+    if (cache) {
+        f <- dir(system.file("extdata", package = "RforProteomics"),
+                 full.names = TRUE, pattern = "lmsp.rds")
+        x <- readRDS(f)
+        x <- x[[biocv]]
+        if (is.null(x))
+            warning(biocv, " not cached, retrieving from Bioconductor.org",
+                    call. = FALSE, immediate. = TRUE)
+        else return(x)
+    }
     packageDF(getPackagesInBiocView("MassSpectrometry",
                                     biocVersion = biocv))
 }
 
-massSpectrometryDataPackages <- function(biocv) {
+massSpectrometryDataPackages <- function(biocv, cache=FALSE) {
     if (missing(biocv))
         biocv <- as.character(BiocInstaller::biocVersion())
+    if (cache) {
+        f <- dir(system.file("extdata", package = "RforProteomics"),
+                 full.names = TRUE, pattern = "lmsdp.rds")
+        x <- readRDS(f)
+        x <- x[[biocv]]
+        if (is.null(x))
+            warning(biocv, " not cached, retrieving from Bioconductor.org",
+                    call. = FALSE, immediate. = TRUE)
+        else return(x)
+    }
     packageDF(getPackagesInBiocView("MassSpectrometryData",
                                     rep = "BioCexp",
                                     biocVersion = biocv))

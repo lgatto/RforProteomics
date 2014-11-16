@@ -39,10 +39,10 @@ library("MSnbase")
 library("rpx")
 library("MLInterfaces")
 library("pRoloc")
-library("pRolocdata")
+nlibrary("pRolocdata")
 library("BiocInstaller")
 library("rTANDEM")
-library("shinyTANDEM")
+## library("shinyTANDEM")
 ```
 
 ## Introduction
@@ -67,7 +67,7 @@ explored interactively.
 
 ```{r, pp, eval=FALSE}
 library("RforProteomics")
-pp <- proteomicsPackages(biocv)
+pp <- proteomicsPackages()
 display(pp)
 ```
 
@@ -86,8 +86,8 @@ datatab <-
                    "",
                    "[`MSnbase`](http://bioconductor.org/packages/release/bioc/html/MSnbase.html) (read/write)", 
                    "[`MSnbase`](http://bioconductor.org/packages/release/bioc/html/MSnbase.html) (read/write)"))
+library("knitr")
 kable(datatab)
-
 ```
 
 ### Getting data from proteomics repositories
@@ -114,7 +114,6 @@ pxannounced()
 px <- PXDataset("PXD000001")
 px
 pxfiles(px)
-
 ```
 
 Other metadata for the `px` dataset:

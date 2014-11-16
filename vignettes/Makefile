@@ -39,7 +39,7 @@ RProtVis.html: RProtVis.Rmd
 	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('RProtVis.Rmd'); purl('RProtVis.Rmd');"
 
 ProteomicsWorkflow.html: ProteomicsWorkflow.Rmd
-	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('ProteomicsWorkflow.Rmd'); purl('ProteomicsWorkflow.Rmd');"
+	R-3.1.1 --vanilla -e "library(knitr); knit2html('ProteomicsWorkflow.Rmd'); purl('ProteomicsWorkflow.Rmd');"
 
 
 viz2: 
