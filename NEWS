@@ -1,14 +1,7 @@
 CHANGES IN VERSION 1.4.1
 ------------------------
  o cache package info [2014-11-15 Sat]
- 
-CHANGES IN VERSION 1.5.1
-------------------------
  o update vignette and fixing errors [2014-10-31 Fri]
-
-CHANGES IN VERSION 1.5.0
-------------------------
- o new devel version for Bioc 3.1
 
 CHANGES IN VERSION 1.4.0
 ------------------------
