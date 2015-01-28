@@ -28,8 +28,7 @@ Description: This package contains code to illustrate the 'Using R and
 	     the examples and figures descibed in the paper and
 	     functionality for proteomics visualisation.
 URL: http://lgatto.github.com/RforProteomics/
-biocViews: ExperimentData, MassSpectrometry, Proteomics,
-        MassSpectrometryData
+biocViews: ExperimentData, MassSpectrometryData
 License: Artistic-2.0
 VignetteBuilder: knitr
 Author: Laurent Gatto [aut, cre], Thomas Lin Pedersen [ctb],
