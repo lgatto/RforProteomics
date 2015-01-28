@@ -38,9 +38,8 @@ poster:
 RProtVis.html: RProtVis.Rmd
 	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('RProtVis.Rmd'); purl('RProtVis.Rmd');"
 
-ProteomicsWorkflow.html: ProteomicsWorkflow.Rmd
-	R-3.1.1 --vanilla -e "library(knitr); knit2html('ProteomicsWorkflow.Rmd'); purl('ProteomicsWorkflow.Rmd');"
-
+# ProteomicsWorkflow.html: ProteomicsWorkflow.Rmd
+# 	R-3.1.1 --vanilla -e "library(knitr); knit2html('ProteomicsWorkflow.Rmd'); purl('ProteomicsWorkflow.Rmd');"
 
 viz2: 
 	if [ -d 'vigsrc/cache' ]; then  \
@@ -48,7 +47,7 @@ viz2:
 		ln -sf vigsrc/figure .; \
 		ln -sf vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML .; \
 	fi
-	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('RProtVis.Rmd');"
+	"$(R_HOME)/bin/R" --vanilla -e "library(rmarkdown); render('RProtVis.Rmd');"
 
 
 .PHONY: clean allclean 
@@ -104,7 +103,9 @@ clean:
 allclean: 
 	make clean 
 	rm -fr cache 
+	rm -fr RProtVis_cache 
 	rm -fr figure
+	rm -fr RProtVis_files 
 	rm -f RforProteomics.R RProtVis.R ProteomicsWorkflow.R
 
 srcclean: 

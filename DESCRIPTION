@@ -2,14 +2,14 @@ Package: RforProteomics
 Type: Package
 Title: Companion package to the 'Using R and Bioconductor for
         proteomics data analysis' publication
-Version: 1.5.3
+Version: 1.5.4
 Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
                     email="lg390@cam.ac.uk"),
              person("Sebastian", "Gibb", role="ctb",
                     email="mail@sebastiangibb.de"),
              person("Vlad", "Petyuk", role="ctb",
                     email="petyuk@gmail.com"),
-             person('Thomas', 'Pedersen', 'Lin', role='ctb',
+             person('Thomas', 'Pedersen Lin', role='ctb',
                     email='thomasp85@gmail.com'))
 Maintainer: Laurent Gatto <lg390@cam.ac.uk>
 Depends: MSnbase
@@ -19,8 +19,8 @@ Suggests: mzR, xcms, msdata, isobar, MALDIquant (>= 1.11),
         MALDIquantForeign, readBrukerFlexData, rTANDEM, synapter,
         synapterdata, IPPD, Rdisop, OrgMassSpecR, BRAIN, rols, hpar,
         GO.db, org.Hs.eg.db, biomaRt, RColorBrewer, ggplot2, reshape2,
-        xtable, lattice, mzID, pRoloc, pRolocdata, knitr, BiocStyle, 
-        MSGFplus, MSGFgui, MSnID
+        xtable, lattice, mzID, pRoloc, pRolocdata, MSGFplus, MSGFgui,
+        MSnID, knitr, BiocStyle, rmarkdown, msmsTests, msmsEDA
 Enhances: cleaver
 Description: This package contains code to illustrate the 'Using R and
 	     Bioconductor for proteomics data analysis' paper. Two
