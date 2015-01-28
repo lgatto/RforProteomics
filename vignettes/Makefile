@@ -103,7 +103,9 @@ clean:
 allclean: 
 	make clean 
 	rm -fr cache 
+	rm -fr RProtVis_cache 
 	rm -fr figure
+	rm -fr RProtVis_files 
 	rm -f RforProteomics.R RProtVis.R ProteomicsWorkflow.R
 
 srcclean: 
