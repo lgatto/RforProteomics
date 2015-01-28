@@ -10,10 +10,6 @@ output:
 %\VignetteEngine{knitr::knitr}
 -->
 
-```{r style, echo = FALSE}
-BiocStyle::markdown()
-```
-
 # Proteomics workflow
 
 **Abstract** This workflow describes recent R / Bioconductor
@@ -23,11 +19,6 @@ packages for peptide-spectrum matching, quantitative proteomics, mass
 spectrometry (MS) and quantitation data processing. Links to other
 packages and references are also documented.
 
-This vignette was originally developed as a
-[Bioc2014](http://bioconductor.org/help/course-materials/2014/BioC2014/)
-[workshop](http://bioconductor.org/help/course-materials/2014/BioC2014/Gatto.html)
-
-
 ```{r, env, message=FALSE, echo=FALSE, warning=FALSE}
 library("knitr")
 opts_knit$set(error = FALSE)
@@ -35,6 +26,8 @@ opts_knit$set(error = FALSE)
 library("RforProteomics")
 library("mzR")
 library("mzID")
+library("MSnID")
+library("MSGFplus")
 library("MSnbase")
 library("rpx")
 library("MLInterfaces")
@@ -82,7 +75,7 @@ datatab <-
                    "mzIdentML", "mzQuantML", "mgf", "mzTab"),
                Package = c(
                    "[`mzR`](http://bioconductor.org/packages/release/bioc/html/mzR.html) (read)",
-                   "[`mzID`](http://bioconductor.org/packages/release/bioc/html/mzID.html) (read)",
+                   "`mzR` and [`mzID`](http://bioconductor.org/packages/release/bioc/html/mzID.html) (read)",
                    "",
                    "[`MSnbase`](http://bioconductor.org/packages/release/bioc/html/MSnbase.html) (read/write)", 
                    "[`MSnbase`](http://bioconductor.org/packages/release/bioc/html/MSnbase.html) (read/write)"))
@@ -193,6 +186,7 @@ load and parse using infrastructure from the
 [`mzID`](http://bioconductor.org/packages/release/bioc/html/mzID.html)
 package.
 
+
 ```{r, id, cache=TRUE}
 library("mzID")
 (f <- dir(system.file("extdata", package = "RforProteomics"),
@@ -205,6 +199,9 @@ Various data can be extracted from the `mzID` object, using one the
 accessor functions such as `database`, `scans`, `peptides`, ... The
 object can also be converted into a `data.frame` using the `flatten`
 function.
+
+The `mzR` package also support fast parsing of `mzIdentML` files with
+the `openIDfile` function.
 
 #### Application
 
@@ -242,6 +239,70 @@ library("shinyTANDEM")
 ?shinyTANDEM
 ```
 
+Similarly, the
+[`MSGFplus`](http://www.bioconductor.org/packages/release/bioc/html/MSGFplus.html)
+package enables to perform a search using the MSGF+ engine, as illustrated below:
+
+```{r msgfplus, eval=FALSE}
+library("MSGFplus")
+parameters <- msgfPar(database = 'proteins.fasta',
+                      tolerance='20 ppm',
+                      instrument='TOF',
+                      enzyme='Lys-C')
+runMSGF(parameters, c('file1.mzML', 'file2.mzML'))
+```
+
+A graphical interface to perform the search the data and explore the
+results is also available:
+
+```{r msgfgui, eval=FALSE}
+library("MSGFgui")
+MSGFgui()
+```
+### Analysing search results
+
+The
+[`MSnID`](http://bioconductor.org/packages/release/bioc/html/MSnID.html)
+package can be used for post-search filtering of MS/MS
+identifications. One starts with the construction of an `MSnID`
+object that is populated with identification results that can be
+imported from a `data.frame` or from `mzIdenML` files.
+
+
+```{r, msnid}
+library("MSnID")
+msnid <- MSnID(".")
+
+PSMresults <- read.delim(system.file("extdata", "human_brain.txt",
+                                     package="MSnID"),
+                         stringsAsFactors=FALSE)
+psms(msnid) <- PSMresults
+show(msnid)
+```
+
+The package then enables to define, optimise and apply filtering based
+for example on missed cleavages, identification scores, precursor mass
+errors, etc. and assess PSM, peptide and protein FDR levels.
+
+```{r msnidfilt}
+msnid$msmsScore <- -log10(msnid$`MS.GF.SpecEValue`)
+msnid$absParentMassErrorPPM <- abs(mass_measurement_error(msnid))
+
+filtObj <- MSnIDFilter(msnid)
+filtObj$absParentMassErrorPPM <- list(comparison="<", threshold=5.0)
+filtObj$msmsScore <- list(comparison=">", threshold=8.0)
+show(filtObj)
+filtObj.grid <- optimize_filter(filtObj, msnid, fdr.max=0.01,
+                                method="Grid", level="peptide",
+                                n.iter=500)
+show(filtObj.grid)
+msnid <- apply_filter(msnid, filtObj.grid)
+show(msnid)
+```
+
+The resulting data can be exported to a `data.frame` or to a dedicated
+`MSnSet` data structure for quantitative MS data, described below, and
+further processed and analyses using appropriate statistical tests.
 
 ## High-level data interface
 

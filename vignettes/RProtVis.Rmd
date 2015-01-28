@@ -1,24 +1,30 @@
---
+---
+title: "Visualisation of proteomics data using R and Bioconductor"
 output:
-  BiocStyle::html_document
+  BiocStyle::html_document:
+    toc: true
 ---
 
 <!--
+%\VignetteEngine{knitr::rmarkdown}
 %\VignetteIndexEntry{Visualisation of proteomics data using R and Bioconductor}
 %\VignetteKeyword{bioinformatics, proteomics, mass spectrometry, visualisation}
 %\VignettePackage{RforProteomics}
-%\VignetteEngine{knitr::knitr}
 -->
 
-```{r style, echo = FALSE}
+```{r style, echo = FALSE, results = 'asis', message=FALSE}
 BiocStyle::markdown()
 ```
 
-# Visualisation of proteomics data using R and Bioconductor
+<hr />
 
-[Laurent Gatto](http://proteome.sysbiol.cam.ac.uk/lgatto/),
+Authors: [Laurent Gatto](http://proteome.sysbiol.cam.ac.uk/lgatto/),
 [Lisa Breckels](http://cpu.sysbiol.cam.ac.uk/) and
 [Sebastian Gibb](http://sebastiangibb.de/research.html)
+
+Compilation date: `r Sys.Date()`
+
+<hr />
 
 
 ```{r env, message=FALSE, echo=FALSE}
@@ -34,6 +40,8 @@ library("MALDIquant")
 library("MALDIquantForeign")
 library("pRoloc")
 library("pRolocdata")
+library("msmsTests")
+library("msmsEDA")
 ```
 
 ## Introduction
@@ -70,7 +78,7 @@ There are currently `r nrow(pp)`
 and `r nrow(msp)`
 [MassSpectrometry](http://bioconductor.org/packages/devel/BiocViews.html#___MassSpectrometry)
 packages in Bioconductor version `r as.character(biocVersion())`.
-Other non-Bioconductor packages are described in the `RforProteomics`
+Other non-Bioconductor packages are described in the `r Biocpkg("RforProteomics")`
 [vignette](http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf).
 
 ```{r pptab, echo=FALSE, results='asis'}
@@ -108,18 +116,30 @@ for (i in 1:4)
 kable(tab)
 ```
 
-```{r anscombefig}
+While the residuals of the linear regression clearly indicate
+fundamental differences in these data, the most simple and
+straightforward approach is visualisation to highlight the fundamental
+differences in the datasets.
+
+```{r anscombefig, dev='png'}
 ff <- y ~ x
+
+mods <- setNames(as.list(1:4), paste0("lm", 1:4))
 
 par(mfrow = c(2, 2), mar = c(4, 4, 1, 1))
 for (i in 1:4) {
     ff[2:3] <- lapply(paste0(c("y","x"), i), as.name)
     plot(ff, data = anscombe, pch = 19, xlim = c(3, 19), ylim = c(3, 13))
-    abline(lm(ff, data = anscombe))
+    mods[[i]] <- lm(ff, data = anscombe)
+    abline(mods[[i]])
 }
 ```
 
 ```{r anscombe, ref.label='anscombefig', echo=FALSE, dev='pdf'}
+```
+
+```{r anscomberesids, echo=FALSE, fig.cap="The 11 sets of residuals for Anscombe's four datasets."}
+kable(sapply(mods, residuals))
 ```
 
 ## The MA plot example
@@ -164,7 +184,6 @@ madata <- rbind(madata42, madata62)
 ### The traditional plotting system
 
 ```{r, mafig1}
-
 par(mfrow = c(1, 2))
 plot(M ~ A, data = madata42, main = "4vs2",
      xlab = "A", ylab = "M", col = madata62$class)
@@ -240,7 +259,7 @@ print(ggma2)
 MAplot(qnt, cex = .8)
 ```
 
-### An interactive `shiny` app for MA plots
+### An interactive `r CRANpkg("shiny")` app for MA plots
 
 This app is based on Mike Love's
 [shinyMA](https://github.com/mikelove/shinyMA) application, adapted
@@ -255,6 +274,135 @@ shinyMA()
 
 The application is also available online at
 [https://lgatto.shinyapps.io/shinyMA/](https://lgatto.shinyapps.io/shinyMA/).
+
+See the excellent `r CRANpkg("shiny")`
+[web page](http://shiny.rstudio.com/) for tutorials. 
+
+### Volcano plots
+
+Below, using the `r Biocpkg("msmsTest")` package, we load a example
+`MSnSet` data with spectral couting data (from the `r
+Biocpkg("msmsEDA")` package) and run a statistical test to obtain
+(adjusted) p-values and fold-changes.
+
+```{r msmsTestsData, cache=TRUE}
+library("msmsEDA")
+library("msmsTests")
+data(msms.dataset)
+## Pre-process expression matrix
+e <- pp.msms.data(msms.dataset)
+## Models and normalizing condition
+null.f <- "y~batch"
+alt.f <- "y~treat+batch"
+div <- apply(exprs(e),2,sum)
+## Test
+res <- msms.glm.qlll(e,alt.f,null.f,div=div)
+lst <- test.results(res,e,pData(e)$treat,"U600","U200",div,
+                    alpha=0.05,minSpC=2,minLFC=log2(1.8),
+                    method="BH")
+```
+
+Here, we produce the volcano plot by hand, with the `plot`
+function. In the second plot, we limit the x axis limits and add grid
+lines.
+
+```{r volc1}
+plot(lst$tres$LogFC, -log10(lst$tres$p.value))
+plot(lst$tres$LogFC, -log10(lst$tres$p.value),
+     xlim = c(-3, 3))
+grid()
+```
+
+Below, we use the `res.volcanoplot` function from the `r
+Biocpkg("msmsTests")` package. This functions uses the sample
+annotation stored with the quantitative data in the `MSnSet` object to
+colour the samples according to their phenotypes.
+
+```{r volc2}
+## Plot
+res.volcanoplot(lst$tres,
+                max.pval=0.05,
+                min.LFC=1,
+                maxx=3,
+                maxy=NULL,
+                ylbls=4)
+```
+
+### A PCA plot
+
+Using the `counts.pca` function from the `r Biocpkg("msmsEDA")`
+package:
+
+```{r msmsedapca}
+library("msmsEDA")
+data(msms.dataset)
+msnset <- pp.msms.data(msms.dataset)
+lst <- counts.pca(msnset)
+```
+
+It is also possible to generate the PCA data using the
+`prcomp`. Below, we extract the coordinates of PC1 and PC2 from the
+`counts.pca` result and plot them using the `plot` function.
+
+```{r pca}
+pcadata <- lst$pca$x[, 1:2]
+head(pcadata)
+plot(pcadata[, 1], pcadata[, 2],
+     xlab = "PCA1", ylab = "PCA2")
+grid()
+```
+
+## Plotting with R
+
+```{r mkplottab, echo=FALSE}
+plotfuns <- rbind(c("scatterplots", "plot", "xyplot", "geom_point"),
+                  c("histograms", "hist", "histgram", "geom_histogram"),
+                  c("density plots", "plot(density)", "densityplot", "geom_density"),
+                  c("boxplots", "boxplot", "bwplot", "geom_boxplot"),
+                  c("violin plots", "vioplot::vioplot", "bwplot(..., panel = panel.violin)", "geom_violin"),
+                  c("line plots", "plot, matplot", "xyploy, parallelplot", "geom_line"),
+                  c("bar plots", "barplot", "barchart", "geom_bar"),
+                  c("pie charts", "pie", "", "geom_bar with polar coordinates"),
+                  c("dot plots", "dotchart", "dotplot", "geom_point"),
+                  c("stip plots", "stripchart", "stripplot", "goem_point"),
+                  c("dendrogramms", "plot(hclust())", "latticeExtra package", "ggdendro package"),
+                  c("heatmaps", "image, heatmap", "levelplot", "geom_tile"))
+
+
+colnames(plotfuns) <- c("plot type", "traditional", "lattice", "ggplot2")
+```
+
+```{r, plottab}
+kable(plotfuns)
+```
+
+**TODO**: provide examples for the above functions that are not
+illustrated in other sections.
+
+### Scatter plots
+
+See the MA and volcano plot examples.
+
+### Historams and density plots
+### Box plots and violin plots
+
+See also the `r CRANpkg("beanplot")` package.
+
+### Line plots
+### Bar and dot charts 
+
+### Strip plots
+
+### Heatmaps
+
+See also `r CRANpkg("gplots")`'s `heatmap.2` function and the `r
+Biocpkg("Heatplus")` Bioconductor package.
+
+### Dendrograms
+
+See also `r CRANpkg("dendextend")` and this
+[post](http://stackoverflow.com/questions/6673162/reproducing-lattice-dendrogram-graph-with-ggplot2)
+to illustrate `r CRANpkg("latticeExtra")` and `r CRANpkg("ggdendro")`.
 
 ## Visualising mass spectrometry data
 
@@ -374,7 +522,7 @@ axis(side=1, at=seq(0,1,1/nk), labels=seq(k[1],k[2],k[2]/nk))
 ```
 
 
-### The MSnbase infrastructure
+### The `r Biocpkg("MSnbase")` infrastructure
 
 ```{r msnbviz}
 library("MSnbase")
@@ -389,16 +537,46 @@ plot(itraqdata2[[25]], itraqdata2[[28]], sequences = rep("IMIDLDGTENK", 2))
 ```{r msnbvizpdf, ref.label='msnbviz', echo=FALSE, dev='pdf', fig.width=8, fig.height=8}
 ```
 
+### The `r CRANpkg("protViz")` package
+
+```{r protviz}
+library("protViz")
+data(msms)
+
+fi <- fragmentIon("TAFDEAIAELDTLNEESYK")
+fi.cyz <- as.data.frame(cbind(c=fi[[1]]$c, y=fi[[1]]$y, z=fi[[1]]$z))
+     
+p <- peakplot("TAFDEAIAELDTLNEESYK",
+              spec = msms[[1]],
+              fi = fi.cyz,
+              itol = 0.6,
+              ion.axes = FALSE)
+```
+
+
+```{r protvizpdf, ref.label='protviz', echo=FALSE, dev='pdf', fig.width=8, fig.height=8}
+```
+
+The `peakplot` function return the annotation of the MSMS spectrum
+that is plotted:
+
+```{r strp}
+str(p)
+```
+
 ### Preprocessing of MALDI-MS spectra
 
-The following code chunks demonstrate the usage of the mass spectrometry
-preprocessing and plotting routines in the `MALDIquant` package. `MALDIquant`
-uses the traditional graphics system. Therefore `MALDIquant` overloads the
-traditional functions `plot`, `lines` and `points` for its own data types. These
-data types represents spectrum and peak lists as S4 classes. Please see the
-`MALDIquant` [vignette](http://cran.r-project.org/web/packages/MALDIquant/vignettes/MALDIquant-intro.pdf)
-and the corresponding [website](http://strimmerlab.org/software/maldiquant/)
-for more details.
+The following code chunks demonstrate the usage of the mass
+spectrometry preprocessing and plotting routines in the `r
+CRANpkg("MALDIquant")` package. `r CRANpkg("MALDIquant")` uses the
+traditional graphics system. Therefore `r CRANpkg("MALDIquant")`
+overloads the traditional functions `plot`, `lines` and `points` for
+its own data types. These data types represents spectrum and peak
+lists as S4 classes. Please see the `r CRANpkg("MALDIquant")`
+[vignette](http://cran.r-project.org/web/packages/MALDIquant/vignettes/MALDIquant-intro.pdf)
+and the corresponding
+[website](http://strimmerlab.org/software/maldiquant/) for more
+details.
 
 After loading some example data a simple `plot` draws the raw spectrum.
 ```{r mqraw}
@@ -450,18 +628,20 @@ top5 <- intensity(peaks[[14]]) %in% sort(intensity(peaks[[14]]),
 labelPeaks(peaks[[14]], index = top5, avoidOverlap = TRUE)
 ```
 
-Often multiple spectra have to be recalibrated to be comparable. Therefore
-`MALDIquant` warps the spectra according to so called reference or landmark
-peaks. For debugging the `determineWarpingFunctions` function offers some
-warping plots. Here we show only the last 4 plots:
+Often multiple spectra have to be recalibrated to be
+comparable. Therefore `r CRANpkg("MALDIquant")` warps the spectra
+according to so called reference or landmark peaks. For debugging the
+`determineWarpingFunctions` function offers some warping plots. Here
+we show only the last 4 plots:
+
 ```{r mqwarp, fig.keep = "last"}
 par(mfrow = c(2, 2))
-warpingFunctions <- determineWarpingFunctions(peaks,
-                                              tolerance = 0.001,
-                                              plot = TRUE,
-                                              plotInteractive = TRUE)
+warpingFunctions <-
+    determineWarpingFunctions(peaks,
+                              tolerance = 0.001,
+                              plot = TRUE,
+                              plotInteractive = TRUE)
 par(mfrow = c(1, 1))
-
 warpedSpectra <- warpMassSpectra(cbSpectra, warpingFunctions)
 warpedPeaks <- warpMassPeaks(peaks, warpingFunctions)
 ```
@@ -545,12 +725,9 @@ for (i in seq(along = avgPeaks)) {
 par(oldPar)
 ```
 
-<!-- ```{r mqimspdf, ref.label='mqims', echo=FALSE, warning=FALSE, dev='pdf', fig.width=10, fig.height=6} -->
-<!-- ``` -->
+![ims-shiny screeshot](./figures/mqims-1.png)
 
-![ims-shiny screeshot](./figures/mqims-1.png.png)
-
-### An interactive `shiny` app for Imaging mass spectrometry
+### An interactive `r CRANpkg("shiny")` app for Imaging mass spectrometry
 
 There is also an interactive
 [MALDIquant IMS shiny app](https://github.com/sgibb/ims-shiny) for demonstration
@@ -622,9 +799,8 @@ addLegend(tan2009r1, where = "bottomleft", fcol = "svm", bty = "n")
 
 See the
 [`pRoloc-tutorial`](http://bioconductor.org/packages/release/bioc/vignettes/pRoloc/inst/doc/pRoloc-tutorial.pdf)
-vignette (pdf) from the
-[`pRoloc`](http://bioconductor.org/packages/release/bioc/html/pRoloc.html)
-package for details about spatial proteomics data analysis and visualisation.
+vignette (pdf) from the `r Biocpkg("pRoloc")` package for details
+about spatial proteomics data analysis and visualisation.
 
 ## Session information
 

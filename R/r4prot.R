@@ -12,9 +12,12 @@ RforProteomics <- function()
 ##' @title Opens the visualisation vignette
 ##' @return An instance of class \code{vignette}. Used for its side
 ##' effect, opening the vignette.
+##' @aliases RProtViz
 ##' @author Laurent Gatto
-ProtViz <- function()
-    vignette("RProtViz", package = "RforProteomics")
+RProtVis <- function()
+    vignette("RProtVis", package = "RforProteomics")
+
+RProtViz <- RProtVis
 
 ##' Finds the package names that have a specific biocView.
 ##'

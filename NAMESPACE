@@ -16,10 +16,9 @@ export(getPXD000001mzXML,
        getThermoHelaPRTC,
        downloadData,
        RforProteomics,
-       ProtViz,
+       RProtVis, RProtViz,
        proteomicsPackages,
        massSpectrometryPackages,
        massSpectrometryDataPackages,
        display,
        shinyMA)
-
