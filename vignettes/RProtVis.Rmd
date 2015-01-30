@@ -357,7 +357,7 @@ grid()
 ```{r mkplottab, echo=FALSE}
 plotfuns <- rbind(c("scatterplots", "plot", "xyplot", "geom_point"),
                   c("histograms", "hist", "histgram", "geom_histogram"),
-                  c("density plots", "plot(density)", "densityplot", "geom_density"),
+                  c("density plots", "plot(density())", "densityplot", "geom_density"),
                   c("boxplots", "boxplot", "bwplot", "geom_boxplot"),
                   c("violin plots", "vioplot::vioplot", "bwplot(..., panel = panel.violin)", "geom_violin"),
                   c("line plots", "plot, matplot", "xyploy, parallelplot", "geom_line"),
@@ -383,12 +383,18 @@ illustrated in other sections.
 
 See the MA and volcano plot examples.
 
+Introduce the `type` arg, default is `p` for points. Other important
+types are `l` for lines and `h` for *histogram* (see below).
+
 ### Historams and density plots
+
+
 ### Box plots and violin plots
 
 See also the `r CRANpkg("beanplot")` package.
 
 ### Line plots
+
 ### Bar and dot charts 
 
 ### Strip plots
