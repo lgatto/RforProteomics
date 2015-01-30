@@ -66,11 +66,9 @@ vig2:
 	# make allclean
 	cp vigsrc/RforProteomics.Rnw .
 	cp vigsrc/RforProteomics.bib .
-	ln -s vigsrc/cache .
-	ln -s vigsrc/figure .
-	ln -s vigsrc/P00924.fasta .
+	# ln -s vigsrc/cache .
+	# ln -s vigsrc/figure .
 	ln -s vigsrc/F063721.dat-mztab.txt .
-	ln -s vigsrc/PXD000001_mztab.txt
 	ln -s vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML .
 	"$(R_HOME)/bin/R" CMD Sweave --engine=knitr::knitr --pdf RforProteomics.Rnw
 	bibtex RforProteomics
