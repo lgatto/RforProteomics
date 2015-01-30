@@ -9,10 +9,7 @@
 \usepackage{breakurl}
 
 \begin{document}
-This vignette is a stub. Look at
-\texttt{vignettes/vigsrc/RforProteomics.Rnw} for the complete Rnw file
-or on the github repository
-\url{https://github.com/lgatto/RforProteomics}.
+This vignette is a stub. Look at \texttt{vignettes/vigsrc/RforProteomics.Rnw} for the complete Rnw file or on the github repository \url{https://github.com/lgatto/RforProteomics}.
 
 <<session>>=
 sessionInfo()
