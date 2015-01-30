@@ -395,14 +395,20 @@ See also the `r CRANpkg("beanplot")` package.
 
 ### Heatmaps
 
-See also `r CRANpkg("gplots")`'s `heatmap.2` function and the `r
-Biocpkg("Heatplus")` Bioconductor package.
+See also `r CRANpkg("gplots")`'s `heatmap.2` function and the `r Biocpkg("Heatplus")` Bioconductor package.
+
+The `r CRANpkg("corrplot")` package for correlation matrices.
 
 ### Dendrograms
 
 See also `r CRANpkg("dendextend")` and this
 [post](http://stackoverflow.com/questions/6673162/reproducing-lattice-dendrogram-graph-with-ggplot2)
 to illustrate `r CRANpkg("latticeExtra")` and `r CRANpkg("ggdendro")`.
+
+### Venn diagrams
+
+- The `r Biocpkg("limma")` package
+- The `r CRANpkg("VennDiagram")` package
 
 ## Visualising mass spectrometry data
 
@@ -433,15 +439,18 @@ plot(M, aspect = 1, allTicks = FALSE)
 
 ```{r maps3D}
 M@map[msMap(M) == 0] <- NA
-plot3D(M, FALSE)
+plot3D(M, rgl = FALSE)
 ```
 
 ```{r maps3Dpdf, ref.label='maps3D', echo=FALSE, dev='pdf'}
 ```
 
+To produce a version that can be reoriented interactively on the
+screen discplay, use the `r CRANpkg("rgl")`
+
 ```{r rglmap, eval=FALSE}
 library("rgl")
-plot3D(M, TRUE)
+plot3D(M, rgl = TRUE)
 ```
 
 ```{r msdetails}
@@ -507,7 +516,7 @@ plot3D(M2)
 ```{r maps3D2pdf, ref.label='maps3D2', echo=FALSE, dev='pdf'}
 ```
 
-MS barcoding
+#### MS barcoding
 
 ```{r barcode, fig.height=2, fig.width=12}
 
@@ -521,6 +530,46 @@ axis(side=1, at=seq(0,1,1/nk), labels=seq(k[1],k[2],k[2]/nk))
 
 ```
 
+#### Animation
+
+The following animation scrolls over 5 minutes of retention time for a
+MZ range between 521 and 523.
+
+```{r anim1, eval=FALSE}
+an1 <- function() {
+    for (i in seq(0, 5, 0.2)) {
+        rtsel <- hd$retentionTime[ms1] / 60 > (30 + i) &
+            hd$retentionTime[ms1] / 60 < (35 + i)
+        M <- MSmap(ms, ms1[rtsel], 521, 523, .005, hd)
+        M@map[msMap(M) == 0] <- NA
+        print(plot3D(M, rgl = FALSE))
+    }
+}
+
+saveGIF(an1(), movie.name = "msanim1.gif")
+```
+
+![MS animation 1](figures/msanim1.gif)
+
+The code chunk below scrolls of a slice of retention times while
+keeping the retention time constant between 30 and 35 minutes.
+
+```{r anim2, eval=FALSE}
+an2 <- function() {
+    for (i in seq(0, 2.5, 0.1)) {
+        rtsel <- hd$retentionTime[ms1] / 60 > 30 & hd$retentionTime[ms1] / 60 < 35
+        mz1 <- 520 + i
+        mz2 <- 522 + i
+        M <- MSmap(ms, ms1[rtsel], mz1, mz2, .005, hd)
+        M@map[msMap(M) == 0] <- NA
+        print(plot3D(M, rgl = FALSE))
+    }
+}
+
+saveGIF(an2(), movie.name = "msanim2.gif")
+```
+
+![MS animation 2](figures/msanim2.gif)
 
 ### The `r Biocpkg("MSnbase")` infrastructure
 
