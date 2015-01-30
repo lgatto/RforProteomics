@@ -96,7 +96,7 @@ repositories, as well as packages hosted on personal websites. Section
 \ref{sec:packages} on page \pageref{sec:packages} tries to provide a
 wider picture of available packages, without going into details.
 
-\subsection{General \R{} resources}
+\subsection{General \R{} resources}\label{sec:rres}
 
 The reader is expected to have basic \R{} knowledge to find the document
 helpful. There are numerous \R{} introductions freely available, some of
@@ -122,6 +122,18 @@ Relevant background on the \R{} software and its application to
 computational biology in general and proteomics in particular can also
 be found in \cite{R4prot2013}. For details about the \Bioconductor{}
 project, the reader is referred to \cite{Gentleman2004}.
+
+\subsection{Bioconductor resources}\label{sec:biocres}
+
+
+The Bioconductor offers many educational resources on its help page
+\url{http://bioconductor.org/help/}, in addition the package's
+vignettes (vignettes are a requirement for Bioconductor packages). We
+want to draw the attention to the Bioconductor work flows that offer a
+cross-package overview about a specific topic. In particular, there is
+now a \textit{Mass spectrometry and proteomics data
+  analysis}\footnote{\url{http://bioconductor.org/help/workflows/proteomics/}}
+work flow.
 
 \subsection{Getting help}
 
@@ -271,7 +283,7 @@ library("reshape2") ## Flexibly reshape data
 
 \section{Data standards and input/output}
 
-\subsection{The \Biocpkg{mzR} package}\ref{sec:mzr}
+\subsection{The mzR package}\ref{sec:mzr}
 
 \subsubsection{Raw MS data}
 
