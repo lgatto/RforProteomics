@@ -19,12 +19,7 @@ all:
 	make RProtVis.html
 	# make clean
 
-
-setvars:
-ifeq (${R_HOME},)
-R_HOME= $(shell R RHOME)
-endif
-
+R_HOME = `R RHOME`
 
 RforProteomics.pdf: 
 	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.Rnw
