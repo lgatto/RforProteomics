@@ -18,7 +18,7 @@ BiocStyle::markdown()
 
 <hr />
 
-Authors: [Laurent Gatto](http://proteome.sysbiol.cam.ac.uk/lgatto/),
+Authors: [Laurent Gatto](http://cpu.sysbiol.cam.ac.uk/lgatto/),
 [Lisa Breckels](http://cpu.sysbiol.cam.ac.uk/) and
 [Sebastian Gibb](http://sebastiangibb.de/research.html)
 
