@@ -16,15 +16,14 @@ output:
 BiocStyle::markdown()
 ```
 
-<hr />
 
-Authors: [Laurent Gatto](http://cpu.sysbiol.cam.ac.uk/lgatto/),
+**Package:** `r Biocexptpkg("RforProteomics")`<br />
+**Authors:** Authors: [Laurent Gatto](http://cpu.sysbiol.cam.ac.uk/lgatto/),
 [Lisa Breckels](http://cpu.sysbiol.cam.ac.uk/) and
 [Sebastian Gibb](http://sebastiangibb.de/research.html)
-
-Compilation date: `r Sys.Date()`
-
-<hr />
+<br />
+**Last compiled:** `r date()`<br />
+**Last modified:** `r file.info("RProtVis.Rmd")$mtime`
 
 
 ```{r env, message=FALSE, echo=FALSE}
@@ -78,7 +77,7 @@ There are currently `r nrow(pp)`
 and `r nrow(msp)`
 [MassSpectrometry](http://bioconductor.org/packages/devel/BiocViews.html#___MassSpectrometry)
 packages in Bioconductor version `r as.character(biocVersion())`.
-Other non-Bioconductor packages are described in the `r Biocpkg("RforProteomics")`
+Other non-Bioconductor packages are described in the `r Biocexptpkg("RforProteomics")`
 [vignette](http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf).
 
 ```{r pptab, echo=FALSE, results='asis'}
@@ -135,8 +134,8 @@ for (i in 1:4) {
 }
 ```
 
-```{r anscombe, ref.label='anscombefig', echo=FALSE, dev='pdf'}
-```
+<!-- ```{r anscombe, ref.label='anscombefig', echo=FALSE, dev='pdf'} -->
+<!-- ``` -->
 
 ```{r anscomberesids, echo=FALSE, fig.cap="The 11 sets of residuals for Anscombe's four datasets."}
 kable(sapply(mods, residuals))
@@ -192,8 +191,8 @@ plot(M ~ A, data = madata62, main = "6vs2",
 
 ```
 
-```{r mafig1pdf, ref.label='mafig1', echo=FALSE, dev='pdf', fig.width=9, fig.height=6}
-```
+<!-- ```{r mafig1pdf, ref.label='mafig1', echo=FALSE, dev='pdf', fig.width=9, fig.height=6} -->
+<!-- ``` -->
 
 ### lattice
 
@@ -206,8 +205,8 @@ print(latma)
 
 ```
 
-```{r mafig2pdf, ref.label='mafig2', echo=FALSE, dev='pdf', fig.width=8, fig.height=6}
-```
+<!-- ```{r mafig2pdf, ref.label='mafig2', echo=FALSE, dev='pdf', fig.width=8, fig.height=6} -->
+<!-- ``` -->
 
 ### ggplot2
 
@@ -222,8 +221,8 @@ print(ggma)
 
 ```
 
-```{r mafig3pdf, ref.label='mafig3', echo=FALSE, dev='pdf', fig.width=8, fig.height=6}
-```
+<!-- ```{r mafig3pdf, ref.label='mafig3', echo=FALSE, dev='pdf', fig.width=8, fig.height=6} -->
+<!-- ``` -->
 
 ### Customization
 
@@ -250,8 +249,8 @@ print(ggma2)
 
 ```
 
-```{r macustpdf, ref.label='macust', echo=FALSE, dev='pdf', fig.width=8, fig.height=6}
-```
+<!-- ```{r macustpdf, ref.label='macust', echo=FALSE, dev='pdf', fig.width=8, fig.height=6} -->
+<!-- ``` -->
 
 ### The `MAplot` method for `MSnSet` instances
 
@@ -376,36 +375,128 @@ colnames(plotfuns) <- c("plot type", "traditional", "lattice", "ggplot2")
 kable(plotfuns)
 ```
 
-**TODO**: provide examples for the above functions that are not
-illustrated in other sections.
+Below, we are going to use a data from the `r
+Biocexptpkg("pRolocdata")` to illustrate the plotting functions.
 
+```{r tandata}
+library("pRolocdata")
+data(tan2009r1)
+```
 ### Scatter plots
 
 See the MA and volcano plot examples.
 
-Introduce the `type` arg, default is `p` for points. Other important
-types are `l` for lines and `h` for *histogram* (see below).
+The default plot `type` is `p`, for points. Other important types are
+`l` for lines and `h` for *histogram* (see below).
 
 ### Historams and density plots
 
+We extract the (normalised) intensities of the first sample
 
-### Box plots and violin plots
+```{r histex}
+x <- exprs(tan2009r1)[, 1]
+```
 
-See also the `r CRANpkg("beanplot")` package.
+and plot the distribution with a histogram and a density plot next to
+each other on the same figure (using the `mfrow` `par` plotting
+paramter)
 
-### Line plots
+```{r histplot, fig.height=7, fig.width=14}
+par(mfrow = c(1, 2))
+hist(x)
+plot(density(x))
+```
+
+### box plots and violin plots
+
+we first extract the `r nrow(tan2009r1)` proteins by `r
+ncol(tan2009r1)` samples data matrix and plot the sample distributions
+next to each other using `boxplot` and `beanplot` (from the
+`r CRANpkg("beanplot")` package).
+
+```{r bxplot, fig.width=7, fig.height=10}
+library("beanplot")
+x <- exprs(tan2009r1)
+par(mfrow = c(2, 1))
+boxplot(x)
+beanplot(x[, 1], x[, 2], x[, 3], x[, 4], log = "")
+```
+
+### line plots
+
+below, we produce line plots that describe the protein quantitative
+profiles for two sets of proteins, namely er and mitochondrial
+proteins using `matplot`.
+
+we need to transpose the matrix (with `t`) and set the type to both
+(`b`), to display points and lines, the colours to red and steel blue,
+the point characters to 1 (an empty point) and the line type to 1 (a
+solid line).
+
+```{r matplotex, fig.width=7, fig.height=10}
+er <- fData(tan2009r1)$markers == "ER"
+mt <- fData(tan2009r1)$markers == "mitochondrion"
+
+par(mfrow = c(2, 1))
+matplot(t(x[er, ]), type = "b", col = "red", pch = 1, lty = 1)
+matplot(t(x[mt, ]), type = "b", col = "steelblue", pch = 1, lty = 1)
+```
+
+In the last section, about spatial proteomics, we use the specialised
+`plotDist` function from the `r Biocpkg("pRoloc")` package to generate
+such figures.
 
 ### Bar and dot charts 
 
-### Strip plots
+To illustrate bar and dot charts, we cound the number of proteins in
+the respective class using table.
+
+```{r mrktab}
+x <- table(fData(tan2009r1)$markers)
+x
+```
+
+```{r mrkplot, fig.height=7, fig.width=12}
+par(mfrow = c(1, 2))
+barplot(x)
+dotchart(x)
+```
+
+<!-- ### Strip plots -->
 
 ### Heatmaps
 
-See also `r CRANpkg("gplots")`'s `heatmap.2` function and the `r Biocpkg("Heatplus")` Bioconductor package.
+The easiest to produce a complete heatmap is with the `heatmap`
+function:
 
-The `r CRANpkg("corrplot")` package for correlation matrices.
+```{r hmap}
+heatmap(exprs(tan2009r1))
+```
+
+To produce the a heatmap without the dendrograms, one can use the
+image function on a matrix or the specialised version for `MSnSet`
+objects from the `r Biocpkg("MSnbase")` package.
+
+```{r image, fig.width=14, fig.height=7}
+par(mfrow = c(1, 2))
+x <- matrix(1:9, ncol = 3)
+image(x)
+image(tan2009r1)
+```
+
+See also `r CRANpkg("gplots")`'s `heatmap.2` function and the
+`r Biocpkg("Heatplus")` Bioconductor package for more advanced heatmaps
+and the `r CRANpkg("corrplot")` package for correlation matrices.
 
 ### Dendrograms
+
+The easiest way to produce and plot a dendrogram is:
+
+```{r dendro}
+d <- dist(t(exprs(tan2009r1))) ## distance between samples
+hc <- hclust(d) ## hierarchical clustering
+plot(hc) ## visualisation
+```
 
 See also `r CRANpkg("dendextend")` and this
 [post](http://stackoverflow.com/questions/6673162/reproducing-lattice-dendrogram-graph-with-ggplot2)
@@ -413,8 +504,8 @@ to illustrate `r CRANpkg("latticeExtra")` and `r CRANpkg("ggdendro")`.
 
 ### Venn diagrams
 
-- The `r Biocpkg("limma")` package
-- The `r CRANpkg("VennDiagram")` package
+- The `r Biocpkg("limma")` package.
+- The `r CRANpkg("VennDiagram")` package.
 
 ## Visualising mass spectrometry data
 
@@ -440,16 +531,16 @@ trellis.par.set(regions=list(col=ff(100)))
 plot(M, aspect = 1, allTicks = FALSE)
 ```
 
-```{r mapsheadpdf, ref.label='mapsheat', echo=FALSE, dev='pdf'}
-```
+<!-- ```{r mapsheadpdf, ref.label='mapsheat', echo=FALSE, dev='pdf'} -->
+<!-- ``` -->
 
 ```{r maps3D}
 M@map[msMap(M) == 0] <- NA
 plot3D(M, rgl = FALSE)
 ```
 
-```{r maps3Dpdf, ref.label='maps3D', echo=FALSE, dev='pdf'}
-```
+<!-- ```{r maps3Dpdf, ref.label='maps3D', echo=FALSE, dev='pdf'} -->
+<!-- ``` -->
 
 To produce a version that can be reoriented interactively on the
 screen discplay, use the `r CRANpkg("rgl")`
@@ -510,8 +601,8 @@ for (ii in ms2) {
 
 ```
 
-```{r msdetailspdf, ref.label='msdetails', echo=FALSE, dev='pdf', fig.width=10, fig.height=8}
-```
+<!-- ```{r msdetailspdf, ref.label='msdetails', echo=FALSE, dev='pdf', fig.width=10, fig.height=8} -->
+<!-- ``` -->
 
 
 ```{r maps3D2}
@@ -519,8 +610,8 @@ M2 <- MSmap(ms, i:j, 100, 1000, 1, hd)
 plot3D(M2)
 ```
 
-```{r maps3D2pdf, ref.label='maps3D2', echo=FALSE, dev='pdf'}
-```
+<!-- ```{r maps3D2pdf, ref.label='maps3D2', echo=FALSE, dev='pdf'} -->
+<!-- ``` -->
 
 #### MS barcoding
 
@@ -589,8 +680,8 @@ par(mar = c(4, 4, 1, 1))
 plot(itraqdata2[[25]], itraqdata2[[28]], sequences = rep("IMIDLDGTENK", 2))
 ```
 
-```{r msnbvizpdf, ref.label='msnbviz', echo=FALSE, dev='pdf', fig.width=8, fig.height=8}
-```
+<!-- ```{r msnbvizpdf, ref.label='msnbviz', echo=FALSE, dev='pdf', fig.width=8, fig.height=8} -->
+<!-- ``` -->
 
 ### The `r CRANpkg("protViz")` package
 
@@ -609,8 +700,8 @@ p <- peakplot("TAFDEAIAELDTLNEESYK",
 ```
 
 
-```{r protvizpdf, ref.label='protviz', echo=FALSE, dev='pdf', fig.width=8, fig.height=8}
-```
+<!-- ```{r protvizpdf, ref.label='protviz', echo=FALSE, dev='pdf', fig.width=8, fig.height=8} -->
+<!-- ``` -->
 
 The `peakplot` function return the annotation of the MSMS spectrum
 that is plotted:
@@ -847,8 +938,8 @@ addLegend(tan2009r1, where = "bottomleft", fcol = "svm", bty = "n")
 
 ```
 
-```{r spatplotpdf, ref.label='spatplot', echo=FALSE, dev='pdf', fig.width=12, fig.height=6}
-```
+<!-- ```{r spatplotpdf, ref.label='spatplot', echo=FALSE, dev='pdf', fig.width=12, fig.height=6} -->
+<!-- ``` -->
 
 
 
