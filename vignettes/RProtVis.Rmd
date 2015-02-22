@@ -66,7 +66,7 @@ library("msmsEDA")
 
 ### Relevant packages
 
-```{r packs, cache=TRUE, warning=FALSE, echo=FALSE}
+```{r packs, cache=FALSE, warning=FALSE, echo=FALSE}
 library("RforProteomics")
 pp <- proteomicsPackages()
 msp <- massSpectrometryPackages()
@@ -148,7 +148,7 @@ ProteomeXchange repository and fetches the `mzTab` file. After missing
 values filtering, we extract relevant data (log2 fold-changes and
 log10 mean expression intensities) into `data.frames`.
 
-```{r, makemadata, warning=FALSE, cache=TRUE}
+```{r, makemadata, warning=FALSE, cache=FALSE}
 library("rpx")
 px1 <- PXDataset("PXD000001")
 mztab <- pxget(px1, "PXD000001_mztab.txt")
@@ -284,7 +284,7 @@ Below, using the `r Biocpkg("msmsTest")` package, we load a example
 Biocpkg("msmsEDA")` package) and run a statistical test to obtain
 (adjusted) p-values and fold-changes.
 
-```{r msmsTestsData, cache=TRUE}
+```{r msmsTestsData, cache=FALSE}
 library("msmsEDA")
 library("msmsTests")
 data(msms.dataset)
@@ -841,7 +841,7 @@ interesting *M/Z* regions.
 <!-- Not running this code chunk as the access to the data (75M) -->
 <!-- on figshare seems to hang or become very slow at times -->
 
-```{r mqims, cache=TRUE, eval=FALSE, warning=FALSE}
+```{r mqims, cache=FALSE, eval=FALSE, warning=FALSE}
 library("MALDIquant")
 library("MALDIquantForeign")
 
