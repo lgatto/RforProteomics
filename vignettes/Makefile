@@ -16,13 +16,10 @@ LATEXFILES = *.aux\
 all: 
 	make RforProteomics.pdf
 	make poster
-	make RProtVis.html
-	# make clean
-
-R_HOME = `R RHOME`
+	# make RProtVis.html
+	make dataclean
 
 RforProteomics.pdf: 
-	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.Rnw
 	cp vigsrc/RforProteomics.R .
 	cp vigsrc/RforProteomics.pdf .
 
@@ -30,11 +27,8 @@ poster:
 	cp vigsrc/Bioc2013_poster.pdf ./Bioc2013poster.pdf 
 	cp vigsrc/HUPO2014_rbioc_poster.pdf ./HUPO2014poster.pdf
 
-RProtVis.html: RProtVis.Rmd
-	"$(R_HOME)/bin/R" --vanilla -e "library(knitr); knit2html('RProtVis.Rmd'); purl('RProtVis.Rmd');"
-
-# ProteomicsWorkflow.html: ProteomicsWorkflow.Rmd
-# 	R-3.1.1 --vanilla -e "library(knitr); knit2html('ProteomicsWorkflow.Rmd'); purl('ProteomicsWorkflow.Rmd');"
+# RProtVis.html: RProtVis.Rmd
+# 	"$(R_HOME)/bin/R" --vanilla -e "knitr::knit('RProtVis.Rmd'); knit::purl('RProtVis.Rmd'); rmarkdown::render('RProtVis.md')"
 
 viz2: 
 	if [ -d 'vigsrc/cache' ]; then  \
@@ -76,6 +70,12 @@ vig2:
 	cp vigsrc/RforProteomics-stub.Rnw RforProteomics.Rnw
 	rm RforProteomics.bib RforProteomics.tex
 
+dataclean:
+	rm -f F063721.dat-mztab.txt TMT*mzXML* P00924.fasta TMT*mzML
+	rm -f PXD000001_mztab.txt
+	rm -f output*xml
+	rm -f P00924.fasta
+
 clean:	
 	rm -f $(LATEXFILES)
 	rm -f .Rhistory
@@ -84,14 +84,12 @@ clean:
 	rm -f .R
 	rm -f */*~
 	rm -f PRIDE_Exp_Complete_Ac_22134.xml
-	rm -f F063721.dat-mztab.txt TMT*mzXML* P00924.fasta
-	rm -f PXD000001_mztab.txt
-	rm -rf output*xml
 	rm -f RforProteomics.tex 
 	rm -f RProtVis.md RProtVis.R
 	rm -f Bioc2013_poster.tex HUPO2014_poster.tex
 	rm -f Bioc2013_poster.R HUPO2014_poster.R
-	rm -f ProteomicsWorkflow.md ProteomicsWorkflow.html 
+	rm -f ProteomicsWorkflow.md ProteomicsWorkflow.html
+	make dataclean
 
 allclean: 
 	make clean 

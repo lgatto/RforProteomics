@@ -1,12 +1,4 @@
 sandbox
-vignettes/figure
-vignettes/cache
-vignettes/vigsrc/figure
-vignettes/vigsrc/cache
-vignettes/vigsrc/F063721.dat-mztab.txt
-vignettes/vigsrc/P00924.fasta
-vignettes/vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML
-vignettes/vigsrc/PXD000001_mztab.txt
-vignettes/vigsrc/RforProteomics-stub.Rnw
+vignettes/vigsrc
 .gitignore
 README.md
