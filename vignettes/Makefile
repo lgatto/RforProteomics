@@ -16,12 +16,16 @@ LATEXFILES = *.aux\
 all: 
 	make RforProteomics.pdf
 	make poster
-	# make RProtVis.html
-	make dataclean
+	make RProtVis.html
+	# make dataclean		
 
 RforProteomics.pdf: 
 	cp vigsrc/RforProteomics.R .
 	cp vigsrc/RforProteomics.pdf .
+
+RProtVis.html:
+	cp vigsrc/RProtVis.html .
+	cp vigsrc/RProtVis.R .
 
 poster:
 	cp vigsrc/Bioc2013_poster.pdf ./Bioc2013poster.pdf 
@@ -30,24 +34,11 @@ poster:
 # RProtVis.html: RProtVis.Rmd
 # 	"$(R_HOME)/bin/R" --vanilla -e "knitr::knit('RProtVis.Rmd'); knit::purl('RProtVis.Rmd'); rmarkdown::render('RProtVis.md')"
 
-viz2: 
-	if [ -d 'vigsrc/cache' ]; then  \
-		ln -sf vigsrc/cache .;  \
-		ln -sf vigsrc/figure .; \
-		ln -sf vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML .; \
-	fi
-	"$(R_HOME)/bin/R" --vanilla -e "library(rmarkdown); render('RProtVis.Rmd');"
-
-
-.PHONY: clean allclean 
-
-cache:
-	mv cache/ vigsrc/.
-	mv figure/ vigsrc/.
-	mv TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML P00924.fasta F063721.dat-mztab.txt vigsrc/.
+.PHONY: clean allclean stub vig2
 
 stub:
 	cp vigsrc/RforProteomics-stub.Rnw ./RforProteomics.Rnw 
+	cp vigsrc/RProtVis-stub.Rmd ./RProtVis.Rmd
 
 
 vig2: 
