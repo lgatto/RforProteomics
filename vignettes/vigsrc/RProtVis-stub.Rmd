@@ -1,8 +1,7 @@
 ---
 title: "Visualisation of proteomics data using R and Bioconductor"
 output:
-  BiocStyle::html_document:
-    toc: true
+  BiocStyle::html_document
 ---
 
 <!--
@@ -12,11 +11,13 @@ output:
 %\VignettePackage{RforProteomics}
 -->
 
+This vignette is a stub. Look at
+\texttt{vignettes/vigsrc/RProtVis.Rmd} for the complete Rmd file or on
+the github repository \url{https://github.com/lgatto/RforProteomics}.
 
 
 ## Session information
 
 ```{r si}
-library("RforProteomics")
-print(sessionInfo(), locale = FALSE)
+sessionInfo()
 ```
