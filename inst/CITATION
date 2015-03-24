@@ -23,5 +23,17 @@ citEntry(entry = "article",
          textVersion =
          paste0("Gatto L, Christoforou A. Using R and Bioconductor for proteomics data analysis. ",
                 "Biochim Biophys Acta. 2013 May 18. doi:pii: S1570-9639(13)00186-6. ",
-                "10.1016/j.bbapap.2013.04.032. [Epub ahead of print] PubMed PMID: 23692960."))
+                "10.1016/j.bbapap.2013.04.032. PubMed PMID: 23692960."))
 
+citEntry(entry = "article",
+         title = "Visualisation of proteomics data using R and Bioconductor",
+         author = personList(as.person("Laurent Gatto"),
+             as.person("Lisa M Breckels"),
+             as.person("Thomas Naake"),
+             as.person("Sebastian Gibb")),
+         journal = "Proteomics",
+         year = "2015",
+         textVersion =
+         paste0("Gatto L, Breckels LM, Naake T, Gibb S. Visualisation of proteomics data using ",
+                "R and Bioconductor. Proteomics. 2015 Feb 18. doi: 10.1002/pmic.201400392. ",
+                "[Epub ahead of print] PubMed PMID: 25690415."))
