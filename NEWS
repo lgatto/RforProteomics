@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.5.9
+------------------------
+ o recompile r4p vignette and add ref to vis vignette [2015-03-23 Mon]
+ o make RProtVis static due to hangs [2015-03-24 Tue]
+ 
 CHANGES IN VERSION 1.5.8
 ------------------------
  o Vignette updates: simple R plots [2015-02-21 Sat]

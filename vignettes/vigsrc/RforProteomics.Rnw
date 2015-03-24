@@ -209,7 +209,7 @@ biocLite("RforProteomics", dependencies = TRUE)
 
 Finally, the package can be loaded with
 
-<<loadR4Prot>>=
+<<loadR4Prot, warning=FALSE>>=
 library("RforProteomics")
 @
 
@@ -283,7 +283,7 @@ library("reshape2") ## Flexibly reshape data
 
 \section{Data standards and input/output}
 
-\subsection{The mzR package}\ref{sec:mzr}
+\subsection{The mzR package}\label{sec:mzr}
 
 \subsubsection{Raw MS data}
 
