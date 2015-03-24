@@ -16,14 +16,13 @@ LATEXFILES = *.aux\
 all: 
 	make RforProteomics.pdf
 	make poster
-	make RProtVis.html
-	# make dataclean		
+	make vis
 
 RforProteomics.pdf: 
 	cp vigsrc/RforProteomics.R .
 	cp vigsrc/RforProteomics.pdf .
 
-RProtVis.html:
+vis:
 	cp vigsrc/RProtVis.html .
 	cp vigsrc/RProtVis.R .
 
@@ -31,10 +30,7 @@ poster:
 	cp vigsrc/Bioc2013_poster.pdf ./Bioc2013poster.pdf 
 	cp vigsrc/HUPO2014_rbioc_poster.pdf ./HUPO2014poster.pdf
 
-# RProtVis.html: RProtVis.Rmd
-# 	"$(R_HOME)/bin/R" --vanilla -e "knitr::knit('RProtVis.Rmd'); knit::purl('RProtVis.Rmd'); rmarkdown::render('RProtVis.md')"
-
-.PHONY: clean allclean stub vig2
+.PHONY: clean allclean stub vig2 vis
 
 stub:
 	cp vigsrc/RforProteomics-stub.Rnw ./RforProteomics.Rnw 
