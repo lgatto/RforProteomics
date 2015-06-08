@@ -16,7 +16,6 @@ LATEXFILES = *.aux\
 all: 
 	make RforProteomics.pdf
 	make poster
-	make vis
 
 RforProteomics.pdf: 
 	cp vigsrc/RforProteomics.R .
@@ -30,7 +29,7 @@ poster:
 	cp vigsrc/Bioc2013_poster.pdf ./Bioc2013poster.pdf 
 	cp vigsrc/HUPO2014_rbioc_poster.pdf ./HUPO2014poster.pdf
 
-.PHONY: clean allclean stub vig2 vis
+.PHONY: clean allclean stub vig2 vis vis2
 
 stub:
 	cp vigsrc/RforProteomics-stub.Rnw ./RforProteomics.Rnw 
