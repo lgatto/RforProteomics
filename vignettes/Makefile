@@ -16,7 +16,6 @@ LATEXFILES = *.aux\
 all: 
 	make RforProteomics.pdf
 	make poster
-	make vis
 
 RforProteomics.pdf: 
 	cp vigsrc/RforProteomics.R .
@@ -30,7 +29,7 @@ poster:
 	cp vigsrc/Bioc2013_poster.pdf ./Bioc2013poster.pdf 
 	cp vigsrc/HUPO2014_rbioc_poster.pdf ./HUPO2014poster.pdf
 
-.PHONY: clean allclean stub vig2 vis
+.PHONY: clean allclean stub vig2 vis vis2
 
 stub:
 	cp vigsrc/RforProteomics-stub.Rnw ./RforProteomics.Rnw 
@@ -46,14 +45,13 @@ vig2:
 	# ln -s vigsrc/figure .
 	ln -s vigsrc/F063721.dat-mztab.txt .
 	ln -s vigsrc/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML .
-	"$(R_HOME)/bin/R" CMD Sweave --engine=knitr::knitr --pdf RforProteomics.Rnw
+	/usr/local/bin/R CMD Sweave --engine=knitr::knitr --pdf RforProteomics.Rnw
 	bibtex RforProteomics
-	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
-	"$(R_HOME)/bin/R" CMD pdflatex RforProteomics.tex
-	"$(R_HOME)/bin/R" --vanilla -e "knitr::purl('RforProteomics.Rnw');"
+	/usr/local/bin/R CMD pdflatex RforProteomics.tex
+	/usr/local/bin/R CMD pdflatex RforProteomics.tex
+	/usr/local/bin/R --vanilla -e "knitr::purl('RforProteomics.Rnw');"
 	cp RforProteomics.pdf vigsrc/.
 	mv RforProteomics.R vigsrc/.
-	## scp RforProteomics.pdf lg390@proteome.sysbiol.cam.ac.uk:/var/www/htdocs/lgatto/RforProteomics/.
 	cp vigsrc/RforProteomics-stub.Rnw RforProteomics.Rnw
 	rm RforProteomics.bib RforProteomics.tex
 
