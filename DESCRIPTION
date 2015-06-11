@@ -16,7 +16,7 @@ Depends: MSnbase
 Imports: R.utils, Biobase, rpx, biocViews, BiocInstaller,
         interactiveDisplay, shiny
 Suggests: knitr, rmarkdown, BiocStyle, mzR, xcms, msdata, isobar,
-        MALDIquant (>= 1.11), MALDIquantForeign, readBrukerFlexData,
+        MALDIquant (>= 1.12), MALDIquantForeign, readBrukerFlexData,
         rTANDEM, synapter, synapterdata, IPPD, Rdisop, OrgMassSpecR,
         BRAIN, rols, hpar, GO.db, org.Hs.eg.db, biomaRt, RColorBrewer,
         ggplot2, reshape2, xtable, lattice, mzID, pRoloc, pRolocdata,
