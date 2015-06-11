@@ -2,7 +2,7 @@ Package: RforProteomics
 Type: Package
 Title: Companion package to the 'Using R and Bioconductor for
         proteomics data analysis' publication
-Version: 1.7.0
+Version: 1.7.1
 Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
                     email="lg390@cam.ac.uk"),
              person("Sebastian", "Gibb", role="ctb",
@@ -16,7 +16,7 @@ Depends: MSnbase
 Imports: R.utils, Biobase, rpx, biocViews, BiocInstaller,
         interactiveDisplay, shiny
 Suggests: knitr, rmarkdown, BiocStyle, mzR, xcms, msdata, isobar,
-        MALDIquant (>= 1.11), MALDIquantForeign, readBrukerFlexData,
+        MALDIquant (>= 1.12), MALDIquantForeign, readBrukerFlexData,
         rTANDEM, synapter, synapterdata, IPPD, Rdisop, OrgMassSpecR,
         BRAIN, rols, hpar, GO.db, org.Hs.eg.db, biomaRt, RColorBrewer,
         ggplot2, reshape2, xtable, lattice, mzID, pRoloc, pRolocdata,
@@ -29,7 +29,7 @@ Description: This package contains code to illustrate the 'Using R and
 	     the examples and figures descibed in the paper and
 	     functionality for proteomics visualisation.
 URL: http://lgatto.github.com/RforProteomics/
-biocViews: ExperimentData, MassSpectrometryData
+biocViews: ExperimentData, MassSpectrometryData, ReproducibleResearch
 License: Artistic-2.0
 VignetteBuilder: knitr
 Author: Laurent Gatto [aut, cre], Thomas Lin Pedersen [ctb],
