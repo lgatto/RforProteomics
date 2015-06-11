@@ -809,7 +809,7 @@ and
 [`mapping`](http://bioconductor.org/packages/devel/bioc/vignettes/Pbase/inst/doc/mapping.html) vignettes.
 
 
-# Imaging mass spectrometry
+# Mass spectrometry imaging
 
 The following code chunk downloads a MALDI imaging dataset from a
 mouse kidney shared by
@@ -820,7 +820,7 @@ interesting *M/Z* regions.
 <!-- Not running this code chunk as the access to the data (75M) -->
 <!-- on figshare seems to hang or become very slow at times -->
 
-```{r mqims, cache=FALSE, eval=FALSE, warning=FALSE}
+```{r mqmsi, cache=FALSE, eval=FALSE, warning=FALSE}
 library("MALDIquant")
 library("MALDIquantForeign")
 
@@ -842,15 +842,14 @@ lines(avgPeaks, col = "red")
 labelPeaks(avgPeaks, cex = 1)
 
 par(mar = c(0.5, 0.5, 1.5, 0.5))
-for (i in seq(along = avgPeaks)) {
-  range <- mass(avgPeaks)[i] + c(-1, 1)
-  plotImsSlice(spectra, range = range,
-               main = paste(round(range, 2), collapse = " - "))
-}
+plotMsiSlice(spectra,
+             center = mass(avgPeaks),
+             tolerance = 1,
+             plotInteractive = TRUE)
 par(oldPar)
 ```
 
-![ims-shiny screeshot](./figures/mqims-1.png)
+![mqmsi](./figures/mqmsi-1.png))]
 
 ## An interactive `r CRANpkg("shiny")` app for Imaging mass spectrometry
 
