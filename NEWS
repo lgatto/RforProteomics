@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.7.2
+------------------------
+ o Fix vignette for mzTab v0.9 <2015-09-30 Wed>
+
 CHANGES IN VERSION 1.7.1
 ------------------------
  o Added ReproducibleResearch biocView <2015-06-08 Mon>
