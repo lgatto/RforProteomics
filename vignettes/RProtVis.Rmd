@@ -161,7 +161,8 @@ px1 <- PXDataset("PXD000001")
 mztab <- pxget(px1, "PXD000001_mztab.txt")
 
 library("MSnbase")
-qnt <- readMzTabData(mztab, what = "PEP")
+## here, we need to specify the (old) mzTab version 0.9
+qnt <- readMzTabData(mztab, what = "PEP", version = "0.9")
 sampleNames(qnt) <- reporterNames(TMT6)
 qnt <- filterNA(qnt)
 ## may be combineFeatuers
