@@ -448,15 +448,19 @@ mztab <- pxget(px1, "PXD000001_mztab.txt")
 mztab
 @
 
-The code below loads the \texttt{mzTab} file into \R{} and generates an
-\Robject{MSnSet} instance, removes missing values and calculates
-protein intensities by summing the peptide quantitation data. Figure
-\ref{fig:matplot} illustrates the intensities for 5 proteins.
+The code below loads the \texttt{mzTab} file into \R{} and generates
+an \Robject{MSnSet} instance\footnote{Here, we specify \texttt{mzTab}
+  format version 0.9. Recent files have been generated according to
+  the latest specifications, version 1.0, and the \texttt{version}
+  does not need to be specified explicitly.}, removes missing values
+and calculates protein intensities by summing the peptide quantitation
+data. Figure \ref{fig:matplot} illustrates the intensities for 5
+proteins.
 
 
 <<mztab, tidy = FALSE>>=
 ## Load mzTab peptide data
-qnt <- readMzTabData(mztab, what = "PEP")
+qnt <- readMzTabData(mztab, what = "PEP", version = "0.9")
 sampleNames(qnt) <- reporterNames(TMT6)
 head(exprs(qnt))
 ## remove missing values
