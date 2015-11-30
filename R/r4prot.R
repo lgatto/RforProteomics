@@ -133,3 +133,14 @@ massSpectrometryDataPackages <- function(biocv, cache=FALSE) {
                                     rep = "BioCexp",
                                     biocVersion = biocv))
 }
+
+
+msDataTab <- function() {
+    dat <- c("Raw", "Identification", "Identification", "Quantitative")
+    frmt <- c("mzXML or mzML", "mzIdentML", "mzIdentML", "mzTab")
+    robj <- c("mzRpwiz and mzRramp", "mzRident", "mzID", "MSnSet")
+    pkg <- c("mzR", "mzR", "mzID", "MSnbase")
+    ans <- data.frame(dat, frmt, robj, pkg)
+    colnames(ans) <- c("Data type", "File format", "Data structure", "Package")
+    ans
+}

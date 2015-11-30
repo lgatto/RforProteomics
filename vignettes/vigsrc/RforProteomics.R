@@ -140,7 +140,7 @@ mztab
 
 ## ----mztab, tidy = FALSE----------------------------------
 ## Load mzTab peptide data
-qnt <- readMzTabData(mztab, what = "PEP")
+qnt <- readMzTabData(mztab, what = "PEP", version = "0.9")
 sampleNames(qnt) <- reporterNames(TMT6)
 head(exprs(qnt))
 ## remove missing values
