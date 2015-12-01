@@ -557,6 +557,18 @@ ggplot(aes(x = variable, y = value, colour = Protein),
 \label{fig:spikes}
 \end{figure}
 
+\subsection{Third-party data}
+
+It is possible to import any arbitrary text-based spreadsheet as
+\Rclass{MSnSet} object using either \Rfunction{readMSnSet} or
+\Rfunction{readMSnSet2}. The former takes three spreadsheets as input
+(for the expression data and the feature and sample meta-data). The
+latter uses a single spreadsheet and a vector of expression columns to
+populate the assay data and the feature meta-data. Detailed examples
+are provided in the \texttt{MSnbase-io} vignette, that can be
+consulted from \R{} with \Rfunction{vignette("MSnbase-io")} or
+online\footnote{\url{http://bioconductor.org/packages/release/bioc/vignettes/MSnbase/inst/doc/MSnbase-io.pdf}}.
+
 \clearpage
 
 \subsection{Working with raw data}
