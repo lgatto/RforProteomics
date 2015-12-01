@@ -3,6 +3,7 @@ CHANGES IN VERSION 1.9.1
  o updated RforProteomics vignette <2015-11-30 Mon>
  o (unexported) msDataTable function to create a MS/prot data/objects
    table <2015-11-30 Mon>
+ o add a short section for readMSnSet[2] <2015-12-01 Tue>
 
 CHANGES IN VERSION 1.7.2
 ------------------------
