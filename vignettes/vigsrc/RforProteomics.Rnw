@@ -448,15 +448,19 @@ mztab <- pxget(px1, "PXD000001_mztab.txt")
 mztab
 @
 
-The code below loads the \texttt{mzTab} file into \R{} and generates an
-\Robject{MSnSet} instance, removes missing values and calculates
-protein intensities by summing the peptide quantitation data. Figure
-\ref{fig:matplot} illustrates the intensities for 5 proteins.
+The code below loads the \texttt{mzTab} file into \R{} and generates
+an \Robject{MSnSet} instance\footnote{Here, we specify \texttt{mzTab}
+  format version 0.9. Recent files have been generated according to
+  the latest specifications, version 1.0, and the \texttt{version}
+  does not need to be specified explicitly.}, removes missing values
+and calculates protein intensities by summing the peptide quantitation
+data. Figure \ref{fig:matplot} illustrates the intensities for 5
+proteins.
 
 
 <<mztab, tidy = FALSE>>=
 ## Load mzTab peptide data
-qnt <- readMzTabData(mztab, what = "PEP")
+qnt <- readMzTabData(mztab, what = "PEP", version = "0.9")
 sampleNames(qnt) <- reporterNames(TMT6)
 head(exprs(qnt))
 ## remove missing values
@@ -552,6 +556,18 @@ ggplot(aes(x = variable, y = value, colour = Protein),
 \caption{Spikes plot using \CRANpkg{ggplot2}.}
 \label{fig:spikes}
 \end{figure}
+
+\subsection{Third-party data}
+
+It is possible to import any arbitrary text-based spreadsheet as
+\Rclass{MSnSet} object using either \Rfunction{readMSnSet} or
+\Rfunction{readMSnSet2}. The former takes three spreadsheets as input
+(for the expression data and the feature and sample meta-data). The
+latter uses a single spreadsheet and a vector of expression columns to
+populate the assay data and the feature meta-data. Detailed examples
+are provided in the \texttt{MSnbase-io} vignette, that can be
+consulted from \R{} with \Rfunction{vignette("MSnbase-io")} or
+online\footnote{\url{http://bioconductor.org/packages/release/bioc/vignettes/MSnbase/inst/doc/MSnbase-io.pdf}}.
 
 \clearpage
 
