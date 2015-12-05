@@ -27,7 +27,7 @@ opts_chunk$set(tidy.opts =
                    list(width.cutoff = 50,
                    tidy = FALSE),
                fig.align = 'center',
-               stop_on_error = 1L)
+               stop_on_error = 0L)
 options(width = 60)
 
 ## ----vignette1, echo = TRUE, eval = FALSE-----------------
@@ -59,7 +59,7 @@ rnwfile <- system.file("doc/vigsrc/RforProteomics.Rnw",
 library("knitr")
 purl(rnwfile, quiet = TRUE)
 
-## ----env--------------------------------------------------
+## ----env, message=FALSE-----------------------------------
 library("RColorBrewer") ## Color palettes
 library("ggplot2")  ## Convenient and nice plotting
 library("reshape2") ## Flexibly reshape data
@@ -438,7 +438,7 @@ peptides <- GetPeptides(protein.uid = 1811,
 peptides[, c(1:4, 9, 10:16), with = FALSE]
 
 ## ----msgf1------------------------------------------------
-library(MSGFplus)
+library("MSGFplus")
 ## Create a parameter object with a set of parameters
 param <- msgfPar(database = system.file('extdata',
                                         'milk-proteins.fasta',
@@ -449,6 +449,7 @@ param <- msgfPar(database = system.file('extdata',
 ## Add parameters after creation
 instrument(param) <- 'QExactive'
 tda(param) <- TRUE
+ntt(param) <- 2
 
 ## Add expected modifications
 mods(param)[[1]] <- msgfParModification('Carbamidomethyl',
@@ -456,6 +457,13 @@ mods(param)[[1]] <- msgfParModification('Carbamidomethyl',
                                         residues = 'C',
                                         type = 'fix',
                                         position = 'any')
+
+mods(param)[[2]] <- msgfParModification(name = 'Oxidation',
+                                        mass = 15.994915,
+                                        residues = 'M',
+                                        type = 'opt',
+                                        position = 'any')
+
 nMod(param) <- 2    # Number of allowed modifications per peptide
 
 ## Get a summary of your parameters
@@ -468,20 +476,17 @@ show(param)
 library("MSnID")
 msnid <- MSnID(".")
 
-## ----MSnIDdataImport--------------------------------------
+## ----MSnIDdataImport1-------------------------------------
 PSMresults <- read.delim(system.file("extdata", "human_brain.txt",
                                      package="MSnID"),
                          stringsAsFactors=FALSE)
 psms(msnid) <- PSMresults
 show(msnid)
 
-mzids <- system.file("extdata", "c_elegans.mzid.gz", package="MSnID")
-msnid <- read_mzIDs(msnid, mzids)
-show(msnid)
-
 ## ----MSnIDsequence----------------------------------------
 msnid <- assess_termini(msnid, validCleavagePattern="[KR]\\.[^P]")
 msnid <- assess_missed_cleavages(msnid, missedCleavagePattern="[KR](?=[^P$])")
+prop.table(table(msnid$numIrregCleavages))
 
 ## ----MSnIDmissedCleavagesPlot, dev='pdf', fig.width=8, fig.height=4, out.width='.7\\textwidth'----
 pepCleav <- unique(psms(msnid)[,c("numMissCleavages", "isDecoy", "peptide")])
@@ -563,17 +568,271 @@ head(exprs(msnset))
 ## ----eval=TRUE, echo=FALSE, results='hide'----------------
 unlink(".Rcache", recursive=TRUE)
 
+## ----idex1, message=FALSE---------------------------------
+library("rpx")
+id <- "PXD002161"
+px <- PXDataset(id)
+try(setInternet2(FALSE),silent=TRUE)
+library("jsonlite")
+addr <- "http://www.ebi.ac.uk:80/pride/ws/archive/%s/list/project/%s"
+files <- fromJSON(sprintf(addr, "file", id))$list
+assays <- fromJSON(sprintf(addr, "assay", id))$list
+
+files <- subset(files, fileType == 'PEAK',
+                select = c("assayAccession","fileName"))
+assays <- assays[,c("assayAccession",
+                    "experimentalFactor",
+                    "proteinCount",
+                    "peptideCount",
+                    "uniquePeptideCount",
+                    "identifiedSpectrumCount",
+                    "totalSpectrumCount")]
+
+pttrn <- "Age: young, Diet; fully fed"
+assays <- subset(assays, grepl(pttrn, experimentalFactor, fixed=T))
+# encode phenotype and sample names
+group <- sub(".*Name: Y-(.+?)-FF\\.(\\d)", "\\1", assays$experimentalFactor)
+splnm <- sub(".*Name: Y-(.+?)-FF\\.(\\d)", "\\1_\\2", assays$experimentalFactor)
+
+assays <- with(assays, {data.frame(assayAccession,
+                                   phenotype=sub(".*Name: Y-(.+?)-FF\\.(\\d)",
+                                                 "\\1", experimentalFactor),
+                                   sampleName=sub(".*Name: Y-(.+?)-FF\\.(\\d)", 
+                                                  "\\1_\\2", experimentalFactor),
+                                   stringsAsFactors=F)})
+files <- subset(files, assayAccession %in% assays$assayAccession)
+
+## do we already have all files?
+allfiles <- length(dir(pattern = "c_elegans_.*mzML")) == 10
+
+if (!allfiles) 
+    pxget(px, files$fileName) # fetch them from PX
+
+files$datasetName <- sub('.mzML.gz','', files$fileName, fixed=TRUE)
+meta <- merge(files[,c("assayAccession","datasetName")], assays)
+rownames(meta) <- meta$datasetName
+meta <- meta[order(meta$sampleName),]
+rownames(meta) <- NULL
+
+if (!allfiles) {
+    library("R.utils")
+    sapply(list.files(pattern = "mzML.gz"), gunzip)
+}
+
+## ----idex2, eval=FALSE------------------------------------
+#  library("Biostrings")
+#  fasta_location <-  "ftp://ftp.wormbase.org/pub/wormbase/releases/WS250/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS250.protein.fa.gz"
+#  fwd.seqs <- readAAStringSet(fasta_location, format="fasta",
+#                              nrec=-1L, skip=0L, use.names=TRUE)
+#  rev.seqs <- reverse(fwd.seqs)
+#  names(rev.seqs) <- paste("XXX", names(rev.seqs), sep='_')
+#  fwd.rev.seqs <- append( fwd.seqs, rev.seqs)
+#  writeXStringSet(x=fwd.rev.seqs, filepath="c_elegans_fwd_rev.fasta", format="fasta")
+
+## ----idex3------------------------------------------------
+library("rTANDEM")
+param <- setParamOrbitrap()
+taxonomy <- rTTaxo(taxon="celegans",
+                   format="peptide",
+                   URL= "c_elegans_fwd_rev.fasta")
+param <- setParamValue(param, 'list path', 'taxonomy information', taxonomy)
+param <- setParamValue(param, 'protein', 'taxon', value='celegans')
+
+def.input.path <- system.file("extdata/default_input.xml", package="rTANDEM")
+param <- setParamValue(param, 'list path', 'default parameters',
+                       value=def.input.path)
+
+param <- setParamValue(param, "output", "message", "r-for-proteomics ")
+param <- setParamValue(param, "refine", value="no")
+
+## ----expar------------------------------------------------
+library("parallel")
+param <- setParamValue(param, "spectrum", "threads", detectCores())
+
+## ----rtout------------------------------------------------
+output.files <- lapply(sub("\\.gz","",files$fileName),
+                       function(x){
+                           param <- setParamValue(param, 'spectrum', 'path', value=x)
+                           output.file <- tandem(param)})
+
+## ----xttodf, warning=FALSE, message=FALSE-----------------
+library("dplyr")
+.P <- MSnID:::.PROTON_MASS # 1.007276
+
+## parse to comply with MSnID
+xtandem_to_df <- function(output.file){
+    res <- GetResultsFromXML(output.file)
+    proteins <- GetProteins(res)
+    peptides <- GetPeptides(protein.uid = proteins$uid, results = res)
+    peptides <- select(as.data.frame(res@peptides), 
+                       prot.uid, spectrum.mh, mh, expect.value, 
+                       tandem.score, start.position, end.position,
+                       spectrumID = spectrum.id,
+                       chargeState = spectrum.z,
+                       pepSeq = sequence)
+    peptides <- mutate(peptides, 
+                       calculatedMassToCharge = (mh + .P*(chargeState - 1))/chargeState,
+                       experimentalMassToCharge = (spectrum.mh + .P*(chargeState - 1))/chargeState,
+                       spectrum.mh = NULL,
+                       mh = NULL)
+    proteins <- select(as.data.frame(res@proteins),
+                       prot.uid=uid, sequence, description)
+    proteins <- mutate(proteins, 
+                       accession = sub("(\\S+)\t.*", "\\1", description),
+                       isDecoy = grepl("XXX_", accession))
+    x <- inner_join(peptides, proteins)
+    pre <- with(x, substr(sequence, start.position-1, start.position-1))
+    pre <- ifelse(pre == "", "-", pre)
+    post <- with(x, substr(sequence, end.position+1, end.position+1))
+    post <- ifelse(post == "", "-", post)
+    x <- mutate(x, 
+                peptide = paste(pre,x$pepSeq, post, sep='.'),
+                sequence = NULL)
+    return(x)
+}
+
+out <- lapply(output.files, xtandem_to_df)
+for(i in seq_along(out))
+    out[[i]]$spectrumFile <- sub("\\.mzML\\.gz","",files$fileName)[i]
+out <- Reduce(rbind, out)
+
+## ----msnidm-----------------------------------------------
+library(MSnID)
+m <- MSnID()
+psms(m) <- out
+show(m)
+
+## ----msnisfig, fig.width=6, fig.height=4------------------
+library("ggplot2")
+dM <- with(psms(m),
+             round((experimentalMassToCharge-calculatedMassToCharge)*chargeState))
+x <- as.data.frame(table(data.frame(dM, isDecoy=m$isDecoy)))
+x <- as.data.frame(table(dM, isDecoy=m$isDecoy))
+ggplot(x, aes(x=dM, fill=isDecoy, y=Freq)) +
+      geom_bar(stat="identity", width=0.25)
+
+## ----correctpeaksel, fig.with=6, fig.height=6-------------
+m <- correct_peak_selection(m)
+dM <- with(psms(m),
+             round((experimentalMassToCharge-calculatedMassToCharge)*chargeState))
+x <- as.data.frame(table(data.frame(dM, isDecoy=m$isDecoy)))
+x <- as.data.frame(table(dM, isDecoy=m$isDecoy))
+ggplot(x, aes(x=dM, fill=isDecoy, y=Freq)) +
+      geom_bar(stat="identity", width=0.25)
+
+## ----parentionmass, fig.width=8, fig.height=6-------------
+mme <- data.frame(ppm=mass_measurement_error(m), isDecoy=m$isDecoy)
+ggplot(mme, aes(x=ppm, fill=isDecoy)) +
+      geom_histogram(binwidth=1) +
+      xlim(-20,+20) +
+      facet_wrap( ~ isDecoy) + 
+   	scale_y_sqrt()
+
+## ----msnidfilt--------------------------------------------
+m$score <- -log10(m$expect.value) # higher the better
+m$mme <- abs(mass_measurement_error(m)) # lower the better
+fltr <- MSnIDFilter(m)
+
+## ---------------------------------------------------------
+fltr$score <- list(comparison=">", threshold=0)
+fltr$mme <- list(comparison="<", threshold=0)
+fltr.grid <- optimize_filter(fltr, m, fdr.max=0.01,
+method="Grid", level="peptide",
+n.iter=1000)
+show(fltr.grid)
+
+## ---------------------------------------------------------
+as.numeric(fltr.grid)
+evaluate_filter(m, fltr.grid)
+
+## ----applsann---------------------------------------------
+m <- apply_filter(m, fltr.sann)
+
+## ----nbidpeps, fig.width=6, fig.height=6------------------
+pp <- unique(psms(m)[,c("peptide","accession")])
+pep_per_prot <- as.data.frame(table(table(pp$accession)))
+pep_per_prot$peptides <- with(pep_per_prot, 
+                              ifelse(as.numeric(Var1) > 5, "6+", as.numeric(Var1)))
+ggplot(pep_per_prot, 
+         aes(x=factor(1), fill=peptides, y=Freq)) + 
+      geom_bar(width=1, stat = "identity", position = "stack") + 
+      coord_polar(theta = "y") + 
+      ylab('') + xlab('') + 
+      scale_fill_discrete(name="number of\npeptides per\nprotein")
+
+## ----applflitbigex----------------------------------------
+nms <- names(which(table(pp$accession) > 1))
+m <- apply_filter(m, "accession %in% nms")
+show(m)
+
+## ---------------------------------------------------------
+mset <- as(m, "MSnSet")
+show(mset)
+
+## ---------------------------------------------------------
+library("MSnbase")
+mset <- combineFeatures(mset,
+fData(mset)$accession,
+redundancy.handler="unique",
+fun="sum",
+cv=FALSE)
+show(mset)
+
+## ---------------------------------------------------------
+mset <- mset[rowSums(exprs(mset) > 0) >= 6,] 
+
+## ---------------------------------------------------------
+pData(mset) <- meta[match(sampleNames(mset), meta$datasetName),]
+mset$phenotype <- as.factor(mset$phenotype)
+sampleNames(mset) <- mset$sampleName
+pData(mset)
+
+## ----scpca, fig.width=6, fig.height=6---------------------
+library("msmsEDA")
+counts.pca(mset,
+             facs = pData(mset)[,'phenotype',drop=FALSE],
+             snms = sampleNames(mset))
+
+## ----phist, fig.height=6, fig.width=7---------------------
+library("msmsTests")
+  alt.f <- "y ~ phenotype"
+    null.f <- "y ~ 1"
+      div <- colSums(exprs(mset)) # normalization factor
+ 	res <- msms.glm.qlll(mset, "y ~ phenotype", "y ~ 1", div=div)
+ 	hist(res$p.value, 100)
+
+## ----scvolc, fig.width=6, fig.height=6--------------------
+lst <- test.results(res, mset, pData(mset)$phenotype,
+                      "ctrl","daf2", div, alpha=0.05,
+                      minSpC=0, minLFC=1, method="BH")
+res.volcanoplot(lst$tres, min.LFC=1, max.pval=0.05, ylbls=NULL, maxy=4)
+
+## ----hmap, fig.width=7, fig.height=7----------------------
+library("Heatplus")
+regulated <- subset(lst$tres, adjp < 0.05 & abs(LogFC) > 1)
+## order MSnSet object the daf-16 status
+mset <- mset[,order(pData(mset)$phenotype)]
+## matrix with regulated proteins
+selected.data <- exprs(mset[rownames(regulated),])
+## scaling counts from 0 to 1
+selected.data <- sweep(selected.data, 1, apply(selected.data, 1, min), '-')
+selected.data <- sweep(selected.data, 1, apply(selected.data, 1, max), '/')
+heatmap_plus(selected.data,
+               scale='none',
+               col=colorRampPalette(c("snow","steelblue"))(10))
+
 ## ----annot1, cache=FALSE----------------------------------
-id <- "ENSG00000002746"
+id <- "ENSG00000105323"
 library("hpar")
 getHpa(id, "SubcellularLoc")
 
-## ----annot2, cache=FALSE, warning = FALSE-----------------
-library(org.Hs.eg.db)
-library(GO.db)
-ans <- select(org.Hs.eg.db,
-              keys = id, columns = c("ENSEMBL", "GO", "ONTOLOGY"),
-              keytype = "ENSEMBL")
+## ----annot2, cache=FALSE, warning=FALSE-------------------
+library("org.Hs.eg.db")
+library("GO.db")
+ans <- AnnotationDbi::select(org.Hs.eg.db,
+keys = id,
+columns = c("ENSEMBL", "GO", "ONTOLOGY"),
+keytype = "ENSEMBL")
 ans <- ans[ans$ONTOLOGY == "CC", ]
 ans
 sapply(as.list(GOTERM[ans$GO]), slot, "Term")
@@ -605,7 +864,6 @@ print(t2,
       tabular.environment = 'longtable',
       size = "scriptsize")
 
-
 ## ----msdatatab, echo=FALSE, results='asis'----------------
 t3 <- xtable(pkTab[["MassSpectrometryData"]],
              caption = "Experimental Packages available under the \\texttt{MassSpectrometryData} \\textit{biocViews} category.",
@@ -616,7 +874,7 @@ print(t3,
       include.rownames = FALSE,
       floating = FALSE,
       tabular.environment = 'longtable',
-      size = "scriptsize")
+      usize = "scriptsize")
 
 ## ----pkgs, eval=FALSE-------------------------------------
 #  pp <- proteomicsPackages()
