@@ -1,4 +1,4 @@
-n\VignetteEngine{knitr}
+%\VignetteEngine{knitr}
 %\VignetteIndexEntry{Using R for proteomics data analysis}
 %\VignetteKeywords{Bioinformatics, proteomics, mass spectrometry, tutorial, data}
 %\VignettePackage{RforProteomics}
@@ -50,7 +50,7 @@ opts_chunk$set(tidy.opts =
                    list(width.cutoff = 50,
                    tidy = FALSE),
                fig.align = 'center',
-               stop_on_error = 1L)
+               stop_on_error = 0L)
 options(width = 60)
 @
 %% $
@@ -60,7 +60,7 @@ options(width = 60)
 \hrule
 \begin{abstract}
   This vignette shows and executes the code presented in the
-  manuscript \textit{Using \R{} for proteomics data analysis}.  It also
+  manuscript \textit{Using \R{} for proteomics data analysis}. It also
   aims at being a general overview for users who wish to explore the
   \R{} environment and programming language for the analysis of
   proteomics data.
@@ -72,8 +72,6 @@ options(width = 60)
 \vskip 0.2in minus 0.1in
 \vspace{10mm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newpage
 
 \tableofcontents
 
@@ -278,7 +276,7 @@ The packages that we will depend on to execute the examples will be
 loaded in the respective sections. Here, we pre-load packages that
 provide general functionality used throughout the document.
 
-<<env>>=
+<<env, message=FALSE>>=
 library("RColorBrewer") ## Color palettes
 library("ggplot2")  ## Convenient and nice plotting
 library("reshape2") ## Flexibly reshape data
@@ -372,7 +370,7 @@ ids
 @
 
 Peptides, scans, parameters, \ldots can be extracted with the
-respective \Rfunction{pepetides}, \Rfunction{scans},
+respective \Rfunction{peptides}, \Rfunction{scans},
 \Rfunction{parameters}, \ldots functions. The \Robject{mzID} object
 can also be converted into a \texttt{data.frame} using the
 \Rfunction{flatten} function.
@@ -1260,13 +1258,15 @@ msnid <- MSnID(".")
 
 Data can imported as \Rcode{data.frame} or read from mzIdentML file.
 
-<<MSnIDdataImport>>=
+<<MSnIDdataImport1>>=
 PSMresults <- read.delim(system.file("extdata", "human_brain.txt",
                                      package="MSnID"),
                          stringsAsFactors=FALSE)
 psms(msnid) <- PSMresults
 show(msnid)
+@
 
+<<MSnIDdataImport2, cache=TRUE>>=
 mzids <- system.file("extdata", "c_elegans.mzid.gz", package="MSnID")
 msnid <- read_mzIDs(msnid, mzids)
 show(msnid)
@@ -1501,7 +1501,7 @@ with \Biocpkg{msmsTests}.
 
 \subsection{Getting the data}
 
-<<idex1>>=
+<<idex1, message=FALSE>>=
 library("rpx")
 id <- "PXD002161"
 px <- PXDataset(id)
@@ -1512,7 +1512,7 @@ files <- fromJSON(sprintf(addr, "file", id))$list
 assays <- fromJSON(sprintf(addr, "assay", id))$list
 
 files <- subset(files, fileType == 'PEAK',
-                select=c("assayAccession","fileName"))
+                select = c("assayAccession","fileName"))
 assays <- assays[,c("assayAccession",
                     "experimentalFactor",
                     "proteinCount",
@@ -1535,7 +1535,11 @@ assays <- with(assays, {data.frame(assayAccession,
                                    stringsAsFactors=F)})
 files <- subset(files, assayAccession %in% assays$assayAccession)
 
-## pxget(px, files$fileName) # fetch them from PX
+## do we already have all files?
+allfiles <- length(dir(pattern = "c_elegans_.*mzML")) == 10
+
+if (!allfiles) 
+    pxget(px, files$fileName) # fetch them from PX
 
 files$datasetName <- sub('.mzML.gz','', files$fileName, fixed=TRUE)
 meta <- merge(files[,c("assayAccession","datasetName")], assays)
@@ -1543,20 +1547,22 @@ rownames(meta) <- meta$datasetName
 meta <- meta[order(meta$sampleName),]
 rownames(meta) <- NULL
 
-## library("R.utils")
-## sapply(list.files(pattern = "mzML.gz"), gunzip)
+if (!allfiles) {
+    library("R.utils")
+    sapply(list.files(pattern = "mzML.gz"), gunzip)
+}
 @
 
 Now we have \texttt{*.mzML} files for MS/MS search. Let's download
 FASTA file from the current release of the Wormbase. We will leverage
-Bioconductor's `Biostrings` library to reverse the protein sequence
-and append them to the original FASTA file. The reverse sequences will
-be use for estimate of the false discovery rate of peptide-to-spectrum
-matches, peptide and protein identifications.
+Bioconductor's \Biocpkg{Biostrings} package to reverse the protein
+sequence and append them to the original FASTA file. The reverse
+sequences will be use for estimate of the false discovery rate of
+peptide-to-spectrum matches, peptide and protein identifications.
 
 
 
-<<idex2>>=
+<<idex2, eval=FALSE>>=
 library("Biostrings")
 fasta_location <-  "ftp://ftp.wormbase.org/pub/wormbase/releases/WS250/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS250.protein.fa.gz"
 fwd.seqs <- readAAStringSet(fasta_location, format="fasta",
@@ -1626,11 +1632,11 @@ chargeState, experimentalMassToCharge, isDecoy, peptide,
 spectrumFile and spectrumID.
 
 
-<<xttodf>>=
+<<xttodf, warning=FALSE, message=FALSE>>=
 library("dplyr")
 .P <- MSnID:::.PROTON_MASS # 1.007276
 
-# parse to comply with MSnID
+## parse to comply with MSnID
 xtandem_to_df <- function(output.file){
     res <- GetResultsFromXML(output.file)
     proteins <- GetProteins(res)
@@ -1642,10 +1648,10 @@ xtandem_to_df <- function(output.file){
                        chargeState = spectrum.z,
                        pepSeq = sequence)
     peptides <- mutate(peptides, 
-            calculatedMassToCharge = (mh + .P*(chargeState - 1))/chargeState,
-            experimentalMassToCharge = (spectrum.mh + .P*(chargeState - 1))/chargeState,
-            spectrum.mh = NULL,
-            mh = NULL)
+                       calculatedMassToCharge = (mh + .P*(chargeState - 1))/chargeState,
+                       experimentalMassToCharge = (spectrum.mh + .P*(chargeState - 1))/chargeState,
+                       spectrum.mh = NULL,
+                       mh = NULL)
     proteins <- select(as.data.frame(res@proteins),
                        prot.uid=uid, sequence, description)
     proteins <- mutate(proteins, 
@@ -1678,7 +1684,6 @@ results data.
 library(MSnID)
 m <- MSnID()
 psms(m) <- out
-validObject(m)
 show(m)
 @
 
@@ -1689,51 +1694,61 @@ non-monoisotopic peaks for fragmentation. This is more common for the
 peptides with large mass.
 
 
-<<msnisfig, fig.cap="Isotope selection error before and after correction with the \\Rfunction{correct_peak_selection()} function">>=
-library(ggplot2)
-dM <- with(psms(m),
-           round((experimentalMassToCharge-calculatedMassToCharge)*chargeState))
-x <- as.data.frame(table(data.frame(dM, isDecoy=m$isDecoy)))
-x <- as.data.frame(table(dM, isDecoy=m$isDecoy))
-ggplot(x, aes(x=dM, fill=isDecoy, y=Freq)) +
-    geom_bar(stat="identity", width=0.25)
-@
+\begin{figure}[h]
+  \centering
+  <<msnisfig, fig.width=6, fig.height=4>>=
+  library("ggplot2")
+  dM <- with(psms(m),
+               round((experimentalMassToCharge-calculatedMassToCharge)*chargeState))
+  x <- as.data.frame(table(data.frame(dM, isDecoy=m$isDecoy)))
+  x <- as.data.frame(table(dM, isDecoy=m$isDecoy))
+  ggplot(x, aes(x=dM, fill=isDecoy, y=Freq)) +
+        geom_bar(stat="identity", width=0.25)
+  @
+\caption{Isotope selection error before and after correction.}
+\label{fig:msnidfig}
+\end{figure}
 
 For correction of the parent ion mass at the isotope-scale level there
 is a method with the corresponding name
-\Rfunction{correct_peak_selection}.
+\Rfunction{correct\_peak\_selection()}.
 
-
-<<correctpeaksel>>=
-m <- correct_peak_selection(m)
-dM <- with(psms(m),
-           round((experimentalMassToCharge-calculatedMassToCharge)*chargeState))
-x <- as.data.frame(table(data.frame(dM, isDecoy=m$isDecoy)))
-x <- as.data.frame(table(dM, isDecoy=m$isDecoy))
-ggplot(x, aes(x=dM, fill=isDecoy, y=Freq)) +
-    geom_bar(stat="identity", width=0.25)
-@
+\begin{figure}[h]
+  \centering
+  <<correctpeaksel, fig.with=6, fig.height=6>>=
+  m <- correct_peak_selection(m)
+  dM <- with(psms(m),
+               round((experimentalMassToCharge-calculatedMassToCharge)*chargeState))
+  x <- as.data.frame(table(data.frame(dM, isDecoy=m$isDecoy)))
+  x <- as.data.frame(table(dM, isDecoy=m$isDecoy))
+  ggplot(x, aes(x=dM, fill=isDecoy, y=Freq)) +
+        geom_bar(stat="identity", width=0.25)
+  @
+\end{figure}
 
 
 The mass measurement error at a finer grain, typicaly related to the
 mis-calibrated instument, can be accessed with
-\Rfunction{mass_measurement_error} method.
+\Rfunction{mass\_measurement\_error} method.
 
-<<parentionmass, fig.caption="Parent ion mass measurement error histograms for non-decoy and decoy peptide-to-spectrum matches">>=
-mme <- data.frame(ppm=mass_measurement_error(m), isDecoy=m$isDecoy)
-ggplot(mme, aes(x=ppm, fill=isDecoy)) +
-    geom_histogram(binwidth=1) +
-    xlim(-20,+20) +
-    facet_wrap( ~ isDecoy) + 
-    scale_y_sqrt()
+\begin{figure}[h]
+  \centering
+  <<parentionmass, fig.width=8, fig.height=6>>=
+  mme <- data.frame(ppm=mass_measurement_error(m), isDecoy=m$isDecoy)
+  ggplot(mme, aes(x=ppm, fill=isDecoy)) +
+        geom_histogram(binwidth=1) +
+        xlim(-20,+20) +
+        facet_wrap( ~ isDecoy) + 
+     	scale_y_sqrt()
 @
-
+\caption{Parent ion mass measurement error histograms for non-decoy and decoy peptide-to-spectrum matches}
+\label{fig:parentionmass}
+\end{figure}
 
 Finding the right set of filtering criteria for MS/MS data is not a
 trivial task. For the purpose of flexible filter optimization the
 \Biocpkg{MSnID} package has the \Rclass{MSnIDFilter} class. We will
 start with defining the criteria we want to filter on.
-
 
 <<msnidfilt>>=
 m$score <- -log10(m$expect.value) # higher the better
@@ -1745,20 +1760,20 @@ Let define some starting values. What is important is to define what
 should be retained higher or lower the given threshold.  Threshold
 itself can be set to arbitrary value if "Grid" optimization method
 will be used as a first pass. "Grid" optimization loops through a
-preset number (`n.iter` argument) of combinations of thresholds
+preset number (\texttt{n.iter} argument) of combinations of thresholds
 ignoring the initial values. In the filtering criteria optimization
 routines, the objective function is the number of peptide-to-spectrum
-matches, peptide or protein identifications defined by the `level`
-argument. However, if the FDR (estimated using reverse sequences)
-exceeds the pre-defined maxium value, the objective function sets to
-zero.
+matches, peptide or protein identifications defined by the
+\texttt{level} argument. However, if the FDR (estimated using reverse
+sequences) exceeds the pre-defined maxium value, the objective
+function sets to zero.
 
 <<>>=
 fltr$score <- list(comparison=">", threshold=0)
 fltr$mme <- list(comparison="<", threshold=0)
 fltr.grid <- optimize_filter(fltr, m, fdr.max=0.01,
-                             method="Grid", level="peptide",
-                             n.iter=1000)
+method="Grid", level="peptide",
+n.iter=1000)
 show(fltr.grid)
 @
 
@@ -1773,15 +1788,14 @@ Nelder-Mead or simulated annealing optimization techniques specified
 by the \texttt{method} arugment.
 
 
-<<filtsann>>=
+<<filtsann, cache=TRUE>>=
 fltr.sann <- optimize_filter(fltr.grid, m, fdr.max=0.01,
-                             method="SANN", level="peptide",
-                             n.iter=1000)
+method="SANN", level="peptide",
+n.iter=1000)
 show(fltr.sann)
 as.numeric(fltr.sann)
 evaluate_filter(m, fltr.sann)
 @
-
 
 Applying the filter.
 
@@ -1792,18 +1806,25 @@ m <- apply_filter(m, fltr.sann)
 
 Visualizing the number of peptides covering the proteins.
 
-<<fig.cap="Number of identified per protein. Almost half of the proteins are 'single-hit wonders', that is identified with one peptide only.">>=
-pp <- unique(psms(m)[,c("peptide","accession")])
-pep_per_prot <- as.data.frame(table(table(pp$accession)))
-pep_per_prot$peptides <- with(pep_per_prot, 
-                          ifelse(as.numeric(Var1) > 5, "6+", as.numeric(Var1)))
-ggplot(pep_per_prot, 
-       aes(x=factor(1), fill=peptides, y=Freq)) + 
-    geom_bar(width=1, stat = "identity", position = "stack") + 
-    coord_polar(theta = "y") + 
-    ylab('') + xlab('') + 
-    scale_fill_discrete(name="number of\npeptides per\nprotein")
+\begin{figure}[h]
+  \centering
+  <<nbidpeps, fig.width=6, fig.height=6>>=
+  pp <- unique(psms(m)[,c("peptide","accession")])
+  pep_per_prot <- as.data.frame(table(table(pp$accession)))
+  pep_per_prot$peptides <- with(pep_per_prot, 
+                                ifelse(as.numeric(Var1) > 5, "6+", as.numeric(Var1)))
+  ggplot(pep_per_prot, 
+           aes(x=factor(1), fill=peptides, y=Freq)) + 
+        geom_bar(width=1, stat = "identity", position = "stack") + 
+        coord_polar(theta = "y") + 
+        ylab('') + xlab('') + 
+        scale_fill_discrete(name="number of\npeptides per\nprotein")
 @
+\caption{Number of identified peptides per protein. Almost half of the
+  proteins are 'single-hit wonders', i.e. they have been identified
+  with one peptide only.}
+\label{fig:nbidpeps}
+\end{figure}
 
 
 Filtering out single-hit-wonders (that is proteins covered with only
@@ -1818,6 +1839,8 @@ nms <- names(which(table(pp$accession) > 1))
 m <- apply_filter(m, "accession %in% nms")
 show(m)
 @
+
+\clearpage
 
 \subsection{Exploratory data analysis}
 
@@ -1840,17 +1863,17 @@ only uniquely mapping peptides for protein quantification.
 <<>>=
 library("MSnbase")
 mset <- combineFeatures(mset,
-                        fData(mset)$accession,
-                        redundancy.handler="unique",
-                        fun="sum",
-                        cv=FALSE)
+fData(mset)$accession,
+redundancy.handler="unique",
+fun="sum",
+cv=FALSE)
 show(mset)
 @
 
 Subsetting to the ones that were detected in at least half of the samples
 
 <<>>=
-mset <- mset[rowSums(exprs(mset) > 0) >= 6,] # 384 proteins left
+mset <- mset[rowSums(exprs(mset) > 0) >= 6,] 
 @
 
 Updating \texttt{phenoData} using the meta-information on experimental
@@ -1867,12 +1890,18 @@ pData(mset)
 The PCA plot below shows clear separation of control and
 \textit{daf-2} mutant \textit{C. elegans} strains.
 
-<<fig.cap="Clear separation of control and daf-2 strains on PCA plot indicates on substantial difference in proteome composition">>=
-library("msmsEDA")
-counts.pca(mset,
-           facs = pData(mset)[,'phenotype',drop=FALSE],
-           snms = sampleNames(mset))
+\begin{figure}[h]
+  \centering
+  <<scpca, fig.width=6, fig.height=6>>=
+  library("msmsEDA")
+  counts.pca(mset,
+               facs = pData(mset)[,'phenotype',drop=FALSE],
+               snms = sampleNames(mset))
 @
+\caption{Clear separation of control and daf-2 strains on PCA plot indicates on substantial difference in proteome composition.}
+\label{fig:scpca}
+\end{figure}
+
 
 \subsection{Statistical analysis}
 
@@ -1882,46 +1911,62 @@ shows a substantial increase of p-value frequency in low-value bins
 (tailing-up), indicating a significant proteome difference between the
 strains.
 
-<<>>=
-library(msmsTests)
-alt.f <- "y ~ phenotype"
-null.f <- "y ~ 1"
-div <- colSums(exprs(mset)) # normalization factor
-res <- msms.glm.qlll(mset, "y ~ phenotype", "y ~ 1", div=div)
-hist(res$p.value, 100)
-@
 
-
+\begin{figure}[h]
+  \centering
+  <<phist, fig.height=6, fig.width=7>>=
+  library("msmsTests")
+    alt.f <- "y ~ phenotype"
+      null.f <- "y ~ 1"
+        div <- colSums(exprs(mset)) # normalization factor
+   	res <- msms.glm.qlll(mset, "y ~ phenotype", "y ~ 1", div=div)
+   	hist(res$p.value, 100)
+  @
+\caption{Histogram of p-values.}
+\label{fig:phist}
+\end{figure}
 
 A volcano plot is an alternative way to visualize the estimate fold
 and significance of change of change.
 
-<<>>=
-lst <- test.results(res, mset, pData(mset)$phenotype,
-                    "ctrl","daf2", div, alpha=0.05,
-                    minSpC=0, minLFC=1, method="BH")
-res.volcanoplot(lst$tres, min.LFC=1, max.pval=0.05, ylbls=NULL, maxy=4)
+\begin{figure}[h]
+  \centering
+  <<scvolc, fig.width=6, fig.height=6>>=
+  lst <- test.results(res, mset, pData(mset)$phenotype,
+                        "ctrl","daf2", div, alpha=0.05,
+                        minSpC=0, minLFC=1, method="BH")
+  res.volcanoplot(lst$tres, min.LFC=1, max.pval=0.05, ylbls=NULL, maxy=4)
 @
+\caption{Volcano plot}
+\label{fig:scvolc}
+\end{figure}
 
 Finally, we use a heatmap to visualize relative protein abundances
 across the study samples. In this example we will subset the proteins
 only to the ones that have a fold change (up or down) more then 2-fold
 and pass the 0.05 threshold for the adjusted p-value.
 
-<<>>=
-library("Heatplus")
-regulated <- subset(lst$tres, adjp < 0.05 & abs(LogFC) > 1)
-# order MSnSet object the daf-16 status
-mset <- mset[,order(pData(mset)$phenotype)]
-# matrix with regulated proteins
-selected.data <- exprs(mset[rownames(regulated),])
-# scaling counts from 0 to 1
-selected.data <- sweep(selected.data, 1, apply(selected.data, 1, min), '-')
-selected.data <- sweep(selected.data, 1, apply(selected.data, 1, max), '/')
-heatmap_plus(selected.data,
-             scale='none',
-             col=colorRampPalette(c("snow","steelblue"))(10))
+\begin{figure}[h]
+  \centering
+  <<hmap, fig.width=7, fig.height=7>>=
+  library("Heatplus")
+  regulated <- subset(lst$tres, adjp < 0.05 & abs(LogFC) > 1)
+  ## order MSnSet object the daf-16 status
+  mset <- mset[,order(pData(mset)$phenotype)]
+  ## matrix with regulated proteins
+  selected.data <- exprs(mset[rownames(regulated),])
+  ## scaling counts from 0 to 1
+  selected.data <- sweep(selected.data, 1, apply(selected.data, 1, min), '-')
+  selected.data <- sweep(selected.data, 1, apply(selected.data, 1, max), '/')
+  heatmap_plus(selected.data,
+                 scale='none',
+                 col=colorRampPalette(c("snow","steelblue"))(10))
 @
+\caption{Heatmap of top proteins.}
+\label{fig:hmap}
+\end{figure}
+
+\clearpage
 
 \section{Quality control}\label{sec:qc}
 
@@ -1951,21 +1996,23 @@ subcellular localisation information for the \texttt{ENSG00000002746}
 ensemble gene.
 
 <<annot1, cache=FALSE>>=
-id <- "ENSG00000002746"
+id <- "ENSG00000105323"
 library("hpar")
 getHpa(id, "SubcellularLoc")
 @
 
 Below, we make use of the human annotation package
 \Biocannopkg{org.Hs.eg.db} and the Gene Ontology annotation package
-\Biocannopkg{GO.db} to retrieve the same information as above.
+\Biocannopkg{GO.db} to retrieve compatible information with above.
 
-<<annot2, cache=FALSE, warning = FALSE>>=
-library(org.Hs.eg.db)
-library(GO.db)
-ans <- select(org.Hs.eg.db,
-              keys = id, columns = c("ENSEMBL", "GO", "ONTOLOGY"),
-              keytype = "ENSEMBL")
+
+<<annot2, cache=FALSE, warning=FALSE>>=
+library("org.Hs.eg.db")
+library("GO.db")
+ans <- AnnotationDbi::select(org.Hs.eg.db,
+keys = id,
+columns = c("ENSEMBL", "GO", "ONTOLOGY"),
+keytype = "ENSEMBL")
 ans <- ans[ans$ONTOLOGY == "CC", ]
 ans
 sapply(as.list(GOTERM[ans$GO]), slot, "Term")
@@ -1974,7 +2021,7 @@ sapply(as.list(GOTERM[ans$GO]), slot, "Term")
 Finally, this information can also be retrieved from on-line databases
 using the \Biocpkg{biomaRt} package \cite{Durinck2005}.
 
-<<annot3, cache=TRUE>>=
+<<annot3, cache=TRUE, message=FALSE>>=
 library("biomaRt")
 ensembl <- useMart("ensembl",dataset="hsapiens_gene_ensembl")
 efilter <- "ensembl_gene_id"
@@ -1983,25 +2030,22 @@ bmres <- getBM(attributes=eattr, filters = efilter, values = id, mart = ensembl)
 bmres[bmres$namespace_1003 == "cellular_component", "name_1006"]
 @ %% $
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %% Section
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 \section{Other packages}\label{sec:packages}
 
 \subsection{\Bioconductor{} packages}
-
 
 <<protpacks, echo=FALSE, warning=FALSE, cache=TRUE>>=
 # biocVersion has to be of type character
 biocv <- as.character(biocVersion())
 
 pkTab <- list(Proteomics = proteomicsPackages(biocv),
-              MassSpectrometry = massSpectrometryPackages(biocv),
-              MassSpectrometryData = massSpectrometryDataPackages(biocv))
-@
+MassSpectrometry = massSpectrometryPackages(biocv),
+MassSpectrometryData = massSpectrometryDataPackages(biocv))
+																@
 
 This section provides a complete list of packages available in the
 relevant \Bioconductor{} version \Sexpr{biocv} (as of \today)
@@ -2042,7 +2086,6 @@ print(t2,
       floating = FALSE,
       tabular.environment = 'longtable',
       size = "scriptsize")
-
 @
 
 <<msdatatab, echo=FALSE, results='asis'>>=
@@ -2055,7 +2098,7 @@ print(t3,
       include.rownames = FALSE,
       floating = FALSE,
       tabular.environment = 'longtable',
-      size = "scriptsize")
+      usize = "scriptsize")
 @
 
 The tables can easily be generated with the
@@ -2079,7 +2122,7 @@ np <- length(grep("../packages/", X[x1:x2]))
 @
 
 The CRAN task view on Chemometrics and Computational
-Physics\footnote{\url{http://cran.r-project.org/web/views/ChemPhys.html}}
+p			Physics\footnote{\url{http://cran.r-project.org/web/views/ChemPhys.html}}
 is another useful ressource listing \Sexpr{np} packages, including a
 set of packages for mass spectrometry and proteomics, some of which
 are illustrated in this document.
@@ -2105,6 +2148,25 @@ are illustrated in this document.
   (\url{http://cran.r-project.org/web/packages/titan/index.html}).
 \item[\CRANpkg{digeR}] provides a GUI interface for analysing 2D DIGE data. It
   allows to perform correlation analysis, score plot, classification,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   feature selection and power analysis for
   2D DIGE experiment data. \\
   (\url{http://cran.r-project.org/web/packages/digeR/index.html})
@@ -2127,9 +2189,9 @@ page.
 
 \clearpage
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %% Section
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 \section{Session information}\label{sec:sessionInfo}
 
