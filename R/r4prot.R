@@ -31,7 +31,7 @@ RProtViz <- RProtVis
 ##' @return An instance of class \code{BiocView}. \code{NULL} if the
 ##' the biocView was not found.
 ##' @author Laurent Gatto
-getPackagesInBiocView <- function(view, 
+getPackagesInBiocView <- function(view,
                                   rep = c("BioCsoft", "BioCann",
                                       "BioCexp", "BioCextra"),
                                   biocVersion) {
@@ -39,21 +39,21 @@ getPackagesInBiocView <- function(view,
     data(biocViewsVocab, package = "biocViews", envir = environment())
     rep <- match.arg(rep)
     biocMirror <- getOption("BioC_mirror", "http://bioconductor.org")
-    biocPaths <- switch(rep,         
+    biocPaths <- switch(rep,
                         BioCsoft = "bioc",
-                        BioCann = "data/annotation", 
+                        BioCann = "data/annotation",
                         BioCexp = "data/experiment",
-                        BioCextra = "extra")   
+                        BioCextra = "extra")
     rep <- paste(biocMirror,
                  "packages",
                  biocVersion,
-                 biocPaths, 
-                 sep = "/") 
+                 biocPaths,
+                 sep = "/")
     bv <- getBiocViews(rep, biocViewsVocab, "NoViewProvided")
     if (!view %in% names(bv)) {
         message("BiocView ", view, " not found.")
         return(NULL)
-    }  
+    }
     return(bv[[view]])
 }
 
@@ -67,7 +67,7 @@ getPackagesInBiocView <- function(view,
 ##' replaced by a space.
 ##' @param version A \code{logical} specifying if the package version
 ##' should be added.
-##' @return A \code{data.frame} with package information. 
+##' @return A \code{data.frame} with package information.
 ##' @author Laurent Gatto
 packageDF <- function(x, nsub = TRUE, version = TRUE) {
   Package <- sapply(x@packageList, function(x) x@Package)
@@ -136,10 +136,15 @@ massSpectrometryDataPackages <- function(biocv, cache=FALSE) {
 
 
 msDataTab <- function() {
-    dat <- c("Raw", "Identification", "Identification", "Quantitative", "Peak lists")
-    frmt <- c("mzXML or mzML", "mzIdentML", "mzIdentML", "mzTab", "mgf")
-    robj <- c("mzRpwiz and mzRramp", "mzRident", "mzID", "MSnSet", "MSnExp")
-    pkg <- c("mzR", "mzR", "mzID", "MSnbase", "MSnbase")
+    dat <- c("Raw", "Identification", "Identification",
+             "Quantitative", "Raw", "Peak lists", "Imaging")
+    frmt <- c("mzXML or mzML", "mzIdentML", "mzIdentML", "mzTab",
+              "mzXML or mzML", "mgf", "imzML or Analyze 7.5")
+    robj <- c("mzRpwiz, mzRramp and list of MassSpectrum objects",
+              "mzRident", "mzID", "MSnSet", "MSnExp", "MSnExp",
+              "MSImageSet or list of MassSpectrum objects")
+    pkg <- c("mzR and MALDIquantForeign", "mzR", "mzID", "MSnbase",
+             "MSnbase", "MSnbase", "Cardinal or MALDIquantForeign")
     ans <- data.frame(dat, frmt, robj, pkg)
     colnames(ans) <- c("Data type", "File format", "Data structure", "Package")
     ans
