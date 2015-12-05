@@ -136,15 +136,15 @@ massSpectrometryDataPackages <- function(biocv, cache=FALSE) {
 
 
 msDataTab <- function() {
-    dat <- c("Raw", "Identification", "Identification", "Quantitative",
-             "Peak lists", "Imaging")
-    frmt <- c("mzXML or mzML", "mzIdentML", "mzIdentML", "mzTab", "mgf",
-              "imzML or Analyze 7.5")
+    dat <- c("Raw", "Identification", "Identification",
+             "Quantitative", "Raw", "Peak lists", "Imaging")
+    frmt <- c("mzXML or mzML", "mzIdentML", "mzIdentML", "mzTab",
+              "mzXML or mzML", "mgf", "imzML or Analyze 7.5")
     robj <- c("mzRpwiz, mzRramp and list of MassSpectrum objects",
-              "mzRident", "mzID", "MSnSet", "MSnExp",
+              "mzRident", "mzID", "MSnSet", "MSnExp", "MSnExp",
               "MSImageSet or list of MassSpectrum objects")
-    pkg <- c("mzR and MALDIquantForeign", "mzR", "mzID", "MSnbase", "MSnbase",
-             "Cardinal or MALDIquantForeign")
+    pkg <- c("mzR and MALDIquantForeign", "mzR", "mzID", "MSnbase",
+             "MSnbase", "MSnbase", "Cardinal or MALDIquantForeign")
     ans <- data.frame(dat, frmt, robj, pkg)
     colnames(ans) <- c("Data type", "File format", "Data structure", "Package")
     ans
