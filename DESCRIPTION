@@ -26,7 +26,7 @@ Enhances: cleaver
 Description: This package contains code to illustrate the 'Using R and
 	     Bioconductor for proteomics data analysis' paper. Two
 	     vignettes describe the code and data needed to reproduce
-	     the examples and figures descibed in the paper and
+	     the examples and figures described in the paper and
 	     functionality for proteomics visualisation.
 URL: http://lgatto.github.com/RforProteomics/
 biocViews: ExperimentData, MassSpectrometryData, ReproducibleResearch
