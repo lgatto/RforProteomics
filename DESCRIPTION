@@ -2,7 +2,7 @@ Package: RforProteomics
 Type: Package
 Title: Companion package to the 'Using R and Bioconductor for
         proteomics data analysis' publication
-Version: 1.9.2
+Version: 1.9.4
 Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
                     email="lg390@cam.ac.uk"),
              person("Sebastian", "Gibb", role="ctb",
@@ -26,7 +26,7 @@ Enhances: cleaver
 Description: This package contains code to illustrate the 'Using R and
 	     Bioconductor for proteomics data analysis' paper. Two
 	     vignettes describe the code and data needed to reproduce
-	     the examples and figures descibed in the paper and
+	     the examples and figures described in the paper and
 	     functionality for proteomics visualisation.
 URL: http://lgatto.github.com/RforProteomics/
 biocViews: ExperimentData, MassSpectrometryData, ReproducibleResearch
