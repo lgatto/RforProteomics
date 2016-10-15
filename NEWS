@@ -1,5 +1,9 @@
+CHANGES IN VERSION 1.11.4
+-------------------------
+ o Suggest genefilter <2016-10-15 Sat>
+ 
 CHANGES IN VERSION 1.11.3
-------------------------
+-------------------------
  o Update/compile static vignette for new release <2016-10-07 Fri>
  o Fix typo <2016-03-01 Tue>
  
