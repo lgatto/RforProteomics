@@ -2,7 +2,7 @@ Package: RforProteomics
 Type: Package
 Title: Companion package to the 'Using R and Bioconductor for
         proteomics data analysis' publication
-Version: 1.11.3
+Version: 1.11.4
 Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
                     email="lg390@cam.ac.uk"),
              person("Sebastian", "Gibb", role="ctb",
@@ -21,7 +21,7 @@ Suggests: knitr, rmarkdown, BiocStyle, mzR, xcms, msdata, isobar,
         BRAIN, rols, hpar, GO.db, org.Hs.eg.db, biomaRt, RColorBrewer,
         ggplot2, reshape2, xtable, lattice, mzID, pRoloc, pRolocdata,
         MSGFplus, MSGFgui, MSnID, msmsTests, msmsEDA, corrplot,
-        Heatplus, gplots, VennDiagram
+        Heatplus, gplots, VennDiagram, genefilter
 Enhances: cleaver
 Description: This package contains code to illustrate the 'Using R and
 	     Bioconductor for proteomics data analysis' paper. Two
