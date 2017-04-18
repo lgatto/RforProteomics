@@ -289,12 +289,12 @@ e <- pp.msms.data(msms.dataset)
 ## Models and normalizing condition
 null.f <- "y~batch"
 alt.f <- "y~treat+batch"
-div <- apply(exprs(e),2,sum)
+div <- apply(exprs(e), 2, sum)
 ## Test
-res <- msms.glm.qlll(e,alt.f,null.f,div=div)
-lst <- test.results(res,e,pData(e)$treat,"U600","U200",div,
-                    alpha=0.05,minSpC=2,minLFC=log2(1.8),
-                    method="BH")
+res <- msms.glm.qlll(e, alt.f, null.f, div = div)
+lst <- test.results(res, e, pData(e)$treat, "U600", "U200 ", div,
+                    alpha = 0.05, minSpC = 2, minLFC = log2(1.8),
+                    method = "BH")
 ```
 
 Here, we produce the volcano plot by hand, with the `plot`
@@ -316,11 +316,11 @@ colour the samples according to their phenotypes.
 ```{r volc2}
 ## Plot
 res.volcanoplot(lst$tres,
-                max.pval=0.05,
-                min.LFC=1,
-                maxx=3,
-                maxy=NULL,
-                ylbls=4)
+                max.pval = 0.05,
+                min.LFC = 1,
+                maxx = 3,
+                maxy = NULL,
+                ylbls = 4)
 ```
 
 ## A PCA plot
@@ -332,7 +332,7 @@ package:
 library("msmsEDA")
 data(msms.dataset)
 msnset <- pp.msms.data(msms.dataset)
-lst <- counts.pca(msnset, wait=FALSE)
+lst <- counts.pca(msnset, wait = FALSE)
 ```
 
 It is also possible to generate the PCA data using the
@@ -403,7 +403,7 @@ hist(x)
 plot(density(x))
 ```
 
-## box plots and violin plots
+## Box plots and violin plots
 
 we first extract the `r nrow(tan2009r1)` proteins by `r
 ncol(tan2009r1)` samples data matrix and plot the sample distributions
@@ -418,7 +418,7 @@ boxplot(x)
 beanplot(x[, 1], x[, 2], x[, 3], x[, 4], log = "")
 ```
 
-## line plots
+## Line plots
 
 below, we produce line plots that describe the protein quantitative
 profiles for two sets of proteins, namely er and mitochondrial
@@ -509,7 +509,8 @@ to illustrate `r CRANpkg("latticeExtra")` and `r CRANpkg("ggdendro")`.
 
 ```{r mapsprep}
 library("mzR")
-mzf <- pxget(px1, 6)
+mzf <- pxget(px1,
+             "TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML")
 ms <- openMSfile(mzf)
 
 hd <- header(ms)
@@ -660,7 +661,7 @@ saveGIF(an2(), movie.name = "msanim2.gif")
 library("MSnbase")
 data(itraqdata)
 itraqdata2 <- pickPeaks(itraqdata, verbose = FALSE)
-plot(itraqdata[[25]], full=TRUE, reporters = iTRAQ4)
+plot(itraqdata[[25]], full = TRUE, reporters = iTRAQ4)
 par(oma = c(0, 0, 0, 0))
 par(mar = c(4, 4, 1, 1))
 plot(itraqdata2[[25]], itraqdata2[[28]], sequences = rep("IMIDLDGTENK", 2))
