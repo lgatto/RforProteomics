@@ -1,3 +1,12 @@
+CHANGES IN VERSION 1.13.1
+-------------------------
+ o Fix failing vignette <2017-04-18 Tue>
+ o Update static vignette <2017-04-18 Tue>
+
+CHANGES IN VERSION 1.13.0
+-------------------------
+ o New devel version
+ 
 CHANGES IN VERSION 1.11.4
 -------------------------
  o Suggest genefilter <2016-10-15 Sat>
