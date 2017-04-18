@@ -35,8 +35,6 @@ poster:
 
 stub:
 	cp vigsrc/RforProteomics-stub.Rnw ./RforProteomics.Rnw 
-	cp vigsrc/RProtVis-stub.Rmd ./RProtVis.Rmd
-
 
 vig2: 
 	## Only locally, using default R-devel
