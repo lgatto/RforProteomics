@@ -128,7 +128,7 @@ fundamental differences in these data, the most simple and
 straightforward approach is visualisation to highlight the fundamental
 differences in the datasets.
 
-```{r anscombefig, dev='png'}
+```{r anscombefig}
 ff <- y ~ x
 
 mods <- setNames(as.list(1:4), paste0("lm", 1:4))
