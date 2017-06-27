@@ -79,13 +79,10 @@ getThermoHelaPRTC <- function(src, destdir = ".") {
 ##' @return Invisibly returns the name of the downloaded file.
 ##' @author Laurent Gatto
 getPXD000001mzXML <- function(destdir = ".") {
-    .Deprecated(new = "pxfile",
-                package = "rpx",
-                msg = paste0("Please use the rpx package to download data ",
-                    "from the ProteomeXchaneg repository."))
-  ## src <- "http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML.gz"
-  src2 <- "ftp://ftp.pride.ebi.ac.uk/pride/data/archive/2012/03/PXD000001/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML"
-  downloadData(src2, destdir, FALSE)
+    .Defunct(new = "pxfile",
+             package = "rpx",
+             msg = paste0("Please use the rpx package to download data ",
+                          "from the ProteomeXchaneg repository."))
 }
 
 
@@ -98,12 +95,10 @@ getPXD000001mzXML <- function(destdir = ".") {
 ##' @return Invisibly returns the name of the downloaded file.
 ##' @author Laurent Gatto
 getPXD000001mzTab <- function(destdir = ".") {
-    .Deprecated(new = "pxfile",
-                package = "rpx",
-                msg = paste0("Please use the rpx package to download data ",
-                    "from the ProteomeXchaneg repository."))
-    src <- "ftp://ftp.pride.ebi.ac.uk/pride/data/archive/2012/03/PXD000001/F063721.dat-mztab.txt"
-    downloadData(src, destdir, FALSE)
+    .Defunct(new = "pxfile",
+             package = "rpx",
+             msg = paste0("Please use the rpx package to download data ",
+                          "from the ProteomeXchaneg repository."))
 }
 
 
@@ -116,12 +111,10 @@ getPXD000001mzTab <- function(destdir = ".") {
 ##' @return Invisibly returns the name of the downloaded file.
 ##' @author Laurent Gatto
 getPXD000001mzData <- function(destdir = ".") {
-    .Deprecated(new = "pxfile",
-                package = "rpx",
-                msg = paste0("Please use the rpx package to download data ",
-                    "from the ProteomeXchaneg repository."))
-    src <- "ftp://ftp.pride.ebi.ac.uk/pride/data/archive/2012/03/PXD000001/PRIDE_Exp_Complete_Ac_22134.xml.gz"
-    downloadData(src, destdir, TRUE)
+    .Defunct(new = "pxfile",
+             package = "rpx",
+             msg = paste0("Please use the rpx package to download data ",
+                          "from the ProteomeXchaneg repository."))
 }
 
 

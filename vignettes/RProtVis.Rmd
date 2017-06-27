@@ -1,30 +1,29 @@
 ---
 title: "Visualisation of proteomics data using R and Bioconductor"
+author: 
+- name: Laurent Gatto
+- name: Lisa Breckels
+- name: Sebastian Gibb
+package: RforProteomics
+abstract: >
+  This is the companion vignette to the 'Using R and Bioconductor for 
+  proteomics data analysis' manuscript that presents an overview of R 
+  and Bioconductor software for mass spectrometry and proteomics data. 
+  It provides the code to reproduce the figures in the paper.
 output:
-  BiocStyle::html_document:
-    toc: true
+  BiocStyle::html_document2:
+    toc_float: true
+bibliography: RforProteomics.bib
+vignette: >
+  %\VignetteIndexEntry{Visualisation of proteomics data using R and Bioconductor}
+  %\VignetteEngine{knitr::rmarkdown}
+  %%\VignetteKeywords{bioinformatics, proteomics, mass spectrometry, visualisation}
+  %\VignetteEncoding{UTF-8}
 ---
 
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Visualisation of proteomics data using R and Bioconductor}
-%\VignetteKeyword{bioinformatics, proteomics, mass spectrometry, visualisation}
-%\VignettePackage{RforProteomics}
--->
-
-```{r style, echo = FALSE, results = 'asis', message=FALSE}
+```{r style, echo = FALSE, results = 'asis'}
 BiocStyle::markdown()
 ```
-
-
-**Package:** `r Biocexptpkg("RforProteomics")`<br />
-**Authors:** Authors: [Laurent Gatto](http://cpu.sysbiol.cam.ac.uk/),
-[Lisa Breckels](http://cpu.sysbiol.cam.ac.uk/) and
-[Sebastian Gibb](http://sebastiangibb.de/research.html)
-<br />
-**Last compiled:** `r date()`<br />
-**Last modified:** `r file.info("RProtVis.Rmd")$mtime`
-
 
 ```{r env, message=FALSE, echo=FALSE, warning=FALSE}
 library("RforProteomics")

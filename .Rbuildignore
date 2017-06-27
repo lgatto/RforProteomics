@@ -2,3 +2,4 @@ sandbox
 vignettes/vigsrc
 .gitignore
 README.md
+^docs$
