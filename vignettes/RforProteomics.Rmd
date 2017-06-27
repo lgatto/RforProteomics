@@ -28,6 +28,7 @@ BiocStyle::markdown()
 ```
 
 ```{r env0, echo = FALSE, warning = FALSE, message=FALSE}
+suppressPackageStartupMessages(library("DT"))
 suppressPackageStartupMessages(library("BiocInstaller"))
 suppressPackageStartupMessages(library("mzR"))
 suppressPackageStartupMessages(library("MSnbase"))
@@ -57,7 +58,7 @@ available on [arXiv](http://arxiv.org/abs/1305.6559) and [@Gatto:2015]
 is [open access](http://onlinelibrary.wiley.com/doi/10.1002/pmic.201400392/full).
 
 There are however numerous additional R resources distributed by
-the [Bioconductor(http://www.bioconductor.org)
+the [Bioconductor](http://www.bioconductor.org)
 and [CRAN](http://cran.r-project.org/web/packages/) repositories, as
 well as packages hosted on personal websites. Section
 \@ref(sec:packages) tries to provide a wider picture of available
@@ -74,8 +75,8 @@ From the R project web-page:
 * *An Introduction to R* is based on the former *Notes on R*, gives an
   introduction to the language and how to use R for doing statistical
   analysis and graphics
-  ((html)[http://cran.r-project.org/doc/manuals/R-intro.html] and
-  (pdf)[http://cran.r-project.org/doc/manuals/R-intro.pdf]).
+  ([html](http://cran.r-project.org/doc/manuals/R-intro.html) and
+  [pdf](http://cran.r-project.org/doc/manuals/R-intro.pdf).
 * Several introductory tutorials in the
   [contributed documentation](http://cran.r-project.org/other-docs.html) section.
 * The [TeachingMaterial repository](https://github.com/lgatto/TeachingMaterial) 
@@ -190,8 +191,8 @@ need to be installed prior to the R packages:
 * `r Biocpkg("IPPD")` (and others) depend on the `r CRANpkg("XML")`
   package which requires the `libxml2` infrastructure on Linux. On
   Debian-based systems, one needs to install `libxml2-dev`.
-* `r Biocpkg("biomaRt")` performs on-line requests using the
-  `[curl](<http://curl.haxx.se/) infrastructure. On Debian-based
+* `r Biocpkg("biomaRt")` performs on-line requests using
+  the [`curl`](http://curl.haxx.se/) infrastructure. On Debian-based
   systems, you one needs to install `libcurl-dev` or
   `libcurl4-openssl-dev`.
 * `r Biocpkg("MSGFplus")` is based on the `MS-GF+` java program and
@@ -347,7 +348,6 @@ raw
 ## Extract a single spectrum
 raw[[3]]
 ```
-%% $
 
 
 ```{r msnexp, fig.cap = "The `plot` method can be used on experiments, i.e. spectrum collections (top), or individual spectra (bottom)."}
@@ -1423,7 +1423,6 @@ bmres[bmres$namespace_1003 == "cellular_component", "name_1006"]
 ```{r protpacks, echo=FALSE, warning=FALSE, cache=TRUE}
 # biocVersion has to be of type character
 biocv <- as.character(biocVersion())
-
 pkTab <- list(Proteomics = proteomicsPackages(biocv),
               MassSpectrometry = massSpectrometryPackages(biocv),
               MassSpectrometryData = massSpectrometryDataPackages(biocv))
@@ -1438,54 +1437,24 @@ the tables below represent the packages for the `Proteomics`
 `MassSpectrometryData` (`r nrow(pkTab[["MassSpectrometryData"]])`
 experiment packages) categories.
 
-```{r xtabpkg, echo=FALSE, message=FALSE}
-library("xtable")
+
+```{r protstab, echo=FALSE}
+DT::datatable(pkTab[["Proteomics"]])
 ```
 
-```{r protstab, echo=FALSE, results='asis'}
-t1 <- xtable(pkTab[["Proteomics"]],
-             caption = "Packages available under the \`Proteomics` \*biocViews* category.",
-             table.placement = "thb",
-             label = "tab:prot")
-align(t1) <- c("l", "l", "p{10cm}", "l")
-print(t1,
-      include.rownames = FALSE,
-      floating = FALSE,
-      tabular.environment = 'longtable',
-      size = "scriptsize")
+```{r mstab, echo=FALSE}
+DT::datatable(pkTab[["MassSpectrometry"]])
 ```
 
-```{r mstab, echo=FALSE, results='asis'}
-t2 <- xtable(pkTab[["MassSpectrometry"]],
-             caption = "Packages available under the \`MassSpectrometry` \*biocViews* category.",
-             table.placement = "thb",
-             label = "tab:ms")
-align(t2) <- c("l", "l", "p{10cm}", "l")
-print(t2,
-      include.rownames = FALSE,
-      floating = FALSE,
-      tabular.environment = 'longtable',
-      size = "scriptsize")
+```{r msdatatab, echo=FALSE}
+DT::datatable(pkTab[["MassSpectrometryData"]])
 ```
 
-```{r msdatatab, echo=FALSE, results='asis'}
-t3 <- xtable(pkTab[["MassSpectrometryData"]],
-             caption = "Experimental Packages available under the \`MassSpectrometryData` \*biocViews* category.",
-             table.placement = "thb",
-             label = "tab:msdata")
-align(t3) <- c("l", "l", "p{10cm}", "l")
-print(t3,
-      include.rownames = FALSE,
-      floating = FALSE,
-      tabular.environment = 'longtable',
-      usize = "scriptsize")
-```
+The tables can easily be generated with the `proteomicsPackages`,
+`massSpectrometryPackages` and `massSpectrometryDataPackages`
+functions. The respective package tables can then be interactively
+explored using the `display` function.
 
-The tables can easily be generated with the
-`proteomicsPackages`, `massSpectrometryPackages`
-and `massSpectrometryDataPackages` functions. The respective
-package tables can then be interactively explored using the
-`display` function.
 
 ```{r pkgs, eval=FALSE}
 pp <- proteomicsPackages()
