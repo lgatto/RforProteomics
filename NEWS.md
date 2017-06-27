@@ -2,6 +2,7 @@
 
 ## Changes in version 1.15.1
 - mstut functions <2017-06-27 Tue>
+- Move vignettes to Rmd/html <2017-06-27 Tue>
 
 ## Changes in version 1.15.0
 - New devel version
