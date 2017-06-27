@@ -40,6 +40,7 @@ library("pRoloc")
 library("pRolocdata")
 library("msmsTests")
 library("msmsEDA")
+library("e1071")
 ```
 
 # Introduction
@@ -370,8 +371,8 @@ colnames(plotfuns) <- c("plot type", "traditional", "lattice", "ggplot2")
 kable(plotfuns)
 ```
 
-Below, we are going to use a data from the `r
-Biocexptpkg("pRolocdata")` to illustrate the plotting functions.
+Below, we are going to use a data from the 
+`r Biocexptpkg("pRolocdata")` to illustrate the plotting functions.
 
 ```{r tandata}
 library("pRolocdata")
@@ -540,8 +541,7 @@ library("rgl")
 plot3D(M, rgl = TRUE)
 ```
 
-```{r msdetails}
-
+```{r layout}
 lout <- matrix(NA, ncol = 10, nrow = 8)
 lout[1:2, ] <- 1
 for (ii in 3:4)
@@ -551,14 +551,16 @@ lout[6, ] <- rep(4:8, each = 2)
 lout[7, ] <- rep(9:13, each = 2)
 lout[8, ] <- rep(9:13, each = 2)
 
+```{r msdetails}
 i <- ms1[which(rtsel)][1]
 j <- ms1[which(rtsel)][2]
 ms2 <- (i+1):(j-1)
+```
 
+```{r msdetailsplot, fig.cap = "Accesing and plotting MS data."}
 layout(lout)
-
 par(mar=c(4,2,1,1))
-chromatogram(ms)
+plot(chromatogram(ms)[[1]], type = "l")
 abline(v = hd[i, "retentionTime"], col = "red")
 
 
@@ -579,13 +581,12 @@ plot(peaks(ms, i), type = "l", xlim = c(521, 522.5),
 abline(h = 0)
 abline(v = hd[ms2, "precursorMZ"], col = "#FF000080")
 
-##par(mar = omar)
 par(mar = c(2, 2, 0, 1))
 for (ii in ms2) {
     p <- peaks(ms, ii)
     plot(p, xlab = "", ylab = "", type = "h", cex.axis = .6)
-    legend("topright", legend = paste0("Prec M/Z\n",
-                           round(hd[ii, "precursorMZ"], 2)),
+    legend("topright",
+           legend = paste0("Prec M/Z\n", round(hd[ii, "precursorMZ"], 2)),
            bty = "n", cex = .8)
 }
 
