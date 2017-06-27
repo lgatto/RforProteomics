@@ -29,6 +29,7 @@ BiocStyle::markdown()
 
 ```{r env0, echo = FALSE, warning = FALSE, message=FALSE}
 suppressPackageStartupMessages(library("BiocInstaller"))
+suppressPackageStartupMessages(library("mzR"))
 suppressPackageStartupMessages(library("MSnbase"))
 suppressPackageStartupMessages(library("mzID"))
 suppressPackageStartupMessages(library("rpx"))
@@ -255,7 +256,6 @@ file <- list.files(filepath, pattern="MM14.mzML",
 mz <- openMSfile(file)
 ## demonstraction of data access
 basename(fileName(mz))
-isInitialized(mz)
 runInfo(mz)
 instrumentInfo(mz)
 ## once finished, it is good to explicitely
