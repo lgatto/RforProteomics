@@ -36,19 +36,21 @@ the
 
 ## Data and vignette
 
-The package uses the dataset
-[`PXD000001`](http://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD000001)
-from the [ProteomeXchange](http://www.proteomexchange.org/) repository
-in several examples. The data can be queries and downloaded from `R`
-with the
+The package uses the
+dataset
+[`PXD000001`](http://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD000001) from
+the [ProteomeXchange](http://www.proteomexchange.org/) repository in
+several examples. The data can be queries and downloaded from `R` with
+the
 [`rpx`](http://bioconductor.org/packages/release/bioc/html/rpx.html)
 package. The `RforProteomics` vignette is a detailed document
 containing the exact code to reproduce all the analyses presented in
 the manuscript as well as other application examples. It can be
 accessed once the package is installed (see below) with the
-`RforProteomics()` function. Alternatively, the vignette can be
-downloaded as a pdf file
-[here](http://bioconductor.org/packages/release/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf).
+`RforProteomics()` function. Alternatively, the vignettes can be read
+online
+[here](https://lgatto.github.io/RforProteomics/articles/RforProteomics.html) and
+[here](https://lgatto.github.io/RforProteomics/articles/RProtVis.html).
 
 A second vignette, `RProtVis` focuses on the visualisation of mass
 spectrometry and proteomics data with `R` and Bioconductor. From `R`,
