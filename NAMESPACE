@@ -8,6 +8,7 @@ importFrom("BiocInstaller", "biocVersion")
 importFrom("R.utils", "gunzip")
 importFrom("interactiveDisplay", "display") 
 
+importFrom(graphics, grid, lines, plot)
 
 
 export(getPXD000001mzXML,
@@ -22,3 +23,10 @@ export(getPXD000001mzXML,
        massSpectrometryDataPackages,
        display,
        shinyMA)
+
+S3method(print,ions)
+export(analyse)
+export(analyze)
+export(detect)
+export(new_ions)
+export(spectrum)
