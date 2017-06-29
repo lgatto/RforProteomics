@@ -1,0 +1,181 @@
+---
+title: "Proteomics package usage in Bioconductor"
+author: 
+- name: Laurent Gatto
+package: RforProteomics
+abstract: >
+ The Bioconductor project has been focused on genomics since its very beginning. 
+  Since 2011, the proteomics community is showing growing interest in the project. 
+  To demonstrate this, this vignette uses the numbers of package download to 
+  highlight the interest of both developers (number of packages) and users 
+  (number of downloads).
+output:
+  BiocStyle::html_document2:
+    toc_float: true
+bibliography: RforProteomics.bib
+vignette: >
+  %\VignetteIndexEntry{Proteomics package usage in Bioconductor}
+  %\VignetteEngine{knitr::rmarkdown}
+  %%\VignetteKeywords{bioinformatics, proteomics, mass spectrometry, package}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r style, echo = FALSE, results = 'asis'}
+BiocStyle::markdown()
+```
+
+```{r env, message=FALSE, echo=FALSE, warning=FALSE}
+library("RforProteomics")
+library("BiocStyle")
+library("BiocInstaller")
+library("biocdownloads")
+library("ggplot2")
+library("plotly")
+library("gridExtra")
+library("dplyr")
+library("lubridate")
+library("DT")
+```
+
+# Introduction
+
+## Preparing the data {-}
+
+The `r Githubpkg("biocdownloads")` allows to retrieve the download
+data for any Bioconductor package. The packages we are interested in
+are those that are tagged with the `Proteomics` *biocView*. This list
+of packages can be obtained with the `proteomicsPackages()` function
+from the `r Biocannopkg("RforProteomics")` package.
+
+Let's start by fetching the relevant packages:
+
+```{r protpackages, warning=FALSE}
+library("RforProteomics")
+ppkgs <- rownames(proteomicsPackages())
+head(ppkgs)
+```
+
+There are currently `r length(ppkgs)` proteomics packages in
+Bioconductor version `r BiocInstaller::biocVersion()`.
+
+We can now retrieve their download statistics. We will download the
+data by year and by month.
+
+```{r biocdownloads, cache=TRUE}
+library("biocdownloads")
+pmonthly <- pkg_download_data(ppkgs, by = "month", quiet = TRUE)
+pyearly <- pkg_download_data(ppkgs, by  = "year", quiet = TRUE)
+```
+
+The download data are provided as `tibbles`. There are respectively
+`r nrow(pmonthly)` monthly and `r nrow(pyearly)` yearly data points
+for the `r length(ppkgs)` packages. The download data range from 
+`r min(pmonthly$Date)` to `r max(pmonthly$Date)`. 
+
+As a final pre-processing step, all dates with zero downloads, 
+
+```{r filterfuture}
+pmonthly <- pmonthly %>%
+    filter(Date <= ymd(format(Sys.time(), "%Y %m %d ")))
+```
+
+# Number of packages
+
+Let's start by looking at the number of proteomics-related packages
+have been present in the Bioconductor project. 
+
+```{r nbpkgs, fig.cap = "Number of proteomics packages."}
+nbp <- pmonthly %>% group_by(Date) %>% count()
+ggplot(nbp, aes(x = Date, y = n)) + geom_line()
+```
+
+```{r newp, echo=FALSE}
+unb <- unique(nbp$n)
+n <- length(unb)
+newp <- diff(unb)
+m <- length(newp)
+```
+The figure above shows that in 2011 and in the years thereafter, the
+Bioconductor project has accepted a growing number of proteomics
+packages. Since 2009, there were `r paste(unb[1:(n-1)], collapse = ", ")`
+and `r unb[n]` packages, corresponding to 
+`r paste(newp[1:(m-1)], collapse = ", ")` and `r newp[m]` new packages.
+
+While several of these packages have been produced by the same
+developers^[It would be interesting to also map the number of new
+developer/contributors over time.], these figures indicate an
+increased interest in computational proteomics community.
+
+# Number of downloads 
+
+Let's start by looking at the yearly number of downloads. 
+
+```{r nnbdown}
+ggplot(pyearly, aes(x = Year, y = Nb_of_distinct_IPs, group = package)) +
+    geom_line() + geom_point()
+```
+
+The very high number of download in 2013 and 2014 for the 
+`r Biocpkg("mzR")` package are most likely an artefact. Let set these
+to 5000 and 7500, corresponding to a linear from 2012 to 2015.
+
+```{r fixdata, echo=FALSE}
+mzrsel <- pyearly$package == "mzR"
+pyearly[mzrsel & pyearly$Year == 2013, "Nb_of_distinct_IPs"] <- 5000
+pyearly[mzrsel & pyearly$Year == 2014, "Nb_of_distinct_IPs"] <- 7500
+```
+
+The figure below is interactive and hoverting above the points
+highlights the package name, and the exact number of unique downloads.
+
+```{r nbdownly, message=FALSE}
+p <- ggplot(pyearly, aes(x = Year, y = Nb_of_distinct_IPs, group = package)) +
+    geom_line() + geom_point()
+library("plotly")
+ggplotly(p)
+```
+
+```{r dltrends}
+
+download_diff <- function(x)
+    diff(x$Nb_of_distinct_IPs)
+
+tmp <- pyearly %>%
+    filter(Year < as.numeric(format(Sys.time(),"%Y"))) %>% 
+    group_by(package) %>%
+    arrange(package, Year)
+
+
+    
+
+
+
+```
+
+## Top downloaded packages
+
+```{r}
+pyearly %>% filter(Year == 2017) %>%
+    arrange(desc(Nb_of_distinct_IPs)) %>%
+    datatable()
+```
+
+## `r Biocpkg("MSnbase")` downloads
+
+```{r, fig.width = 12}
+x <- pmonthly %>% filter(package == "MSGFplus")
+library("lubridate")
+library("gridExtra")
+p1 <- ggplot(x, aes(x = Date, y = Nb_of_distinct_IPs)) +
+    geom_line(aes(colour = factor(Year)))
+p2 <- ggplot(x, aes(x = month(Date), y = Nb_of_distinct_IPs, group = Year)) +
+    geom_line(aes(colour = factor(Year)))
+grid.arrange(p1, p2, ncol = 2)
+```
+
+
+# Session information
+
+```{r si}
+print(sessionInfo(), locale = FALSE)
+```
