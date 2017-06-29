@@ -3,6 +3,7 @@
 ## Changes in version 1.15.1
 - mstut functions <2017-06-27 Tue>
 - Move vignettes to Rmd/html <2017-06-27 Tue>
+- New vignette about proteomics package downloads <2017-06-29 Thu>
 
 ## Changes in version 1.15.0
 - New devel version
