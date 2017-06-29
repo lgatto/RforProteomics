@@ -35,6 +35,7 @@ library("gridExtra")
 library("dplyr")
 library("lubridate")
 library("DT")
+this_year <- as.numeric(format(Sys.time(),"%Y"))
 ```
 
 # Introduction
@@ -72,11 +73,14 @@ The download data are provided as `tibbles`. There are respectively
 for the `r length(ppkgs)` packages. The download data range from 
 `r min(pmonthly$Date)` to `r max(pmonthly$Date)`. 
 
-As a final pre-processing step, all dates with zero downloads, 
+As a final pre-processing step, all dates with zero downloads, which
+correspond to month were data wasn't (during the month preceding
+package acceptance) or hasn't yet (from this month to the end of the
+year) collected.
 
 ```{r filterfuture}
 pmonthly <- pmonthly %>%
-    filter(Date <= ymd(format(Sys.time(), "%Y %m %d ")))
+    filter(Nb_of_distinct_IPs > 0)
 ```
 
 # Number of packages
@@ -85,8 +89,8 @@ Let's start by looking at the number of proteomics-related packages
 have been present in the Bioconductor project. 
 
 ```{r nbpkgs, fig.cap = "Number of proteomics packages."}
-nbp <- pmonthly %>% group_by(Date) %>% count()
-ggplot(nbp, aes(x = Date, y = n)) + geom_line()
+nbp <- pyearly %>% group_by(Year) %>% count()
+ggplot(nbp, aes(x = Year, y = n)) + geom_line() + geom_point()
 ```
 
 ```{r newp, echo=FALSE}
@@ -99,7 +103,8 @@ The figure above shows that in 2011 and in the years thereafter, the
 Bioconductor project has accepted a growing number of proteomics
 packages. Since 2009, there were `r paste(unb[1:(n-1)], collapse = ", ")`
 and `r unb[n]` packages, corresponding to 
-`r paste(newp[1:(m-1)], collapse = ", ")` and `r newp[m]` new packages.
+`r paste(newp[1:(m-1)], collapse = ", ")` and `r newp[m]` 
+new packages per year.
 
 While several of these packages have been produced by the same
 developers^[It would be interesting to also map the number of new
@@ -108,16 +113,32 @@ increased interest in computational proteomics community.
 
 # Number of downloads 
 
-Let's start by looking at the yearly number of downloads. 
+Let's start by looking at the total yearly number of downloads (figure
+below). The total number of yearly downloads shows a confincing
+increase since 2011. 
 
-```{r nnbdown}
-ggplot(pyearly, aes(x = Year, y = Nb_of_distinct_IPs, group = package)) +
-    geom_line() + geom_point()
+```{r nnbdown, fig.cap = "Total yearly download for all proteomics packages."}
+alldwn <- pyearly %>%
+    filter(Year < as.numeric(format(Sys.time(),"%Y"))) %>%
+    group_by(Year) %>%
+    summarise(Downloads = sum(Nb_of_distinct_IPs))
+ggplot(alldwn, aes(x = Year, y = Downloads)) +
+    geom_point() + geom_line()
 ```
 
-The very high number of download in 2013 and 2014 for the 
-`r Biocpkg("mzR")` package are most likely an artefact. Let set these
-to 5000 and 7500, corresponding to a linear from 2012 to 2015.
+When looking at individual packages however (below), the trend seems
+to hold for all packages, most of which have a constant of slight
+up/down trend.
+
+```{r nnbdown2, fig.cap = "Yearly number of download by package."}
+ggplot(pyearly, aes(x = Date, y = Nb_of_distinct_IPs, group = package)) +
+    geom_point() + geom_line() 
+```
+
+The very high number of download in 2013 and 2014 for one package (it
+is the `r Biocpkg("mzR")`, see below) are most likely an artefact. Let
+set these to 5000 and 7500, corresponding to a linear from 2012 to
+2015.
 
 ```{r fixdata, echo=FALSE}
 mzrsel <- pyearly$package == "mzR"
@@ -125,7 +146,7 @@ pyearly[mzrsel & pyearly$Year == 2013, "Nb_of_distinct_IPs"] <- 5000
 pyearly[mzrsel & pyearly$Year == 2014, "Nb_of_distinct_IPs"] <- 7500
 ```
 
-The figure below is interactive and hoverting above the points
+The next figure is interactive and hovering above the points
 highlights the package name, and the exact number of unique downloads.
 
 ```{r nbdownly, message=FALSE}
@@ -135,42 +156,70 @@ library("plotly")
 ggplotly(p)
 ```
 
-```{r dltrends}
-
-download_diff <- function(x)
-    diff(x$Nb_of_distinct_IPs)
-
-tmp <- pyearly %>%
-    filter(Year < as.numeric(format(Sys.time(),"%Y"))) %>% 
-    group_by(package) %>%
-    arrange(package, Year)
-
-
-    
-
-
-
-```
-
 ## Top downloaded packages
 
-```{r}
-pyearly %>% filter(Year == 2017) %>%
+The table below show the yearly download data, ordered by number of
+downloads from unque IP addresses for this year (the `this_year`
+variable is set to `this_year`).
+
+```{r toppkgs}
+pyearly %>% filter(Year == this_year) %>%
     arrange(desc(Nb_of_distinct_IPs)) %>%
     datatable()
 ```
 
-## `r Biocpkg("MSnbase")` downloads
+## Package download data
 
-```{r, fig.width = 12}
-x <- pmonthly %>% filter(package == "MSGFplus")
+```{r plotpkgdown}
 library("lubridate")
 library("gridExtra")
-p1 <- ggplot(x, aes(x = Date, y = Nb_of_distinct_IPs)) +
-    geom_line(aes(colour = factor(Year)))
-p2 <- ggplot(x, aes(x = month(Date), y = Nb_of_distinct_IPs, group = Year)) +
-    geom_line(aes(colour = factor(Year)))
-grid.arrange(p1, p2, ncol = 2)
+plotpkgdown <- function(pkg, dwndata = pmonthly) {
+    x <- dwndata %>% filter(package == pkg)
+    p1 <- ggplot(x, aes(x = Date, y = Nb_of_distinct_IPs)) +
+        geom_line(aes(colour = factor(Year)))
+    p2 <- ggplot(x, aes(x = month(Date),
+                        y = Nb_of_distinct_IPs,
+                        group = Year)) +
+        geom_line(aes(colour = factor(Year)))
+    grid.arrange(p1, p2, ncol = 2)
+}
+```
+
+```{r, echo = FALSE}
+printpkgdesc <- function(pkg) {
+    desc <- packageDescription(pkg)$Description
+    desc <- paste(desc, collapse = "")
+    desc <- gsub("\n", "", desc)
+    desc <- gsub(" + ", " ", desc)
+    desc
+}
+```
+
+### `r Biocpkg("mzR")` downloads {-}
+
+`r printpkgdesc("mzR")`
+
+```{r, echo = FALSE, fig.width = 12}
+plotpkgdown("mzR")
+```
+
+Note that the anormal spike at the end of 2013 and beginning of 2014
+is still present in the monthly data below.
+
+### `r Biocpkg("pathview")` downloads {-}
+
+`r printpkgdesc("pathview")`
+
+```{r, echo = FALSE, fig.width = 12}
+plotpkgdown("pathview")
+```
+
+### `r Biocpkg("MSnbase")` downloads {-}
+
+`r printpkgdesc("MSnbase")`
+
+```{r, echo = FALSE, fig.width = 12}
+plotpkgdown("MSnbase")
 ```
 
 
