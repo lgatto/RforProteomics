@@ -1,5 +1,10 @@
+R_HOME = "$(shell R RHOME)"
+
 RforProteomics.html: RforProteomics.Rmd
-	Rscript -e 'rmarkdown::render("RforProteomics.Rmd")'
+	"$(R_HOME)/bin/Rscript" -e 'rmarkdown::render("RforProteomics.Rmd")'
+
+pkgsdownloads.html: pkgsdownloads.Rmd
+	"$(R_HOME)/bin/Rscript" -e 'rmarkdown::render("pkgsdownloads.Rmd")'
 
 clean: 
 	rm -fr auto cache figure
