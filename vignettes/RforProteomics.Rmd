@@ -766,7 +766,7 @@ cat("\\end{texshade}
 ### N15 incorporation {-}
 
 
-```{r n15, fig.cap = "Isotopic envelope for the `YEVQGEVFTKPQLWP` peptide at different N15 incorporation rates "}
+```{r n15, fig.height = 15, fig.cap = "Isotopic envelope for the `YEVQGEVFTKPQLWP` peptide at different N15 incorporation rates "}
 ## 15N incorporation rates from 0, 0.1, ..., 0.9, 0.95, 1
 incrate <- c(seq(0, 0.9, 0.1), 0.95, 1)
 inc <- lapply(incrate, function(inc)
