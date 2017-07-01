@@ -28,6 +28,7 @@ BiocStyle::markdown()
 ```{r env, message=FALSE, echo=FALSE, warning=FALSE}
 library("RforProteomics")
 library("BiocInstaller")
+library("DT")
 library("mzR")
 library("MSnbase")
 library("knitr")
@@ -81,20 +82,26 @@ pp <- proteomicsPackages()
 msp <- massSpectrometryPackages()
 ```
 
-There are currently `r nrow(pp)`
-[Proteomics](http://bioconductor.org/packages/devel/BiocViews.html#___Proteomics)
-and `r nrow(msp)`
-[MassSpectrometry](http://bioconductor.org/packages/devel/BiocViews.html#___MassSpectrometry)
-packages in Bioconductor version `r as.character(biocVersion())`.
-Other non-Bioconductor packages are described in the `r Biocexptpkg("RforProteomics")`
-[vignette](http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf).
+There are currently `r
+nrow(pp)`
+[Proteomics](http://bioconductor.org/packages/devel/BiocViews.html#___Proteomics) and
+`r
+nrow(msp)`
+[MassSpectrometry](http://bioconductor.org/packages/devel/BiocViews.html#___MassSpectrometry) packages
+in Bioconductor version `r as.character(biocVersion())`.  Other
+non-Bioconductor packages are described in the `r
+Biocexptpkg("RforProteomics")` vignette (open it in R with
+`RforProteomics()` or read
+it
+[online](file:///home/lg390/dev/00_github/RforProteomics/docs/articles/RforProteomics.html).)
 
-```{r pptab, echo=FALSE, results='asis'}
-kable(pp, format = "html")
+
+```{r pptab, echo=FALSE}
+DT::datatable(pp)
 ```
 
-```{r msptab, echo=FALSE, results='asis'}
-kable(msp, format = "html")
+```{r msptab, echo=FALSE}
+DT::datatable(msp)
 ```
 
 # Ascombe's quartet
