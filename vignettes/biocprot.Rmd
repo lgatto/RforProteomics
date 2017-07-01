@@ -1,20 +1,21 @@
 ---
-title: "Proteomics package usage in Bioconductor"
+title: "Proteomics packages in Bioconductor"
 author: 
 - name: Laurent Gatto
 package: RforProteomics
 abstract: >
  The Bioconductor project has been focused on genomics since its very beginning. 
   Since 2011, the proteomics community is showing growing interest in the project. 
-  To demonstrate this, this vignette uses the numbers of package download to 
-  highlight the interest of both developers (number of packages) and users 
-  (number of downloads).
+  To demonstrate this, I report on the numbers of package, their interdependencies 
+  and their downloads to highlight the interest of both developers (number of packages 
+  and their dependencies) and users (number of downloads).  
 output:
   BiocStyle::html_document2:
     toc_float: true
+    self_contained: true	
 bibliography: RforProteomics.bib
 vignette: >
-  %\VignetteIndexEntry{Proteomics package usage in Bioconductor}
+  %\VignetteIndexEntry{Proteomics packages in Bioconductor}
   %\VignetteEngine{knitr::rmarkdown}
   %%\VignetteKeywords{bioinformatics, proteomics, mass spectrometry, package}
   %\VignetteEncoding{UTF-8}
@@ -28,7 +29,7 @@ BiocStyle::markdown()
 library("RforProteomics")
 library("BiocStyle")
 library("BiocInstaller")
-library("biocdownloads")
+library("biocpkgs")
 library("ggplot2")
 library("plotly")
 library("gridExtra")
@@ -40,9 +41,9 @@ this_year <- as.numeric(format(Sys.time(),"%Y"))
 
 # Introduction
 
-## Preparing the data {-}
+## Preparing the download data {-}
 
-The `r Githubpkg("biocdownloads")` allows to retrieve the download
+The `r Githubpkg("biocpkgs")` allows to retrieve the download
 data for any Bioconductor package. The packages we are interested in
 are those that are tagged with the `Proteomics` *biocView*. This list
 of packages can be obtained with the `proteomicsPackages()` function
@@ -63,7 +64,7 @@ We can now retrieve their download statistics. We will download the
 data by year and by month.
 
 ```{r biocdownloads, cache=TRUE}
-library("biocdownloads")
+library("biocpkgs")
 pmonthly <- pkg_download_data(ppkgs, by = "month", quiet = TRUE)
 pyearly <- pkg_download_data(ppkgs, by  = "year", quiet = TRUE)
 ```
@@ -82,6 +83,10 @@ year) collected.
 pmonthly <- pmonthly %>%
     filter(Nb_of_distinct_IPs > 0)
 ```
+
+## Package dependencies
+
+TODO
 
 # Number of packages
 
