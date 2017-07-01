@@ -36,3 +36,11 @@ vignettes/RforProteomics.html
 vignettes/RforProteomics_cache
 vignettes/RforProteomics_files
 vignettes/RProtVis_files
+docs/articles/Makefile
+docs/articles/P00924.fasta
+docs/articles/PXD000001_mztab.txt
+docs/articles/TMT_Erwinia_1uLSike_Top10HCD_isol2_*
+docs/articles/RforProteomics_cache/
+docs/articles/biocprot_cache/
+docs/articles/RProtVis_cache/
+docs/articles/output.2*
