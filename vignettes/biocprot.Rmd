@@ -85,22 +85,9 @@ pmonthly <- pmonthly %>%
     filter(Nb_of_distinct_IPs > 0)
 ```
 
-<<<<<<< HEAD:vignettes/biocprot.Rmd
 ## Package dependencies
 
 TODO
-=======
-<!-- ## Package dependencies -->
-
-<!-- ```{r pkgdeps, cache=TRUE} -->
-<!-- ## Current Bioc devel -->
-<!-- biocUrl <- BiocInstaller::biocinstallRepos()["BioCsoft"] -->
-<!-- ## Make dependency graph -->
-<!-- library("pkgDepTools") -->
-<!-- biocDeps <- makeDepGraph(biocUrl, type = "source", -->
-<!--                          dosize = FALSE) -->
-<!-- ``` -->
->>>>>>> 44cc692929b72f1947ea6052e075dccd10b4b577:vignettes/biocprot.Rmd
 
 # Number of packages
 
