@@ -507,7 +507,7 @@ We reuse our dedicated `px1` ProteomeXchange data object to
 download the raw data (in `mzXML` format) and load it with the
 `readMSData` from the `r Biocpkg("MSnbase")` package that
 produces a raw data experiment object of class `MSnExp` (a new
-`readMSData2` function is now available to access the raw
+*on-disk* infrastructure is now available to access the raw
 data on disk on demand, rather than loading it all in memory, enabling
 the management of more and larger files - see the
 `benchmarking` vignette in the `r Biocpkg("MSnbase")` package for
