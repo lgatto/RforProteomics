@@ -11,7 +11,7 @@ abstract: >
   and Bioconductor software for mass spectrometry and proteomics data. 
   It provides the code to reproduce the figures in the paper.
 output:
-  BiocStyle::html_document2:
+  BiocStyle::html_document:
     toc_float: true
 bibliography: RforProteomics.bib
 vignette: >
@@ -27,6 +27,7 @@ BiocStyle::markdown()
 
 ```{r env, message=FALSE, echo=FALSE, warning=FALSE}
 library("RforProteomics")
+library("protViz")
 library("BiocInstaller")
 library("DT")
 library("mzR")
@@ -462,7 +463,7 @@ x
 ```{r mrkplot, fig.height=7, fig.width=12}
 par(mfrow = c(1, 2))
 barplot(x)
-dotchart(x)
+dotchart(as.numeric(x))
 ```
 
 <!-- ### Strip plots -->
@@ -557,6 +558,7 @@ lout[5, ] <- rep(4:8, each = 2)
 lout[6, ] <- rep(4:8, each = 2)
 lout[7, ] <- rep(9:13, each = 2)
 lout[8, ] <- rep(9:13, each = 2)
+```
 
 ```{r msdetails}
 i <- ms1[which(rtsel)][1]
@@ -569,8 +571,6 @@ layout(lout)
 par(mar=c(4,2,1,1))
 plot(chromatogram(ms)[[1]], type = "l")
 abline(v = hd[i, "retentionTime"], col = "red")
-
-
 par(mar = c(3, 2, 1, 0))
 plot(peaks(ms, i), type = "l", xlim = c(400, 1000))
 legend("topright", bty = "n",
@@ -581,13 +581,10 @@ abline(h = 0)
 abline(v = hd[ms2, "precursorMZ"],
        col = c("#FF000080",
            rep("#12121280", 9)))
-
 par(mar = c(3, 0.5, 1, 1))
-plot(peaks(ms, i), type = "l", xlim = c(521, 522.5),
-     yaxt = "n")
+plot(peaks(ms, i), type = "l", xlim = c(521, 522.5), yaxt = "n")
 abline(h = 0)
 abline(v = hd[ms2, "precursorMZ"], col = "#FF000080")
-
 par(mar = c(2, 2, 0, 1))
 for (ii in ms2) {
     p <- peaks(ms, ii)
@@ -596,7 +593,6 @@ for (ii in ms2) {
            legend = paste0("Prec M/Z\n", round(hd[ii, "precursorMZ"], 2)),
            bty = "n", cex = .8)
 }
-
 ```
 
 

@@ -13,7 +13,7 @@ abstract: >
   and Bioconductor software for mass spectrometry and proteomics data. 
   It provides the code to reproduce the figures in the paper.
 output:
-  BiocStyle::html_document2:
+  BiocStyle::html_document:
     toc_float: true
 bibliography: RforProteomics.bib
 vignette: >
