@@ -6,9 +6,10 @@ import("MSnbase")
 importFrom("Biobase", "addVigs2WinMenu")
 importFrom("BiocInstaller", "biocVersion")
 importFrom("R.utils", "gunzip")
+importFrom("utils", "data", "download.file", "vignette")
 importFrom("interactiveDisplay", "display") 
-
-
+importFrom("graphics", "abline", "par", "points")
+importFrom(graphics, grid, lines, plot)
 
 export(getPXD000001mzXML,
        getPXD000001mzTab,
@@ -22,3 +23,10 @@ export(getPXD000001mzXML,
        massSpectrometryDataPackages,
        display,
        shinyMA)
+
+S3method(print,ions)
+export(analyse)
+export(analyze)
+export(detect)
+export(new_ions)
+export(spectrum)

@@ -1,34 +1,35 @@
 ---
 title: "Visualisation of proteomics data using R and Bioconductor"
+author: 
+- name: Laurent Gatto
+- name: Lisa Breckels
+- name: Sebastian Gibb
+package: RforProteomics
+abstract: >
+  This is the companion vignette to the 'Using R and Bioconductor for 
+  proteomics data analysis' manuscript that presents an overview of R 
+  and Bioconductor software for mass spectrometry and proteomics data. 
+  It provides the code to reproduce the figures in the paper.
 output:
   BiocStyle::html_document:
-    toc: true
+    toc_float: true
+bibliography: RforProteomics.bib
+vignette: >
+  %\VignetteIndexEntry{Visualisation of proteomics data using R and Bioconductor}
+  %\VignetteEngine{knitr::rmarkdown}
+  %%\VignetteKeywords{bioinformatics, proteomics, mass spectrometry, visualisation}
+  %\VignetteEncoding{UTF-8}
 ---
 
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Visualisation of proteomics data using R and Bioconductor}
-%\VignetteKeyword{bioinformatics, proteomics, mass spectrometry, visualisation}
-%\VignettePackage{RforProteomics}
--->
-
-```{r style, echo = FALSE, results = 'asis', message=FALSE}
+```{r style, echo = FALSE, results = 'asis'}
 BiocStyle::markdown()
 ```
 
-
-**Package:** `r Biocexptpkg("RforProteomics")`<br />
-**Authors:** Authors: [Laurent Gatto](http://cpu.sysbiol.cam.ac.uk/),
-[Lisa Breckels](http://cpu.sysbiol.cam.ac.uk/) and
-[Sebastian Gibb](http://sebastiangibb.de/research.html)
-<br />
-**Last compiled:** `r date()`<br />
-**Last modified:** `r file.info("RProtVis.Rmd")$mtime`
-
-
 ```{r env, message=FALSE, echo=FALSE, warning=FALSE}
 library("RforProteomics")
+library("protViz")
 library("BiocInstaller")
+library("DT")
 library("mzR")
 library("MSnbase")
 library("knitr")
@@ -41,6 +42,7 @@ library("pRoloc")
 library("pRolocdata")
 library("msmsTests")
 library("msmsEDA")
+library("e1071")
 ```
 
 # Introduction
@@ -81,20 +83,26 @@ pp <- proteomicsPackages()
 msp <- massSpectrometryPackages()
 ```
 
-There are currently `r nrow(pp)`
-[Proteomics](http://bioconductor.org/packages/devel/BiocViews.html#___Proteomics)
-and `r nrow(msp)`
-[MassSpectrometry](http://bioconductor.org/packages/devel/BiocViews.html#___MassSpectrometry)
-packages in Bioconductor version `r as.character(biocVersion())`.
-Other non-Bioconductor packages are described in the `r Biocexptpkg("RforProteomics")`
-[vignette](http://bioconductor.org/packages/devel/data/experiment/vignettes/RforProteomics/inst/doc/RforProteomics.pdf).
+There are currently `r
+nrow(pp)`
+[Proteomics](http://bioconductor.org/packages/devel/BiocViews.html#___Proteomics) and
+`r
+nrow(msp)`
+[MassSpectrometry](http://bioconductor.org/packages/devel/BiocViews.html#___MassSpectrometry) packages
+in Bioconductor version `r as.character(biocVersion())`.  Other
+non-Bioconductor packages are described in the `r
+Biocexptpkg("RforProteomics")` vignette (open it in R with
+`RforProteomics()` or read
+it
+[online](file:///home/lg390/dev/00_github/RforProteomics/docs/articles/RforProteomics.html).)
 
-```{r pptab, echo=FALSE, results='asis'}
-kable(pp, format = "html")
+
+```{r pptab, echo=FALSE}
+DT::datatable(pp)
 ```
 
-```{r msptab, echo=FALSE, results='asis'}
-kable(msp, format = "html")
+```{r msptab, echo=FALSE}
+DT::datatable(msp)
 ```
 
 # Ascombe's quartet
@@ -129,7 +137,7 @@ fundamental differences in these data, the most simple and
 straightforward approach is visualisation to highlight the fundamental
 differences in the datasets.
 
-```{r anscombefig, dev='png'}
+```{r anscombefig}
 ff <- y ~ x
 
 mods <- setNames(as.list(1:4), paste0("lm", 1:4))
@@ -371,8 +379,8 @@ colnames(plotfuns) <- c("plot type", "traditional", "lattice", "ggplot2")
 kable(plotfuns)
 ```
 
-Below, we are going to use a data from the `r
-Biocexptpkg("pRolocdata")` to illustrate the plotting functions.
+Below, we are going to use a data from the 
+`r Biocexptpkg("pRolocdata")` to illustrate the plotting functions.
 
 ```{r tandata}
 library("pRolocdata")
@@ -455,7 +463,7 @@ x
 ```{r mrkplot, fig.height=7, fig.width=12}
 par(mfrow = c(1, 2))
 barplot(x)
-dotchart(x)
+dotchart(as.numeric(x))
 ```
 
 <!-- ### Strip plots -->
@@ -541,8 +549,7 @@ library("rgl")
 plot3D(M, rgl = TRUE)
 ```
 
-```{r msdetails}
-
+```{r layout}
 lout <- matrix(NA, ncol = 10, nrow = 8)
 lout[1:2, ] <- 1
 for (ii in 3:4)
@@ -551,18 +558,19 @@ lout[5, ] <- rep(4:8, each = 2)
 lout[6, ] <- rep(4:8, each = 2)
 lout[7, ] <- rep(9:13, each = 2)
 lout[8, ] <- rep(9:13, each = 2)
+```
 
+```{r msdetails}
 i <- ms1[which(rtsel)][1]
 j <- ms1[which(rtsel)][2]
 ms2 <- (i+1):(j-1)
+```
 
+```{r msdetailsplot, fig.cap = "Accesing and plotting MS data."}
 layout(lout)
-
 par(mar=c(4,2,1,1))
-chromatogram(ms)
+plot(chromatogram(ms)[[1]], type = "l")
 abline(v = hd[i, "retentionTime"], col = "red")
-
-
 par(mar = c(3, 2, 1, 0))
 plot(peaks(ms, i), type = "l", xlim = c(400, 1000))
 legend("topright", bty = "n",
@@ -573,23 +581,18 @@ abline(h = 0)
 abline(v = hd[ms2, "precursorMZ"],
        col = c("#FF000080",
            rep("#12121280", 9)))
-
 par(mar = c(3, 0.5, 1, 1))
-plot(peaks(ms, i), type = "l", xlim = c(521, 522.5),
-     yaxt = "n")
+plot(peaks(ms, i), type = "l", xlim = c(521, 522.5), yaxt = "n")
 abline(h = 0)
 abline(v = hd[ms2, "precursorMZ"], col = "#FF000080")
-
-##par(mar = omar)
 par(mar = c(2, 2, 0, 1))
 for (ii in ms2) {
     p <- peaks(ms, ii)
     plot(p, xlab = "", ylab = "", type = "h", cex.axis = .6)
-    legend("topright", legend = paste0("Prec M/Z\n",
-                           round(hd[ii, "precursorMZ"], 2)),
+    legend("topright",
+           legend = paste0("Prec M/Z\n", round(hd[ii, "precursorMZ"], 2)),
            bty = "n", cex = .8)
 }
-
 ```
 
 
