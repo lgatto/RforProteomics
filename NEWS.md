@@ -1,5 +1,8 @@
 # RforProteomics 1.0
 
+## Changes in version 1.15.2
+- Bump to sync with Bioc <2017-10-19 Thu>
+
 ## Changes in version 1.15.1
 - mstut functions <2017-06-27 Tue>
 - Move vignettes to Rmd/html <2017-06-27 Tue>
