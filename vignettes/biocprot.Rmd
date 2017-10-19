@@ -10,7 +10,7 @@ abstract: >
   and their downloads to highlight the interest of both developers (number of packages 
   and their dependencies) and users (number of downloads).  
 output:
-  BiocStyle::html_document2:
+  BiocStyle::html_document:
     toc_float: true
     self_contained: true	
 bibliography: RforProteomics.bib
@@ -44,7 +44,7 @@ this_year <- as.numeric(format(Sys.time(),"%Y"))
 
 ## Preparing the download data {-}
 
-The `r Githubpkg("biocpkgs")` allows to retrieve the download
+The `r Githubpkg("lgatto/biocpkgs")` allows to retrieve the download
 data for any Bioconductor package. The packages we are interested in
 are those that are tagged with the `Proteomics` *biocView*. This list
 of packages can be obtained with the `proteomicsPackages()` function
