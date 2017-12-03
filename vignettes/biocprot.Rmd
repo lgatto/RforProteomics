@@ -133,8 +133,8 @@ ggplot(alldwn, aes(x = Year, y = Downloads)) +
 ```
 
 When looking at individual packages however (below), the trend seems
-to hold for all packages, most of which have a constant of slight
-up/down trend.
+to hold for most packages, which show a slight but consistent
+upwards trend.
 
 ```{r nnbdown2, fig.cap = "Yearly number of download by package."}
 ggplot(pyearly, aes(x = Date, y = Nb_of_distinct_IPs, group = package)) +
