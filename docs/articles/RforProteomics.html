@@ -380,8 +380,8 @@ raw</code></pre></div>
 ##  Number of spectra: 5 
 ##  MSn retention times: 25:1 - 25:2 minutes
 ## - - - Processing information - - -
-## Data loaded: Thu Oct 19 22:38:00 2017 
-##  MSnbase version: 2.3.13 
+## Data loaded: Sun Dec  3 21:10:52 2017 
+##  MSnbase version: 2.4.0 
 ## - - - Meta data  - - -
 ## phenoData
 ##   rowNames: dummyiTRAQ.mzXML
@@ -449,6 +449,7 @@ px1</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Downloading the mzTab data
 mztab &lt;-<span class="st"> </span><span class="kw">pxget</span>(px1, <span class="st">"PXD000001_mztab.txt"</span>)</code></pre></div>
 <pre><code>## Downloading 1 file</code></pre>
+<pre><code>## /home/lg390/dev/RforProteomics/docs/articles/PXD000001_mztab.txt already present.</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mztab</code></pre></div>
 <pre><code>## [1] "/home/lg390/dev/RforProteomics/docs/articles/PXD000001_mztab.txt"</code></pre>
 <p>The code below loads the <code>mzTab</code> file into R and generates an <code>MSnSet</code> instance<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, removes missing values and calculates protein intensities by summing the peptide quantitation data. The figure below illustrates the intensities for 5 proteins.</p>
@@ -469,11 +470,11 @@ qnt &lt;-<span class="st"> </span><span class="kw">readMzTabData</span>(mztab, <
 qnt &lt;-<span class="st"> </span><span class="kw">filterNA</span>(qnt)
 <span class="kw">processingData</span>(qnt)</code></pre></div>
 <pre><code>## - - - Processing information - - -
-## mzTab read: Thu Oct 19 22:38:14 2017 
-## Subset [2351,6][1504,6] Thu Oct 19 22:38:14 2017 
-## Removed features with more than 0 NAs: Thu Oct 19 22:38:14 2017 
-## Dropped featureData's levels Thu Oct 19 22:38:14 2017 
-##  MSnbase version: 2.3.13</code></pre>
+## mzTab read: Sun Dec  3 21:11:03 2017 
+## Subset [2351,6][1504,6] Sun Dec  3 21:11:03 2017 
+## Removed features with more than 0 NAs: Sun Dec  3 21:11:03 2017 
+## Dropped featureData's levels Sun Dec  3 21:11:03 2017 
+##  MSnbase version: 2.4.0</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## combine into proteins
 ## - using the 'accession' feature meta data
 ## - sum the peptide intensities
@@ -1071,7 +1072,7 @@ param &lt;-<span class="st"> </span><span class="kw">setParamValue</span>(param,
 ## Unique models = 41
 ## Estimated false positives = 1 +/- 1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">basename</span>(resultPath)</code></pre></div>
-<pre><code>## [1] "output.2017_10_19_23_00_23.t.xml"</code></pre>
+<pre><code>## [1] "output.2017_12_03_21_11_27.t.xml"</code></pre>
 </div>
 <div id="import-and-analyse-results" class="section level3 unnumbered">
 <h3 class="hasAnchor">
@@ -1530,7 +1531,7 @@ bmres[bmres<span class="op">$</span>namespace_<span class="dv">1003</span> <span
 ## 
 ## Matrix products: default
 ## BLAS: /usr/lib/atlas-base/libf77blas.so.3.0
-## LAPACK: /usr/lib/lapack/liblapack.so.3.0
+## LAPACK: /usr/lib/atlas-base/atlas/liblapack.so.3.0
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_GB.UTF-8          LC_NUMERIC=C                 
@@ -1545,68 +1546,68 @@ bmres[bmres<span class="op">$</span>namespace_<span class="dv">1003</span> <span
 ##  [8] datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] biomaRt_2.33.4         MSnID_1.11.0           cleaver_1.15.1        
-##  [4] OrgMassSpecR_0.5-3     msdata_0.17.1          reshape2_1.4.2        
-##  [7] ggplot2_2.2.1          RColorBrewer_1.1-2     RforProteomics_1.15.1 
-## [10] MSGFgui_1.11.0         xlsx_0.5.7             xlsxjars_0.6.1        
-## [13] rJava_0.9-9            MSGFplus_1.11.1        rTANDEM_1.17.0        
-## [16] data.table_1.10.4-2    Rdisop_1.37.0          RcppClassic_0.9.8     
-## [19] GO.db_3.4.2            org.Hs.eg.db_3.4.2     AnnotationDbi_1.39.4  
-## [22] BRAIN_1.23.0           lattice_0.20-35        Biostrings_2.45.4     
-## [25] XVector_0.17.1         IRanges_2.11.19        S4Vectors_0.15.12     
-## [28] PolynomF_0.94          hpar_1.19.1            rols_2.5.5            
-## [31] IPPD_1.25.0            bitops_1.0-6           digest_0.6.12         
-## [34] XML_3.98-1.9           Matrix_1.2-11          MASS_7.3-47           
-## [37] MALDIquantForeign_0.11 MALDIquant_1.16.4      isobar_1.23.0         
-## [40] rpx_1.13.4             mzID_1.15.0            MSnbase_2.3.13        
-## [43] ProtGenerics_1.9.1     BiocParallel_1.11.11   Biobase_2.37.2        
-## [46] BiocGenerics_0.23.3    mzR_2.11.12            Rcpp_0.12.13          
-## [49] BiocInstaller_1.27.5   DT_0.2                 BiocStyle_2.5.41      
+##  [1] MSnID_1.12.1           cleaver_1.16.0         OrgMassSpecR_0.5-3    
+##  [4] msdata_0.18.0          reshape2_1.4.2         ggplot2_2.2.1         
+##  [7] RColorBrewer_1.1-2     RforProteomics_1.15.1  MSGFgui_1.12.0        
+## [10] xlsx_0.5.7             xlsxjars_0.6.1         rJava_0.9-9           
+## [13] MSGFplus_1.12.0        rTANDEM_1.18.0         data.table_1.10.4-3   
+## [16] Rdisop_1.38.0          RcppClassic_0.9.9      GO.db_3.5.0           
+## [19] org.Hs.eg.db_3.5.0     AnnotationDbi_1.40.0   BRAIN_1.24.0          
+## [22] lattice_0.20-35        Biostrings_2.46.0      XVector_0.18.0        
+## [25] IRanges_2.12.0         S4Vectors_0.16.0       PolynomF_1.0-1        
+## [28] hpar_1.20.0            rols_2.7.1             IPPD_1.26.0           
+## [31] bitops_1.0-6           digest_0.6.12          XML_3.98-1.9          
+## [34] Matrix_1.2-11          MASS_7.3-47            MALDIquantForeign_0.11
+## [37] MALDIquant_1.17        isobar_1.24.0          rpx_1.14.0            
+## [40] mzID_1.16.0            MSnbase_2.4.0          ProtGenerics_1.10.0   
+## [43] BiocParallel_1.12.0    Biobase_2.38.0         BiocGenerics_0.24.0   
+## [46] mzR_2.12.0             Rcpp_0.12.14           BiocInstaller_1.28.0  
+## [49] DT_0.2                 BiocStyle_2.6.0       
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] backports_1.1.1               plyr_1.8.4                   
-##  [3] lazyeval_0.2.0                GSEABase_1.39.5              
+##  [3] lazyeval_0.2.1                GSEABase_1.40.1              
 ##  [5] splines_3.4.2                 foreach_1.4.3                
 ##  [7] htmltools_0.3.6               magrittr_1.5                 
 ##  [9] memoise_1.1.0                 doParallel_1.0.11            
-## [11] sfsmisc_1.1-1                 limma_3.33.14                
-## [13] shinyFiles_0.6.2              annotate_1.55.0              
-## [15] R.utils_2.5.0                 prettyunits_1.0.2            
+## [11] sfsmisc_1.1-1                 limma_3.34.2                 
+## [13] shinyFiles_0.6.2              annotate_1.56.1              
+## [15] R.utils_2.6.0                 prettyunits_1.0.2            
 ## [17] colorspace_1.3-2              blob_1.1.0                   
 ## [19] dplyr_0.7.4                   RCurl_1.95-4.8               
 ## [21] jsonlite_1.5                  readBrukerFlexData_1.8.5     
-## [23] graph_1.55.0                  genefilter_1.59.0            
-## [25] bindr_0.1                     impute_1.51.0                
-## [27] glue_1.1.1                    survival_2.41-3              
+## [23] graph_1.56.0                  genefilter_1.60.0            
+## [25] bindr_0.1                     impute_1.52.0                
+## [27] glue_1.2.0                    survival_2.41-3              
 ## [29] iterators_1.0.8               distr_2.6.2                  
-## [31] gtable_0.2.0                  zlibbioc_1.23.0              
+## [31] gtable_0.2.0                  zlibbioc_1.24.0              
 ## [33] readMzXmlData_2.8.1           R.cache_0.12.0               
-## [35] scales_0.5.0                  vsn_3.45.2                   
+## [35] scales_0.5.0                  vsn_3.46.0                   
 ## [37] DBI_0.7                       SweaveListingUtils_0.7.7     
 ## [39] xtable_1.8-2                  progress_1.1.2               
 ## [41] bit_1.1-12                    preprocessCore_1.39.3        
 ## [43] htmlwidgets_0.9               httr_1.3.1                   
 ## [45] pkgconfig_2.0.1               R.methodsS3_1.7.1            
 ## [47] RJSONIO_1.3-0                 labeling_0.3                 
-## [49] rlang_0.1.2                   munsell_0.4.3                
-## [51] biocViews_1.45.1              tools_3.4.2                  
+## [49] rlang_0.1.4                   munsell_0.4.3                
+## [51] biocViews_1.46.0              tools_3.4.2                  
 ## [53] RSQLite_2.0                   evaluate_0.10.1              
 ## [55] stringr_1.2.0                 yaml_2.1.14                  
 ## [57] knitr_1.17                    bit64_0.9-7                  
-## [59] bindrcpp_0.2                  RBGL_1.53.0                  
+## [59] bindrcpp_0.2                  RBGL_1.54.0                  
 ## [61] mime_0.5                      R.oo_1.21.0                  
-## [63] xml2_1.1.1                    compiler_3.4.2               
-## [65] curl_3.0                      interactiveDisplayBase_1.15.0
-## [67] affyio_1.47.1                 tibble_1.3.4                 
-## [69] stringi_1.1.5                 highr_0.6                    
-## [71] startupmsg_0.9.4              RUnit_0.4.31                 
-## [73] httpuv_1.3.5                  R6_2.2.2                     
-## [75] pcaMethods_1.69.0             affy_1.55.0                  
-## [77] gridSVG_1.5-1                 codetools_0.2-15             
-## [79] assertthat_0.2.0              interactiveDisplay_1.15.0    
-## [81] Category_2.43.2               rprojroot_1.2                
-## [83] rmarkdown_1.6                 shiny_1.0.5                  
-## [85] base64enc_0.1-3</code></pre>
+## [63] xml2_1.1.9000                 biomaRt_2.34.0               
+## [65] compiler_3.4.2                curl_3.0                     
+## [67] interactiveDisplayBase_1.16.0 affyio_1.48.0                
+## [69] tibble_1.3.4                  stringi_1.1.6                
+## [71] highr_0.6                     startupmsg_0.9.4             
+## [73] RUnit_0.4.31                  httpuv_1.3.5                 
+## [75] R6_2.2.2                      pcaMethods_1.70.0            
+## [77] affy_1.56.0                   gridSVG_1.6-0                
+## [79] codetools_0.2-15              assertthat_0.2.0             
+## [81] interactiveDisplay_1.16.0     Category_2.44.0              
+## [83] rprojroot_1.2                 rmarkdown_1.8                
+## [85] shiny_1.0.5                   base64enc_0.1-3</code></pre>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
