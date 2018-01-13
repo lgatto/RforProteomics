@@ -31,10 +31,10 @@ BiocStyle::markdown()
 suppressPackageStartupMessages(library("DT"))
 suppressPackageStartupMessages(library("BiocInstaller"))
 suppressPackageStartupMessages(library("mzR"))
+## suppressPackageStartupMessages(library("isobar"))
 suppressPackageStartupMessages(library("MSnbase"))
 suppressPackageStartupMessages(library("mzID"))
 suppressPackageStartupMessages(library("rpx"))
-suppressPackageStartupMessages(library("isobar"))
 suppressPackageStartupMessages(library("MALDIquant"))
 suppressPackageStartupMessages(library("MALDIquantForeign"))
 suppressPackageStartupMessages(library("IPPD"))
@@ -777,12 +777,17 @@ for (i in 1:length(inc))
        main = paste0("15N incorporation at ", incrate[i]*100, "%"))
 ```
 
-## The `r Biocpkg("isobar package")`
+## The `r Biocpkg("isobar")` package
 
-The `r Biocpkg("isobar")` package [@Breitwieser2011] provides methods for the statistical
-analysis of isobarically tagged MS2 experiments.
+The `r Biocpkg("isobar")` package [@Breitwieser2011] provides methods
+for the statistical analysis of isobarically tagged MS2 experiments.
 
-```{r isobar, cache=TRUE, tidy=FALSE}
+#### Note
+
+The `isobar` code chunks were failing in the context of the vignette
+and aren't being evaludated at the moment. 
+
+```{r isobar, cache=TRUE, tidy=FALSE, eval=FALSE}
 library("isobar")
 
 ## Prepare the PXD000001 data for isobar analysis
@@ -802,7 +807,7 @@ x <- new("TMT6plexSpectra", pgtbl, .ions, .mass)
 featureData(x)$proteins <- as.character(fData(qnt)$accession)
 
 x <- correctIsotopeImpurities(x) ## using identity matrix here
-x <- normalize(x, per.file = FALSE)
+x <- isobar::normalize(x, per.file = FALSE)
 ## spikes
 spks <- c(protein.g(proteinGroup(x), "P00489"),
           protein.g(proteinGroup(x), "P00924"),
@@ -861,7 +866,7 @@ rat.exp <- c(PHO = 2/2,
 
 
 
-```{r ibplot, fig.caption = "Result from the `r Biocpkg('isobar')` pipeline."}
+```{r ibplot, fig.caption = "Result from the `r Biocpkg('isobar')` pipeline.", eval=FALSE}
 maplot(x,
        noise.model = c(nm.background, nm.spks, nm),
        channel1="127", channel2="129",
@@ -875,7 +880,23 @@ legend("topright",
        bty = "n", cex = .7)
 ```
 
+![Result from the isobar pipeline.](./figures/isobar-fig.png)
 
+
+## The `r Biocpkg("DEP")`  package
+
+The `r Biocpkg("DEP")` package supports analysis of label-free and TMT
+pipelines using, as described in its vignette. These can be used with
+`MSnSet` objects by converting them to/from `SummarizedExperiment`
+objects:
+
+```{r msnsetse}
+data(msnset)
+se <- as(msnset, "SummarizedExperiment")
+se
+ms <- as(se, "MSnSet")
+ms
+```
 
 ## The `r Biocpkg("synapter")` package
 
@@ -895,9 +916,10 @@ synapterGuide()
 
 # MS2 spectra identification
 
-At the moment two packages allow the user to run peptide identifications from
-within R. Each of the packages interface to an external peptide database search
-tool and have more or less the same workflow, though their syntax differs:
+At the moment two packages allow the user to run peptide
+identifications from within R. Each of the packages interface to an
+external peptide database search tool and have more or less the same
+workflow, though their syntax differs:
 
 - Prepare the input data.
 - Run the search.

@@ -37,7 +37,8 @@ library("dplyr")
 library("lubridate")
 library("DT")
 library("pkgDepTools")
-this_year <- as.numeric(format(Sys.time(),"%Y"))
+## this_year <- as.numeric(format(Sys.time(),"%Y"))
+this_year <- 2017
 ```
 
 # Introduction
@@ -96,7 +97,7 @@ have been present in the Bioconductor project.
 
 ```{r nbpkgs, fig.cap = "Number of proteomics packages."}
 nbp <- pyearly %>% group_by(Year) %>% count()
-ggplot(nbp, aes(x = Year, y = n)) + geom_line() + geom_point()
+ggplot(nbp, aes(x = Year, y = n, group = 1)) + geom_line() + geom_point()
 ```
 
 ```{r newp, echo=FALSE}
@@ -133,8 +134,8 @@ ggplot(alldwn, aes(x = Year, y = Downloads)) +
 ```
 
 When looking at individual packages however (below), the trend seems
-to hold for all packages, most of which have a constant of slight
-up/down trend.
+to hold for most packages, which show a slight but consistent
+upwards trend.
 
 ```{r nnbdown2, fig.cap = "Yearly number of download by package."}
 ggplot(pyearly, aes(x = Date, y = Nb_of_distinct_IPs, group = package)) +
@@ -166,7 +167,7 @@ ggplotly(p)
 
 The table below show the yearly download data, ordered by number of
 downloads from unque IP addresses for this year (the `this_year`
-variable is set to `this_year`).
+variable is set to `r this_year`).
 
 ```{r toppkgs}
 pyearly %>% filter(Year == this_year) %>%

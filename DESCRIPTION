@@ -2,7 +2,7 @@ Package: RforProteomics
 Type: Package
 Title: Companion package to the 'Using R and Bioconductor for
     proteomics data analysis' publication
-Version: 1.17.0
+Version: 1.17.1
 Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
                     email="lg390@cam.ac.uk"),
              person("Sebastian", "Gibb", role="ctb",
@@ -13,7 +13,7 @@ Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
                     email='thomasp85@gmail.com'))
 Maintainer: Laurent Gatto <lg390@cam.ac.uk>
 Depends:
-    MSnbase
+    MSnbase (>= 2.5.3)
 Imports:
     R.utils,
     Biobase,
@@ -21,6 +21,8 @@ Imports:
     biocViews,
     BiocInstaller,
     interactiveDisplay,
+    DT,
+    AnnotationDbi,
     shiny
 Suggests:
     knitr,
@@ -39,11 +41,13 @@ Suggests:
     IPPD,
     Rdisop,
     OrgMassSpecR,
+    SummarizedExperiment,    
     BRAIN,
     rols,
     hpar,
     GO.db,
     org.Hs.eg.db,
+    e1071,
     biomaRt,
     RColorBrewer,
     ggplot2,
@@ -58,10 +62,13 @@ Suggests:
     MSnID,
     msmsTests,
     msmsEDA,
+    DEP,
     corrplot,
+    beanplot,
     Heatplus,
     gplots,
     VennDiagram,
+    protViz,
     genefilter
 Enhances: cleaver
 Description: This package contains code to illustrate the 'Using R and
