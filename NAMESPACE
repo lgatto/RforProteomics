@@ -8,8 +8,9 @@ importFrom("BiocInstaller", "biocVersion")
 importFrom("R.utils", "gunzip")
 importFrom("utils", "data", "download.file", "vignette")
 importFrom("interactiveDisplay", "display") 
-importFrom("graphics", "abline", "par", "points")
-importFrom(graphics, grid, lines, plot)
+importFrom("graphics", "abline", "par", "points", "grid", "lines")
+importFrom("DT", "datatable")
+importFrom("AnnotationDbi", "select")
 
 export(getPXD000001mzXML,
        getPXD000001mzTab,
