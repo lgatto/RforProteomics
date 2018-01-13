@@ -782,6 +782,11 @@ for (i in 1:length(inc))
 The `r Biocpkg("isobar")` package [@Breitwieser2011] provides methods
 for the statistical analysis of isobarically tagged MS2 experiments.
 
+#### Note
+
+The `isobar` code chunks were failing in the context of the vignette
+and aren't being evaludated at the moment. 
+
 ```{r isobar, cache=TRUE, tidy=FALSE, eval=FALSE}
 library("isobar")
 
