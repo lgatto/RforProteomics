@@ -1,5 +1,15 @@
 # RforProteomics 1.0
 
+## Changes in version 1.17.1
+- Fix/update vignettes <2018-01-12 Fri>
+- Add mention of DEP package <2018-01-13 Sat>
+
+## Changes in version 1.17.0
+- New Bioc devel version
+
+## Changes in version 1.16.0
+- New Bioc release version
+
 ## Changes in version 1.15.2
 - Bump to sync with Bioc <2017-10-19 Thu>
 
