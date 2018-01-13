@@ -2,6 +2,7 @@
 
 ## Changes in version 1.15.3
 - Fix/update vignettes <2018-01-12 Fri>
+- Add mention of DEP package <2018-01-13 Sat>
 
 ## Changes in version 1.15.2
 - Bump to sync with Bioc <2017-10-19 Thu>
