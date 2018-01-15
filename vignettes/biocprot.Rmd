@@ -65,6 +65,12 @@ Bioconductor version `r BiocInstaller::biocVersion()`.
 We can now retrieve their download statistics. We will download the
 data by year and by month.
 
+```{r fix, echo=FALSE}
+## Strangely, an error occurs when trying to download the data for
+## package omicRexposome - remove it from the list
+ppkgs <- setdiff(ppkgs, "omicRexposome")
+```
+
 ```{r biocdownloads, cache=TRUE}
 library("biocpkgs")
 pmonthly <- pkg_download_data(ppkgs, by = "month", quiet = TRUE)

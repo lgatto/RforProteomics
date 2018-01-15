@@ -380,7 +380,7 @@ raw</code></pre></div>
 ##  Number of spectra: 5 
 ##  MSn retention times: 25:1 - 25:2 minutes
 ## - - - Processing information - - -
-## Data loaded: Sat Jan 13 21:30:09 2018 
+## Data loaded: Sun Jan 14 22:22:13 2018 
 ##  MSnbase version: 2.5.4 
 ## - - - Meta data  - - -
 ## phenoData
@@ -449,6 +449,7 @@ px1</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Downloading the mzTab data
 mztab &lt;-<span class="st"> </span><span class="kw">pxget</span>(px1, <span class="st">"PXD000001_mztab.txt"</span>)</code></pre></div>
 <pre><code>## Downloading 1 file</code></pre>
+<pre><code>## /home/lg390/dev/RforProteomics/docs/articles/PXD000001_mztab.txt already present.</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mztab</code></pre></div>
 <pre><code>## [1] "/home/lg390/dev/RforProteomics/docs/articles/PXD000001_mztab.txt"</code></pre>
 <p>The code below loads the <code>mzTab</code> file into R and generates an <code>MSnSet</code> instance<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, removes missing values and calculates protein intensities by summing the peptide quantitation data. The figure below illustrates the intensities for 5 proteins.</p>
@@ -469,10 +470,10 @@ qnt &lt;-<span class="st"> </span><span class="kw">readMzTabData</span>(mztab, <
 qnt &lt;-<span class="st"> </span><span class="kw">filterNA</span>(qnt)
 <span class="kw">processingData</span>(qnt)</code></pre></div>
 <pre><code>## - - - Processing information - - -
-## mzTab read: Sat Jan 13 21:30:21 2018 
-## Subset [2351,6][1504,6] Sat Jan 13 21:30:21 2018 
-## Removed features with more than 0 NAs: Sat Jan 13 21:30:21 2018 
-## Dropped featureData's levels Sat Jan 13 21:30:21 2018 
+## mzTab read: Sun Jan 14 22:22:22 2018 
+## Subset [2351,6][1504,6] Sun Jan 14 22:22:22 2018 
+## Removed features with more than 0 NAs: Sun Jan 14 22:22:22 2018 
+## Dropped featureData's levels Sun Jan 14 22:22:22 2018 
 ##  MSnbase version: 2.5.4</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## combine into proteins
 ## - using the 'accession' feature meta data
@@ -1099,7 +1100,7 @@ param &lt;-<span class="st"> </span><span class="kw">setParamValue</span>(param,
 ## Unique models = 41
 ## Estimated false positives = 1 +/- 1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">basename</span>(resultPath)</code></pre></div>
-<pre><code>## [1] "output.2018_01_13_21_35_12.t.xml"</code></pre>
+<pre><code>## [1] "output.2018_01_14_22_22_45.t.xml"</code></pre>
 </div>
 <div id="import-and-analyse-results" class="section level3 unnumbered">
 <h3 class="hasAnchor">
@@ -1570,31 +1571,31 @@ bmres[bmres<span class="op">$</span>namespace_<span class="dv">1003</span> <span
 ##  [8] datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] biomaRt_2.35.5           MSnID_1.13.0            
-##  [3] cleaver_1.17.0           OrgMassSpecR_0.5-3      
-##  [5] msdata_0.19.0            reshape2_1.4.3          
-##  [7] ggplot2_2.2.1.9000       RColorBrewer_1.1-2      
-##  [9] RforProteomics_1.15.1    MSGFgui_1.13.0          
-## [11] xlsx_0.5.7               xlsxjars_0.6.1          
-## [13] rJava_0.9-9              MSGFplus_1.13.0         
-## [15] rTANDEM_1.19.0           data.table_1.10.4-3     
-## [17] Rdisop_1.39.0            RcppClassic_0.9.9       
-## [19] GO.db_3.5.0              org.Hs.eg.db_3.5.0      
-## [21] AnnotationDbi_1.41.4     BRAIN_1.25.0            
-## [23] lattice_0.20-35          Biostrings_2.47.1       
-## [25] XVector_0.19.2           IRanges_2.13.7          
-## [27] S4Vectors_0.17.18        PolynomF_1.0-1          
-## [29] hpar_1.21.0              rols_2.7.2              
-## [31] IPPD_1.27.0              bitops_1.0-6            
-## [33] digest_0.6.13            XML_3.98-1.9            
-## [35] Matrix_1.2-12            MASS_7.3-48             
-## [37] MALDIquantForeign_0.11.1 MALDIquant_1.17         
-## [39] rpx_1.15.0               mzID_1.17.0             
-## [41] MSnbase_2.5.4            ProtGenerics_1.11.0     
-## [43] BiocParallel_1.13.1      Biobase_2.39.1          
-## [45] BiocGenerics_0.25.1      mzR_2.13.3              
-## [47] Rcpp_0.12.14             BiocInstaller_1.29.3    
-## [49] DT_0.2                   BiocStyle_2.7.2         
+##  [1] MSnID_1.13.0             cleaver_1.17.0          
+##  [3] OrgMassSpecR_0.5-3       msdata_0.19.0           
+##  [5] reshape2_1.4.3           ggplot2_2.2.1.9000      
+##  [7] RColorBrewer_1.1-2       RforProteomics_1.15.1   
+##  [9] MSGFgui_1.13.0           xlsx_0.5.7              
+## [11] xlsxjars_0.6.1           rJava_0.9-9             
+## [13] MSGFplus_1.13.0          rTANDEM_1.19.0          
+## [15] data.table_1.10.4-3      Rdisop_1.39.0           
+## [17] RcppClassic_0.9.9        GO.db_3.5.0             
+## [19] org.Hs.eg.db_3.5.0       AnnotationDbi_1.41.4    
+## [21] BRAIN_1.25.0             lattice_0.20-35         
+## [23] Biostrings_2.47.1        XVector_0.19.2          
+## [25] IRanges_2.13.7           S4Vectors_0.17.18       
+## [27] PolynomF_1.0-1           hpar_1.21.0             
+## [29] rols_2.7.2               IPPD_1.27.0             
+## [31] bitops_1.0-6             digest_0.6.13           
+## [33] XML_3.98-1.9             Matrix_1.2-12           
+## [35] MASS_7.3-48              MALDIquantForeign_0.11.1
+## [37] MALDIquant_1.17          rpx_1.15.0              
+## [39] mzID_1.17.0              MSnbase_2.5.4           
+## [41] ProtGenerics_1.11.0      BiocParallel_1.13.1     
+## [43] Biobase_2.39.1           BiocGenerics_0.25.1     
+## [45] mzR_2.13.3               Rcpp_0.12.14            
+## [47] BiocInstaller_1.29.3     DT_0.2                  
+## [49] BiocStyle_2.7.2         
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] backports_1.1.2               plyr_1.8.4                   
