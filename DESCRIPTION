@@ -87,3 +87,4 @@ VignetteBuilder: knitr
 Author: Laurent Gatto [aut, cre], Thomas Lin Pedersen [ctb],
     Sebastian Gibb [ctb], Vlad Petyuk [ctb]
 RoxygenNote: 5.0.1
+
