@@ -121,8 +121,9 @@ new packages per year.
 
 While several of these packages have been produced by the same
 developers^[It would be interesting to also map the number of new
-developer/contributors over time.], these figures indicate an
-increased interest in computational proteomics community.
+developer/contributors over time. See `biocpkg::contribs` for some
+code to achieve this.], these figures indicate an increased interest
+in computational proteomics community.
 
 # Number of downloads 
 
