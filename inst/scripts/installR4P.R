@@ -17,10 +17,11 @@ installR4P <- function(v = "0.2.2", deps = TRUE) {
   if (length(deps) > 0) {
     message("[R4P] Installing dependencies...")        
     if (!require("BiocInstaller")) {
-      source("http://www.bioconductor.org/biocLite.R")
+      if (!requireNamespace("BiocManager", quietly=TRUE))
+          install.packages("BiocManager")
       useDevel(TRUE)
     }
-    biocLite(deps, suppressUpdates = TRUE)
+    BiocManager::install(deps, suppressUpdates = TRUE)
   }
 
   message("[R4P] Installing RforProteomics...")

@@ -28,7 +28,7 @@ BiocStyle::markdown()
 ```{r env, message=FALSE, echo=FALSE, warning=FALSE}
 library("RforProteomics")
 library("protViz")
-library("BiocInstaller")
+library("BiocManager")
 library("DT")
 library("mzR")
 library("MSnbase")
