@@ -29,7 +29,7 @@ BiocStyle::markdown()
 
 ```{r env0, echo = FALSE, warning = FALSE, message=FALSE}
 suppressPackageStartupMessages(library("DT"))
-suppressPackageStartupMessages(library("BiocInstaller"))
+suppressPackageStartupMessages(library("BiocManager"))
 suppressPackageStartupMessages(library("mzR"))
 ## suppressPackageStartupMessages(library("isobar"))
 suppressPackageStartupMessages(library("MSnbase"))
@@ -154,17 +154,18 @@ The package should be installed using as described below:
 
 ```{r installation, eval = FALSE}
 ## only first time you install Bioconductor packages
-source("http://www.bioconductor.org/biocLite.R")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
 ## else
-library("BiocInstaller")
-biocLite("RforProteomics")
+library("BiocManager")
+BiocManager::install("RforProteomics")
 ```
 
 To install all dependencies and reproduce the code in the vignette,
 replace the last line in the code chunk above with:)
 
 ```{r installation2, eval = FALSE}
-biocLite("RforProteomics", dependencies = TRUE)
+BiocManager::install("RforProteomics", dependencies = TRUE)
 ```
 
 Finally, the package can be loaded with
