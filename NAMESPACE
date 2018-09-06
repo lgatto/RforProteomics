@@ -4,7 +4,7 @@ import("shiny")
 import("MSnbase")
 
 importFrom("Biobase", "addVigs2WinMenu")
-importFrom("BiocInstaller", "biocVersion")
+importFrom("BiocManager", "version")
 importFrom("R.utils", "gunzip")
 importFrom("utils", "data", "download.file", "vignette")
 importFrom("interactiveDisplay", "display") 
