@@ -28,7 +28,7 @@ BiocStyle::markdown()
 ```{r env, message=FALSE, echo=FALSE, warning=FALSE}
 library("RforProteomics")
 library("protViz")
-library("BiocInstaller")
+library("BiocManager")
 library("DT")
 library("mzR")
 library("MSnbase")
@@ -89,7 +89,7 @@ nrow(pp)`
 `r
 nrow(msp)`
 [MassSpectrometry](http://bioconductor.org/packages/devel/BiocViews.html#___MassSpectrometry) packages
-in Bioconductor version `r as.character(biocVersion())`.  Other
+in Bioconductor version `r as.character(version())`.  Other
 non-Bioconductor packages are described in the `r
 Biocexptpkg("RforProteomics")` vignette (open it in R with
 `RforProteomics()` or read

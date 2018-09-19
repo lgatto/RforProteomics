@@ -2,7 +2,7 @@ Package: RforProteomics
 Type: Package
 Title: Companion package to the 'Using R and Bioconductor for
     proteomics data analysis' publication
-Version: 1.19.1
+Version: 1.19.3
 Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
                     email="lg390@cam.ac.uk"),
              person("Sebastian", "Gibb", role="ctb",
@@ -19,7 +19,7 @@ Imports:
     Biobase,
     rpx,
     biocViews,
-    BiocInstaller,
+    BiocManager,
     interactiveDisplay,
     DT,
     AnnotationDbi,
