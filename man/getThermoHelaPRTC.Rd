@@ -28,10 +28,9 @@ getThermoHelaPRTC("design")
 getThermoHelaPRTC("all")
 }
 }
-\author{
-Laurent Gatto
-}
 \seealso{
 \code{downloadData}
 }
-
+\author{
+Laurent Gatto
+}

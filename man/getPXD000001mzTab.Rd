@@ -20,4 +20,3 @@ in the \code{destdir} directory. The resulting file is named
 \author{
 Laurent Gatto
 }
-
