@@ -1,6 +1,6 @@
 ---
 title: "Using R for proteomics data analysis"
-author: 
+author:
 - name: Laurent Gatto
 - name: Lisa Breckels
 - name: Vlad Petyuk
@@ -8,9 +8,9 @@ author:
 - name: Sebastian Gibb
 package: RforProteomics
 abstract: >
-  This is the companion vignette to the 'Visualisation of proteomics data 
-  using R and Bioconductor' manuscript that presents an overview of R 
-  and Bioconductor software for mass spectrometry and proteomics data. 
+  This is the companion vignette to the 'Visualisation of proteomics data
+  using R and Bioconductor' manuscript that presents an overview of R
+  and Bioconductor software for mass spectrometry and proteomics data.
   It provides the code to reproduce the figures in the paper.
 output:
   BiocStyle::html_document:
@@ -29,7 +29,7 @@ BiocStyle::markdown()
 
 ```{r env0, echo = FALSE, warning = FALSE, message=FALSE}
 suppressPackageStartupMessages(library("DT"))
-suppressPackageStartupMessages(library("BiocInstaller"))
+suppressPackageStartupMessages(library("BiocManager"))
 suppressPackageStartupMessages(library("mzR"))
 ## suppressPackageStartupMessages(library("isobar"))
 suppressPackageStartupMessages(library("MSnbase"))
@@ -79,7 +79,7 @@ From the R project web-page:
   [pdf](http://cran.r-project.org/doc/manuals/R-intro.pdf).
 * Several introductory tutorials in the
   [contributed documentation](http://cran.r-project.org/other-docs.html) section.
-* The [TeachingMaterial repository](https://github.com/lgatto/TeachingMaterial) 
+* The [TeachingMaterial repository](https://github.com/lgatto/TeachingMaterial)
   contains several sets of slides and vignettes about R programming.
 
 
@@ -134,7 +134,7 @@ suitable for bioinformatics or proteomics questions. Bioconductor also
 offers several resources dedicated to bioinformatics matters and
 Bioconductor packages, in particular the
 main [Bioconductor support forum](https://support.bioconductor.org/)
-for Bioconductor-related queries. 
+for Bioconductor-related queries.
 
 
 It is advised to read and comply to
@@ -153,18 +153,15 @@ your
 The package should be installed using as described below:
 
 ```{r installation, eval = FALSE}
-## only first time you install Bioconductor packages
-source("http://www.bioconductor.org/biocLite.R")
-## else
-library("BiocInstaller")
-biocLite("RforProteomics")
+install.packages("BiocManager")
+BiocManager::install("RforProteomics")
 ```
 
 To install all dependencies and reproduce the code in the vignette,
 replace the last line in the code chunk above with:)
 
 ```{r installation2, eval = FALSE}
-biocLite("RforProteomics", dependencies = TRUE)
+BiocManager::install("RforProteomics", dependencies = TRUE)
 ```
 
 Finally, the package can be loaded with
@@ -173,7 +170,7 @@ Finally, the package can be loaded with
 library("RforProteomics")
 ```
 
-See also the `r Biocpkg("RforProteomics")` 
+See also the `r Biocpkg("RforProteomics")`
 [web page](http://lgatto.github.io/RforProteomics/) for more
 information on installation.
 
@@ -300,7 +297,7 @@ reads such a file and constructs an instance of class `mzID`.
 
 ```{r mzid1}
 library("mzID")
-mzids <- list.files(system.file('extdata', package = 'mzID'), 
+mzids <- list.files(system.file('extdata', package = 'mzID'),
                     pattern = '*.mzid', full.names = TRUE)
 mzids
 id <- mzID(mzids[1])
@@ -458,7 +455,7 @@ cls <- c(brewer.pal(length(unique(rownames(m)))-1, "Set1"),
          "grey")
 names(cls) <- unique(rownames(m))
 wbcol <- colorRampPalette(c("white", "darkblue"))(256)
-``` 
+```
 
 
 ```{r heatmap, fig.cap = "A heatmap."}
@@ -485,7 +482,7 @@ ggplot(aes(x = variable, y = value, colour = Protein),
   geom_line(aes(group=as.factor(Feature)), alpha = 0.5) +
   facet_grid(. ~ Protein) + theme(legend.position="none") +
   labs(x = "Reporters", y = "Normalised intensity")
-``` 
+```
 
 
 ## Third-party data
@@ -710,7 +707,7 @@ pepcnt <- enopep[enopep[, 1] %in% exppep, ]
 nrow(pepcnt) ## 13
 ```
 
-The following code chunks demonstrate how to use the `r Biocpkg("cleaver")` 
+The following code chunks demonstrate how to use the `r Biocpkg("cleaver")`
 package for in-silico cleavage of polypeptides, e.g. cleaving of
 *Gastric juice peptide 1 (P01358)* using *Trypsin*:
 
@@ -785,7 +782,7 @@ for the statistical analysis of isobarically tagged MS2 experiments.
 #### Note
 
 The `isobar` code chunks were failing in the context of the vignette
-and aren't being evaludated at the moment. 
+and aren't being evaludated at the moment.
 
 ```{r isobar, cache=TRUE, tidy=FALSE, eval=FALSE}
 library("isobar")
@@ -1062,7 +1059,7 @@ result <- runMSGF(param, 'path/to/a/rawfile.mzML')
 
 ### Import and analyse results {-}
 
-By default MSGFplus imports the results automatically using `r Biocpkg("mzID")`. 
+By default MSGFplus imports the results automatically using `r Biocpkg("mzID")`.
 If only one file was analysed, the return value is an mzID object; if
 multiple files are analysed at once the return value is an
 mzIDCollection object.
@@ -1172,7 +1169,7 @@ A particular properties of peptide sequences we are interested in are
 
 A particular properties of peptide sequences we are interested in are
 (1) irregular cleavages at the termini of the peptides and (2) missing
-cleavage site within the peptide sequences: 
+cleavage site within the peptide sequences:
 
 
 - Counting the number of irregular cleavage termimi (0, 1 or 2) in
@@ -1436,7 +1433,7 @@ efilter <- "ensembl_gene_id"
 eattr <- c("go_id", "name_1006", "namespace_1003")
 bmres <- getBM(attributes=eattr, filters = efilter, values = id, mart = ensembl)
 bmres[bmres$namespace_1003 == "cellular_component", "name_1006"]
-``` 
+```
 
 # Other packages {#sec:packages}
 
@@ -1451,10 +1448,10 @@ pkTab <- list(Proteomics = proteomicsPackages(biocv),
 ```
 
 This section provides a complete list of packages available in the
-relevant Bioconductor version `r biocv` 
+relevant Bioconductor version `r biocv`
 [*biocView*](http://www.bioconductor.org/packages/devel/BiocViews.html>) categories.
-the tables below represent the packages for the `Proteomics` 
-(`r nrow(pkTab[["Proteomics"]])` packages), `MassSpectrometry` 
+the tables below represent the packages for the `Proteomics`
+(`r nrow(pkTab[["Proteomics"]])` packages), `MassSpectrometry`
 (`r nrow(pkTab[["MassSpectrometry"]])` packages) and
 `MassSpectrometryData` (`r nrow(pkTab[["MassSpectrometryData"]])`
 experiment packages) categories.
