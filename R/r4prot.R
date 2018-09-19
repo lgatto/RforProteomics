@@ -84,7 +84,7 @@ packageDF <- function(x, nsub = TRUE, version = TRUE) {
 
 proteomicsPackages <- function(biocv, cache=FALSE) {
     if (missing(biocv))
-        biocv <- as.character(BiocInstaller::biocVersion())
+        biocv <- as.character(BiocManager::version())
     if (cache) {
         f <- dir(system.file("extdata", package = "RforProteomics"),
                  full.names = TRUE, pattern = "lpp.rds")
@@ -101,7 +101,7 @@ proteomicsPackages <- function(biocv, cache=FALSE) {
 
 massSpectrometryPackages <- function(biocv, cache=FALSE) {
     if (missing(biocv))
-        biocv <- as.character(BiocInstaller::biocVersion())
+        biocv <- as.character(BiocManager::version())
     if (cache) {
         f <- dir(system.file("extdata", package = "RforProteomics"),
                  full.names = TRUE, pattern = "lmsp.rds")
@@ -118,7 +118,7 @@ massSpectrometryPackages <- function(biocv, cache=FALSE) {
 
 massSpectrometryDataPackages <- function(biocv, cache=FALSE) {
     if (missing(biocv))
-        biocv <- as.character(BiocInstaller::biocVersion())
+        biocv <- as.character(BiocManager::version())
     if (cache) {
         f <- dir(system.file("extdata", package = "RforProteomics"),
                  full.names = TRUE, pattern = "lmsdp.rds")
