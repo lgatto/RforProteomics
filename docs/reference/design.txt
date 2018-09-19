@@ -1,0 +1,4 @@
+mgf sample bioRep techRep fraction
+Thermo_Hela_PRTC_1.mgf 1 1 1 1
+Thermo_Hela_PRTC_2.mgf 1 1 2 1
+Thermo_Hela_PRTC_3.mgf 1 1 3 1
