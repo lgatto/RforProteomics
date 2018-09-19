@@ -1,18 +1,18 @@
 ---
 title: "Proteomics packages in Bioconductor"
-author: 
+author:
 - name: Laurent Gatto
 package: RforProteomics
 abstract: >
- The Bioconductor project has been focused on genomics since its very beginning. 
-  Since 2011, the proteomics community is showing growing interest in the project. 
-  To demonstrate this, I report on the numbers of package, their interdependencies 
-  and their downloads to highlight the interest of both developers (number of packages 
-  and their dependencies) and users (number of downloads).  
+ The Bioconductor project has been focused on genomics since its very beginning.
+  Since 2011, the proteomics community is showing growing interest in the project.
+  To demonstrate this, I report on the numbers of package, their interdependencies
+  and their downloads to highlight the interest of both developers (number of packages
+  and their dependencies) and users (number of downloads).
 output:
   BiocStyle::html_document:
     toc_float: true
-    self_contained: true	
+    self_contained: true
 bibliography: RforProteomics.bib
 vignette: >
   %\VignetteIndexEntry{Proteomics packages in Bioconductor}
@@ -28,7 +28,7 @@ BiocStyle::markdown()
 ```{r env, message=FALSE, echo=FALSE, warning=FALSE}
 library("RforProteomics")
 library("BiocStyle")
-library("BiocInstaller")
+library("BiocManager")
 library("biocpkgs")
 library("ggplot2")
 library("plotly")
@@ -60,7 +60,7 @@ head(ppkgs)
 ```
 
 There are currently `r length(ppkgs)` proteomics packages in
-Bioconductor version `r BiocInstaller::biocVersion()`.
+Bioconductor version `r as.character(BiocManager::version())`.
 
 We can now retrieve their download statistics. We will download the
 data by year and by month.
@@ -79,8 +79,8 @@ pyearly <- pkg_download_data(ppkgs, by  = "year", quiet = TRUE)
 
 The download data are provided as `tibbles`. There are respectively
 `r nrow(pmonthly)` monthly and `r nrow(pyearly)` yearly data points
-for the `r length(ppkgs)` packages. The download data range from 
-`r min(pmonthly$Date)` to `r max(pmonthly$Date)`. 
+for the `r length(ppkgs)` packages. The download data range from
+`r min(pmonthly$Date)` to `r max(pmonthly$Date)`.
 
 As a final pre-processing step, all dates with zero downloads, which
 correspond to month were data wasn't (during the month preceding
@@ -99,7 +99,7 @@ TODO
 # Number of packages
 
 Let's start by looking at the number of proteomics-related packages
-have been present in the Bioconductor project. 
+have been present in the Bioconductor project.
 
 ```{r nbpkgs, fig.cap = "Number of proteomics packages."}
 nbp <- pyearly %>% group_by(Year) %>% count()
@@ -115,8 +115,8 @@ m <- length(newp)
 The figure above shows that in 2011 and in the years thereafter, the
 Bioconductor project has accepted a growing number of proteomics
 packages. Since 2009, there were `r paste(unb[1:(n-1)], collapse = ", ")`
-and `r unb[n]` packages, corresponding to 
-`r paste(newp[1:(m-1)], collapse = ", ")` and `r newp[m]` 
+and `r unb[n]` packages, corresponding to
+`r paste(newp[1:(m-1)], collapse = ", ")` and `r newp[m]`
 new packages per year.
 
 While several of these packages have been produced by the same
@@ -125,11 +125,11 @@ developer/contributors over time. See `biocpkg::contribs` for some
 code to achieve this.], these figures indicate an increased interest
 in computational proteomics community.
 
-# Number of downloads 
+# Number of downloads
 
 Let's start by looking at the total yearly number of downloads (figure
 below). The total number of yearly downloads shows a confincing
-increase since 2011. 
+increase since 2011.
 
 ```{r nnbdown, fig.cap = "Total yearly download for all proteomics packages."}
 alldwn <- pyearly %>%
@@ -146,7 +146,7 @@ upwards trend.
 
 ```{r nnbdown2, fig.cap = "Yearly number of download by package."}
 ggplot(pyearly, aes(x = Date, y = Nb_of_distinct_IPs, group = package)) +
-    geom_point() + geom_line() 
+    geom_point() + geom_line()
 ```
 
 The very high number of download in 2013 and 2014 for one package (it
