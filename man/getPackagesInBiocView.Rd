@@ -27,4 +27,3 @@ Finds the package names that have a specific biocView.
 \author{
 Laurent Gatto
 }
-

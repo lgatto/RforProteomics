@@ -17,4 +17,3 @@ Opens the visualisation vignette
 \author{
 Laurent Gatto
 }
-

@@ -27,4 +27,3 @@ directory.
 \author{
 Laurent Gatto
 }
-

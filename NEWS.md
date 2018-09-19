@@ -1,5 +1,15 @@
 # RforProteomics 1.0
 
+## Changes in version 1.19.3
+- Use BiocManager
+- Fix typo in rmd
+
+## Changes in version 1.19.0
+- New Bioconductor devel version
+
+## Changes in version 1.18.0
+- New Bioconductor release version
+
 ## Changes in version 1.17.1
 - Fix/update vignettes <2018-01-12 Fri>
 - Add mention of DEP package <2018-01-13 Sat>

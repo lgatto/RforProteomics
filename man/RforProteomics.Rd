@@ -16,4 +16,3 @@ Opens the package vignettes.
 \author{
 Laurent Gatto
 }
-

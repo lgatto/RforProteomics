@@ -25,4 +25,3 @@ Format a \code{BiocView} as a \code{data.frame}.
 \author{
 Laurent Gatto
 }
-

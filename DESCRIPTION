@@ -86,5 +86,4 @@ License: Artistic-2.0
 VignetteBuilder: knitr
 Author: Laurent Gatto [aut, cre], Thomas Lin Pedersen [ctb],
     Sebastian Gibb [ctb], Vlad Petyuk [ctb]
-RoxygenNote: 5.0.1
-
+RoxygenNote: 6.1.0
