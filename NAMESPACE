@@ -5,6 +5,7 @@ import("MSnbase")
 import("BiocManager")
 
 importFrom("Biobase", "addVigs2WinMenu")
+importFrom("BiocManager", "version")
 importFrom("R.utils", "gunzip")
 importFrom("utils", "data", "download.file", "vignette")
 importFrom("interactiveDisplay", "display")
