@@ -1,14 +1,14 @@
 ---
 title: "Visualisation of proteomics data using R and Bioconductor"
-author: 
+author:
 - name: Laurent Gatto
 - name: Lisa Breckels
 - name: Sebastian Gibb
 package: RforProteomics
 abstract: >
-  This is the companion vignette to the 'Using R and Bioconductor for 
-  proteomics data analysis' manuscript that presents an overview of R 
-  and Bioconductor software for mass spectrometry and proteomics data. 
+  This is the companion vignette to the 'Using R and Bioconductor for
+  proteomics data analysis' manuscript that presents an overview of R
+  and Bioconductor software for mass spectrometry and proteomics data.
   It provides the code to reproduce the figures in the paper.
 output:
   BiocStyle::html_document:
@@ -27,8 +27,8 @@ BiocStyle::markdown()
 
 ```{r env, message=FALSE, echo=FALSE, warning=FALSE}
 library("RforProteomics")
+library("BiocManager")
 library("protViz")
-library("BiocInstaller")
 library("DT")
 library("mzR")
 library("MSnbase")
@@ -55,7 +55,7 @@ proteomics data. The code details the visualisations presented in
 > data using R and Bioconductor. Proteomics. 2015 Feb 18. doi:
 > 10.1002/pmic.201400392. PubMed PMID:
 > [25690415](http://www.ncbi.nlm.nih.gov/pubmed/25690415).
- 
+
 ## References
 
 - CRAN Task View: Graphic Displays & Dynamic Graphics & Graphic
@@ -83,13 +83,11 @@ pp <- proteomicsPackages()
 msp <- massSpectrometryPackages()
 ```
 
-There are currently `r
-nrow(pp)`
+There are currently `r nrow(pp)`
 [Proteomics](http://bioconductor.org/packages/devel/BiocViews.html#___Proteomics) and
-`r
-nrow(msp)`
+`r nrow(msp)`
 [MassSpectrometry](http://bioconductor.org/packages/devel/BiocViews.html#___MassSpectrometry) packages
-in Bioconductor version `r as.character(biocVersion())`.  Other
+in Bioconductor version `r as.character(BiocManager::version())`.  Other
 non-Bioconductor packages are described in the `r
 Biocexptpkg("RforProteomics")` vignette (open it in R with
 `RforProteomics()` or read
@@ -279,7 +277,7 @@ The application is also available online at
 [https://lgatto.shinyapps.io/shinyMA/](https://lgatto.shinyapps.io/shinyMA/).
 
 See the excellent `r CRANpkg("shiny")`
-[web page](http://shiny.rstudio.com/) for tutorials. 
+[web page](http://shiny.rstudio.com/) for tutorials.
 
 ## Volcano plots
 
@@ -379,7 +377,7 @@ colnames(plotfuns) <- c("plot type", "traditional", "lattice", "ggplot2")
 kable(plotfuns)
 ```
 
-Below, we are going to use a data from the 
+Below, we are going to use a data from the
 `r Biocexptpkg("pRolocdata")` to illustrate the plotting functions.
 
 ```{r tandata}
@@ -450,7 +448,7 @@ In the last section, about spatial proteomics, we use the specialised
 `plotDist` function from the `r Biocpkg("pRoloc")` package to generate
 such figures.
 
-## Bar and dot charts 
+## Bar and dot charts
 
 To illustrate bar and dot charts, we cound the number of proteins in
 the respective class using table.
@@ -678,7 +676,7 @@ data(msms)
 
 fi <- fragmentIon("TAFDEAIAELDTLNEESYK")
 fi.cyz <- as.data.frame(cbind(c=fi[[1]]$c, y=fi[[1]]$y, z=fi[[1]]$z))
-     
+
 p <- peakplot("TAFDEAIAELDTLNEESYK",
               spec = msms[[1]],
               fi = fi.cyz,
