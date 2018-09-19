@@ -67,8 +67,9 @@ The package is available on
 `R` (>= `3.0.0` required) and type:
 
 ```c
-source("http://bioconductor.org/biocLite.R")
-biocLite("RforProteomics")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("RforProteomics")
 ```
 
 To install all dependencies (75+ packages, including `RforProteomics`)
@@ -76,7 +77,7 @@ and fully reproduce the code in the vignettes, replace the last line
 in the code chunk above with:
 
 ```c
-biocLite("RforProteomics", dependencies = TRUE)
+BiocManager::install("RforProteomics", dependencies = TRUE)
 ```
 
 ## Collaborative editing

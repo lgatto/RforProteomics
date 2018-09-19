@@ -153,7 +153,11 @@ your
 The package should be installed using as described below:
 
 ```{r installation, eval = FALSE}
-install.packages("BiocManager")
+## only first time you install Bioconductor packages
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+## else
+library("BiocManager")
 BiocManager::install("RforProteomics")
 ```
 
@@ -1441,7 +1445,7 @@ bmres[bmres$namespace_1003 == "cellular_component", "name_1006"]
 
 ```{r protpacks, echo=FALSE, warning=FALSE, cache=TRUE}
 # biocVersion has to be of type character
-biocv <- as.character(biocVersion())
+biocv <- as.character(version())
 pkTab <- list(Proteomics = proteomicsPackages(biocv),
               MassSpectrometry = massSpectrometryPackages(biocv),
               MassSpectrometryData = massSpectrometryDataPackages(biocv))
