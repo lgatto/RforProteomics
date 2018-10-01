@@ -17,14 +17,14 @@ Depends:
 Imports:
     R.utils,
     Biobase,
-    rpx,
+    shiny,
     biocViews,
-    BiocManager,
-    interactiveDisplay,
-    DT,
-    AnnotationDbi,
-    shiny
+    BiocManager
 Suggests:
+    AnnotationDbi,
+    rpx,
+    MSnbase,
+    DT,
     knitr,
     rmarkdown,
     BiocStyle,
