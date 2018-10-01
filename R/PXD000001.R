@@ -10,6 +10,8 @@
 ##' \code{\link{download.file}}.
 ##' @return Invisible returns the full path of the downloaded file.
 ##' @author Laurent Gatto
+##' @export
+##' @import R.utils gunzip
 downloadData <- function(src, destdir = ".", unpack = TRUE, ...) {
   dest <- basename(src)
   dest <- file.path(destdir, dest)
@@ -24,30 +26,32 @@ downloadData <- function(src, destdir = ".", unpack = TRUE, ...) {
 }
 
 ##' Downloads on of multiple Thermo Hela/PRTC data files.
-##' 
+##'
 ##' @title Dowload Thermo Hela PRTC data
 ##' @param src The name of the file to be downloaded. If missing, a
-##' vector of possible filenames is returned. If \code{"all"}, all
-##' files are downloaded. Alternatively, a pattern can be used to
-##' \code{grep} the files from the output \code{getThermoHelaPRTC()} the
-##' files to be downloaded.
-##' @param destdir Destination directory. Default is \code{"."}.
-##' @return Invisibly return the path of the downloaded files. 
+##'     vector of possible filenames is returned. If `"all"`, all
+##'     files are downloaded. Alternatively, a pattern can be used to
+##'     `grep` the files from the output `getThermoHelaPRTC()` the
+##'     files to be downloaded.
+##' @param destdir Destination directory. Default is `"."`.
+##' @return Invisibly return the path of the downloaded files.
 ##' @author Laurent Gatto
-##' @seealso \code{downloadData}
+##' @seealso `downloadData`
 ##' @examples
 ##' getThermoHelaPRTC()
 ##' getThermoHelaPRTC("design")
 ##' \dontrun{
 ##' getThermoHelaPRTC("all")
 ##' }
+##' @export
+##' @md
 getThermoHelaPRTC <- function(src, destdir = ".") {
     url <- "http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/"
     Thermo_Hela_files <-c(
         "design.txt",
-        "swissprot_human_canonical_19_09_12.fasta.gz", 
-        "Thermo_Hela_PRTC_1.mgf.gz", 
-        "Thermo_Hela_PRTC_2.mgf.gz", 
+        "swissprot_human_canonical_19_09_12.fasta.gz",
+        "Thermo_Hela_PRTC_1.mgf.gz",
+        "Thermo_Hela_PRTC_2.mgf.gz",
         "Thermo_Hela_PRTC_3.mgf.gz")
     if (missing(src)) {
         return(Thermo_Hela_files)
@@ -58,7 +62,7 @@ getThermoHelaPRTC <- function(src, destdir = ".") {
             ans <- sapply(Thermo_Hela_files2[1], downloadData, unpack = FALSE)
             ans <- sapply(Thermo_Hela_files2[2:5], downloadData, unpack = TRUE)
         } else {
-            Thermo_Hela_files2 <- 
+            Thermo_Hela_files2 <-
                 paste(url, match.arg(src, Thermo_Hela_files), sep = "/")
             ans <- mapply(downloadData,
                           Thermo_Hela_files2,
@@ -116,6 +120,3 @@ getPXD000001mzData <- function(destdir = ".") {
              msg = paste0("Please use the rpx package to download data ",
                           "from the ProteomeXchaneg repository."))
 }
-
-
-

@@ -1,3 +1,4 @@
+##' @import shiny
 shinyMA <- function() {
     qnt <- NULL
     data(qnt, envir = environment())
@@ -18,7 +19,7 @@ shinyMA <- function() {
             ## flow layout fills out left to right then down
             flowLayout(
                 plotOutput("plotma", clickId="plotma_click", width=400, height=400),
-                plotOutput("plotcounts", width=400, height=400)    
+                plotOutput("plotcounts", width=400, height=400)
             )
         ),
 
@@ -30,7 +31,7 @@ shinyMA <- function() {
                 par(mar = c(5,5,3,2), cex.lab = 1.5)
                 ## MA-plot of all genes
                 plot(fData(qnt)$baseMean,
-		     fData(qnt)$log2FC,
+                     fData(qnt)$log2FC,
                      xlab = "A", ylab = "M")
                 grid()
                 abline(v = 0)
@@ -47,7 +48,7 @@ shinyMA <- function() {
                 par(mar = c(5,5,3,2), cex.lab = 1.5)
                 ## plot the counts for the selected gene
                 i <- exprs(qnt)[idx, ]
-                plot(1:6, i, 
+                plot(1:6, i,
                      col = c("red", "steelblue")[as.numeric(qnt$conditions)],
                      pch = 19,
                      main = paste0(fData(qnt)$accession[idx],
