@@ -30,7 +30,7 @@ RProtViz <- RProtVis
 ##'     biocView was not found.
 ##' @md
 ##' @author Laurent Gatto
-##' @import biocViews getBiocViews
+##' @importFrom biocViews getBiocViews
 getPackagesInBiocView <- function(view,
                                   rep = c("BioCsoft", "BioCann",
                                       "BioCexp", "BioCextra"),
@@ -49,7 +49,7 @@ getPackagesInBiocView <- function(view,
                  biocVersion,
                  biocPaths,
                  sep = "/")
-    bv <- getBiocViews(rep, biocViewsVocab, "NoViewProvided")
+    bv <- biocViews::getBiocViews(rep, biocViewsVocab, "NoViewProvided")
     if (!view %in% names(bv)) {
         message("BiocView ", view, " not found.")
         return(NULL)

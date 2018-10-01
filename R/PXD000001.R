@@ -11,7 +11,7 @@
 ##' @return Invisible returns the full path of the downloaded file.
 ##' @author Laurent Gatto
 ##' @export
-##' @import R.utils gunzip
+##' @importFrom R.utils gunzip
 downloadData <- function(src, destdir = ".", unpack = TRUE, ...) {
   dest <- basename(src)
   dest <- file.path(destdir, dest)
