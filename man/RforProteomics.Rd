@@ -3,11 +3,14 @@
 \name{RforProteomics}
 \alias{RforProteomics}
 \alias{RProtVis}
+\alias{RProtViz}
 \title{Opens the package vignettes}
 \usage{
 RforProteomics()
 
 RProtVis()
+
+RProtViz()
 }
 \value{
 An instance of class \code{vignette}. Used for its side effect,
