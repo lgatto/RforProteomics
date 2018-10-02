@@ -12,6 +12,7 @@
 ##' @author Laurent Gatto
 ##' @export
 ##' @importFrom R.utils gunzip
+##' @importFrom utils download.file
 downloadData <- function(src, destdir = ".", unpack = TRUE, ...) {
   dest <- basename(src)
   dest <- file.path(destdir, dest)

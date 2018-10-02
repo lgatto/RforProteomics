@@ -38,7 +38,7 @@ library("lubridate")
 library("DT")
 library("pkgDepTools")
 ## this_year <- as.numeric(format(Sys.time(),"%Y"))
-this_year <- 2017
+this_year <- 2018
 ```
 
 # Introduction
@@ -67,8 +67,9 @@ data by year and by month.
 
 ```{r fix, echo=FALSE}
 ## Strangely, an error occurs when trying to download the data for
-## package omicRexposome - remove it from the list
-ppkgs <- setdiff(ppkgs, "omicRexposome")
+## the following packages - remove from the list
+## ppkgs <- setdiff(ppkgs, "omicRexposome") ## works now, Oct 2019
+ppkgs <- setdiff(ppkgs, "sparsenetgls")
 ```
 
 ```{r biocdownloads, cache=TRUE}
