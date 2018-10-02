@@ -1,4 +1,5 @@
 ##' @import shiny
+##' @importFrom graphics abline par points
 shinyMA <- function() {
     qnt <- NULL
     data(qnt, envir = environment())

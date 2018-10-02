@@ -6,6 +6,7 @@
 ##' @author Laurent Gatto
 ##' @md
 ##' @export
+##' @importFrom utils vignette
 RforProteomics <- function()
   vignette("RforProteomics", package = "RforProteomics")
 
@@ -31,6 +32,7 @@ RProtViz <- RProtVis
 ##' @md
 ##' @author Laurent Gatto
 ##' @importFrom biocViews getBiocViews
+##' @importFrom utils data
 getPackagesInBiocView <- function(view,
                                   rep = c("BioCsoft", "BioCann",
                                       "BioCexp", "BioCextra"),
