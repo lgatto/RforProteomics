@@ -2,16 +2,22 @@
 % Please edit documentation in R/r4prot.R
 \name{RforProteomics}
 \alias{RforProteomics}
-\title{Opens the RforProteomics vignette}
+\alias{RProtVis}
+\alias{RProtViz}
+\title{Opens the package vignettes}
 \usage{
 RforProteomics()
+
+RProtVis()
+
+RProtViz()
 }
 \value{
-An instance of class \code{vignette}. Used for its side
-effect, opening the vignette.
+An instance of class \code{vignette}. Used for its side effect,
+opening a vignette.
 }
 \description{
-Opens the package vignettes.
+Opens the package and visualisation vignettes.
 }
 \author{
 Laurent Gatto

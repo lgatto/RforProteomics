@@ -1,5 +1,8 @@
 # RforProteomics 1.0
 
+## Changes in version 1.19.4
+- Fix roxygen/namespace mess
+
 ## Changes in version 1.19.3
 - Use BiocManager
 - Fix typo in rmd

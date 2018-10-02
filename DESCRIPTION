@@ -2,7 +2,7 @@ Package: RforProteomics
 Type: Package
 Title: Companion package to the 'Using R and Bioconductor for
     proteomics data analysis' publication
-Version: 1.19.3
+Version: 1.19.4
 Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
                     email="lg390@cam.ac.uk"),
              person("Sebastian", "Gibb", role="ctb",
@@ -16,15 +16,13 @@ Depends:
     MSnbase (>= 2.5.3)
 Imports:
     R.utils,
-    Biobase,
-    rpx,
+    shiny,
     biocViews,
-    BiocManager,
-    interactiveDisplay,
-    DT,
-    AnnotationDbi,
-    shiny
+    BiocManager
 Suggests:
+    AnnotationDbi,
+    rpx,
+    DT,
     knitr,
     rmarkdown,
     BiocStyle,
@@ -69,7 +67,11 @@ Suggests:
     gplots,
     VennDiagram,
     protViz,
-    genefilter
+    genefilter,
+    plotly,
+    gridExtra,
+    dplyr,
+    lubridate
 Enhances: cleaver
 Description: This package contains code to illustrate the 'Using R and
     Bioconductor for proteomics data analysis' and
