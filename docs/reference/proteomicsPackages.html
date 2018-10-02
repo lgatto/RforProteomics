@@ -32,14 +32,13 @@
 
 <meta property="og:title" content="Proteomics and MS biocView packages — proteomicsPackages" />
 
-<meta property="og:description" content="" />
-
-<meta property="og:description" content="Searches for all the packages with the &quot;Proteomics&quot; (software),
-  &quot;MassSpectrometry&quot; (software) and &quot;MassSepctrometryData&quot;
-  (data) packages and return their names, titles and versions as a
-  data.frame. The (unexported but documented) underlying
-  functions are RforProteomics:::getPackagesInBiocView (to find
-  relevant package) and RforProteomics:::packageDF
+<meta property="og:description" content="Searches for all the packages with the &quot;Proteomics&quot;
+  (software), &quot;MassSpectrometry&quot; (software) and
+  &quot;MassSepctrometryData&quot; (data) packages and return their
+  names, titles and versions as a data.frame. The
+  (unexported but documented) underlying functions are
+  RforProteomics:::getPackagesInBiocView (to find relevant
+  package) and RforProteomics:::packageDF
   (data.frame formatting)." />
 <meta name="twitter:card" content="summary" />
 
@@ -69,7 +68,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RforProteomics</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.19.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.19.4</span>
       </span>
     </div>
 
@@ -128,21 +127,22 @@
 
     <div class="ref-description">
     
-    
-
-    <p>Searches for all the packages with the <code>"Proteomics"</code> (software),
-  <code>"MassSpectrometry"</code> (software) and <code>"MassSepctrometryData"</code>
-  (data) packages and return their names, titles and versions as a
-  <code>data.frame</code>. The (unexported but documented) underlying
-  functions are <code>RforProteomics:::getPackagesInBiocView</code> (to find
-  relevant package) and <code>RforProteomics:::packageDF</code>
+    <p>Searches for all the packages with the <code>"Proteomics"</code>
+  (software), <code>"MassSpectrometry"</code> (software) and
+  <code>"MassSepctrometryData"</code> (data) packages and return their
+  names, titles and versions as a <code>data.frame</code>. The
+  (unexported but documented) underlying functions are
+  <code>RforProteomics:::getPackagesInBiocView</code> (to find relevant
+  package) and <code>RforProteomics:::packageDF</code>
   (<code>data.frame</code> formatting).</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>proteomicsPackages</span>(<span class='no'>biocv</span>, <span class='kw'>cache</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-<span class='fu'>massSpectrometryPackages</span>(<span class='no'>biocv</span>, <span class='kw'>cache</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-<span class='fu'>massSpectrometryDataPackages</span>(<span class='no'>biocv</span>, <span class='kw'>cache</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>proteomicsPackages</span>(<span class='no'>biocv</span>, <span class='kw'>cache</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>massSpectrometryPackages</span>(<span class='no'>biocv</span>, <span class='kw'>cache</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>massSpectrometryDataPackages</span>(<span class='no'>biocv</span>, <span class='kw'>cache</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,25 +150,90 @@
     <tr>
       <th>biocv</th>
       <td><p>A <code>character</code> with the Bioconductor version to
-    search for relevant packages. If missing, the running version is used.</p></td>
+search for relevant packages. If missing, the running version
+is used.</p></td>
     </tr>
     <tr>
       <th>cache</th>
       <td><p>A <code>logical</code> indicating whether cached package
-  information should be used. Default is <code>FALSE</code>. All except
-  development versions are up-to-date.</p></td>
+information should be used. Default is <code>FALSE</code>. All
+except development versions are up-to-date.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>data.frame</code> with the respective package names, titles and
-  versions.</p>
+    <p>A <code>data.frame</code> with the respective package names,
+    titles and versions.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>pp</span> <span class='kw'>&lt;-</span> <span class='fu'>proteomicsPackages</span>(<span class='st'>"3.0"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in getBiocViews(rep, biocViewsVocab, "NoViewProvided"): could not find function "getBiocViews"</span></div><div class='input'><span class='no'>ppc</span> <span class='kw'>&lt;-</span> <span class='fu'>proteomicsPackages</span>(<span class='st'>"3.0"</span>, <span class='kw'>cache</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'>all.equal</span>(<span class='no'>pp</span>, <span class='no'>ppc</span>)</div><div class='output co'>#&gt; <span class='error'>Error in all.equal(pp, ppc): object 'pp' not found</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>head</span>(<span class='no'>pp</span> <span class='kw'>&lt;-</span> <span class='fu'>proteomicsPackages</span>(<span class='st'>"3.0"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>CopyNumberVariants</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>NoViewProvided</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>ConnectTools, HighThroughputSequencing</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Bioinformatics</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>HighThroughputSequencing</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Cancer</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Statistics, Bioinformatics</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>MultipleComparisons</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>CopyNumber</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Bioinformatics, Enrichment</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>SNPsAndGeneticVariability</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>NoViewProvided</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Bioinformatics</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Clustering.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>HighThroughputSequencing</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Bioinformatics, Cancer, FlowCytData, StemCells, DensityGating</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Gating</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>GraphsAndNetworks</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>NoViewProvided</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>HighThroughputSequencing</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>NoViewProvided</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Bioinformatics, MultipleComparisons</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Cancer</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Bioinformatics, Statistics, MultipleComparisons</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>AMDIS, GCMS</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>GraphsAndNetwork</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Bioinformatics</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>HighThroughputSequencingData</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>GraphsAndNetwork</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>GO </span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>NoViewProvided</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Infastructure</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>NoViewProvided</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>HTA2.0</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Bioinformatics, Visualisation</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Bioinformatics</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Bioinformatics</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>HighThroughputSequencing</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>NetworkAnalysis, GraphsAndNetworks</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>NetworkAnalysis</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Cancer, StemCells, HIV</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Statistics</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>Bioinformatics</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Dropping unknown biocViews terms:</span>
+#&gt; <span class='warning'>HighThroughputSequencing</span></div><div class='output co'>#&gt;             Package
+#&gt; ASEB           ASEB
+#&gt; bioassayR bioassayR
+#&gt; BRAIN         BRAIN
+#&gt; CellNOptR CellNOptR
+#&gt; ChemmineR ChemmineR
+#&gt; cisPath     cisPath
+#&gt;                                                                                                                   Title
+#&gt; ASEB                                                                                    Predict Acetylated Lysine Sites
+#&gt; bioassayR                                                                            R library for Bioactivity analysis
+#&gt; BRAIN                                                Baffling Recursive Algorithm for Isotope distributioN calculations
+#&gt; CellNOptR Training of boolean logic models of signalling networks using prior knowledge networks and perturbation data.
+#&gt; ChemmineR                                                                                 Cheminformatics Toolkit for R
+#&gt; cisPath                                       Visualization and management of the protein-protein interaction networks.
+#&gt;           Version
+#&gt; ASEB       1.10.0
+#&gt; bioassayR   1.4.3
+#&gt; BRAIN      1.12.0
+#&gt; CellNOptR  1.12.0
+#&gt; ChemmineR  2.18.1
+#&gt; cisPath     1.6.4</div><div class='input'><span class='no'>ppc</span> <span class='kw'>&lt;-</span> <span class='fu'>proteomicsPackages</span>(<span class='st'>"3.0"</span>, <span class='kw'>cache</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>all.equal</span>(<span class='no'>pp</span>, <span class='no'>ppc</span>)</div><div class='output co'>#&gt; [1] "Component “Version”: 18 string mismatches"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -182,7 +247,7 @@
 
     <h2>Author</h2>
     
-  Laurent Gatto
+Laurent Gatto
 
   </div>
 </div>
