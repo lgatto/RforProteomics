@@ -8,18 +8,17 @@ getPackagesInBiocView(view, rep = c("BioCsoft", "BioCann", "BioCexp",
   "BioCextra"), biocVersion)
 }
 \arguments{
-\item{view}{The biocView of interest. For example
-\code{"Proteomics"}.}
+\item{view}{The biocView of interest. For example \code{"Proteomics"}.}
 
 \item{rep}{Repository of interest. One of \code{"BioCsoft"},
-\code{"BioCann"}, \code{"BioCexp"} or \code{"BioCextra"}.}
+\code{"BioCann"}, \code{"BioCexp"} or `"BioCextra"1.}
 
-\item{biocVersion}{A \code{character} with the Bioconductor
-version of interest. For example \code{"2.14"}.}
+\item{biocVersion}{A \code{character} with the Bioconductor version of
+interest. For example \code{"2.14"}.}
 }
 \value{
-An instance of class \code{BiocView}. \code{NULL} if the
-the biocView was not found.
+An instance of class \code{BiocView}. \code{NULL} if the the
+biocView was not found.
 }
 \description{
 Finds the package names that have a specific biocView.

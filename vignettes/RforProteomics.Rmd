@@ -17,7 +17,7 @@ output:
     toc_float: true
 bibliography: RforProteomics.bib
 vignette: >
-  %\VignetteIndexEntry{Visualisation of proteomics data using R and Bioconductor}
+  %\VignetteIndexEntry{Using R for proteomics data analysis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteKeywords{Bioinformatics, proteomics, mass spectrometry, tutorial, data}
   %\VignetteEncoding{UTF-8}
