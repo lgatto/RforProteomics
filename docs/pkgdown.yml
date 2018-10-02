@@ -4,4 +4,5 @@ pkgdown_sha: ~
 articles:
   RProtVis: RProtVis.html
   RforProteomics: RforProteomics.html
+  biocprot: biocprot.html
 
