@@ -67,7 +67,11 @@ Suggests:
     gplots,
     VennDiagram,
     protViz,
-    genefilter
+    genefilter,
+    plotly,
+    gridExtra,
+    dplyr,
+    lubridate
 Enhances: cleaver
 Description: This package contains code to illustrate the 'Using R and
     Bioconductor for proteomics data analysis' and
