@@ -39,12 +39,11 @@ downloadData <- function(src, destdir = ".", unpack = TRUE, ...) {
 ##' @author Laurent Gatto
 ##' @seealso `downloadData`
 ##' @examples
+##' \dontrun{
 ##' getThermoHelaPRTC()
 ##' getThermoHelaPRTC("design")
-##' \dontrun{
 ##' getThermoHelaPRTC("all")
 ##' }
-##' @export
 ##' @md
 getThermoHelaPRTC <- function(src, destdir = ".") {
     url <- "http://proteome.sysbiol.cam.ac.uk/lgatto/RforProteomics/"
