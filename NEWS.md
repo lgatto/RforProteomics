@@ -1,5 +1,8 @@
 # RforProteomics 1.0
 
+## Changes in version 1.19.5
+- remove getThermoHelaPRTC function (server down) <2019-10-24 Thu>
+
 ## Changes in version 1.19.4
 - Fix roxygen/namespace mess
 
@@ -42,27 +45,27 @@
 ## Changes in version 1.13.0
 
 - New devel version
- 
+
 ## Changes in version 1.11.4
 
 - Suggest genefilter <2016-10-15 Sat>
- 
+
 ## Changes in version 1.11.3
 
 - Update/compile static vignette for new release <2016-10-07 Fri>
 - Fix typo <2016-03-01 Tue>
- 
+
 ## Changes in version 1.9.3
 
 - updated msDataTab
- 
+
 ## Changes in version 1.9.2
 
 - more edits to vignette <2015-12-01 Tue>
 - added Vlas's comprehensive real-life example to the vignette
    <2015-12-05 Sat>
 - update msDataTab  <2015-12-05 Sat>
- 
+
 ## Changes in version 1.9.1
 
 - updated RforProteomics vignette <2015-11-30 Mon>
@@ -91,25 +94,25 @@
 
 - recompile r4p vignette and add ref to vis vignette [2015-03-23 Mon]
 - make RProtVis static due to hangs [2015-03-24 Tue]
- 
+
 ## Changes in version 1.5.8
 
 - Vignette updates: simple R plots [2015-02-21 Sat]
- 
+
 ## Changes in version 1.5.7
 
 - suggest rmarkdown (used to render vis vignette) [2015-02-12 Thu]
- 
+
 ## Changes in version 1.5.6
 
 - don't require GNU make [2015-02-11 Wed]
- 
+
 ## Changes in version 1.5.5
 
 - more vis vig updates [2015-01-28 Wed]
 - added MS animations [2015-01-29 Thu]
 - document workflows [2015-01-30 Fri]
- 
+
 ## Changes in version 1.5.4
 
 - rename ProtViz() to RProtVis/RProtViz to avoid confusion with the
@@ -124,7 +127,7 @@
 ## Changes in version 1.5.2
 
 - cache package info [2014-11-15 Sat]
- 
+
 ## Changes in version 1.5.1
 
 - update vignette and fixing errors [2014-10-31 Fri]
@@ -136,7 +139,7 @@
 ## Changes in version 1.4.0
 
 - new release version for Bioc 3.0
- 
+
 ## Changes in version 1.3.8
 
 - remove github link to MSGFgui since it has now been accepted
@@ -212,7 +215,7 @@
 
 ## Changes in version 1.0.10
 
-- clarify reamde <2013-07-08 Mon> 
+- clarify reamde <2013-07-08 Mon>
 - added Bioc2013 poster as static vignette <2013-07-12 Fri>
 
 ## Changes in version 1.0.9
@@ -239,17 +242,17 @@
 
 ## Changes in version 1.0.5
 
-- MALDIquant: remove misleading length calls by 
+- MALDIquant: remove misleading length calls by
    Sebastian Gibb <2013-05-24 Fri>
 
 ## Changes in version 1.0.4
 
-- importBrukerFlex: set verbose=FALSE, contributed 
+- importBrukerFlex: set verbose=FALSE, contributed
    by Sebastian Gibb <2013-05-01 Wed>
 
 ## Changes in version 1.0.3
 
-- Updates in the MALDIquant section, contributed 
+- Updates in the MALDIquant section, contributed
    by Sebastian Gibb <2013-04-26 Fri>
 
 ## Changes in version 1.0.2
@@ -259,7 +262,7 @@
 
 ## Changes in version 1.0.1
 
-- fixed 'doc/vigsrc/' to 'doc/vigsrc' in vignette <2013-04-09 Tue> 
+- fixed 'doc/vigsrc/' to 'doc/vigsrc' in vignette <2013-04-09 Tue>
 - typos and installation section in vignette <2013-04-09 Tue>
 
 ## Changes in version 1.0.0
@@ -276,9 +279,9 @@
 
 ## Changes in version 0.99.2
 
-- removing rTANDEM from Suggests, as the package 
-   currently fails to build and results in R4P 
-   checking errors. Will add it again when 
+- removing rTANDEM from Suggests, as the package
+   currently fails to build and results in R4P
+   checking errors. Will add it again when
    builds <2013-02-20 Wed>
 
 ## Changes in version 0.99.1
@@ -288,7 +291,7 @@
 ## Changes in version 0.99.0
 
 - typo in startup msg <2013-01-09 Wed>
-- update README.md with R-2.15.2 installation 
+- update README.md with R-2.15.2 installation
    instructions <2013-01-09 Wed>
 - Major updates to vignette <2013-02-15 Fri>
 - Added rTANDEM <2013-02-15 Fri>
