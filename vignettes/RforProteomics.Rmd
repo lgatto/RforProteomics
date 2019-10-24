@@ -46,7 +46,6 @@ suppressPackageStartupMessages(library("GO.db"))
 suppressPackageStartupMessages(library("Rdisop"))
 suppressPackageStartupMessages(library("rTANDEM"))
 suppressPackageStartupMessages(library("MSGFplus"))
-suppressPackageStartupMessages(library("MSGFgui"))
 ```
 
 # Introduction {#sec:intro}
