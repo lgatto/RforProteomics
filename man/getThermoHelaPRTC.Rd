@@ -22,9 +22,9 @@ Invisibly return the path of the downloaded files.
 Downloads on of multiple Thermo Hela/PRTC data files.
 }
 \examples{
+\dontrun{
 getThermoHelaPRTC()
 getThermoHelaPRTC("design")
-\dontrun{
 getThermoHelaPRTC("all")
 }
 }

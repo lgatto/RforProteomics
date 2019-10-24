@@ -2,15 +2,15 @@ Package: RforProteomics
 Type: Package
 Title: Companion package to the 'Using R and Bioconductor for
     proteomics data analysis' publication
-Version: 1.19.4
+Version: 1.19.5
 Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
-                    email="lg390@cam.ac.uk"),
-             person("Sebastian", "Gibb", role="ctb",
-                    email="mail@sebastiangibb.de"),
-             person("Vlad", "Petyuk", role="ctb",
-                    email="petyuk@gmail.com"),
-             person('Thomas', 'Pedersen Lin', role='ctb',
-                    email='thomasp85@gmail.com'))
+		    email="laurent.gatto@uclouvain.be"),
+	     person("Sebastian", "Gibb", role="ctb",
+		    email="mail@sebastiangibb.de"),
+	     person("Vlad", "Petyuk", role="ctb",
+		    email="petyuk@gmail.com"),
+	     person('Thomas', 'Pedersen Lin', role='ctb',
+		    email='thomasp85@gmail.com'))
 Maintainer: Laurent Gatto <lg390@cam.ac.uk>
 Depends:
     MSnbase (>= 2.5.3)
@@ -56,7 +56,6 @@ Suggests:
     pRoloc,
     pRolocdata,
     MSGFplus,
-    MSGFgui,
     MSnID,
     msmsTests,
     msmsEDA,
@@ -88,4 +87,4 @@ License: Artistic-2.0
 VignetteBuilder: knitr
 Author: Laurent Gatto [aut, cre], Thomas Lin Pedersen [ctb],
     Sebastian Gibb [ctb], Vlad Petyuk [ctb]
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
