@@ -44,7 +44,6 @@ suppressPackageStartupMessages(library("BRAIN"))
 suppressPackageStartupMessages(library("org.Hs.eg.db"))
 suppressPackageStartupMessages(library("GO.db"))
 suppressPackageStartupMessages(library("Rdisop"))
-suppressPackageStartupMessages(library("MSGFplus"))
 ```
 
 # Introduction {#sec:intro}
