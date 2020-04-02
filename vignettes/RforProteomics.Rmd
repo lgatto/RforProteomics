@@ -44,7 +44,6 @@ suppressPackageStartupMessages(library("BRAIN"))
 suppressPackageStartupMessages(library("org.Hs.eg.db"))
 suppressPackageStartupMessages(library("GO.db"))
 suppressPackageStartupMessages(library("Rdisop"))
-suppressPackageStartupMessages(library("rTANDEM"))
 suppressPackageStartupMessages(library("MSGFplus"))
 ```
 
@@ -930,12 +929,13 @@ workflow, though their syntax differs:
 Following Bioconductor 2.12 the `r Biocpkg("rTANDEM")` package provides the
 means to run the popular X!Tandem software [@Craig2004].
 
-Using example code/data from the `r Biocpkg("rTANDEM")` vignette/package, the
-following is an example of a typical workflow
+Using example code/data from the `r Biocpkg("rTANDEM")`
+vignette/package (not evaluated below), the following is an example of
+a typical workflow
 
 ### Preparation of the input data {-}
 
-```{r rtandem1, tidy = FALSE}
+```{r rtandem1, tidy = FALSE, eval = FALSE}
 library(rTANDEM)
 taxonomy <- rTTaxo(taxon = "yeast",
                    format = "peptide",
@@ -973,14 +973,14 @@ The analysis is run using the `tandem` function (see also the
 `rtandem` function), which returns the results data file path (only
 the file name is displayed below).
 
-```{r rtandem2}
+```{r rtandem2, eval = FALSE}
 resultPath <- tandem(param)
 basename(resultPath)
 ```
 
 ### Import and analyse results {-}
 
-```{r rtandem3}
+```{r rtandem3, eval = FALSE}
 res <- GetResultsFromXML(resultPath)
 ## the inferred proteins
 proteins <- GetProteins(res,
@@ -1004,14 +1004,15 @@ The `r Biocpkg("shinyTANDEM")` package offers a web-based graphical
 interface to `r Biocpkg("rTANDEM")`.
 
 ## MS-GF+
+
 With the release of Bioconductor 3.0 the `r Biocpkg("MSGFplus")` package has
 provided an interface to MS-GF+ [@Kim:2008go, Kim:2010ks]. The package
 vignette describe in detail the different ways an MS-GF+ analysis can be
-initiated and only a simple example will be given here:
+initiated and only a simple example will be given here (not evaluated):
 
 ### Preparation of the input data {-}
 
-```{r msgf1}
+```{r msgf1, eval = FALSE}
 library("MSGFplus")
 ## Create a parameter object with a set of parameters
 param <- msgfPar(database = system.file('extdata',
