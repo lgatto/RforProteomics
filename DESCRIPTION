@@ -2,7 +2,7 @@ Package: RforProteomics
 Type: Package
 Title: Companion package to the 'Using R and Bioconductor for
     proteomics data analysis' publication
-Version: 1.25.0
+Version: 1.25.1
 Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
 		    email="laurent.gatto@uclouvain.be"),
 	     person("Sebastian", "Gibb", role="ctb",
@@ -11,7 +11,6 @@ Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
 		    email="petyuk@gmail.com"),
 	     person('Thomas', 'Pedersen Lin', role='ctb',
 		    email='thomasp85@gmail.com'))
-Maintainer: Laurent Gatto <lg390@cam.ac.uk>
 Depends:
     MSnbase (>= 2.5.3)
 Imports:
@@ -70,8 +69,9 @@ Suggests:
     plotly,
     gridExtra,
     dplyr,
-    lubridate
-Enhances: cleaver
+    lubridate,
+    magick,
+    cleaver
 Description: This package contains code to illustrate the 'Using R and
     Bioconductor for proteomics data analysis' and
     'Visualisation of proteomics data using R and
@@ -85,6 +85,4 @@ URL: http://lgatto.github.com/RforProteomics/
 biocViews: ExperimentData, MassSpectrometryData, ReproducibleResearch
 License: Artistic-2.0
 VignetteBuilder: knitr
-Author: Laurent Gatto [aut, cre], Thomas Lin Pedersen [ctb],
-    Sebastian Gibb [ctb], Vlad Petyuk [ctb]
 RoxygenNote: 6.1.1
