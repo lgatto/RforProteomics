@@ -10,3 +10,5 @@ vignettes/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML
 vignettes/output*
 vignettes/*_cache
 docs
+vignettes/cache
+vignettes/figure
