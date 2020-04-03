@@ -12,6 +12,7 @@ Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
 	     person('Thomas', 'Pedersen Lin', role='ctb',
 		    email='thomasp85@gmail.com'))
 Depends:
+    R (>= 3.5),
     MSnbase (>= 2.5.3)
 Imports:
     R.utils,
