@@ -406,7 +406,7 @@ processingData(qnt)
 ## - sum the peptide intensities
 protqnt <- combineFeatures(qnt,
                            groupBy = fData(qnt)$accession,
-                           fun = sum)
+                           method = sum)
 ```
 
 
@@ -778,12 +778,7 @@ for (i in 1:length(inc))
 The `r Biocpkg("isobar")` package [@Breitwieser2011] provides methods
 for the statistical analysis of isobarically tagged MS2 experiments.
 
-#### Note
-
-The `isobar` code chunks were failing in the context of the vignette
-and aren't being evaludated at the moment.
-
-```{r isobar, cache=TRUE, tidy=FALSE, eval=FALSE}
+```{r isobar, cache=TRUE, tidy=FALSE}
 library("isobar")
 
 ## Prepare the PXD000001 data for isobar analysis
@@ -862,7 +857,7 @@ rat.exp <- c(PHO = 2/2,
 
 
 
-```{r ibplot, fig.caption = "Result from the `r Biocpkg('isobar')` pipeline.", eval=FALSE}
+```{r ibplot, fig.caption = "Result from the `r Biocpkg('isobar')` pipeline."}
 maplot(x,
        noise.model = c(nm.background, nm.spks, nm),
        channel1="127", channel2="129",
@@ -1521,10 +1516,11 @@ illustrated in this document.
 
 Suggestions for additional R packages are welcome and will be added to
 the vignette.  Please send suggestions and possibly a short
-description and/or a example utilisation with code to
-`lg390@cam.ac.uk`. The only requirement is that the package must be
-available on an official package channel (CRAN, Bioconductor, R-forge,
-Omegahat), i.e. not only available through a personal web page.
+description and/or a example utilisation with code to the
+RforProteomics package maintainer. The only requirement is that the
+package must be available on an official package channel (CRAN,
+Bioconductor, R-forge, Omegahat), i.e. not only available through a
+personal web page.
 
 # Session information {#sec:sessionInfo}
 
