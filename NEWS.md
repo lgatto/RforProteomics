@@ -1,5 +1,11 @@
 # RforProteomics 1.0
 
+## Changes in version 1.27.1
+- Remove deprecated IPPD dependency
+
+## Changes in version 1.25.1
+- Fix build errors
+
 ## Changes in version 1.23.1
 - remove getThermoHelaPRTC function (server down) <2019-10-24 Thu>
 
