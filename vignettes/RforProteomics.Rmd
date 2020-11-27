@@ -1318,7 +1318,7 @@ If only interested in the non-redundant list of confidently identified
 peptides or proteins
 
 ```{r MSnIDgetDataOut2}
-peps <- peptides(msnid)
+peps <- MSnID::peptides(msnid)
 head(peps)
 prots <- accessions(msnid)
 head(prots)

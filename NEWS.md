@@ -1,5 +1,9 @@
 # RforProteomics 1.0
 
+## Changes in version 1.29.1
+
+- Specify `MSnID::peptides()` (see also https://github.com/vladpetyuk/MSnID/issues/12).
+
 ## Changes in version 1.27.1
 - Remove deprecated IPPD dependency
 
