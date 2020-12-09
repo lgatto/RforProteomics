@@ -21,7 +21,7 @@ Imports:
     BiocManager
 Suggests:
     AnnotationDbi,
-    rpx,
+    rpx (>= 1.99.2),
     DT,
     knitr,
     rmarkdown,

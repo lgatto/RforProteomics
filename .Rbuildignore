@@ -12,3 +12,5 @@ vignettes/*_cache
 docs
 vignettes/cache
 vignettes/figure
+.git
+.github
