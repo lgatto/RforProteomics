@@ -4,8 +4,11 @@
 \alias{getPackagesInBiocView}
 \title{Packages in a biocView}
 \usage{
-getPackagesInBiocView(view, rep = c("BioCsoft", "BioCann", "BioCexp",
-  "BioCextra"), biocVersion)
+getPackagesInBiocView(
+  view,
+  rep = c("BioCsoft", "BioCann", "BioCexp", "BioCextra"),
+  biocVersion
+)
 }
 \arguments{
 \item{view}{The biocView of interest. For example \code{"Proteomics"}.}
