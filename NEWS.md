@@ -1,7 +1,10 @@
 # RforProteomics 1.0
 
-## Changes in version 1.29.1
+## Changes in version 1.29.2
+- Suggest rpx version 1.99.2 or later (to make use of caching and
+  avoid repeated downloads).
 
+## Changes in version 1.29.1
 - Specify `MSnID::peptides()` (see also https://github.com/vladpetyuk/MSnID/issues/12).
 
 ## Changes in version 1.27.1
