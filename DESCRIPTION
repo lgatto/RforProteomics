@@ -16,7 +16,6 @@ Depends:
     MSnbase (>= 2.5.3)
 Imports:
     R.utils,
-    shiny,
     biocViews,
     BiocManager
 Suggests:
@@ -33,8 +32,6 @@ Suggests:
     MALDIquant (>= 1.12),
     MALDIquantForeign,
     readBrukerFlexData,
-    synapter,
-    synapterdata,
     Rdisop,
     OrgMassSpecR,
     SummarizedExperiment,
@@ -83,4 +80,4 @@ URL: http://lgatto.github.com/RforProteomics/
 biocViews: ExperimentData, MassSpectrometryData, ReproducibleResearch
 License: Artistic-2.0
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1

@@ -918,82 +918,10 @@ workflow, though their syntax differs:
 
 ## X! Tandem
 
-Following Bioconductor 2.12 the `r Biocpkg("rTANDEM")` package provides the
-means to run the popular X!Tandem software [@Craig2004].
-
-Using example code/data from the `r Biocpkg("rTANDEM")`
-vignette/package (not evaluated below), the following is an example of
-a typical workflow
-
-### Preparation of the input data {-}
-
-```{r rtandem1, tidy = FALSE, eval = FALSE}
-library(rTANDEM)
-taxonomy <- rTTaxo(taxon = "yeast",
-                   format = "peptide",
-                   URL = system.file(
-                     "extdata/fasta/scd.fasta.pro",
-                     package="rTANDEM"))
-param <- rTParam()
-param <- setParamValue(param,
-                       'protein', 'taxon',
-                       value="yeast")
-param <- setParamValue(param, 'list path',
-                       'taxonomy information', taxonomy)
-param <- setParamValue(param,
-                       'list path', 'default parameters',
-                       value = system.file(
-                         "extdata/default_input.xml",
-                         package="rTANDEM"))
-param <- setParamValue(param, 'spectrum', 'path',
-                       value = system.file(
-                         "extdata/test_spectra.mgf",
-                         package="rTANDEM"))
-param <- setParamValue(param, 'output', 'xsl path',
-                       value = system.file(
-                         "extdata/tandem-input-style.xsl",
-                         package="rTANDEM"))
-param <- setParamValue(param, 'output', 'path',
-                       value = paste(getwd(),
-                         "output.xml", sep="/"))
-```
-
-
-### Performing the search {-}
-
-The analysis is run using the `tandem` function (see also the
-`rtandem` function), which returns the results data file path (only
-the file name is displayed below).
-
-```{r rtandem2, eval = FALSE}
-resultPath <- tandem(param)
-basename(resultPath)
-```
-
-### Import and analyse results {-}
-
-```{r rtandem3, eval = FALSE}
-res <- GetResultsFromXML(resultPath)
-## the inferred proteins
-proteins <- GetProteins(res,
-                        log.expect = -1.3,
-                        min.peptides = 2)
-proteins[, -(4:5), with = FALSE]
-## the identified peptides for YFR053C
-peptides <- GetPeptides(protein.uid = 1811,
-                        results = res,
-                        expect = 0.05)
-peptides[, c(1:4, 9, 10:16), with = FALSE]
-```
-
-More details are provided in the vignette available with
-`vignette("rTANDEM")`, for instance the extraction of degenerated
-peptides, i.e. peptides found in multiple proteins.
-
-
-
-The `r Biocpkg("shinyTANDEM")` package offers a web-based graphical
-interface to `r Biocpkg("rTANDEM")`.
+Following Bioconductor 2.12 the `r Biocpkg("rTANDEM")` package
+provides the means to run the popular X!Tandem software
+[@Craig2004]. For details, please refer to the package vignette
+available with `vignette("rTANDEM")`.
 
 ## MS-GF+
 

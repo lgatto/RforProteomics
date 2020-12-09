@@ -256,22 +256,15 @@ MAplot(qnt, cex = .8)
 
 ## An interactive `r CRANpkg("shiny")` app for MA plots
 
-This app is based on Mike Love's
+This (now outdated and deprecated) app is based on Mike Love's
 [shinyMA](https://github.com/mikelove/shinyMA) application, adapted
-for a proteomics data. A screen shot is displayed below. To start the
-application:
-
-```{r shinyMA, eval=FALSE}
-shinyMA()
-```
+for a proteomics data. A screen shot is displayed below. 
 
 ![shinyMA screeshot](./figures/shinyMA.png)
 
-The application is also available online at
-[https://lgatto.shinyapps.io/shinyMA/](https://lgatto.shinyapps.io/shinyMA/).
-
-See the excellent `r CRANpkg("shiny")`
-[web page](http://shiny.rstudio.com/) for tutorials.
+See the excellent `r CRANpkg("shiny")` [web
+page](http://shiny.rstudio.com/) for tutorials and the [Mastering
+Shiny](https://mastering-shiny.org/) book for details on `shiny`.
 
 ## Volcano plots
 

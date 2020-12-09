@@ -3,6 +3,10 @@
 ## Changes in version 1.29.2
 - Suggest rpx version 1.99.2 or later (to make use of caching and
   avoid repeated downloads).
+- Remove the shinyMA function.
+- Delete the code from the rTANDEM section, and only mention the
+  package.
+- Remove synapter(data) suggestion.
 
 ## Changes in version 1.29.1
 - Specify `MSnID::peptides()` (see also https://github.com/vladpetyuk/MSnID/issues/12).
