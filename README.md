@@ -7,8 +7,8 @@ Bioconductor for proteomics data analysis_ manuscript
 ([pubmed](http://www.ncbi.nlm.nih.gov/pubmed/23692960) and
 [pre-print](http://arxiv.org/abs/1305.6559)).  The package illustrates
 how `R` and a selection of dedicated packages that can be used to
-access mass-spectrometry proteomics data, manipulate and visualise it,
-how to process label-free and labelled quantitative data and how to
+access mass-spectrometry proteomics data, manipulate and visualize it,
+how to process label-free and labeled quantitative data and how to
 analyse the quantitation data.
 
 The package will be updated beyond the content of the manuscript to
@@ -24,7 +24,7 @@ proteomics, in particular by facilitating interoperability between
 their software.  The
 [rbioc-sig-proteomics](https://groups.google.com/forum/#!forum/rbioc-sig-proteomics)
 group has tentatively been set up to provide a forum for questions and
-discussion for interested parties. The officiall
+discussion for interested parties. The official
 [Bioconductor support site](https://support.bioconductor.org/) is the
 channel of choice to ask questions about specific Bioconductor
 packages. Do not hesitate to
@@ -40,7 +40,7 @@ The package uses the
 dataset
 [`PXD000001`](http://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD000001) from
 the [ProteomeXchange](http://www.proteomexchange.org/) repository in
-several examples. The data can be queries and downloaded from `R` with
+several examples. The data can be queried and downloaded from `R` with
 the
 [`rpx`](http://bioconductor.org/packages/release/bioc/html/rpx.html)
 package. The `RforProteomics` vignette is a detailed document
