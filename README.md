@@ -7,8 +7,8 @@ Bioconductor for proteomics data analysis_ manuscript
 ([pubmed](http://www.ncbi.nlm.nih.gov/pubmed/23692960) and
 [pre-print](http://arxiv.org/abs/1305.6559)).  The package illustrates
 how `R` and a selection of dedicated packages that can be used to
-access mass-spectrometry proteomics data, manipulate and visualize it,
-how to process label-free and labeled quantitative data and how to
+access mass-spectrometry proteomics data, manipulate and visualise it,
+how to process label-free and labelled quantitative data and how to
 analyse the quantitation data.
 
 The package will be updated beyond the content of the manuscript to
