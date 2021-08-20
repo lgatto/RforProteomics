@@ -1,5 +1,14 @@
 # RforProteomics 1.0
 
+## Changes in version 1.31.0
+
+- New version for Bioc 3.14 (devel)
+- Fix mztab file name (required for new rpx)
+
+## Changes in version 1.30.0
+
+- New version for Bioc 3.13 (release)
+
 ## Changes in version 1.29.2
 - Suggest rpx version 1.99.2 or later (to make use of caching and
   avoid repeated downloads).

@@ -379,7 +379,8 @@ px1 <- PXDataset("PXD000001")
 px1
 pxfiles(px1)
 ## Downloading the mzTab data
-mztab <- pxget(px1, "PXD000001_mztab.txt")
+## mztab <- pxget(px1, "PXD000001_mztab.txt")
+mztab <- pxget(px1, "F063721.dat-mztab.txt")
 mztab
 ```
 
