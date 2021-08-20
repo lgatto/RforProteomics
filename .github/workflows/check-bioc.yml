@@ -403,6 +403,7 @@ jobs:
           BiocManager::install(deps$package[deps$diff != 0])
 
           ## Force install of rhdf5
+          BiocManager::install("lgatto/rpx")
           BiocManager::install(c('grimbough/Rhdf5lib'), ask = FALSE, update = FALSE, INSTALL_opts = '--force-biarch')
           BiocManager::install('rhdf5', dependencies = TRUE, ask = FALSE, update = FALSE, INSTALL_opts = '--force-biarch')
 
