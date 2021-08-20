@@ -165,7 +165,7 @@ log10 mean expression intensities) into `data.frames`.
 ```{r, makemadata, warning=FALSE, cache=FALSE}
 library("rpx")
 px1 <- PXDataset("PXD000001")
-mztab <- pxget(px1, "PXD000001_mztab.txt")
+mztab <- pxget(px1, "F063721.dat-mztab.txt")
 
 library("MSnbase")
 ## here, we need to specify the (old) mzTab version 0.9
@@ -258,7 +258,7 @@ MAplot(qnt, cex = .8)
 
 This (now outdated and deprecated) app is based on Mike Love's
 [shinyMA](https://github.com/mikelove/shinyMA) application, adapted
-for a proteomics data. A screen shot is displayed below. 
+for a proteomics data. A screen shot is displayed below.
 
 ![shinyMA screeshot](./figures/shinyMA.png)
 
