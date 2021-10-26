@@ -2,7 +2,7 @@ Package: RforProteomics
 Type: Package
 Title: Companion package to the 'Using R and Bioconductor for
     proteomics data analysis' publication
-Version: 1.31.1
+Version: 1.32.0
 Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
                     email="laurent.gatto@uclouvain.be"),
              person("Sebastian", "Gibb", role="ctb",
