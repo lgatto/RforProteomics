@@ -5,6 +5,7 @@
 - Repeat ensembl mart connection until successful.
 - Add links to R4MS.
 - Remove XTandom, MSGF and isobar sections.
+- Remove MSMap
 
 ## Changes in version 1.31.1
 
