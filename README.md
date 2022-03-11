@@ -17,22 +17,20 @@ keep up-to-date with progress in the area.  The
 edit the wiki and file new issues related to the package itself of
 general needed for proteomics that should be addressed in `R`.
 
+> **NB**: I you are interested in R packages for mass
+> spectrometry-based proteomics and metabolomics, see also the [R for
+> Mass Spectrometry initiative](https://www.rformassspectrometry.org/)
+> packages and the [tutorial
+> book](https://rformassspectrometry.github.io/docs/)
+
+
 It would be great if this work could stimulate a wider participation
 to use `R` and develop `R` packages for proteomics and promote
 interaction between computational biologists working in the field of
 proteomics, in particular by facilitating interoperability between
-their software.  The
-[rbioc-sig-proteomics](https://groups.google.com/forum/#!forum/rbioc-sig-proteomics)
-group has tentatively been set up to provide a forum for questions and
-discussion for interested parties. The official
-[Bioconductor support site](https://support.bioconductor.org/) is the
-channel of choice to ask questions about specific Bioconductor
-packages. Do not hesitate to
-[get in touch](http://proteome.sysbiol.cam.ac.uk/lgatto/) for
-questions, comments or further suggestions. Note taking about
-plans/ideas/direction for R/Bioc and proteomics can be contributed to
-the
-[`RforProteomics` wiki](https://github.com/lgatto/RforProteomics/wiki).
+their software.  The official [Bioconductor support
+site](https://support.bioconductor.org/) is the channel of choice to
+ask questions about specific Bioconductor packages.
 
 ## Data and vignette
 
@@ -66,7 +64,7 @@ The package is available on
 (version >= 2.13). To install the package and its documentation, start
 `R` (>= `3.0.0` required) and type:
 
-```c
+```
 if (!requireNamespace("BiocManager", quietly=TRUE))
     install.packages("BiocManager")
 BiocManager::install("RforProteomics")
@@ -76,7 +74,7 @@ To install all dependencies (75+ packages, including `RforProteomics`)
 and fully reproduce the code in the vignettes, replace the last line
 in the code chunk above with:
 
-```c
+```
 BiocManager::install("RforProteomics", dependencies = TRUE)
 ```
 
@@ -91,21 +89,12 @@ section to the vignette and send a
 you update the vignette, please also add yourself as a contributor to
 the package.
 
-There is also a [wiki](https://github.com/lgatto/RforProteomics/wiki)
-than any github user can
-[edit](https://help.github.com/articles/editing-wiki-pages-via-the-online-interface)
-to gather specific `R`/Bioconductor proteomics needs and ideas. 
-
 ## Help
 
 To obtain help or additional information about the `RforProteomics`
-package, please contact
-[me](http://proteome.sysbiol.cam.ac.uk/lgatto/). For help about the
-packages presented in the vignette or manuscript, please refer to the
-[R mailing list](https://stat.ethz.ch/mailman/listinfo/r-help),
-[Bioconductor mailing list](http://www.bioconductor.org/help/mailing-list/#bioconductor)
-(if the package is in Bioconductor) and/or the respective package
-authors.
+package and about the packages presented in the vignette or
+manuscript, please use the [Bioconductor support
+site](https://support.bioconductor.org/).
 
 For general resources about `R`, see the corresponding section in the
 vignettes and the
