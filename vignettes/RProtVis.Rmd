@@ -57,6 +57,12 @@ proteomics data. The code details the visualisations presented in
 > 10.1002/pmic.201400392. PubMed PMID:
 > [25690415](http://www.ncbi.nlm.nih.gov/pubmed/25690415).
 
+> **NB**: I you are interested in R packages for mass
+> spectrometry-based proteomics and metabolomics, see also the [R for
+> Mass Spectrometry initiative](https://www.rformassspectrometry.org/)
+> packages and the [tutorial
+> book](https://rformassspectrometry.github.io/docs/)
+
 ## References
 
 - CRAN Task View: Graphic Displays & Dynamic Graphics & Graphic

@@ -43,6 +43,7 @@ suppressPackageStartupMessages(library("BRAIN"))
 suppressPackageStartupMessages(library("org.Hs.eg.db"))
 suppressPackageStartupMessages(library("GO.db"))
 suppressPackageStartupMessages(library("Rdisop"))
+suppressPackageStartupMessages(library("biomaRt"))
 ```
 
 # Introduction {#sec:intro}
@@ -59,6 +60,12 @@ and [CRAN](http://cran.r-project.org/web/packages/) repositories, as
 well as packages hosted on personal websites. Section
 \@ref(sec:packages) tries to provide a wider picture of available
 packages, without going into details.
+
+> **NB**: I you are interested in R packages for mass
+> spectrometry-based proteomics and metabolomics, see also the [R for
+> Mass Spectrometry initiative](https://www.rformassspectrometry.org/)
+> packages and the [tutorial
+> book](https://rformassspectrometry.github.io/docs/)
 
 ## General R resources {#sec:rres}
 
@@ -1350,9 +1357,22 @@ sapply(as.list(GOTERM[ans$GO]), slot, "Term")
 Finally, this information can also be retrieved from on-line databases
 using the `r Biocpkg("biomaRt")` package [@Durinck2005].
 
-```{r annot3, cache=TRUE, message=FALSE}
+```{r annot3a, include = FALSE}
 library("biomaRt")
-ensembl <- useMart("ensembl",dataset="hsapiens_gene_ensembl")
+ensembl <- NULL
+
+while (is.null(ensembl)) {
+    ensembl <- useMart("ensembl", dataset="hsapiens_gene_ensembl")
+    Sys.sleep(2)
+}
+```
+```{r annot3b, eval = FALSE}
+library("biomaRt")
+ensembl <- useMart("ensembl", dataset="hsapiens_gene_ensembl")
+```
+
+
+```{r annot4, cache=TRUE, message=FALSE}
 efilter <- "ensembl_gene_id"
 eattr <- c("go_id", "name_1006", "namespace_1003")
 bmres <- getBM(attributes=eattr, filters = efilter, values = id, mart = ensembl)
