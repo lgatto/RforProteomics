@@ -228,8 +228,8 @@ print(latma)
 library("ggplot2")
 ggma <- ggplot(aes(x = A, y = M, colour = class), data = madata,
                colour = class) +
-                   geom_point() +
-                       facet_grid(. ~ data)
+    geom_point() +
+    facet_grid(. ~ data)
 print(ggma)
 ```
 
@@ -516,28 +516,6 @@ hd <- header(ms)
 ms1 <- which(hd$msLevel == 1)
 
 rtsel <- hd$retentionTime[ms1] / 60 > 30 & hd$retentionTime[ms1] / 60 < 35
-library("MSnbase")
-(M <- MSmap(ms, ms1[rtsel], 521, 523, .005, hd))
-```
-
-```{r mapsheat}
-library("lattice")
-ff <- colorRampPalette(c("yellow", "steelblue"))
-trellis.par.set(regions=list(col=ff(100)))
-plot(M, aspect = 1, allTicks = FALSE)
-```
-
-```{r maps3D}
-M@map[msMap(M) == 0] <- NA
-plot3D(M, rgl = FALSE)
-```
-
-To produce a version that can be reoriented interactively on the
-screen discplay, use the `r CRANpkg("rgl")`
-
-```{r rglmap, eval=FALSE}
-library("rgl")
-plot3D(M, rgl = TRUE)
 ```
 
 ```{r layout}
