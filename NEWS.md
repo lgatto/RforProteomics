@@ -1,6 +1,6 @@
 # RforProteomics 1.0
 
-## Changes in version 1.31.2
+## Changes in version 1.33.1
 
 - Repeat ensembl mart connection until successful.
 - Add links to R4MS.
