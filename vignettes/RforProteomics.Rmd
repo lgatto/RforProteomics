@@ -31,7 +31,6 @@ BiocStyle::markdown()
 suppressPackageStartupMessages(library("DT"))
 suppressPackageStartupMessages(library("BiocManager"))
 suppressPackageStartupMessages(library("mzR"))
-## suppressPackageStartupMessages(library("isobar"))
 suppressPackageStartupMessages(library("MSnbase"))
 suppressPackageStartupMessages(library("mzID"))
 suppressPackageStartupMessages(library("rpx"))
@@ -471,6 +470,7 @@ heatmap(m, col = wbcol, RowSideColors=cls[rownames(m)])
 
 
 ```{r spikes, fig.cap = "Spikes plot using `r CRANpkg('ggplot2')`."}
+
 dfr <- data.frame(exprs(small),
                   Protein = as.character(fData(small)$accession),
                   Feature = featureNames(small),
@@ -521,7 +521,7 @@ and a 7th peak of interest corresponding to the un-dissociated
 reporter tag peaks (see the `MSnbase-demo` vignette in
 `r Biocpkg("MSnbase")` for details).
 
-```{r mzxmlqnt, cache=TRUE}
+```{r mzxmlqnt}
 mzxml <- pxget(px1, "TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML")
 rawms <- readMSData(mzxml, centroided = TRUE, verbose = FALSE)
 qntms <- quantify(rawms, reporters = TMT7, method = "max")
@@ -549,7 +549,7 @@ pch[grep("P62894", fData(qnt)$accession)] <- 19
 pch[grep("P00489", fData(qnt)$accession)] <- 19
 ```
 
-```{r mzp, cache = TRUE, fig.keep='none', warning = FALSE}
+```{r mzp, fig.keep='none', warning = FALSE}
 mzp <- plotMzDelta(rawms, reporters = TMT6, verbose = FALSE) + ggtitle("")
 ```
 
@@ -570,11 +570,9 @@ abline(0, 1, lty = "dotted")
 abline(lm(Signal ~ Incomplete, data = d), col = "darkblue")
 ```
 
-
 ```{r maplot, fig.cap = "MAplot on an `MSnSet` instance."}
 MAplot(qnt[, c(4, 2)], cex = .9, col = cls, pch = pch, show.statistics = FALSE)
 ```
-
 
 ## The `r CRANpkg("MALDIquant")` package
 
@@ -606,6 +604,7 @@ head(as.matrix(s))
 
 
 ```{r mqplot1, fig.cap = "Spectrum plotting in `r CRANpkg('MALDIquant')`."}
+
 plot(s)
 ```
 
@@ -783,102 +782,8 @@ for (i in 1:length(inc))
 ## The `r Biocpkg("isobar")` package
 
 The `r Biocpkg("isobar")` package [@Breitwieser2011] provides methods
-for the statistical analysis of isobarically tagged MS2 experiments.
-
-```{r isobar, cache=TRUE, tidy=FALSE}
-library("isobar")
-
-## Prepare the PXD000001 data for isobar analysis
-.ions <- exprs(qnt)
-.mass <- matrix(TMT6@mz, nrow(qnt), byrow=TRUE, ncol = 6)
-colnames(.ions) <- colnames(.mass) <-
-  reporterTagNames(new("TMT6plexSpectra"))
-rownames(.ions) <- rownames(.mass) <-
-  paste(fData(qnt)$accession, fData(qnt)$sequence, sep = ".")
-pgtbl <- data.frame(spectrum = rownames(.ions),
-                    peptide = fData(qnt)$sequence,
-                    modif = ":",
-                    start.pos = 1,
-                    protein = fData(qnt)$accession,
-                    accession = fData(qnt)$accession)
-x <- new("TMT6plexSpectra", pgtbl, .ions, .mass)
-featureData(x)$proteins <- as.character(fData(qnt)$accession)
-
-x <- correctIsotopeImpurities(x) ## using identity matrix here
-x <- isobar::normalize(x, per.file = FALSE)
-## spikes
-spks <- c(protein.g(proteinGroup(x), "P00489"),
-          protein.g(proteinGroup(x), "P00924"),
-          protein.g(proteinGroup(x), "P02769"),
-          protein.g(proteinGroup(x), "P62894"))
-
-cls2 <- rep("#00000040", nrow(x))
-pch2 <- rep(1, nrow(x))
-cls2[grep("P02769", featureNames(x))] <- "gold4" ## BSA
-cls2[grep("P00924", featureNames(x))] <- "dodgerblue" ## ENO
-cls2[grep("P62894", featureNames(x))] <- "springgreen4" ## CYT
-cls2[grep("P00489", featureNames(x))] <- "darkorchid2" ## PHO
-pch2[grep("P02769", featureNames(x))] <- 19
-pch2[grep("P00924", featureNames(x))] <- 19
-pch2[grep("P62894", featureNames(x))] <- 19
-pch2[grep("P00489", featureNames(x))] <- 19
-
-nm <- NoiseModel(x)
-ib.background <- subsetIBSpectra(x, protein=spks,
-                                 direction = "exclude")
-nm.background <- NoiseModel(ib.background)
-ib.spks <- subsetIBSpectra(x, protein = spks,
-                           direction="include",
-                           specificity="reporter-specific")
-nm.spks <- NoiseModel(ib.spks, one.to.one=FALSE, pool=TRUE)
-
-ratios <- 10^estimateRatio(x, nm,
-                           channel1="127", channel2="129",
-                           protein = spks,
-                           combine = FALSE)[, "lratio"]
-
-res <- estimateRatio(x, nm,
-                     channel1="127", channel2="129",
-                     protein = unique(fData(x)$proteins),
-                     combine = FALSE,
-                     sign.level = 0.01)[, c(1, 2, 6, 8)]
-res <- as.data.frame(res)
-res$lratio <- -(res$lratio)
-
-cls3 <- rep("#00000050", nrow(res))
-pch3 <- rep(1, nrow(res))
-cls3[grep("P02769", rownames(res))] <- "gold4" ## BSA
-cls3[grep("P00924", rownames(res))] <- "dodgerblue" ## ENO
-cls3[grep("P62894", rownames(res))] <- "springgreen4" ## CYT
-cls3[grep("P00489", rownames(res))] <- "darkorchid2" ## PHO
-pch3[grep("P02769", rownames(res))] <- 19
-pch3[grep("P00924", rownames(res))] <- 19
-pch3[grep("P62894", rownames(res))] <- 19
-pch3[grep("P00489", rownames(res))] <- 19
-
-rat.exp <- c(PHO = 2/2,
-             ENO = 5/1,
-             BSA = 2.5/10,
-             CYT = 1/1)
-```
-
-
-
-```{r ibplot, fig.caption = "Result from the `r Biocpkg('isobar')` pipeline."}
-maplot(x,
-       noise.model = c(nm.background, nm.spks, nm),
-       channel1="127", channel2="129",
-       pch = 19, col = cls2,
-       main = "Spectra MA plot")
-abline(h = 1, lty = "dashed", col = "grey")
-legend("topright",
-       c("BSA", "ENO", "CYT", "PHO"),
-       pch = 19, col = c("gold4", "dodgerblue",
-                   "springgreen4", "darkorchid2"),
-       bty = "n", cex = .7)
-```
-
-![Result from the isobar pipeline.](./figures/isobar-fig.png)
+for the statistical analysis of isobarically tagged MS2
+experiments. Please refer to the package vignette for more details.
 
 
 ## The `r Biocpkg("DEP")`  package
@@ -913,110 +818,6 @@ synapterGuide()
 ```
 
 # MS2 spectra identification
-
-At the moment two packages allow the user to run peptide
-identifications from within R. Each of the packages interface to an
-external peptide database search tool and have more or less the same
-workflow, though their syntax differs:
-
-- Prepare the input data.
-- Run the search.
-- Import the search results and extract the peptides and proteins
-
-## X! Tandem
-
-Following Bioconductor 2.12 the `r Biocpkg("rTANDEM")` package
-provides the means to run the popular X!Tandem software
-[@Craig2004]. For details, please refer to the package vignette
-available with `vignette("rTANDEM")`.
-
-## MS-GF+
-
-With the release of Bioconductor 3.0 the `r Biocpkg("MSGFplus")` package has
-provided an interface to MS-GF+ [@Kim:2008go, Kim:2010ks]. The package
-vignette describe in detail the different ways an MS-GF+ analysis can be
-initiated and only a simple example will be given here (not evaluated):
-
-### Preparation of the input data {-}
-
-```{r msgf1, eval = FALSE}
-library("MSGFplus")
-## Create a parameter object with a set of parameters
-param <- msgfPar(database = system.file('extdata',
-                                        'milk-proteins.fasta',
-                                        package='MSGFplus'),
-                 tolerance = '10 ppm',
-                 enzyme = 'Trypsin')
-
-## Add parameters after creation
-instrument(param) <- 'QExactive'
-tda(param) <- TRUE
-ntt(param) <- 2
-
-## Add expected modifications
-mods(param)[[1]] <- msgfParModification('Carbamidomethyl',
-                                        composition = 'C2H3N1O1',
-                                        residues = 'C',
-                                        type = 'fix',
-                                        position = 'any')
-
-mods(param)[[2]] <- msgfParModification(name = 'Oxidation',
-                                        mass = 15.994915,
-                                        residues = 'M',
-                                        type = 'opt',
-                                        position = 'any')
-
-nMod(param) <- 2    # Number of allowed modifications per peptide
-
-## Get a summary of your parameters
-show(param)
-```
-
-### Performing the search {-}
-
-Initiating the search is done using the `runMSGF` method. As a minimum
-it takes a parameter object and a list of raw data files and performs the search
-for each data file in sequence. More specialised operations are also possible
-such as running it asynchronously, but interested readers should refer to the
-`r Biocpkg("MSGFplus")` vignette for additional information.
-
-The first time a search is initialised the MS-GF+ code is downloaded, so be sure
-to have an active internet connection (only applies to the first time a search
-is run).
-
-```{r msgfplus2, eval=FALSE}
-result <- runMSGF(param, 'path/to/a/rawfile.mzML')
-```
-
-### Import and analyse results {-}
-
-By default MSGFplus imports the results automatically using `r Biocpkg("mzID")`.
-If only one file was analysed, the return value is an mzID object; if
-multiple files are analysed at once the return value is an
-mzIDCollection object.
-
-If `import=FALSE` the results are not imported and can be accessed at
-a later time using the `r Biocpkg("mzID")` package.
-
-### Running MS-GF+ through a GUI {-}
-
-`r Biocpkg("MSGFplus")` comes with a sister package, `r Biocpkg("MSGFgui")`,
-which provide a graphic interface to setting up and running MS-GF+
-through R. Besides facilitating MS-GF+ analyses, which is arguably
-just as easy from the command line, it provides an intuitive way to
-investigate and evaluate the resulting identification data.
-
-
-![A screenshot of MSGFgui](figures/MSGFgui.png)
-
-
-The figure above shows an example of using `r Biocpkg("MSGFgui")`. It
-is possible to gradually drill down in the results starting from the
-protein level and ending at the raw spectrum level. mzIdentML files
-already created with MS-GF+ (using `r Biocpkg("MSGFplus")` or in other
-ways) can easily be imported into the gui to take advantage of the
-visualisation features, and results can be exported as either rds (for
-R), xlsx (for excel) or txt (for everything else) files.
 
 ## Post-search Filtering of MS/MS IDs Using `r Biocpkg("MSnID")`
 
@@ -1085,7 +886,7 @@ psms(msnid) <- PSMresults
 show(msnid)
 ```
 
-```{r MSnIDdataImport2, cache=TRUE}
+```{r MSnIDdataImport2}
 mzids <- system.file("extdata", "c_elegans.mzid.gz", package="MSnID")
 msnid <- read_mzIDs(msnid, mzids)
 show(msnid)
@@ -1331,7 +1132,7 @@ We start with the `r Biocpkg("hpar")` package, an interface to the
 subcellular localisation information for the `ENSG00000002746`
 ensemble gene.
 
-```{r annot1, cache=FALSE}
+```{r annot1}
 id <- "ENSG00000105323"
 library("hpar")
 getHpa(id, "hpaSubcellularLoc")
@@ -1342,7 +1143,7 @@ Below, we make use of the human annotation package
 `r Biocannopkg("GO.db")` to retrieve compatible information with above.
 
 
-```{r annot2, cache=FALSE, warning=FALSE}
+```{r annot2, warning=FALSE}
 library("org.Hs.eg.db")
 library("GO.db")
 ans <- AnnotationDbi::select(org.Hs.eg.db,
@@ -1362,17 +1163,18 @@ library("biomaRt")
 ensembl <- NULL
 
 while (is.null(ensembl)) {
-    ensembl <- useMart("ensembl", dataset="hsapiens_gene_ensembl")
+    try(ensembl <- useMart("ensembl", dataset="hsapiens_gene_ensembl"))
     Sys.sleep(2)
 }
 ```
+
 ```{r annot3b, eval = FALSE}
 library("biomaRt")
 ensembl <- useMart("ensembl", dataset="hsapiens_gene_ensembl")
 ```
 
 
-```{r annot4, cache=TRUE, message=FALSE}
+```{r annot4, message=FALSE}
 efilter <- "ensembl_gene_id"
 eattr <- c("go_id", "name_1006", "namespace_1003")
 bmres <- getBM(attributes=eattr, filters = efilter, values = id, mart = ensembl)
@@ -1383,7 +1185,7 @@ bmres[bmres$namespace_1003 == "cellular_component", "name_1006"]
 
 ## Bioconductor packages
 
-```{r protpacks, echo=FALSE, warning=FALSE, cache=TRUE}
+```{r protpacks, echo=FALSE, warning=FALSE}
 # biocVersion has to be of type character
 biocv <- as.character(version())
 pkTab <- list(Proteomics = proteomicsPackages(biocv),
