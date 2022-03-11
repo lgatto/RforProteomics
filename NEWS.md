@@ -1,5 +1,10 @@
 # RforProteomics 1.0
 
+## Changes in version 1.33.1
+
+- Repeat ensembl mart connection until successful.
+- Add links to R4MS.
+
 ## Changes in version 1.31.1
 
 - Fix mztab file name (required for new rpx)
