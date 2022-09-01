@@ -1,6 +1,6 @@
 # RforProteomics 1
 
-## Changes in version 1.33.2
+## Changes in version 1.35.1
 
 - Remove failing code chunk.
 
