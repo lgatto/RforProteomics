@@ -24,7 +24,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RforProteomics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.33.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.35.1</span>
       </span>
     </div>
 
@@ -74,11 +74,11 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">proteomicsPackages</span><span class="op">(</span><span class="va">biocv</span>, cache <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">massSpectrometryPackages</span><span class="op">(</span><span class="va">biocv</span>, cache <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">massSpectrometryDataPackages</span><span class="op">(</span><span class="va">biocv</span>, cache <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">proteomicsPackages</span><span class="op">(</span><span class="va">biocv</span>, cache <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">massSpectrometryPackages</span><span class="op">(</span><span class="va">biocv</span>, cache <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">massSpectrometryDataPackages</span><span class="op">(</span><span class="va">biocv</span>, cache <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -87,14 +87,19 @@
 <dd><p>A <code>character</code> with the Bioconductor version to
 search for relevant packages. If missing, the running version
 is used.</p></dd>
+
+
 <dt>cache</dt>
 <dd><p>A <code>logical</code> indicating whether cached package
 information should be used. Default is <code>FALSE</code>. All
 except development versions are up-to-date.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>data.frame</code> with the respective package names,
+    
+
+<p>A <code>data.frame</code> with the respective package names,
     titles and versions.</p>
     </div>
     <div id="author">
@@ -104,7 +109,7 @@ except development versions are up-to-date.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu">proteomicsPackages</span><span class="op">(</span><span class="st">"3.0"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu">proteomicsPackages</span><span class="op">(</span><span class="st">"3.0"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Dropping unknown biocViews terms:</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> CopyNumberVariants</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Dropping unknown biocViews terms:</span>
@@ -214,8 +219,8 @@ except development versions are up-to-date.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> CellNOptR  1.12.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ChemmineR  2.18.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> cisPath     1.6.4</span>
-<span class="r-in"><span class="va">ppc</span> <span class="op">&lt;-</span> <span class="fu">proteomicsPackages</span><span class="op">(</span><span class="st">"3.0"</span>, cache <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">pp</span>, <span class="va">ppc</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">ppc</span> <span class="op">&lt;-</span> <span class="fu">proteomicsPackages</span><span class="op">(</span><span class="st">"3.0"</span>, cache <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">pp</span>, <span class="va">ppc</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Component “Package”: Modes: character, numeric"                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2] "Component “Package”: Attributes: &lt; target is NULL, current is list &gt;"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3] "Component “Package”: target is character, current is factor"         </span>
@@ -237,8 +242,7 @@ except development versions are up-to-date.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>

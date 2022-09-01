@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">RforProteomics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.33.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.35.1</span>
       </span>
     </div>
 
@@ -87,87 +87,39 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>The <a href="http://www.bioconductor.org/packages/release/data/experiment/html/RforProteomics.html" class="external-link"><code>RforProteomics</code>
-package</a> distributes and extends the use-cases described in the
-<em>Using <code>R</code> and Bioconductor for proteomics data
-analysis</em> manuscript (<a href="http://www.ncbi.nlm.nih.gov/pubmed/23692960" class="external-link">pubmed</a> and <a href="http://arxiv.org/abs/1305.6559" class="external-link">pre-print</a>). The package
-illustrates how <code>R</code> and a selection of dedicated packages
-that can be used to access mass-spectrometry proteomics data, manipulate
-and visualise it, how to process label-free and labelled quantitative
-data and how to analyse the quantitation data.</p>
-<p>The package will be updated beyond the content of the manuscript to
-keep up-to-date with progress in the area. The <a href="https://github.com/lgatto/RforProteomics" class="external-link">github page</a> can be
-used to edit the wiki and file new issues related to the package itself
-of general needed for proteomics that should be addressed in
-<code>R</code>.</p>
+<p>The <a href="http://www.bioconductor.org/packages/release/data/experiment/html/RforProteomics.html" class="external-link"><code>RforProteomics</code> package</a> distributes and extends the use-cases described in the <em>Using <code>R</code> and Bioconductor for proteomics data analysis</em> manuscript (<a href="http://www.ncbi.nlm.nih.gov/pubmed/23692960" class="external-link">pubmed</a> and <a href="http://arxiv.org/abs/1305.6559" class="external-link">pre-print</a>). The package illustrates how <code>R</code> and a selection of dedicated packages that can be used to access mass-spectrometry proteomics data, manipulate and visualise it, how to process label-free and labelled quantitative data and how to analyse the quantitation data.</p>
+<p>The package will be updated beyond the content of the manuscript to keep up-to-date with progress in the area. The <a href="https://github.com/lgatto/RforProteomics" class="external-link">github page</a> can be used to edit the wiki and file new issues related to the package itself of general needed for proteomics that should be addressed in <code>R</code>.</p>
 <blockquote>
-<p><strong>NB</strong>: I you are interested in R packages for mass
-spectrometry-based proteomics and metabolomics, see also the <a href="https://www.rformassspectrometry.org/" class="external-link">R for Mass Spectrometry
-initiative</a> packages and the <a href="https://rformassspectrometry.github.io/docs/" class="external-link">tutorial
-book</a></p>
+<p><strong>NB</strong>: I you are interested in R packages for mass spectrometry-based proteomics and metabolomics, see also the <a href="https://www.rformassspectrometry.org/" class="external-link">R for Mass Spectrometry initiative</a> packages and the <a href="https://rformassspectrometry.github.io/docs/" class="external-link">tutorial book</a></p>
 </blockquote>
-<p>It would be great if this work could stimulate a wider participation
-to use <code>R</code> and develop <code>R</code> packages for proteomics
-and promote interaction between computational biologists working in the
-field of proteomics, in particular by facilitating interoperability
-between their software. The official <a href="https://support.bioconductor.org/" class="external-link">Bioconductor support site</a>
-is the channel of choice to ask questions about specific Bioconductor
-packages.</p>
+<p>It would be great if this work could stimulate a wider participation to use <code>R</code> and develop <code>R</code> packages for proteomics and promote interaction between computational biologists working in the field of proteomics, in particular by facilitating interoperability between their software. The official <a href="https://support.bioconductor.org/" class="external-link">Bioconductor support site</a> is the channel of choice to ask questions about specific Bioconductor packages.</p>
 </div>
 <div class="section level2">
 <h2 id="data-and-vignette">Data and vignette<a class="anchor" aria-label="anchor" href="#data-and-vignette"></a>
 </h2>
-<p>The package uses the dataset <a href="http://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD000001" class="external-link"><code>PXD000001</code></a>
-from the <a href="http://www.proteomexchange.org/" class="external-link">ProteomeXchange</a>
-repository in several examples. The data can be queried and downloaded
-from <code>R</code> with the <a href="http://bioconductor.org/packages/release/bioc/html/rpx.html" class="external-link"><code>rpx</code></a>
-package. The <code>RforProteomics</code> vignette is a detailed document
-containing the exact code to reproduce all the analyses presented in the
-manuscript as well as other application examples. It can be accessed
-once the package is installed (see below) with the
-<code><a href="reference/RforProteomics.html">RforProteomics()</a></code> function. Alternatively, the vignettes can
-be read online <a href="https://lgatto.github.io/RforProteomics/articles/RforProteomics.html" class="external-link">here</a>
-and <a href="https://lgatto.github.io/RforProteomics/articles/RProtVis.html" class="external-link">here</a>.</p>
-<p>A second vignette, <code>RProtVis</code> focuses on the visualisation
-of mass spectrometry and proteomics data with <code>R</code> and
-Bioconductor. From <code>R</code>, it is currently only available with
-Bioconductor <code>&gt;= 3.0</code> using the <code><a href="reference/RforProteomics.html">RProtViz()</a></code>
-function. It can also be consulted <a href="http://bioconductor.org/packages/release/data/experiment/vignettes/RforProteomics/inst/doc/RProtVis.html" class="external-link">on-line</a>
-on the ‘RforProteomics’ development version page.</p>
+<p>The package uses the dataset <a href="http://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD000001" class="external-link"><code>PXD000001</code></a> from the <a href="http://www.proteomexchange.org/" class="external-link">ProteomeXchange</a> repository in several examples. The data can be queried and downloaded from <code>R</code> with the <a href="http://bioconductor.org/packages/release/bioc/html/rpx.html" class="external-link"><code>rpx</code></a> package. The <code>RforProteomics</code> vignette is a detailed document containing the exact code to reproduce all the analyses presented in the manuscript as well as other application examples. It can be accessed once the package is installed (see below) with the <code><a href="reference/RforProteomics.html">RforProteomics()</a></code> function. Alternatively, the vignettes can be read online <a href="https://lgatto.github.io/RforProteomics/articles/RforProteomics.html" class="external-link">here</a> and <a href="https://lgatto.github.io/RforProteomics/articles/RProtVis.html" class="external-link">here</a>.</p>
+<p>A second vignette, <code>RProtVis</code> focuses on the visualisation of mass spectrometry and proteomics data with <code>R</code> and Bioconductor. From <code>R</code>, it is currently only available with Bioconductor <code>&gt;= 3.0</code> using the <code><a href="reference/RforProteomics.html">RProtViz()</a></code> function. It can also be consulted <a href="http://bioconductor.org/packages/release/data/experiment/vignettes/RforProteomics/inst/doc/RProtVis.html" class="external-link">on-line</a> on the ‘RforProteomics’ development version page.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>The package is available on <a href="http://bioconductor.org/packages/release/data/experiment/html/RforProteomics.html" class="external-link">Bioconductor</a>
-(version &gt;= 2.13). To install the package and its documentation,
-start <code>R</code> (&gt;= <code>3.0.0</code> required) and type:</p>
-<pre><code><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
-<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"RforProteomics"</span><span class="op">)</span></code></pre>
-<p>To install all dependencies (75+ packages, including
-<code>RforProteomics</code>) and fully reproduce the code in the
-vignettes, replace the last line in the code chunk above with:</p>
-<pre><code><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"RforProteomics"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre>
+<p>The package is available on <a href="http://bioconductor.org/packages/release/data/experiment/html/RforProteomics.html" class="external-link">Bioconductor</a> (version &gt;= 2.13). To install the package and its documentation, start <code>R</code> (&gt;= <code>3.0.0</code> required) and type:</p>
+<pre><code><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"RforProteomics"</span><span class="op">)</span></span></code></pre>
+<p>To install all dependencies (75+ packages, including <code>RforProteomics</code>) and fully reproduce the code in the vignettes, replace the last line in the code chunk above with:</p>
+<pre><code><span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"RforProteomics"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="collaborative-editing">Collaborative editing<a class="anchor" aria-label="anchor" href="#collaborative-editing"></a>
 </h2>
-<p>The community and package authors are invited to contribute to the
-package. If you have or know of a package of interest, please <a href="https://help.github.com/articles/fork-a-repo" class="external-link">fork</a> the <a href="https://github.com/lgatto/RforProteomics" class="external-link">repository</a>, add a
-new section to the vignette and send a <a href="https://help.github.com/articles/creating-a-pull-request" class="external-link">pull
-request</a>. If you update the vignette, please also add yourself as a
-contributor to the package.</p>
+<p>The community and package authors are invited to contribute to the package. If you have or know of a package of interest, please <a href="https://help.github.com/articles/fork-a-repo" class="external-link">fork</a> the <a href="https://github.com/lgatto/RforProteomics" class="external-link">repository</a>, add a new section to the vignette and send a <a href="https://help.github.com/articles/creating-a-pull-request" class="external-link">pull request</a>. If you update the vignette, please also add yourself as a contributor to the package.</p>
 </div>
 <div class="section level2">
 <h2 id="help">Help<a class="anchor" aria-label="anchor" href="#help"></a>
 </h2>
-<p>To obtain help or additional information about the
-<code>RforProteomics</code> package and about the packages presented in
-the vignette or manuscript, please use the <a href="https://support.bioconductor.org/" class="external-link">Bioconductor support
-site</a>.</p>
-<p>For general resources about <code>R</code>, see the corresponding
-section in the vignettes and the <a href="https://github.com/lgatto/TeachingMaterial" class="external-link">TeachingMaterial</a>
-repository.</p>
+<p>To obtain help or additional information about the <code>RforProteomics</code> package and about the packages presented in the vignette or manuscript, please use the <a href="https://support.bioconductor.org/" class="external-link">Bioconductor support site</a>.</p>
+<p>For general resources about <code>R</code>, see the corresponding section in the vignettes and the <a href="https://github.com/lgatto/TeachingMaterial" class="external-link">TeachingMaterial</a> repository.</p>
 </div>
 
   </div>
@@ -216,8 +168,7 @@ repository.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer>

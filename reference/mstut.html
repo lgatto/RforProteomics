@@ -19,7 +19,7 @@ can later be analysed with `analyse()` and detected with
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RforProteomics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.33.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.35.1</span>
       </span>
     </div>
 
@@ -64,15 +64,15 @@ can later be analysed with `analyse()` and detected with
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">new_ions</span><span class="op">(</span>npeaks <span class="op">=</span> <span class="fl">10</span>, mzrange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">1000</span><span class="op">)</span>, nimg <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
-
-<span class="fu">analyse</span><span class="op">(</span><span class="va">x</span>, sleep <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>
-
-<span class="fu">analyze</span><span class="op">(</span><span class="va">x</span>, sleep <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>
-
-<span class="fu">detect</span><span class="op">(</span><span class="va">x</span>, new <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">spectrum</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">new_ions</span><span class="op">(</span>npeaks <span class="op">=</span> <span class="fl">10</span>, mzrange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">1000</span><span class="op">)</span>, nimg <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">analyse</span><span class="op">(</span><span class="va">x</span>, sleep <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">analyze</span><span class="op">(</span><span class="va">x</span>, sleep <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">detect</span><span class="op">(</span><span class="va">x</span>, new <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">spectrum</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -80,29 +80,46 @@ can later be analysed with `analyse()` and detected with
     <dl><dt>npeaks</dt>
 <dd><p>A `numeric` scalar defining the number of unique
 peaks (M/Z values). Default is 10.</p></dd>
+
+
 <dt>mzrange</dt>
 <dd><p>A `numeric` of length 2 defining the range of
 possible M/Z values. Default is `c(100, 1000)`.</p></dd>
+
+
 <dt>nimg</dt>
 <dd><p>A `numeric` scalar. When analysing the ions, their
 separation along their M/Z values will be split along a
 sequence of length `nimg`. Default is 100.</p></dd>
+
+
 <dt>x</dt>
 <dd><p>An object of class `ions`.</p></dd>
+
+
 <dt>sleep</dt>
 <dd><p>How much time to wait before producing the next plot.</p></dd>
+
+
 <dt>new</dt>
 <dd><p>A `logical` scalar, indicating if the separated ions
 (last frame of calling `analyse) should be plotting, or
 whether the detection should be overlaid. Default is `FALSE`,
 to add the plot on top of the opened device.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments passed to [graphics::plot()].</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object of class `ions`.
-`analyse`, `detect` and `spectrum` are used for their side
+    
+
+<p>An object of class `ions`.</p>
+
+
+<p>`analyse`, `detect` and `spectrum` are used for their side
     effect or producing plots. They all invisibly return `NULL`.</p>
     </div>
     <div id="author">
@@ -112,19 +129,19 @@ to add the plot on top of the opened device.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">new_ions</span><span class="op">(</span>nimg <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">new_ions</span><span class="op">(</span>nimg <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Object of class 'ions':</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # analyze(.); detect(.); spectrum(.)</span>
-<span class="r-in"><span class="fu">analyse</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">analyse</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="mstut-1.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="mstut-2.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="mstut-3.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="mstut-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">detect</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">detect</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="mstut-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu">spectrum</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">spectrum</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="mstut-6.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -140,8 +157,7 @@ to add the plot on top of the opened device.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>
