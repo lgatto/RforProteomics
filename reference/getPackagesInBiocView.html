@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RforProteomics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.33.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.35.1</span>
       </span>
     </div>
 
@@ -60,27 +60,34 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getPackagesInBiocView</span><span class="op">(</span>
-  <span class="va">view</span>,
-  rep <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"BioCsoft"</span>, <span class="st">"BioCann"</span>, <span class="st">"BioCexp"</span>, <span class="st">"BioCextra"</span><span class="op">)</span>,
-  <span class="va">biocVersion</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getPackagesInBiocView</span><span class="op">(</span></span>
+<span>  <span class="va">view</span>,</span>
+<span>  rep <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"BioCsoft"</span>, <span class="st">"BioCann"</span>, <span class="st">"BioCexp"</span>, <span class="st">"BioCextra"</span><span class="op">)</span>,</span>
+<span>  <span class="va">biocVersion</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>view</dt>
 <dd><p>The biocView of interest. For example <code>"Proteomics"</code>.</p></dd>
+
+
 <dt>rep</dt>
 <dd><p>Repository of interest. One of <code>"BioCsoft"</code>,
 <code>"BioCann"</code>, <code>"BioCexp"</code> or `"BioCextra"1.</p></dd>
+
+
 <dt>biocVersion</dt>
 <dd><p>A <code>character</code> with the Bioconductor version of
 interest. For example <code>"2.14"</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An instance of class <code>BiocView</code>. <code>NULL</code> if the the
+    
+
+<p>An instance of class <code>BiocView</code>. <code>NULL</code> if the the
 biocView was not found.</p>
     </div>
     <div id="author">
@@ -100,8 +107,7 @@ biocView was not found.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>
