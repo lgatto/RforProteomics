@@ -64,7 +64,9 @@ packages, without going into details.
 > spectrometry-based proteomics and metabolomics, see also the [R for
 > Mass Spectrometry initiative](https://www.rformassspectrometry.org/)
 > packages and the [tutorial
-> book](https://rformassspectrometry.github.io/docs/)
+> book](https://rformassspectrometry.github.io/docs/). It provides
+> more up-to-date packages and solutions for several of the tasks
+> described below.
 
 ## General R resources {#sec:rres}
 
@@ -470,7 +472,6 @@ heatmap(m, col = wbcol, RowSideColors=cls[rownames(m)])
 
 
 ```{r spikes, fig.cap = "Spikes plot using `r CRANpkg('ggplot2')`."}
-
 dfr <- data.frame(exprs(small),
                   Protein = as.character(fData(small)$accession),
                   Feature = featureNames(small),
@@ -604,7 +605,6 @@ head(as.matrix(s))
 
 
 ```{r mqplot1, fig.cap = "Spectrum plotting in `r CRANpkg('MALDIquant')`."}
-
 plot(s)
 ```
 
@@ -1228,17 +1228,9 @@ display(pp)
 
 ## Other CRAN packages
 
-```{r cntCRAN, echo=FALSE}
-X <- readLines("http://cran.r-project.org/web/views/ChemPhys.html")
-x2 <- grep("Related links:", X)
-x1 <- grep("CRAN packages:", X)
-np <- length(grep("../packages/", X[x1:x2]))
-```
-
-The CRAN task view
-on
-[Chemometrics and Computational Physics](http://cran.r-project.org/web/views/ChemPhys.html) is
-another useful ressource listing `r np` packages, including a set of
+The CRAN task view on [Chemometrics and Computational
+Physics](http://cran.r-project.org/web/views/ChemPhys.html) is another
+useful ressource listing additional packages, including a set of
 packages for mass spectrometry and proteomics, some of which are
 illustrated in this document.
 
