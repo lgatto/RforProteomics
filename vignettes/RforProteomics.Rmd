@@ -1135,7 +1135,8 @@ ensemble gene.
 ```{r annot1}
 id <- "ENSG00000105323"
 library("hpar")
-getHpa(id, "hpaSubcellularLoc")
+subcell <- hpaSubcellularLoc()
+subset(subcell, Gene == id)
 ```
 
 Below, we make use of the human annotation package

@@ -1,5 +1,13 @@
 # RforProteomics 1
 
+## Changes in version 1.37.1
+
+- Adapt vignette for new hpar version.
+
+## Changes in version 1.37.0
+
+- New Bioc devel verison.
+
 ## Changes in version 1.35.1
 
 - Remove failing code chunk.
