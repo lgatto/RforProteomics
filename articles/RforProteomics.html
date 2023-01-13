@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RforProteomics</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.35.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.37.1</span>
       </span>
     </div>
 
@@ -71,10 +71,10 @@
 
       
 
-      </header><script src="RforProteomics_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="RforProteomics_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="RforProteomics_files/datatables-binding-0.24/datatables.js"></script><link href="RforProteomics_files/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="RforProteomics_files/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="RforProteomics_files/dt-core-1.11.3/js/jquery.dataTables.min.js"></script><link href="RforProteomics_files/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+      </header><script src="RforProteomics_files/htmlwidgets-1.6.1/htmlwidgets.js"></script><link href="RforProteomics_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="RforProteomics_files/datatables-binding-0.26/datatables.js"></script><link href="RforProteomics_files/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="RforProteomics_files/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="RforProteomics_files/dt-core-1.12.1/js/jquery.dataTables.min.js"></script><link href="RforProteomics_files/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
 <script src="RforProteomics_files/crosstalk-1.2.0/js/crosstalk.min.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -183,10 +183,10 @@ The documentation can be accessed by preceding the command by a
 <code>library</code> function, that will be used in the next section,
 one would type <code><a href="https://rdrr.io/r/base/library.html" class="external-link">?library</a></code>. In addition, all Bioconductor
 packages come with at least one vignette (this document is the vignette
-that comes with the <em><a href="https://bioconductor.org/packages/3.16/RforProteomics" class="external-link">RforProteomics</a></em>
+that comes with the <em><a href="https://bioconductor.org/packages/3.17/RforProteomics" class="external-link">RforProteomics</a></em>
 package), a document that combines text and R code that is executed
 before the pdf is assembled. To look up all vignettes that come with a
-package, say <em><a href="https://bioconductor.org/packages/3.16/RforProteomics" class="external-link">RforProteomics</a></em>
+package, say <em><a href="https://bioconductor.org/packages/3.17/RforProteomics" class="external-link">RforProteomics</a></em>
 and then open the vignette of interest, one uses the
 <code>vignette</code> function as illustrated below. More details can be
 found in <code><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">?vignette</a></code>.</p>
@@ -233,7 +233,7 @@ replace the last line in the code chunk above with:)</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="http://lgatto.github.com/RforProteomics/" class="external-link">"RforProteomics"</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
-<span><span class="co">## This is the 'RforProteomics' version 1.35.1.</span></span>
+<span><span class="co">## This is the 'RforProteomics' version 1.37.1.</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##   To get started, visit</span></span>
 <span><span class="co">##     http://lgatto.github.com/RforProteomics/</span></span>
@@ -249,7 +249,7 @@ replace the last line in the code chunk above with:)</p>
 <pre><code><span><span class="co">## The following object is masked from 'package:stats':</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     spectrum</span></span></code></pre>
-<p>See also the <em><a href="https://bioconductor.org/packages/3.16/RforProteomics" class="external-link">RforProteomics</a></em>
+<p>See also the <em><a href="https://bioconductor.org/packages/3.17/RforProteomics" class="external-link">RforProteomics</a></em>
 <a href="http://lgatto.github.io/RforProteomics/" class="external-link">web page</a> for more
 information on installation.</p>
 </div>
@@ -260,7 +260,7 @@ information on installation.</p>
 need to be installed prior to the R packages:</p>
 <ul>
 <li>
-<em><a href="https://bioconductor.org/packages/3.16/mzR" class="external-link">mzR</a></em> depends
+<em><a href="https://bioconductor.org/packages/3.17/mzR" class="external-link">mzR</a></em> depends
 on the <a href="http://cdf.gsfc.nasa.gov/" class="external-link">Common Data Format</a> (CDF)
 to CDF-based raw mass-spectrometry data. On Linux, the
 <code>libcdf</code> library is required. On Debian-based systems, for
@@ -271,12 +271,12 @@ requires the <code>libxml2</code> infrastructure on Linux. On
 Debian-based systems, one needs to install
 <code>libxml2-dev</code>.</li>
 <li>
-<em><a href="https://bioconductor.org/packages/3.16/biomaRt" class="external-link">biomaRt</a></em>
+<em><a href="https://bioconductor.org/packages/3.17/biomaRt" class="external-link">biomaRt</a></em>
 performs on-line requests using the <a href="http://curl.haxx.se/" class="external-link"><code>curl</code></a> infrastructure. On
 Debian-based systems, you one needs to install <code>libcurl-dev</code>
 or <code>libcurl4-openssl-dev</code>.</li>
 <li>
-<em><a href="https://bioconductor.org/packages/3.16/MSGFplus" class="external-link">MSGFplus</a></em>
+<em><a href="https://bioconductor.org/packages/3.17/MSGFplus" class="external-link">MSGFplus</a></em>
 is based on the <code>MS-GF+</code> java program and thus requires <a href="https://java.com" class="external-link">Java 1.7</a> in order to work.</li>
 </ul>
 </div>
@@ -323,12 +323,12 @@ provide general functionality used throughout the document.</p>
 <div class="section level4">
 <h4 id="raw-ms-data">Raw MS data<a class="anchor" aria-label="anchor" href="#raw-ms-data"></a>
 </h4>
-<p>The <em><a href="https://bioconductor.org/packages/3.16/mzR" class="external-link">mzR</a></em> package
+<p>The <em><a href="https://bioconductor.org/packages/3.17/mzR" class="external-link">mzR</a></em> package
 <span class="citation">(Chambers et al. 2012)</span> provides a unified
 interface to various mass spectrometry open formats. This code chunk,
 taken from the <code>openMSfile</code> documentation, illustrated how to
 open a connection to an raw data file. The example <code>mzML</code>
-data is taken from the <em><a href="https://bioconductor.org/packages/3.16/msdata" class="external-link">msdata</a></em>
+data is taken from the <em><a href="https://bioconductor.org/packages/3.17/msdata" class="external-link">msdata</a></em>
 data package. The code below would also be applicable to an
 <code>mzXML</code>, <code>mzData</code> or <code>netCDF</code> file.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -396,16 +396,16 @@ data package. The code below would also be applicable to an
 <code class="sourceCode R"><span><span class="co">## once finished, it is good to explicitely</span></span>
 <span><span class="co">## close the connection</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/mzR/man/mzR-class.html" class="external-link">close</a></span><span class="op">(</span><span class="va">mz</span><span class="op">)</span></span></code></pre></div>
-<p><em><a href="https://bioconductor.org/packages/3.16/mzR" class="external-link">mzR</a></em>
-is used by other packages, like <em><a href="https://bioconductor.org/packages/3.16/MSnbase" class="external-link">MSnbase</a></em>
-<span class="citation">(L. Gatto and Lilley 2012)</span>, <em><a href="https://bioconductor.org/packages/3.16/TargetSearch" class="external-link">TargetSearch</a></em>
-<span class="citation">(Cuadros-Inostroza et al. 2009)</span> and <em><a href="https://bioconductor.org/packages/3.16/xcms" class="external-link">xcms</a></em> <span class="citation">(Smith et al. 2006, Benton2008, Tautenhahn2008)</span>,
+<p><em><a href="https://bioconductor.org/packages/3.17/mzR" class="external-link">mzR</a></em>
+is used by other packages, like <em><a href="https://bioconductor.org/packages/3.17/MSnbase" class="external-link">MSnbase</a></em>
+<span class="citation">(L. Gatto and Lilley 2012)</span>, <em><a href="https://bioconductor.org/packages/3.17/TargetSearch" class="external-link">TargetSearch</a></em>
+<span class="citation">(Cuadros-Inostroza et al. 2009)</span> and <em><a href="https://bioconductor.org/packages/3.17/xcms" class="external-link">xcms</a></em> <span class="citation">(Smith et al. 2006, Benton2008, Tautenhahn2008)</span>,
 that provide a higher level abstraction to the data.</p>
 </div>
 <div class="section level4">
 <h4 id="identification-data">Identification data<a class="anchor" aria-label="anchor" href="#identification-data"></a>
 </h4>
-<p>The <em><a href="https://bioconductor.org/packages/3.16/mzR" class="external-link">mzR</a></em> package
+<p>The <em><a href="https://bioconductor.org/packages/3.17/mzR" class="external-link">mzR</a></em> package
 also provides very fast access to <code>mzIdentML</code> data by
 leveraging proteowizard’s <code>C++</code> parser.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
@@ -471,9 +471,9 @@ below.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="subsec:mzID">Handling MS2 identification data with <em><a href="https://bioconductor.org/packages/3.16/mzID" class="external-link">mzID</a></em><a class="anchor" aria-label="anchor" href="#subsec:mzID"></a>
+<h3 id="subsec:mzID">Handling MS2 identification data with <em><a href="https://bioconductor.org/packages/3.17/mzID" class="external-link">mzID</a></em><a class="anchor" aria-label="anchor" href="#subsec:mzID"></a>
 </h3>
-<p>The <em><a href="https://bioconductor.org/packages/3.16/mzID" class="external-link">mzID</a></em> package
+<p>The <em><a href="https://bioconductor.org/packages/3.17/mzID" class="external-link">mzID</a></em> package
 allows to load and manipulate MS2 data in the <code>mzIdentML</code>
 format. The main <code>mzID</code> function reads such a file and
 constructs an instance of class <code>mzID</code>.</p>
@@ -540,7 +540,7 @@ functions. The <code>mzID</code> object can also be converted into a
 <div class="section level2">
 <h2 id="raw-data-abstraction-with-msnexp-objects">Raw data abstraction with <code>MSnExp</code> objects<a class="anchor" aria-label="anchor" href="#raw-data-abstraction-with-msnexp-objects"></a>
 </h2>
-<p><em><a href="https://bioconductor.org/packages/3.16/MSnbase" class="external-link">MSnbase</a></em>
+<p><em><a href="https://bioconductor.org/packages/3.17/MSnbase" class="external-link">MSnbase</a></em>
 <span class="citation">(L. Gatto and Lilley 2012)</span> provides base
 functions and classes for MS-based proteomics that allow facile data and
 meta-data processing, manipulation and plotting (see for instance figure
@@ -564,8 +564,8 @@ below).</p>
 <span><span class="co">##  Number of spectra: 5 </span></span>
 <span><span class="co">##  MSn retention times: 25:01 - 25:02 minutes</span></span>
 <span><span class="co">## - - - Processing information - - -</span></span>
-<span><span class="co">## Data loaded: Thu Sep  1 12:40:08 2022 </span></span>
-<span><span class="co">##  MSnbase version: 2.23.0 </span></span>
+<span><span class="co">## Data loaded: Fri Jan 13 13:24:50 2023 </span></span>
+<span><span class="co">##  MSnbase version: 2.25.1 </span></span>
 <span><span class="co">## - - - Meta data  - - -</span></span>
 <span><span class="co">## phenoData</span></span>
 <span><span class="co">##   rowNames: dummyiTRAQ.mzXML</span></span>
@@ -616,7 +616,7 @@ section.</p>
 <p>As an running example throughout this document, we will use a TMT
 6-plex data set, <code>PXD000001</code> to illustrate quantitative data
 processing. The code chunk below first downloads this data file from the
-ProteomeXchange server using the <em><a href="https://bioconductor.org/packages/3.16/rpx" class="external-link">rpx</a></em>
+ProteomeXchange server using the <em><a href="https://bioconductor.org/packages/3.17/rpx" class="external-link">rpx</a></em>
 package.</p>
 <div class="section level3">
 <h3 id="the-mztab-format">The <code>mzTab</code> format<a class="anchor" aria-label="anchor" href="#the-mztab-format"></a>
@@ -655,7 +655,7 @@ ProteomeXchange repository <span class="citation">(Vizcaino et al.
 <pre><code><span><span class="co">## Loading F063721.dat-mztab.txt from cache.</span></span></code></pre>
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mztab</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "/github/home/.cache/R/rpx/1aa2439b9953_F063721.dat-mztab.txt"</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "/github/home/.cache/R/rpx/6eec34ccce47_F063721.dat-mztab.txt"</span></span></code></pre>
 <p>The code below loads the <code>mzTab</code> file into R and generates
 an <code>MSnSet</code> instance<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, removes missing values and calculates
 protein intensities by summing the peptide quantitation data. The figure
@@ -680,11 +680,11 @@ below illustrates the intensities for 5 proteins.</p>
 <span><span class="va">qnt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ProtGenerics/man/protgenerics.html" class="external-link">filterNA</a></span><span class="op">(</span><span class="va">qnt</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/ProtGenerics/man/protgenerics.html" class="external-link">processingData</a></span><span class="op">(</span><span class="va">qnt</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## - - - Processing information - - -</span></span>
-<span><span class="co">## mzTab read: Thu Sep  1 12:40:10 2022 </span></span>
-<span><span class="co">## Subset [1528,6][1528,6] Thu Sep  1 12:40:10 2022 </span></span>
-<span><span class="co">## Removed features with more than 0 NAs: Thu Sep  1 12:40:10 2022 </span></span>
-<span><span class="co">## Dropped featureData's levels Thu Sep  1 12:40:10 2022 </span></span>
-<span><span class="co">##  MSnbase version: 2.23.0</span></span></code></pre>
+<span><span class="co">## mzTab read: Fri Jan 13 13:24:52 2023 </span></span>
+<span><span class="co">## Subset [1528,6][1528,6] Fri Jan 13 13:24:53 2023 </span></span>
+<span><span class="co">## Removed features with more than 0 NAs: Fri Jan 13 13:24:53 2023 </span></span>
+<span><span class="co">## Dropped featureData's levels Fri Jan 13 13:24:53 2023 </span></span>
+<span><span class="co">##  MSnbase version: 2.25.1</span></span></code></pre>
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## combine into proteins</span></span>
 <span><span class="co">## - using the 'accession' feature meta data</span></span>
@@ -786,16 +786,16 @@ from R with <code>vignette("MSnbase-io")</code> or <a href="https://bioconductor
 </h3>
 <p>We reuse our dedicated <code>px1</code> ProteomeXchange data object
 to download the raw data (in <code>mzXML</code> format) and load it with
-the <code>readMSData</code> from the <em><a href="https://bioconductor.org/packages/3.16/MSnbase" class="external-link">MSnbase</a></em>
+the <code>readMSData</code> from the <em><a href="https://bioconductor.org/packages/3.17/MSnbase" class="external-link">MSnbase</a></em>
 package that produces a raw data experiment object of class
 <code>MSnExp</code> (a new <em>on-disk</em> infrastructure is now
 available to access the raw data on disk on demand, rather than loading
 it all in memory, enabling the management of more and larger files - see
-the <code>benchmarking</code> vignette in the <em><a href="https://bioconductor.org/packages/3.16/MSnbase" class="external-link">MSnbase</a></em>
+the <code>benchmarking</code> vignette in the <em><a href="https://bioconductor.org/packages/3.17/MSnbase" class="external-link">MSnbase</a></em>
 package for details). The raw data is then quantified using the
 <code>quantify</code> method specifying the TMT 6-plex isobaric tags and
 a 7th peak of interest corresponding to the un-dissociated reporter tag
-peaks (see the <code>MSnbase-demo</code> vignette in <em><a href="https://bioconductor.org/packages/3.16/MSnbase" class="external-link">MSnbase</a></em>
+peaks (see the <code>MSnbase-demo</code> vignette in <em><a href="https://bioconductor.org/packages/3.17/MSnbase" class="external-link">MSnbase</a></em>
 for details).</p>
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mzxml</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/rpx/man/PXDataset2.html" class="external-link">pxget</a></span><span class="op">(</span><span class="va">px1</span>, <span class="st">"TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML"</span><span class="op">)</span></span></code></pre></div>
@@ -819,9 +819,9 @@ for details).</p>
 <span><span class="co">## experimentData: use 'experimentData(object)'</span></span>
 <span><span class="co">## Annotation: No annotation </span></span>
 <span><span class="co">## - - - Processing information - - -</span></span>
-<span><span class="co">## Data loaded: Thu Sep  1 12:41:02 2022 </span></span>
-<span><span class="co">## TMT7 quantification by max: Thu Sep  1 12:45:05 2022 </span></span>
-<span><span class="co">##  MSnbase version: 2.23.0</span></span></code></pre>
+<span><span class="co">## Data loaded: Fri Jan 13 13:25:40 2023 </span></span>
+<span><span class="co">## TMT7 quantification by max: Fri Jan 13 13:27:41 2023 </span></span>
+<span><span class="co">##  MSnbase version: 2.25.1</span></span></code></pre>
 <p>Identification data in the <code>mzIdentML</code> format can be added
 to <code>MSnExp</code> or <code>MSnSet</code> instances with the
 <code>addIdentificationData</code> function. See the function
@@ -844,9 +844,9 @@ documentation for examples.</p>
 <code class="sourceCode R"><span><span class="va">mzp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lgatto.github.io/MSnbase/reference/plotMzDelta-methods.html" class="external-link">plotMzDelta</a></span><span class="op">(</span><span class="va">rawms</span>, reporters <span class="op">=</span> <span class="va">TMT6</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mzp</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Removed 2 rows containing missing values (geom_bar).</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Removed 2 rows containing missing values (geom_vline).</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: Removed 2 rows containing missing values (geom_text).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 2 rows containing missing values (`geom_bar()`).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 2 rows containing missing values (`geom_vline()`).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 2 rows containing missing values (`geom_text()`).</span></span></code></pre>
 <div class="figure">
 <img src="RforProteomics_files/figure-html/plotmzdelta-1.png" alt="A m/z delta plot." width="700"><p class="caption">
 A m/z delta plot.
@@ -1101,7 +1101,7 @@ Spectrum plotting in <code>r CRANpkg('MALDIquant')</code>.
 <code class="sourceCode R"><span><span class="va">pepcnt</span> <span class="op">&lt;-</span> <span class="va">enopep</span><span class="op">[</span><span class="va">enopep</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span> <span class="op"><a href="https://rdrr.io/pkg/BiocGenerics/man/match.html" class="external-link">%in%</a></span> <span class="va">exppep</span>, <span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">pepcnt</span><span class="op">)</span> <span class="co">## 13</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 13</span></span></code></pre>
-<p>The following code chunks demonstrate how to use the <em><a href="https://bioconductor.org/packages/3.16/cleaver" class="external-link">cleaver</a></em>
+<p>The following code chunks demonstrate how to use the <em><a href="https://bioconductor.org/packages/3.17/cleaver" class="external-link">cleaver</a></em>
 package for in-silico cleavage of polypeptides, e.g. cleaving of
 <em>Gastric juice peptide 1 (P01358)</em> using <em>Trypsin</em>:</p>
 <div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
@@ -1169,19 +1169,19 @@ different N15 incorporation rates
 </div>
 </div>
 <div class="section level3">
-<h3 id="the-isobar-package">The <em><a href="https://bioconductor.org/packages/3.16/isobar" class="external-link">isobar</a></em>
+<h3 id="the-isobar-package">The <em><a href="https://bioconductor.org/packages/3.17/isobar" class="external-link">isobar</a></em>
 package<a class="anchor" aria-label="anchor" href="#the-isobar-package"></a>
 </h3>
-<p>The <em><a href="https://bioconductor.org/packages/3.16/isobar" class="external-link">isobar</a></em>
+<p>The <em><a href="https://bioconductor.org/packages/3.17/isobar" class="external-link">isobar</a></em>
 package <span class="citation">(Breitwieser et al. 2011)</span> provides
 methods for the statistical analysis of isobarically tagged MS2
 experiments. Please refer to the package vignette for more details.</p>
 </div>
 <div class="section level3">
-<h3 id="the-dep-package">The <em><a href="https://bioconductor.org/packages/3.16/DEP" class="external-link">DEP</a></em>
+<h3 id="the-dep-package">The <em><a href="https://bioconductor.org/packages/3.17/DEP" class="external-link">DEP</a></em>
 package<a class="anchor" aria-label="anchor" href="#the-dep-package"></a>
 </h3>
-<p>The <em><a href="https://bioconductor.org/packages/3.16/DEP" class="external-link">DEP</a></em> package
+<p>The <em><a href="https://bioconductor.org/packages/3.17/DEP" class="external-link">DEP</a></em> package
 supports analysis of label-free and TMT pipelines using, as described in
 its vignette. These can be used with <code>MSnSet</code> objects by
 converting them to/from <code>SummarizedExperiment</code> objects:</p>
@@ -1218,13 +1218,13 @@ converting them to/from <code>SummarizedExperiment</code> objects:</p>
 <span><span class="co">## experimentData: use 'experimentData(object)'</span></span>
 <span><span class="co">## Annotation:  </span></span>
 <span><span class="co">## - - - Processing information - - -</span></span>
-<span><span class="co">##  MSnbase version: 2.23.0</span></span></code></pre>
+<span><span class="co">##  MSnbase version: 2.25.1</span></span></code></pre>
 </div>
 <div class="section level3">
-<h3 id="the-synapter-package">The <em><a href="https://bioconductor.org/packages/3.16/synapter" class="external-link">synapter</a></em>
+<h3 id="the-synapter-package">The <em><a href="https://bioconductor.org/packages/3.17/synapter" class="external-link">synapter</a></em>
 package<a class="anchor" aria-label="anchor" href="#the-synapter-package"></a>
 </h3>
-<p>The <em><a href="https://bioconductor.org/packages/3.16/synapter" class="external-link">synapter</a></em>
+<p>The <em><a href="https://bioconductor.org/packages/3.17/synapter" class="external-link">synapter</a></em>
 <span class="citation">(Bond et al. 2013)</span> package comes with a
 detailed vignette that describes how to prepare the MSE data and then
 process it in R. Several interfaces are available provided the user with
@@ -1242,9 +1242,9 @@ described.</p>
 <h2 id="ms2-spectra-identification">MS2 spectra identification<a class="anchor" aria-label="anchor" href="#ms2-spectra-identification"></a>
 </h2>
 <div class="section level3">
-<h3 id="post-search-filtering-of-msms-ids-using-msnid">Post-search Filtering of MS/MS IDs Using <em><a href="https://bioconductor.org/packages/3.16/MSnID" class="external-link">MSnID</a></em><a class="anchor" aria-label="anchor" href="#post-search-filtering-of-msms-ids-using-msnid"></a>
+<h3 id="post-search-filtering-of-msms-ids-using-msnid">Post-search Filtering of MS/MS IDs Using <em><a href="https://bioconductor.org/packages/3.17/MSnID" class="external-link">MSnID</a></em><a class="anchor" aria-label="anchor" href="#post-search-filtering-of-msms-ids-using-msnid"></a>
 </h3>
-<p>The main purpose of <em><a href="https://bioconductor.org/packages/3.16/MSnID" class="external-link">MSnID</a></em>
+<p>The main purpose of <em><a href="https://bioconductor.org/packages/3.17/MSnID" class="external-link">MSnID</a></em>
 package is to make sure that the peptide and protein identifications
 resulting from MS/MS searches are sufficiently confident for a given
 application.} MS/MS peptide and protein identification is a process that
@@ -1572,7 +1572,7 @@ identified peptides or proteins</p>
 <code class="sourceCode R"><span><span class="va">prots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ProtGenerics/man/protgenerics.html" class="external-link">proteins</a></span><span class="op">(</span><span class="va">msnid</span><span class="op">)</span> <span class="co"># may be more intuitive then accessions</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">prots</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "CE02347" "CE07055" "CE12728" "CE36358" "CE36359" "CE36360"</span></span></code></pre>
-<p>The <em><a href="https://bioconductor.org/packages/3.16/MSnID" class="external-link">MSnID</a></em>
+<p>The <em><a href="https://bioconductor.org/packages/3.17/MSnID" class="external-link">MSnID</a></em>
 package is aimed at providing convenience functionality to handle MS/MS
 identifications. Quantification <em>per se</em> is outside of the scope
 of the package. The only type of quantitation that can be seamlessly
@@ -1581,11 +1581,11 @@ counting</em> approach. In such an approach a peptide abundance is
 considered to be directly proportional to the number of matched MS/MS
 spectra. In its turn protein abunance is proportional to the sum of the
 number of spectra of the matching peptides. The <em>MSnID</em> object
-can be converted to an <em>MSnSet</em> object defined in <em><a href="https://bioconductor.org/packages/3.16/MSnbase" class="external-link">MSnbase</a></em>
+can be converted to an <em>MSnSet</em> object defined in <em><a href="https://bioconductor.org/packages/3.17/MSnbase" class="external-link">MSnbase</a></em>
 that extends generic Bioconductor <em>eSet</em> class to quantitative
-proteomics data. The spectral count data can be analyzed with <em><a href="https://bioconductor.org/packages/3.16/msmsEDA" class="external-link">msmsEDA</a></em>,
-<em><a href="https://bioconductor.org/packages/3.16/msmsTests" class="external-link">msmsTests</a></em>
-or <em><a href="https://bioconductor.org/packages/3.16/DESeq" class="external-link">DESeq</a></em>
+proteomics data. The spectral count data can be analyzed with <em><a href="https://bioconductor.org/packages/3.17/msmsEDA" class="external-link">msmsEDA</a></em>,
+<em><a href="https://bioconductor.org/packages/3.17/msmsTests" class="external-link">msmsTests</a></em>
+or <em><a href="https://bioconductor.org/packages/3.17/DESeq" class="external-link">DESeq</a></em>
 packages.</p>
 <div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">msnset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/methods/as.html" class="external-link">as</a></span><span class="op">(</span><span class="va">msnid</span>, <span class="st">"MSnSet"</span><span class="op">)</span></span>
@@ -1598,13 +1598,13 @@ packages.</p>
 <span><span class="co">## -.GFQNLWFSHPR.K                                             -.GFQNLWFSHPR.K</span></span>
 <span><span class="co">## -.GIDINHKHDR.V                                               -.GIDINHKHDR.V</span></span>
 <span><span class="co">## -.MFSNLFIFL.V                                                 -.MFSNLFIFL.V</span></span>
-<span><span class="co">##                                              accession</span></span>
-<span><span class="co">## -.APPSQDVLKEIFNLYDEELDGK.I            CE01236, CE30652</span></span>
-<span><span class="co">## -.APPSQDVLKEIFNLYDEELDGKIDGTQVGDVAR.A CE01236, CE30652</span></span>
-<span><span class="co">## -.APPTFADLGK.S                                 CE29443</span></span>
-<span><span class="co">## -.GFQNLWFSHPR.K                                CE26849</span></span>
-<span><span class="co">## -.GIDINHKHDR.V                                 CE16650</span></span>
-<span><span class="co">## -.MFSNLFIFL.V                                  CE21589</span></span></code></pre>
+<span><span class="co">##                                          accession</span></span>
+<span><span class="co">## -.APPSQDVLKEIFNLYDEELDGK.I            CE01236,....</span></span>
+<span><span class="co">## -.APPSQDVLKEIFNLYDEELDGKIDGTQVGDVAR.A CE01236,....</span></span>
+<span><span class="co">## -.APPTFADLGK.S                             CE29443</span></span>
+<span><span class="co">## -.GFQNLWFSHPR.K                            CE26849</span></span>
+<span><span class="co">## -.GIDINHKHDR.V                             CE16650</span></span>
+<span><span class="co">## -.MFSNLFIFL.V                              CE21589</span></span></code></pre>
 <div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/exprs.html" class="external-link">exprs</a></span><span class="op">(</span><span class="va">msnset</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                                       c_elegans_A_3_1_21Apr10_Draco_10-03-04_dta.txt</span></span>
@@ -1619,7 +1619,7 @@ uses peptides as features. The number of redundant peptide observations
 represent so-called spectral count that can be used for rough
 quantitative analysis. Summing of all of the peptide counts to a
 proteins level can be done with <code>combineFeatures</code> function
-from <em><a href="https://bioconductor.org/packages/3.16/MSnbase" class="external-link">MSnbase</a></em>
+from <em><a href="https://bioconductor.org/packages/3.17/MSnbase" class="external-link">MSnbase</a></em>
 package.</p>
 <div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">msnset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ProtGenerics/man/protgenerics.html" class="external-link">combineFeatures</a></span><span class="op">(</span><span class="va">msnset</span>,</span>
@@ -1655,12 +1655,12 @@ package.</p>
 <p>Quality control (QC) is an essential part of any high throughput data
 driven approach. Bioconductor has a rich history of QC for various
 genomics data and currently two packages support proteomics QC.</p>
-<p><em><a href="https://bioconductor.org/packages/3.16/proteoQC" class="external-link">proteoQC</a></em>
+<p><em><a href="https://bioconductor.org/packages/3.17/proteoQC" class="external-link">proteoQC</a></em>
 provides a dedicated a dedicated pipeline that will produce a dynamic
-and extensive html report. It uses the <em><a href="https://bioconductor.org/packages/3.16/rTANDEM" class="external-link">rTANDEM</a></em>
+and extensive html report. It uses the <em><a href="https://bioconductor.org/packages/3.17/rTANDEM" class="external-link">rTANDEM</a></em>
 package to automate the generation of identification data and uses
 information about the experimental/replication design.</p>
-<p>The <em><a href="https://bioconductor.org/packages/3.16/qcmetrics" class="external-link">qcmetrics</a></em>
+<p>The <em><a href="https://bioconductor.org/packages/3.17/qcmetrics" class="external-link">qcmetrics</a></em>
 package is a general framework to define QC metrics and bundle them
 together to generate html or pdf reports. It provides some ready made
 metrics for MS data and N15 labelled data.</p>
@@ -1670,14 +1670,18 @@ metrics for MS data and N15 labelled data.</p>
 </h2>
 <p>In this section, we briefly present some Bioconductor annotation
 infrastructure.</p>
-<p>We start with the <em><a href="https://bioconductor.org/packages/3.16/hpar" class="external-link">hpar</a></em>
+<p>We start with the <em><a href="https://bioconductor.org/packages/3.17/hpar" class="external-link">hpar</a></em>
 package, an interface to the <em>Human Protein Atlas</em> <span class="citation">(Uhlén et al. 2005, Uhlen2010)</span>, to retrieve
 subcellular localisation information for the
 <code>ENSG00000002746</code> ensemble gene.</p>
 <div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">id</span> <span class="op">&lt;-</span> <span class="st">"ENSG00000105323"</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"hpar"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/hpar/man/getHpa.html" class="external-link">getHpa</a></span><span class="op">(</span><span class="va">id</span>, <span class="st">"hpaSubcellularLoc"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">subcell</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/hpar/man/hpar-package.html" class="external-link">hpaSubcellularLoc</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## see ?hpar and browseVignettes('hpar') for documentation</span></span></code></pre>
+<pre><code><span><span class="co">## loading from cache</span></span></code></pre>
+<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">subcell</span>, <span class="va">Gene</span> <span class="op">==</span> <span class="va">id</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                 Gene Gene.name Reliability Main.location Additional.location</span></span>
 <span><span class="co">## 2357 ENSG00000105323  HNRNPUL1    Enhanced   Nucleoplasm                    </span></span>
 <span><span class="co">##      Extracellular.location    Enhanced Supported Approved Uncertain</span></span>
@@ -1686,10 +1690,10 @@ subcellular localisation information for the
 <span><span class="co">## 2357                                                              </span></span>
 <span><span class="co">##      Cell.cycle.dependency                    GO.id</span></span>
 <span><span class="co">## 2357                       Nucleoplasm (GO:0005654)</span></span></code></pre>
-<p>Below, we make use of the human annotation package <em><a href="https://bioconductor.org/packages/3.16/org.Hs.eg.db" class="external-link">org.Hs.eg.db</a></em>
-and the Gene Ontology annotation package <em><a href="https://bioconductor.org/packages/3.16/GO.db" class="external-link">GO.db</a></em> to
+<p>Below, we make use of the human annotation package <em><a href="https://bioconductor.org/packages/3.17/org.Hs.eg.db" class="external-link">org.Hs.eg.db</a></em>
+and the Gene Ontology annotation package <em><a href="https://bioconductor.org/packages/3.17/GO.db" class="external-link">GO.db</a></em> to
 retrieve compatible information with above.</p>
-<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"org.Hs.eg.db"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"GO.db"</span><span class="op">)</span></span>
 <span><span class="va">ans</span> <span class="op">&lt;-</span> <span class="fu">AnnotationDbi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>,</span>
@@ -1697,30 +1701,36 @@ retrieve compatible information with above.</p>
 <span>                             columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ENSEMBL"</span>, <span class="st">"GO"</span>, <span class="st">"ONTOLOGY"</span><span class="op">)</span>,</span>
 <span>                             keytype <span class="op">=</span> <span class="st">"ENSEMBL"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## 'select()' returned 1:many mapping between keys and columns</span></span></code></pre>
-<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ans</span> <span class="op">&lt;-</span> <span class="va">ans</span><span class="op">[</span><span class="va">ans</span><span class="op">$</span><span class="va">ONTOLOGY</span> <span class="op">==</span> <span class="st">"CC"</span>, <span class="op">]</span></span>
 <span><span class="va">ans</span></span></code></pre></div>
-<pre><code><span><span class="co">##           ENSEMBL         GO EVIDENCE ONTOLOGY</span></span>
-<span><span class="co">## 4 ENSG00000105323 GO:0005634      IDA       CC</span></span>
-<span><span class="co">## 5 ENSG00000105323 GO:0005654      IBA       CC</span></span>
-<span><span class="co">## 6 ENSG00000105323 GO:0005654      IDA       CC</span></span>
-<span><span class="co">## 7 ENSG00000105323 GO:0005654      TAS       CC</span></span></code></pre>
-<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">##            ENSEMBL         GO EVIDENCE ONTOLOGY</span></span>
+<span><span class="co">## 4  ENSG00000105323 GO:0005634      IDA       CC</span></span>
+<span><span class="co">## 5  ENSG00000105323 GO:0005654      IBA       CC</span></span>
+<span><span class="co">## 6  ENSG00000105323 GO:0005654      IDA       CC</span></span>
+<span><span class="co">## 7  ENSG00000105323 GO:0005654      TAS       CC</span></span>
+<span><span class="co">## 11 ENSG00000105323 GO:1990904      IEA       CC</span></span></code></pre>
+<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">GOTERM</span><span class="op">[</span><span class="va">ans</span><span class="op">$</span><span class="va">GO</span><span class="op">]</span><span class="op">)</span>, <span class="va">slot</span>, <span class="st">"Term"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##    GO:0005634    GO:0005654    GO:0005654    GO:0005654 </span></span>
-<span><span class="co">##     "nucleus" "nucleoplasm" "nucleoplasm" "nucleoplasm"</span></span></code></pre>
+<pre><code><span><span class="co">##                  GO:0005634                  GO:0005654 </span></span>
+<span><span class="co">##                   "nucleus"               "nucleoplasm" </span></span>
+<span><span class="co">##                  GO:0005654                  GO:0005654 </span></span>
+<span><span class="co">##               "nucleoplasm"               "nucleoplasm" </span></span>
+<span><span class="co">##                  GO:1990904 </span></span>
+<span><span class="co">## "ribonucleoprotein complex"</span></span></code></pre>
 <p>Finally, this information can also be retrieved from on-line
-databases using the <em><a href="https://bioconductor.org/packages/3.16/biomaRt" class="external-link">biomaRt</a></em>
+databases using the <em><a href="https://bioconductor.org/packages/3.17/biomaRt" class="external-link">biomaRt</a></em>
 package <span class="citation">(Durinck et al. 2005)</span>.</p>
-<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st">"biomaRt"</span><span class="op">)</span></span>
 <span><span class="va">ensembl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/biomaRt/man/useMart.html" class="external-link">useMart</a></span><span class="op">(</span><span class="st">"ensembl"</span>, dataset<span class="op">=</span><span class="st">"hsapiens_gene_ensembl"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">efilter</span> <span class="op">&lt;-</span> <span class="st">"ensembl_gene_id"</span></span>
 <span><span class="va">eattr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"go_id"</span>, <span class="st">"name_1006"</span>, <span class="st">"namespace_1003"</span><span class="op">)</span></span>
 <span><span class="va">bmres</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/biomaRt/man/getBM.html" class="external-link">getBM</a></span><span class="op">(</span>attributes<span class="op">=</span><span class="va">eattr</span>, filters <span class="op">=</span> <span class="va">efilter</span>, values <span class="op">=</span> <span class="va">id</span>, mart <span class="op">=</span> <span class="va">ensembl</span><span class="op">)</span></span>
 <span><span class="va">bmres</span><span class="op">[</span><span class="va">bmres</span><span class="op">$</span><span class="va">namespace_1003</span> <span class="op">==</span> <span class="st">"cellular_component"</span>, <span class="st">"name_1006"</span><span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "nucleoplasm" "nucleus"</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "nucleoplasm"               "nucleus"                  </span></span>
+<span><span class="co">## [3] "ribonucleoprotein complex"</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="sec:packages">Other packages<a class="anchor" aria-label="anchor" href="#sec:packages"></a>
@@ -1729,20 +1739,20 @@ package <span class="citation">(Durinck et al. 2005)</span>.</p>
 <h3 id="bioconductor-packages">Bioconductor packages<a class="anchor" aria-label="anchor" href="#bioconductor-packages"></a>
 </h3>
 <p>This section provides a complete list of packages available in the
-relevant Bioconductor version 3.16 <a href="http://www.bioconductor.org/packages/devel/BiocViews.html%3E" class="external-link"><em>biocView</em></a>
+relevant Bioconductor version 3.17 <a href="http://www.bioconductor.org/packages/devel/BiocViews.html%3E" class="external-link"><em>biocView</em></a>
 categories. the tables below represent the packages for the
-<code>Proteomics</code> (160 packages), <code>MassSpectrometry</code>
-(121 packages) and <code>MassSpectrometryData</code> (25 experiment
+<code>Proteomics</code> (165 packages), <code>MassSpectrometry</code>
+(124 packages) and <code>MassSpectrometryData</code> (25 experiment
 packages) categories.</p>
-<div id="htmlwidget-d84a2cb20b933f8057f3" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d84a2cb20b933f8057f3">{"x":{"filter":"none","vertical":false,"data":[["artMS","ASEB","AssessORF","bandle","bioassayR","biobroom","BioNetStat","BioPlex","biosigner","BRAIN","calm","Cardinal","CausalR","CellNOptR","censcyt","ChemmineOB","ChemmineR","cisPath","cleaver","clippda","CNORdt","CNORfeeder","CNORode","ComPrAn","CONSTANd","cosmosR","customProDB","cydar","CytoGLMM","cytoKernel","cytoMEM","DAPAR","deco","deltaGseg","DEP","DEqMS","DIAlignR","diffcyt","diffuStats","DominoEffect","Doscheda","drawProteins","drugTargetInteractions","EGSEA","eiR","EWCE","fCI","fmcsR","GenProSeq","GeomxTools","GraphPAC","HPAanalyze","hpar","HPiP","idpr","IMMAN","infinityFlow","InterMineR","iPAC","isobar","KinSwingR","limma","LPEadj","MassSpecWavelet","MatrixQCvis","MBQN","mitch","mixOmics","MobilityTransformR","MQmetrics","MsBackendMgf","MsBackendMsp","MsBackendRawFileReader","MsCoreUtils","msImpute","msmsEDA","msmsTests","MSnbase","MSnID","msqrob2","MSstats","MSstatsConvert","MSstatsLiP","MSstatsLOBD","MSstatsPTM","MSstatsQC","MSstatsQCgui","MSstatsSampleSize","MSstatsTMT","mzID","mzR","NanoStringNCTools","NormalyzerDE","NPARC","omicRexposome","OmicsLonDA","oppti","PAA","Path2PPI","pathview","pathwayPCA","PECA","pepXMLTab","pgca","phosphonormalizer","PhosR","plgem","PLPE","PrInCE","proBAMr","proBatch","PROcess","procoil","proDA","proFIA","pRoloc","pRolocGUI","Prostar","proteasy","ProteoDisco","ProteoMM","ProtGenerics","PSMatch","Pviz","qcmetrics","QFeatures","qPLEXanalyzer","QuartPAC","rain","RankProd","rawrr","RCASPAR","Rcpi","ReactomeGSA","RolDE","ropls","ROTS","rpx","rScudo","Rtpca","SBGNview","scp","SDAMS","SMAD","SpacePAC","sparsenetgls","specL","Spectra","statTarget","SubCellBarCode","SWATH2stats","TargetDecoy","topdownr","TPP","TPP2D","wpm","XINA","synapter","pulsedSilac","timeOmics"],["artMS","ASEB","AssessORF","bandle","bioassayR","biobroom","BioNetStat","BioPlex","biosigner","BRAIN","calm","Cardinal","CausalR","CellNOptR","censcyt","ChemmineOB","ChemmineR","cisPath","cleaver","clippda","CNORdt","CNORfeeder","CNORode","ComPrAn","CONSTANd","cosmosR","customProDB","cydar","CytoGLMM","cytoKernel","cytoMEM","DAPAR","deco","deltaGseg","DEP","DEqMS","DIAlignR","diffcyt","diffuStats","DominoEffect","Doscheda","drawProteins","drugTargetInteractions","EGSEA","eiR","EWCE","fCI","fmcsR","GenProSeq","GeomxTools","GraphPAC","HPAanalyze","hpar","HPiP","idpr","IMMAN","infinityFlow","InterMineR","iPAC","isobar","KinSwingR","limma","LPEadj","MassSpecWavelet","MatrixQCvis","MBQN","mitch","mixOmics","MobilityTransformR","MQmetrics","MsBackendMgf","MsBackendMsp","MsBackendRawFileReader","MsCoreUtils","msImpute","msmsEDA","msmsTests","MSnbase","MSnID","msqrob2","MSstats","MSstatsConvert","MSstatsLiP","MSstatsLOBD","MSstatsPTM","MSstatsQC","MSstatsQCgui","MSstatsSampleSize","MSstatsTMT","mzID","mzR","NanoStringNCTools","NormalyzerDE","NPARC","omicRexposome","OmicsLonDA","oppti","PAA","Path2PPI","pathview","pathwayPCA","PECA","pepXMLTab","pgca","phosphonormalizer","PhosR","plgem","PLPE","PrInCE","proBAMr","proBatch","PROcess","procoil","proDA","proFIA","pRoloc","pRolocGUI","Prostar","proteasy","ProteoDisco","ProteoMM","ProtGenerics","PSMatch","Pviz","qcmetrics","QFeatures","qPLEXanalyzer","QuartPAC","rain","RankProd","rawrr","RCASPAR","Rcpi","ReactomeGSA","RolDE","ropls","ROTS","rpx","rScudo","Rtpca","SBGNview","scp","SDAMS","SMAD","SpacePAC","sparsenetgls","specL","Spectra","statTarget","SubCellBarCode","SWATH2stats","TargetDecoy","topdownr","TPP","TPP2D","wpm","XINA","synapter","pulsedSilac","timeOmics"],["Analytical R tools for Mass Spectrometry","Predict Acetylated Lysine Sites","Assess Gene Predictions Using Proteomics and Evolutionary Conservation","An R package for the Bayesian analysis of differential subcellular localisation experiments","Cross-target analysis of small molecule bioactivity","Turn Bioconductor objects into tidy data frames","Biological Network Analysis","R-side access to BioPlex protein-protein interaction data","Signature discovery from omics data","Baffling Recursive Algorithm for Isotope distributioN calculations","Covariate Assisted Large-scale Multiple testing","A mass spectrometry imaging toolbox for statistical analysis","Causal network analysis methods","Training of boolean logic models of signalling networks using prior knowledge networks and perturbation data","Differential abundance analysis with a right censored covariate in high-dimensional cytometry","R interface to a subset of OpenBabel functionalities","Cheminformatics Toolkit for R","Visualization and management of the protein-protein interaction networks.","Cleavage of Polypeptide Sequences","A package for the clinical proteomic profiling data analysis","Add-on to CellNOptR: Discretized time treatments","Integration of CellNOptR to add missing links","ODE add-on to CellNOptR","Complexome Profiling Analysis package","Data normalization by matrix raking","COSMOS (Causal Oriented Search of Multi-Omic Space)","Generate customized protein database from NGS data, with a focus on RNA-Seq data, for proteomics search","Using Mass Cytometry for Differential Abundance Analyses","Conditional Differential Analysis for Flow and Mass Cytometry Experiments","Differential expression using kernel-based score test","Marker Enrichment Modeling (MEM)","Tools for the Differential Analysis of Proteins Abundance with R","Decomposing Heterogeneous Cohorts using Omic Data Profiling","deltaGseg","Differential Enrichment analysis of Proteomics data","a tool to perform statistical analysis of differential protein expression for quantitative proteomics data.","Dynamic Programming Based Alignment of MS2 Chromatograms","Differential discovery in high-dimensional cytometry via high-resolution clustering","Diffusion scores on biological networks","Identification and Annotation of Protein Hotspot Residues","A DownStream Chemo-Proteomics Analysis Pipeline","Package to Draw Protein Schematics from Uniprot API output","Drug-Target Interactions","Ensemble of Gene Set Enrichment Analyses","Accelerated similarity searching of small molecules","Expression Weighted Celltype Enrichment","f-divergence Cutoff Index for Differential Expression Analysis in Transcriptomics and Proteomics","Mismatch Tolerant Maximum Common Substructure Searching","Generating Protein Sequences with Deep Generative Models","NanoString GeoMx Tools","Identification of Mutational Clusters in Proteins via a Graph Theoretical Approach.","Retrieve and analyze data from the Human Protein Atlas","Human Protein Atlas in R","Host-Pathogen Interaction Prediction","Profiling and Analyzing Intrinsically Disordered Proteins in R","Interlog protein network reconstruction by Mapping and Mining ANalysis","Augmenting Massively Parallel Cytometry Experiments Using Multivariate Non-Linear Regressions","R Interface with InterMine-Powered Databases","Identification of Protein Amino acid Clustering","Analysis and quantitation of isobarically tagged MSMS proteomics data","KinSwingR: network-based kinase activity prediction","Linear Models for Microarray Data","A correction of the local pooled error (LPE) method to replace the asymptotic variance adjustment with an unbiased adjustment\nbased on sample size.","Mass spectrum processing by wavelet-based algorithms","Shiny-based interactive data-quality exploration for omics data","Mean/Median-balanced quantile normalization","Multi-Contrast Gene Set Enrichment Analysis","Omics Data Integration Project","Effective mobility scale transformation of CE-MS(/MS) data","Quality Control of Protemics Data","Mass Spectrometry Data Backend for Mascot Generic Format (mgf) Files","Mass Spectrometry Data Backend for NIST msp Files","Mass Spectrometry Backend for Reading Thermo Fisher Scientific raw Files","Core Utils for Mass Spectrometry Data","Imputation of label-free mass spectrometry peptides","Exploratory Data Analysis of LC-MS/MS data by spectral counts","LC-MS/MS Differential Expression Tests","Base Functions and Classes for Mass Spectrometry and Proteomics","Utilities for Exploration and Assessment of Confidence of LC-MSn Proteomics Identifications","Robust statistical inference for quantitative LC-MS proteomics","Protein Significance Analysis in DDA, SRM and DIA for Label-free or Label-based Proteomics Experiments","Import Data from Various Mass Spectrometry Signal Processing Tools to MSstats Format","LiP Significance Analysis in shotgun mass spectrometry-based proteomic experiments","Assay characterization: estimation of limit of blanc(LoB) and limit of detection(LOD)","Statistical Characterization of Post-translational Modifications","Longitudinal system suitability monitoring and quality control for proteomic experiments","A graphical user interface for MSstatsQC package","Simulation tool for optimal design of high-dimensional MS-based proteomics experiment","Protein Significance Analysis in shotgun mass spectrometry-based proteomic experiments with tandem mass tag (TMT) labeling","An mzIdentML parser for R","parser for netCDF, mzXML, mzData and mzML and mzIdentML files (mass spectrometry data)","NanoString nCounter Tools","Evaluation of normalization methods and calculation of differential expression analysis statistics","Non-parametric analysis of response curves for thermal proteome profiling experiments","Exposome and omic data associatin and integration analysis","Omics Longitudinal Differential Analysis","Outlier Protein and Phosphosite Target Identifier","PAA (Protein Array Analyzer)","Prediction of pathway-related protein-protein interaction networks","a tool set for pathway based data integration and visualization","Integrative Pathway Analysis with Modern PCA Methodology and Gene Selection","Probe-level Expression Change Averaging","Parsing pepXML files and filter based on peptide FDR.","PGCA: An Algorithm to Link Protein Groups Created from MS/MS Data","Compensates for the bias introduced by median normalization in","A set of methods and tools for comprehensive analysis of phosphoproteomics data","Detect differential expression in microarray and proteomics datasets with the Power Law Global Error Model (PLGEM)","Local Pooled Error Test for Differential Expression with Paired High-throughput Data","Predicting Interactomes from Co-Elution","Generating SAM file for PSMs in shotgun proteomics data","Tools for Diagnostics and Corrections of Batch Effects in Proteomics","Ciphergen SELDI-TOF Processing","Prediction of Oligomerization of Coiled Coil Proteins","Differential Abundance Analysis of Label-Free Mass Spectrometry Data","Preprocessing of FIA-HRMS data","A unifying bioinformatics framework for spatial proteomics","Interactive visualisation of spatial proteomics data","Provides a GUI for DAPAR","Protease Mapping","Generation of customized protein variant databases from genomic variants, splice-junctions and manual sequences","Multi-Dataset Model-based Differential Expression Proteomics Analysis Platform","Generic infrastructure for Bioconductor mass spectrometry packages","Handling and Managing Peptide Spectrum Matches","Peptide Annotation and Data Visualization using Gviz","A Framework for Quality Control","Quantitative features for mass spectrometry data","Tools for qPLEX-RIME data analysis","Identification of mutational clusters in protein quaternary structures.","Rhythmicity Analysis Incorporating Non-parametric Methods","Rank Product method for identifying differentially expressed genes with application in meta-analysis","Direct Access to Orbitrap Data and Beyond","A package for survival time prediction based on a piecewise baseline hazard Cox regression model.","Molecular Informatics Toolkit for Compound-Protein Interaction in Drug Discovery","Client for the Reactome Analysis Service for comparative multi-omics gene set analysis","RolDE: Robust longitudinal Differential Expression","PCA, PLS(-DA) and OPLS(-DA) for multivariate analysis and feature selection of omics data","Reproducibility-Optimized Test Statistic","R Interface to the ProteomeXchange Repository","Signature-based Clustering for Diagnostic Purposes","Thermal proximity co-aggregation with R","\"SBGNview: Data Analysis, Integration and Visualization on SBGN Pathways\"","Mass Spectrometry-Based Single-Cell Proteomics Data Analysis","Differential Abundant/Expression Analysis for Metabolomics, Proteomics and single-cell RNA sequencing Data","Statistical Modelling of AP-MS Data (SMAD)","Identification of Mutational Clusters in 3D Protein Space via Simulation.","Using Gaussian graphical structue learning estimation in generalized least squared regression for multivariate normal\nregression","specL - Prepare Peptide Spectrum Matches for Use in Targeted Proteomics","Spectra Infrastructure for Mass Spectrometry Data","Statistical Analysis of Molecular Profiles","SubCellBarCode: Integrated workflow for robust mapping and visualizing whole human spatial proteome","Transform and Filter SWATH Data for Statistical Packages","Diagnostic Plots to Evaluate the Target Decoy Approach","Investigation of Fragmentation Conditions in Top-Down Proteomics","Analyze thermal proteome profiling (TPP) experiments","Detection of ligand-protein interactions from 2D thermal profiles (DLPTP)","Well Plate Maker","Multiplexes Isobaric Mass Tagged-based Kinetics Data for Network Analysis","Label-free data analysis pipeline for optimal identification and quantitation","Analysis of pulsed-SILAC quantitative proteomics data","Time-Course Multi-Omics data integration"],["1.15.0","1.41.0","1.15.0","1.1.3","1.35.0","1.29.0","1.17.1","1.3.1","1.25.6","1.43.0","1.11.0","2.15.0","1.29.0","1.43.1","1.5.0","1.35.2","3.49.2","1.37.0","1.35.0","1.47.0","1.39.0","1.37.3","1.39.0","1.5.0","1.5.0","1.5.0","1.37.0","1.21.0","1.5.0","1.3.0","1.1.0","1.29.0","1.13.0","1.37.0","1.19.0","1.15.0","2.5.0","1.17.0","1.17.0","1.17.0","1.19.0","1.17.0","1.5.0","1.25.0","1.37.0","1.5.7","1.27.0","1.39.0","1.1.0","3.1.1","1.39.0","1.15.1","1.39.0","1.3.0","1.7.01","1.17.0","1.7.0","1.19.0","1.41.0","1.43.0","1.15.0","3.53.6","1.57.0","1.63.1","1.5.5","2.9.0","1.9.0","6.21.0","1.1.0","1.5.0","1.5.0","1.1.0","1.3.0","1.9.1","1.7.0","1.35.0","1.35.0","2.23.0","1.31.0","1.5.0","4.5.1","1.7.0","1.3.1","1.5.0","1.7.0","2.15.0","1.17.0","1.11.0","2.5.0","1.35.0","2.31.1","1.5.0","1.15.0","1.9.1","1.19.0","1.13.0","1.11.0","1.31.0","1.27.0","1.37.1","1.13.0","1.33.0","1.31.0","1.21.0","1.21.0","1.7.0","1.69.0","1.57.0","1.13.0","1.31.0","1.13.0","1.73.0","2.25.0","1.11.0","1.23.0","1.37.0","2.7.0","1.29.1","0.99.10","1.3.1","1.15.0","1.29.0","1.1.0","1.31.0","1.35.0","1.7.1","1.15.0","1.29.0","1.31.0","3.23.0","1.5.3","1.43.0","1.33.2","1.11.0","1.1.0","1.29.24","1.25.0","2.5.1","1.13.0","1.7.1","1.11.0","1.7.0","1.17.0","1.13.0","1.35.0","1.15.0","1.31.0","1.7.1","1.27.0","1.13.0","1.27.0","1.3.2","1.19.0","3.25.0","1.13.2","1.7.0","1.15.0","2.21.0","1.11.0","1.9.0"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Package<\/th>\n      <th>Title<\/th>\n      <th>Version<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><div id="htmlwidget-6d7a5f978041c03c06be" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6d7a5f978041c03c06be">{"x":{"filter":"none","vertical":false,"data":[["adductomicsR","apComplex","artMS","autonomics","bandle","BioPlex","biosigner","BRAIN","CAMERA","Cardinal","CATALYST","cliqueMS","CompoundDb","ComPrAn","CONSTANd","cosmiq","customProDB","DAPAR","DEP","DEqMS","DIAlignR","Doscheda","flagme","fobitools","gaga","INDEED","IPO","isobar","IsoCorrectoR","IsoCorrectoRGUI","lipidr","LOBSTAHS","MAIT","marr","MassArray","MassSpecWavelet","Metab","metabCombiner","MetaboAnnotation","MetaboCoreUtils","metabomxtr","metaMS","metapone","MetCirc","MetNet","MobilityTransformR","MQmetrics","MsBackendMassbank","MsBackendMgf","MsBackendMsp","MsBackendRawFileReader","MsCoreUtils","MsFeatures","msImpute","msmsEDA","msmsTests","MSnbase","MSnID","MSPrep","msPurity","msqrob2","MSstats","MSstatsConvert","MSstatsLiP","MSstatsLOBD","MSstatsPTM","MSstatsQC","MSstatsQCgui","MSstatsSampleSize","MSstatsTMT","mzID","mzR","ncGTW","peakPantheR","pepXMLTab","pgca","plgem","pmp","proBAMr","proBatch","PROcess","proDA","proFIA","pRoloc","Prostar","ProteoMM","ProtGenerics","PSMatch","ptairMS","qcmetrics","QFeatures","qmtools","qPLEXanalyzer","rawrr","Rdisop","rgoslin","Risa","RMassBank","rols","ropls","rpx","scDataviz","scp","SDAMS","SIMAT","SMAD","sparsenetgls","specL","Spectra","statTarget","SubCellBarCode","SWATH2stats","TargetDecoy","TargetSearch","topdownr","TPP","treekoR","wpm","xcms","yamss","synapter"],["adductomicsR","apComplex","artMS","autonomics","bandle","BioPlex","biosigner","BRAIN","CAMERA","Cardinal","CATALYST","cliqueMS","CompoundDb","ComPrAn","CONSTANd","cosmiq","customProDB","DAPAR","DEP","DEqMS","DIAlignR","Doscheda","flagme","fobitools","gaga","INDEED","IPO","isobar","IsoCorrectoR","IsoCorrectoRGUI","lipidr","LOBSTAHS","MAIT","marr","MassArray","MassSpecWavelet","Metab","metabCombiner","MetaboAnnotation","MetaboCoreUtils","metabomxtr","metaMS","metapone","MetCirc","MetNet","MobilityTransformR","MQmetrics","MsBackendMassbank","MsBackendMgf","MsBackendMsp","MsBackendRawFileReader","MsCoreUtils","MsFeatures","msImpute","msmsEDA","msmsTests","MSnbase","MSnID","MSPrep","msPurity","msqrob2","MSstats","MSstatsConvert","MSstatsLiP","MSstatsLOBD","MSstatsPTM","MSstatsQC","MSstatsQCgui","MSstatsSampleSize","MSstatsTMT","mzID","mzR","ncGTW","peakPantheR","pepXMLTab","pgca","plgem","pmp","proBAMr","proBatch","PROcess","proDA","proFIA","pRoloc","Prostar","ProteoMM","ProtGenerics","PSMatch","ptairMS","qcmetrics","QFeatures","qmtools","qPLEXanalyzer","rawrr","Rdisop","rgoslin","Risa","RMassBank","rols","ropls","rpx","scDataviz","scp","SDAMS","SIMAT","SMAD","sparsenetgls","specL","Spectra","statTarget","SubCellBarCode","SWATH2stats","TargetDecoy","TargetSearch","topdownr","TPP","treekoR","wpm","xcms","yamss","synapter"],["Processing of adductomic mass spectral datasets","Estimate protein complex membership using AP-MS protein data","Analytical R tools for Mass Spectrometry","Generifying and intuifying cross-platform omics analysis","An R package for the Bayesian analysis of differential subcellular localisation experiments","R-side access to BioPlex protein-protein interaction data","Signature discovery from omics data","Baffling Recursive Algorithm for Isotope distributioN calculations","Collection of annotation related methods for mass spectrometry data","A mass spectrometry imaging toolbox for statistical analysis","Cytometry dATa anALYSis Tools","Annotation of Isotopes, Adducts and Fragmentation Adducts for in-Source LC/MS Metabolomics Data","Creating and Using (Chemical) Compound Annotation Databases","Complexome Profiling Analysis package","Data normalization by matrix raking","cosmiq - COmbining Single Masses Into Quantities","Generate customized protein database from NGS data, with a focus on RNA-Seq data, for proteomics search","Tools for the Differential Analysis of Proteins Abundance with R","Differential Enrichment analysis of Proteomics data","a tool to perform statistical analysis of differential protein expression for quantitative proteomics data.","Dynamic Programming Based Alignment of MS2 Chromatograms","A DownStream Chemo-Proteomics Analysis Pipeline","Analysis of Metabolomics GC/MS Data","Tools For Manipulating FOBI Ontology","GaGa hierarchical model for high-throughput data analysis","Interactive Visualization of Integrated Differential Expression and Differential Network Analysis for Biomarker Candidate\nSelection Package","Automated Optimization of XCMS Data Processing parameters","Analysis and quantitation of isobarically tagged MSMS proteomics data","Correction for natural isotope abundance and tracer purity in MS and MS/MS data from stable isotope labeling experiments","Graphical User Interface for IsoCorrectoR","Data Mining and Analysis of Lipidomics Datasets","Lipid and Oxylipin Biomarker Screening through Adduct Hierarchy Sequences","Statistical Analysis of Metabolomic Data","Maximum rank reproducibility","Analytical Tools for MassArray Data","Mass spectrum processing by wavelet-based algorithms","Metab: An R Package for a High-Throughput Analysis of Metabolomics Data Generated by GC-MS.","Method for Combining LC-MS Metabolomics Feature Measurements","Utilities for Annotation of Metabolomics Data","Core Utils for Metabolomics Data","A package to run mixture models for truncated metabolomics data with normal or lognormal distributions","MS-based metabolomics annotation pipeline","Conducts pathway test of metabolomics data using a weighted permutation test","Navigating mass spectral similarity in high-resolution MS/MS metabolomics data","Inferring metabolic networks from untargeted high-resolution mass spectrometry data","Effective mobility scale transformation of CE-MS(/MS) data","Quality Control of Protemics Data","Mass Spectrometry Data Backend for MassBank record Files","Mass Spectrometry Data Backend for Mascot Generic Format (mgf) Files","Mass Spectrometry Data Backend for NIST msp Files","Mass Spectrometry Backend for Reading Thermo Fisher Scientific raw Files","Core Utils for Mass Spectrometry Data","Functionality for Mass Spectrometry Features","Imputation of label-free mass spectrometry peptides","Exploratory Data Analysis of LC-MS/MS data by spectral counts","LC-MS/MS Differential Expression Tests","Base Functions and Classes for Mass Spectrometry and Proteomics","Utilities for Exploration and Assessment of Confidence of LC-MSn Proteomics Identifications","Package for Summarizing, Filtering, Imputing, and Normalizing Metabolomics Data","Automated Evaluation of Precursor Ion Purity for Mass Spectrometry Based Fragmentation in Metabolomics","Robust statistical inference for quantitative LC-MS proteomics","Protein Significance Analysis in DDA, SRM and DIA for Label-free or Label-based Proteomics Experiments","Import Data from Various Mass Spectrometry Signal Processing Tools to MSstats Format","LiP Significance Analysis in shotgun mass spectrometry-based proteomic experiments","Assay characterization: estimation of limit of blanc(LoB) and limit of detection(LOD)","Statistical Characterization of Post-translational Modifications","Longitudinal system suitability monitoring and quality control for proteomic experiments","A graphical user interface for MSstatsQC package","Simulation tool for optimal design of high-dimensional MS-based proteomics experiment","Protein Significance Analysis in shotgun mass spectrometry-based proteomic experiments with tandem mass tag (TMT) labeling","An mzIdentML parser for R","parser for netCDF, mzXML, mzData and mzML and mzIdentML files (mass spectrometry data)","Alignment of LC-MS Profiles by Neighbor-wise Compound-specific Graphical Time Warping with Misalignment Detection","Peak Picking and Annotation of High Resolution Experiments","Parsing pepXML files and filter based on peptide FDR.","PGCA: An Algorithm to Link Protein Groups Created from MS/MS Data","Detect differential expression in microarray and proteomics datasets with the Power Law Global Error Model (PLGEM)","Peak Matrix Processing and signal batch correction for metabolomics datasets","Generating SAM file for PSMs in shotgun proteomics data","Tools for Diagnostics and Corrections of Batch Effects in Proteomics","Ciphergen SELDI-TOF Processing","Differential Abundance Analysis of Label-Free Mass Spectrometry Data","Preprocessing of FIA-HRMS data","A unifying bioinformatics framework for spatial proteomics","Provides a GUI for DAPAR","Multi-Dataset Model-based Differential Expression Proteomics Analysis Platform","Generic infrastructure for Bioconductor mass spectrometry packages","Handling and Managing Peptide Spectrum Matches","Pre-processing PTR-TOF-MS Data","A Framework for Quality Control","Quantitative features for mass spectrometry data","Quantitative Metabolomics Data Processing Tools","Tools for qPLEX-RIME data analysis","Direct Access to Orbitrap Data and Beyond","Decomposition of Isotopic Patterns","Lipid Shorthand Name Parsing and Normalization","Converting experimental metadata from ISA-tab into Bioconductor data structures","Workflow to process tandem MS files and build MassBank records","An R interface to the Ontology Lookup Service","PCA, PLS(-DA) and OPLS(-DA) for multivariate analysis and feature selection of omics data","R Interface to the ProteomeXchange Repository","scDataviz: single cell dataviz and downstream analyses","Mass Spectrometry-Based Single-Cell Proteomics Data Analysis","Differential Abundant/Expression Analysis for Metabolomics, Proteomics and single-cell RNA sequencing Data","GC-SIM-MS data processing and alaysis tool","Statistical Modelling of AP-MS Data (SMAD)","Using Gaussian graphical structue learning estimation in generalized least squared regression for multivariate normal\nregression","specL - Prepare Peptide Spectrum Matches for Use in Targeted Proteomics","Spectra Infrastructure for Mass Spectrometry Data","Statistical Analysis of Molecular Profiles","SubCellBarCode: Integrated workflow for robust mapping and visualizing whole human spatial proteome","Transform and Filter SWATH Data for Statistical Packages","Diagnostic Plots to Evaluate the Target Decoy Approach","A package for the analysis of GC-MS metabolite profiling data","Investigation of Fragmentation Conditions in Top-Down Proteomics","Analyze thermal proteome profiling (TPP) experiments","Cytometry Cluster Hierarchy and Cellular-to-phenotype Associations","Well Plate Maker","LC-MS and GC-MS Data Analysis","Tools for high-throughput metabolomics","Label-free data analysis pipeline for optimal identification and quantitation"],["1.13.0","2.63.0","1.15.0","1.5.1","1.1.3","1.3.1","1.25.6","1.43.0","1.53.0","2.15.0","1.21.2","1.11.0","1.1.4","1.5.0","1.5.0","1.31.0","1.37.0","1.29.0","1.19.0","1.15.0","2.5.0","1.19.0","1.53.0","1.5.0","2.43.0","2.11.0","1.23.4","1.43.0","1.15.0","1.13.0","2.11.1","1.23.0","1.31.0","1.7.0","1.49.0","1.63.1","1.31.0","1.7.0","1.1.2","1.5.2","1.31.1","1.33.0","1.3.3","1.27.0","1.15.3","1.1.0","1.5.0","1.5.0","1.5.0","1.1.0","1.3.0","1.9.1","1.5.0","1.7.0","1.35.0","1.35.0","2.23.0","1.31.0","1.7.0","1.23.0","1.5.0","4.5.1","1.7.0","1.3.1","1.5.0","1.7.0","2.15.0","1.17.0","1.11.0","2.5.0","1.35.0","2.31.1","1.11.0","1.11.0","1.31.0","1.21.0","1.69.0","1.9.0","1.31.0","1.13.0","1.73.0","1.11.0","1.23.0","1.37.0","1.29.1","1.15.0","1.29.0","1.1.0","1.5.0","1.35.0","1.7.1","1.1.0","1.15.0","1.5.3","1.57.0","1.1.0","1.39.0","3.7.1","2.25.3","1.29.24","2.5.1","1.7.0","1.7.0","1.17.0","1.29.0","1.13.0","1.15.0","1.31.0","1.7.1","1.27.0","1.13.0","1.27.0","1.3.2","1.99.0","1.19.0","3.25.0","1.5.0","1.7.0","3.19.0","1.23.0","2.21.0"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Package<\/th>\n      <th>Title<\/th>\n      <th>Version<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><div id="htmlwidget-4a8896a63ae65c83437c" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4a8896a63ae65c83437c">{"x":{"filter":"none","vertical":false,"data":[["adductData","BioPlex","CardinalWorkflows","CluMSIDdata","DAPARdata","faahKO","gcspikelite","metaMSdata","msdata","msPurityData","msqc1","mtbls2","NestLink","plasFIA","ProData","pRolocdata","ptairData","PtH2O2lipids","qPLEXdata","RMassBankData","scpdata","tartare","topdownrdata","synapterdata","RforProteomics"],["adductData","BioPlex","CardinalWorkflows","CluMSIDdata","DAPARdata","faahKO","gcspikelite","metaMSdata","msdata","msPurityData","msqc1","mtbls2","NestLink","plasFIA","ProData","pRolocdata","ptairData","PtH2O2lipids","qPLEXdata","RMassBankData","scpdata","tartare","topdownrdata","synapterdata","RforProteomics"],["Data from untargeted MS of modifications to Cys34 of serum albumin","R-side access to BioPlex protein-protein interaction data","Datasets and workflows for the Cardinal mass spectrometry imaging package","Data for the CluMSID package","Data accompanying the DAPAR and Prostar packages","Saghatelian et al. (2004) FAAH knockout LC/MS data","Spike-in data for GC/MS data and methods within flagme","Example CDF data for the metaMS package","Various Mass Spectrometry raw data example files","Fragmentation spectral libraries and data to test the msPurity package","Sigma mix MSQC1 data","MetaboLights MTBLS2: Comparative LC/MS-based profiling of silver nitrate-treated Arabidopsis thaliana leaves of wild-type and\ncyp79B2 cyp79B3 double knockout plants. Böttcher et al. (2004)","NestLink an R data package to guide through Engineered Peptide Barcodes for In-Depth Analyzes of Binding Protein Ensembles","FIA-HRMS plasma dataset","SELDI-TOF data of Breast cancer samples","Data accompanying the pRoloc package","PTR-TOF-MS volatolomics raw datasets from exhaled air and cell culture headspace","P. tricornutum HPLC-ESI-MS Lipid Data from van Creveld et al. (2015)","Data accompanying qPLEXanalyzer package","Test dataset for RMassBank","Single-Cell Proteomics Data Package","Raw ground spectra recorded on Thermo Fisher Scientific mass spectrometers","Example Files for the topdownr R Package","Data accompanying the synapter package","Companion package to the 'Using R and Bioconductor for proteomics data analysis' publication"],["1.13.0","1.3.4","1.29.0","1.13.0","1.27.1","1.37.0","1.35.0","1.33.0","0.37.0","1.25.0","1.25.0","1.27.0","1.13.0","1.25.0","1.35.0","1.35.0","1.5.0","1.23.0","1.15.0","1.35.0","1.5.0","1.11.0","1.19.0","1.35.0","1.35.0"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Package<\/th>\n      <th>Title<\/th>\n      <th>Version<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><p>The tables can easily be generated with the
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8ead14c997bbe1ac4e23" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8ead14c997bbe1ac4e23">{"x":{"filter":"none","vertical":false,"data":[["artMS","ASEB","AssessORF","bandle","bioassayR","biobroom","BioNetStat","BRAIN","calm","Cardinal","CausalR","CellNOptR","ChemmineOB","ChemmineR","cisPath","cleaver","clippda","CNORdt","CNORfeeder","CNORode","ComPrAn","CONSTANd","cosmosR","customProDB","cydar","CytoGLMM","cytoKernel","cytoMEM","DAPAR","deltaGseg","DEP","DEqMS","DIAlignR","diffcyt","diffuStats","DominoEffect","Doscheda","drawProteins","drugTargetInteractions","EGSEA","eiR","EWCE","fCI","fmcsR","GenProSeq","GeomxTools","GraphPAC","HPAanalyze","hpar","HPiP","idpr","IMMAN","infinityFlow","InterMineR","iPAC","isobar","KinSwingR","limma","LPEadj","MassSpecWavelet","MatrixQCvis","MBQN","mitch","mixOmics","MobilityTransformR","MQmetrics","MsBackendMgf","MsBackendMsp","MsBackendRawFileReader","MsCoreUtils","MsExperiment","msImpute","msmsEDA","msmsTests","MSnbase","MSnID","msqrob2","MsQuality","MSstats","MSstatsConvert","MSstatsLiP","MSstatsLOBD","MSstatsPTM","MSstatsQC","MSstatsQCgui","MSstatsSampleSize","MSstatsShiny","MSstatsTMT","mzID","mzR","NanoStringNCTools","NormalyzerDE","NPARC","OmicsLonDA","oppti","PAA","Path2PPI","pathview","pathwayPCA","PECA","pepXMLTab","pgca","phosphonormalizer","PhosR","plgem","PLPE","PrInCE","proBAMr","PROcess","procoil","proDA","pRoloc","pRolocGUI","Prostar","proteasy","ProteoDisco","ProteoMM","ProtGenerics","PSMatch","Pviz","qcmetrics","QFeatures","qPLEXanalyzer","QuartPAC","rain","RankProd","rawrr","RCASPAR","Rcpi","ReactomeGSA","RolDE","ROTS","rpx","rScudo","Rtpca","SBGNview","scp","SDAMS","SMAD","SpacePAC","sparsenetgls","specL","Spectra","statTarget","SubCellBarCode","SWATH2stats","synapter","TargetDecoy","timeOmics","topdownr","TPP","TPP2D","vsclust","wpm","XINA","biosigner","omicRexposome","phenomis","proBatch","ropls","proFIA","deco","pulsedSilac","censcyt","phemd"],["artMS","ASEB","AssessORF","bandle","bioassayR","biobroom","BioNetStat","BRAIN","calm","Cardinal","CausalR","CellNOptR","ChemmineOB","ChemmineR","cisPath","cleaver","clippda","CNORdt","CNORfeeder","CNORode","ComPrAn","CONSTANd","cosmosR","customProDB","cydar","CytoGLMM","cytoKernel","cytoMEM","DAPAR","deltaGseg","DEP","DEqMS","DIAlignR","diffcyt","diffuStats","DominoEffect","Doscheda","drawProteins","drugTargetInteractions","EGSEA","eiR","EWCE","fCI","fmcsR","GenProSeq","GeomxTools","GraphPAC","HPAanalyze","hpar","HPiP","idpr","IMMAN","infinityFlow","InterMineR","iPAC","isobar","KinSwingR","limma","LPEadj","MassSpecWavelet","MatrixQCvis","MBQN","mitch","mixOmics","MobilityTransformR","MQmetrics","MsBackendMgf","MsBackendMsp","MsBackendRawFileReader","MsCoreUtils","MsExperiment","msImpute","msmsEDA","msmsTests","MSnbase","MSnID","msqrob2","MsQuality","MSstats","MSstatsConvert","MSstatsLiP","MSstatsLOBD","MSstatsPTM","MSstatsQC","MSstatsQCgui","MSstatsSampleSize","MSstatsShiny","MSstatsTMT","mzID","mzR","NanoStringNCTools","NormalyzerDE","NPARC","OmicsLonDA","oppti","PAA","Path2PPI","pathview","pathwayPCA","PECA","pepXMLTab","pgca","phosphonormalizer","PhosR","plgem","PLPE","PrInCE","proBAMr","PROcess","procoil","proDA","pRoloc","pRolocGUI","Prostar","proteasy","ProteoDisco","ProteoMM","ProtGenerics","PSMatch","Pviz","qcmetrics","QFeatures","qPLEXanalyzer","QuartPAC","rain","RankProd","rawrr","RCASPAR","Rcpi","ReactomeGSA","RolDE","ROTS","rpx","rScudo","Rtpca","SBGNview","scp","SDAMS","SMAD","SpacePAC","sparsenetgls","specL","Spectra","statTarget","SubCellBarCode","SWATH2stats","synapter","TargetDecoy","timeOmics","topdownr","TPP","TPP2D","vsclust","wpm","XINA","biosigner","omicRexposome","phenomis","proBatch","ropls","proFIA","deco","pulsedSilac","censcyt","phemd"],["Analytical R tools for Mass Spectrometry","Predict Acetylated Lysine Sites","Assess Gene Predictions Using Proteomics and Evolutionary Conservation","An R package for the Bayesian analysis of differential subcellular localisation experiments","Cross-target analysis of small molecule bioactivity","Turn Bioconductor objects into tidy data frames","Biological Network Analysis","Baffling Recursive Algorithm for Isotope distributioN calculations","Covariate Assisted Large-scale Multiple testing","A mass spectrometry imaging toolbox for statistical analysis","Causal network analysis methods","Training of boolean logic models of signalling networks using prior knowledge networks and perturbation data","R interface to a subset of OpenBabel functionalities","Cheminformatics Toolkit for R","Visualization and management of the protein-protein interaction networks.","Cleavage of Polypeptide Sequences","A package for the clinical proteomic profiling data analysis","Add-on to CellNOptR: Discretized time treatments","Integration of CellNOptR to add missing links","ODE add-on to CellNOptR","Complexome Profiling Analysis package","Data normalization by matrix raking","COSMOS (Causal Oriented Search of Multi-Omic Space)","Generate customized protein database from NGS data, with a focus on RNA-Seq data, for proteomics search","Using Mass Cytometry for Differential Abundance Analyses","Conditional Differential Analysis for Flow and Mass Cytometry Experiments","Differential expression using kernel-based score test","Marker Enrichment Modeling (MEM)","Tools for the Differential Analysis of Proteins Abundance with R","deltaGseg","Differential Enrichment analysis of Proteomics data","a tool to perform statistical analysis of differential protein expression for quantitative proteomics data.","Dynamic Programming Based Alignment of MS2 Chromatograms","Differential discovery in high-dimensional cytometry via high-resolution clustering","Diffusion scores on biological networks","Identification and Annotation of Protein Hotspot Residues","A DownStream Chemo-Proteomics Analysis Pipeline","Package to Draw Protein Schematics from Uniprot API output","Drug-Target Interactions","Ensemble of Gene Set Enrichment Analyses","Accelerated similarity searching of small molecules","Expression Weighted Celltype Enrichment","f-divergence Cutoff Index for Differential Expression Analysis in Transcriptomics and Proteomics","Mismatch Tolerant Maximum Common Substructure Searching","Generating Protein Sequences with Deep Generative Models","NanoString GeoMx Tools","Identification of Mutational Clusters in Proteins via a Graph Theoretical Approach.","Retrieve and analyze data from the Human Protein Atlas","Human Protein Atlas in R","Host-Pathogen Interaction Prediction","Profiling and Analyzing Intrinsically Disordered Proteins in R","Interlog protein network reconstruction by Mapping and Mining ANalysis","Augmenting Massively Parallel Cytometry Experiments Using Multivariate Non-Linear Regressions","R Interface with InterMine-Powered Databases","Identification of Protein Amino acid Clustering","Analysis and quantitation of isobarically tagged MSMS proteomics data","KinSwingR: network-based kinase activity prediction","Linear Models for Microarray Data","A correction of the local pooled error (LPE) method to replace the asymptotic variance adjustment with an unbiased adjustment\nbased on sample size.","Peak Detection for Mass Spectrometry data using wavelet-based algorithms","Shiny-based interactive data-quality exploration for omics data","Mean/Median-balanced quantile normalization","Multi-Contrast Gene Set Enrichment Analysis","Omics Data Integration Project","Effective mobility scale transformation of CE-MS(/MS) data","Quality Control of Protemics Data","Mass Spectrometry Data Backend for Mascot Generic Format (mgf) Files","Mass Spectrometry Data Backend for NIST msp Files","Mass Spectrometry Backend for Reading Thermo Fisher Scientific raw Files","Core Utils for Mass Spectrometry Data","Infrastructure for Mass Spectrometry Experiments","Imputation of label-free mass spectrometry peptides","Exploratory Data Analysis of LC-MS/MS data by spectral counts","LC-MS/MS Differential Expression Tests","Base Functions and Classes for Mass Spectrometry and Proteomics","Utilities for Exploration and Assessment of Confidence of LC-MSn Proteomics Identifications","Robust statistical inference for quantitative LC-MS proteomics","MsQuality - Quality metric calculation from Spectra objects","Protein Significance Analysis in DDA, SRM and DIA for Label-free or Label-based Proteomics Experiments","Import Data from Various Mass Spectrometry Signal Processing Tools to MSstats Format","LiP Significance Analysis in shotgun mass spectrometry-based proteomic experiments","Assay characterization: estimation of limit of blanc(LoB) and limit of detection(LOD)","Statistical Characterization of Post-translational Modifications","Longitudinal system suitability monitoring and quality control for proteomic experiments","A graphical user interface for MSstatsQC package","Simulation tool for optimal design of high-dimensional MS-based proteomics experiment","MSstats GUI for Statistical Anaylsis of Proteomics Experiments","Protein Significance Analysis in shotgun mass spectrometry-based proteomic experiments with tandem mass tag (TMT) labeling","An mzIdentML parser for R","parser for netCDF, mzXML, mzData and mzML and mzIdentML files (mass spectrometry data)","NanoString nCounter Tools","Evaluation of normalization methods and calculation of differential expression analysis statistics","Non-parametric analysis of response curves for thermal proteome profiling experiments","Omics Longitudinal Differential Analysis","Outlier Protein and Phosphosite Target Identifier","PAA (Protein Array Analyzer)","Prediction of pathway-related protein-protein interaction networks","a tool set for pathway based data integration and visualization","Integrative Pathway Analysis with Modern PCA Methodology and Gene Selection","Probe-level Expression Change Averaging","Parsing pepXML files and filter based on peptide FDR.","PGCA: An Algorithm to Link Protein Groups Created from MS/MS Data","Compensates for the bias introduced by median normalization in","A set of methods and tools for comprehensive analysis of phosphoproteomics data","Detect differential expression in microarray and proteomics datasets with the Power Law Global Error Model (PLGEM)","Local Pooled Error Test for Differential Expression with Paired High-throughput Data","Predicting Interactomes from Co-Elution","Generating SAM file for PSMs in shotgun proteomics data","Ciphergen SELDI-TOF Processing","Prediction of Oligomerization of Coiled Coil Proteins","Differential Abundance Analysis of Label-Free Mass Spectrometry Data","A unifying bioinformatics framework for spatial proteomics","Interactive visualisation of spatial proteomics data","Provides a GUI for DAPAR","Protease Mapping","Generation of customized protein variant databases from genomic variants, splice-junctions and manual sequences","Multi-Dataset Model-based Differential Expression Proteomics Analysis Platform","Generic infrastructure for Bioconductor mass spectrometry packages","Handling and Managing Peptide Spectrum Matches","Peptide Annotation and Data Visualization using Gviz","A Framework for Quality Control","Quantitative features for mass spectrometry data","Tools for quantitative proteomics data analysis","Identification of mutational clusters in protein quaternary structures.","Rhythmicity Analysis Incorporating Non-parametric Methods","Rank Product method for identifying differentially expressed genes with application in meta-analysis","Direct Access to Orbitrap Data and Beyond","A package for survival time prediction based on a piecewise baseline hazard Cox regression model.","Molecular Informatics Toolkit for Compound-Protein Interaction in Drug Discovery","Client for the Reactome Analysis Service for comparative multi-omics gene set analysis","RolDE: Robust longitudinal Differential Expression","Reproducibility-Optimized Test Statistic","R Interface to the ProteomeXchange Repository","Signature-based Clustering for Diagnostic Purposes","Thermal proximity co-aggregation with R","\"SBGNview: Data Analysis, Integration and Visualization on SBGN Pathways\"","Mass Spectrometry-Based Single-Cell Proteomics Data Analysis","Differential Abundant/Expression Analysis for Metabolomics, Proteomics and single-cell RNA sequencing Data","Statistical Modelling of AP-MS Data (SMAD)","Identification of Mutational Clusters in 3D Protein Space via Simulation.","Using Gaussian graphical structue learning estimation in generalized least squared regression for multivariate normal\nregression","specL - Prepare Peptide Spectrum Matches for Use in Targeted Proteomics","Spectra Infrastructure for Mass Spectrometry Data","Statistical Analysis of Molecular Profiles","SubCellBarCode: Integrated workflow for robust mapping and visualizing whole human spatial proteome","Transform and Filter SWATH Data for Statistical Packages","Label-free data analysis pipeline for optimal identification and quantitation","Diagnostic Plots to Evaluate the Target Decoy Approach","Time-Course Multi-Omics data integration","Investigation of Fragmentation Conditions in Top-Down Proteomics","Analyze thermal proteome profiling (TPP) experiments","Detection of ligand-protein interactions from 2D thermal profiles (DLPTP)","Feature-based variance-sensitive quantitative clustering","Well Plate Maker","Multiplexes Isobaric Mass Tagged-based Kinetics Data for Network Analysis","Signature discovery from omics data","Exposome and omic data associatin and integration analysis","Postprocessing and univariate analysis of omics data","Tools for Diagnostics and Corrections of Batch Effects in Proteomics","PCA, PLS(-DA) and OPLS(-DA) for multivariate analysis and feature selection of omics data","Preprocessing of FIA-HRMS data","Decomposing Heterogeneous Cohorts using Omic Data Profiling","Analysis of pulsed-SILAC quantitative proteomics data","Differential abundance analysis with a right censored covariate in high-dimensional cytometry","Phenotypic EMD for comparison of single-cell samples"],["1.17.0","1.43.0","1.17.0","1.3.0","1.37.0","1.31.0","1.19.0","1.45.0","1.13.0","3.1.0","1.31.0","1.45.0","1.37.0","3.51.0","1.39.0","1.37.0","1.49.0","1.41.0","1.39.0","1.41.0","1.7.0","1.7.0","1.7.0","1.39.0","1.23.0","1.7.0","1.5.0","1.3.0","1.31.0","1.39.0","1.21.0","1.17.3","2.7.0","1.19.0","1.19.0","1.19.0","1.21.0","1.19.0","1.7.0","1.27.0","1.39.0","1.7.0","1.29.0","1.41.0","1.3.0","3.3.0","1.41.0","1.17.0","1.41.1","1.5.0","1.9.15","1.19.0","1.9.0","1.21.0","1.43.0","1.45.0","1.17.0","3.55.2","1.59.0","1.65.0","1.7.2","2.11.0","1.11.4","6.23.3","1.3.0","1.7.0","1.7.1","1.3.0","1.5.0","1.11.2","1.1.1","1.9.0","1.37.0","1.37.0","2.25.1","1.33.0","1.7.0","0.99.6","4.7.1","1.9.2","1.5.1","1.7.0","2.1.1","2.17.0","1.19.0","1.13.0","1.1.5","2.7.0","1.37.0","2.33.0","1.7.0","1.17.0","1.11.0","1.15.0","1.13.0","1.33.0","1.29.0","1.39.0","1.15.0","1.35.0","1.33.0","1.23.0","1.23.0","1.9.1","1.71.0","1.59.0","1.15.0","1.33.0","1.75.0","2.27.0","1.13.0","1.39.0","2.9.0","1.31.0","1.1.0","1.5.0","1.17.0","1.31.0","1.3.0","1.33.0","1.37.0","1.9.2","1.17.0","1.31.0","1.33.0","3.25.0","1.7.0","1.45.0","1.35.0","1.13.0","1.3.0","1.27.0","2.7.0","1.15.0","1.9.0","1.13.0","1.9.0","1.19.0","1.15.1","1.37.0","1.17.0","1.33.3","1.9.5","1.29.0","1.15.0","1.29.0","2.23.0","1.5.0","1.11.0","1.21.0","3.27.0","1.15.2","1.1.0","1.9.0","1.17.0","1.27.0","1.21.0","1.1.2","1.15.0","1.31.0","1.25.0","1.15.0","1.13.0","1.7.0","1.15.0"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Package<\/th>\n      <th>Title<\/th>\n      <th>Version<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-aec341f387f17addb45d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-aec341f387f17addb45d">{"x":{"filter":"none","vertical":false,"data":[["adductomicsR","apComplex","artMS","autonomics","bandle","BRAIN","CAMERA","Cardinal","cliqueMS","CompoundDb","ComPrAn","CONSTANd","cosmiq","customProDB","DAPAR","DEP","DEqMS","DIAlignR","Doscheda","flagme","fobitools","gaga","INDEED","IPO","isobar","IsoCorrectoR","IsoCorrectoRGUI","LOBSTAHS","MAIT","marr","MassArray","MassSpecWavelet","Metab","metabCombiner","MetaboAnnotation","MetaboCoreUtils","metabomxtr","metaMS","metapone","MetCirc","MetNet","MobilityTransformR","MQmetrics","MsBackendMassbank","MsBackendMgf","MsBackendMsp","MsBackendRawFileReader","MsCoreUtils","MsExperiment","MsFeatures","msImpute","msmsEDA","msmsTests","MSnbase","MSnID","MSPrep","msPurity","msqrob2","MsQuality","MSstats","MSstatsConvert","MSstatsLiP","MSstatsLOBD","MSstatsPTM","MSstatsQC","MSstatsQCgui","MSstatsSampleSize","MSstatsShiny","MSstatsTMT","mzID","mzR","ncGTW","peakPantheR","pepXMLTab","pgca","plgem","pmp","proBAMr","PROcess","proDA","pRoloc","Prostar","ProteoMM","ProtGenerics","PSMatch","ptairMS","qcmetrics","QFeatures","qmtools","qPLEXanalyzer","rawrr","Rdisop","rgoslin","Risa","RMassBank","rols","rpx","scDataviz","scp","SDAMS","SIMAT","SMAD","sparsenetgls","specL","Spectra","statTarget","SubCellBarCode","SWATH2stats","synapter","TargetDecoy","TargetSearch","topdownr","TPP","treekoR","wpm","xcms","yamss","biosigner","lipidr","phenomis","proBatch","ropls","proFIA","CATALYST"],["adductomicsR","apComplex","artMS","autonomics","bandle","BRAIN","CAMERA","Cardinal","cliqueMS","CompoundDb","ComPrAn","CONSTANd","cosmiq","customProDB","DAPAR","DEP","DEqMS","DIAlignR","Doscheda","flagme","fobitools","gaga","INDEED","IPO","isobar","IsoCorrectoR","IsoCorrectoRGUI","LOBSTAHS","MAIT","marr","MassArray","MassSpecWavelet","Metab","metabCombiner","MetaboAnnotation","MetaboCoreUtils","metabomxtr","metaMS","metapone","MetCirc","MetNet","MobilityTransformR","MQmetrics","MsBackendMassbank","MsBackendMgf","MsBackendMsp","MsBackendRawFileReader","MsCoreUtils","MsExperiment","MsFeatures","msImpute","msmsEDA","msmsTests","MSnbase","MSnID","MSPrep","msPurity","msqrob2","MsQuality","MSstats","MSstatsConvert","MSstatsLiP","MSstatsLOBD","MSstatsPTM","MSstatsQC","MSstatsQCgui","MSstatsSampleSize","MSstatsShiny","MSstatsTMT","mzID","mzR","ncGTW","peakPantheR","pepXMLTab","pgca","plgem","pmp","proBAMr","PROcess","proDA","pRoloc","Prostar","ProteoMM","ProtGenerics","PSMatch","ptairMS","qcmetrics","QFeatures","qmtools","qPLEXanalyzer","rawrr","Rdisop","rgoslin","Risa","RMassBank","rols","rpx","scDataviz","scp","SDAMS","SIMAT","SMAD","sparsenetgls","specL","Spectra","statTarget","SubCellBarCode","SWATH2stats","synapter","TargetDecoy","TargetSearch","topdownr","TPP","treekoR","wpm","xcms","yamss","biosigner","lipidr","phenomis","proBatch","ropls","proFIA","CATALYST"],["Processing of adductomic mass spectral datasets","Estimate protein complex membership using AP-MS protein data","Analytical R tools for Mass Spectrometry","Generifying and intuifying cross-platform omics analysis","An R package for the Bayesian analysis of differential subcellular localisation experiments","Baffling Recursive Algorithm for Isotope distributioN calculations","Collection of annotation related methods for mass spectrometry data","A mass spectrometry imaging toolbox for statistical analysis","Annotation of Isotopes, Adducts and Fragmentation Adducts for in-Source LC/MS Metabolomics Data","Creating and Using (Chemical) Compound Annotation Databases","Complexome Profiling Analysis package","Data normalization by matrix raking","cosmiq - COmbining Single Masses Into Quantities","Generate customized protein database from NGS data, with a focus on RNA-Seq data, for proteomics search","Tools for the Differential Analysis of Proteins Abundance with R","Differential Enrichment analysis of Proteomics data","a tool to perform statistical analysis of differential protein expression for quantitative proteomics data.","Dynamic Programming Based Alignment of MS2 Chromatograms","A DownStream Chemo-Proteomics Analysis Pipeline","Analysis of Metabolomics GC/MS Data","Tools For Manipulating FOBI Ontology","GaGa hierarchical model for high-throughput data analysis","Interactive Visualization of Integrated Differential Expression and Differential Network Analysis for Biomarker Candidate\nSelection Package","Automated Optimization of XCMS Data Processing parameters","Analysis and quantitation of isobarically tagged MSMS proteomics data","Correction for natural isotope abundance and tracer purity in MS and MS/MS data from stable isotope labeling experiments","Graphical User Interface for IsoCorrectoR","Lipid and Oxylipin Biomarker Screening through Adduct Hierarchy Sequences","Statistical Analysis of Metabolomic Data","Maximum rank reproducibility","Analytical Tools for MassArray Data","Peak Detection for Mass Spectrometry data using wavelet-based algorithms","Metab: An R Package for a High-Throughput Analysis of Metabolomics Data Generated by GC-MS.","Method for Combining LC-MS Metabolomics Feature Measurements","Utilities for Annotation of Metabolomics Data","Core Utils for Metabolomics Data","A package to run mixture models for truncated metabolomics data with normal or lognormal distributions","MS-based metabolomics annotation pipeline","Conducts pathway test of metabolomics data using a weighted permutation test","Navigating mass spectral similarity in high-resolution MS/MS metabolomics data metabolomics data","Inferring metabolic networks from untargeted high-resolution mass spectrometry data","Effective mobility scale transformation of CE-MS(/MS) data","Quality Control of Protemics Data","Mass Spectrometry Data Backend for MassBank record Files","Mass Spectrometry Data Backend for Mascot Generic Format (mgf) Files","Mass Spectrometry Data Backend for NIST msp Files","Mass Spectrometry Backend for Reading Thermo Fisher Scientific raw Files","Core Utils for Mass Spectrometry Data","Infrastructure for Mass Spectrometry Experiments","Functionality for Mass Spectrometry Features","Imputation of label-free mass spectrometry peptides","Exploratory Data Analysis of LC-MS/MS data by spectral counts","LC-MS/MS Differential Expression Tests","Base Functions and Classes for Mass Spectrometry and Proteomics","Utilities for Exploration and Assessment of Confidence of LC-MSn Proteomics Identifications","Package for Summarizing, Filtering, Imputing, and Normalizing Metabolomics Data","Automated Evaluation of Precursor Ion Purity for Mass Spectrometry Based Fragmentation in Metabolomics","Robust statistical inference for quantitative LC-MS proteomics","MsQuality - Quality metric calculation from Spectra objects","Protein Significance Analysis in DDA, SRM and DIA for Label-free or Label-based Proteomics Experiments","Import Data from Various Mass Spectrometry Signal Processing Tools to MSstats Format","LiP Significance Analysis in shotgun mass spectrometry-based proteomic experiments","Assay characterization: estimation of limit of blanc(LoB) and limit of detection(LOD)","Statistical Characterization of Post-translational Modifications","Longitudinal system suitability monitoring and quality control for proteomic experiments","A graphical user interface for MSstatsQC package","Simulation tool for optimal design of high-dimensional MS-based proteomics experiment","MSstats GUI for Statistical Anaylsis of Proteomics Experiments","Protein Significance Analysis in shotgun mass spectrometry-based proteomic experiments with tandem mass tag (TMT) labeling","An mzIdentML parser for R","parser for netCDF, mzXML, mzData and mzML and mzIdentML files (mass spectrometry data)","Alignment of LC-MS Profiles by Neighbor-wise Compound-specific Graphical Time Warping with Misalignment Detection","Peak Picking and Annotation of High Resolution Experiments","Parsing pepXML files and filter based on peptide FDR.","PGCA: An Algorithm to Link Protein Groups Created from MS/MS Data","Detect differential expression in microarray and proteomics datasets with the Power Law Global Error Model (PLGEM)","Peak Matrix Processing and signal batch correction for metabolomics datasets","Generating SAM file for PSMs in shotgun proteomics data","Ciphergen SELDI-TOF Processing","Differential Abundance Analysis of Label-Free Mass Spectrometry Data","A unifying bioinformatics framework for spatial proteomics","Provides a GUI for DAPAR","Multi-Dataset Model-based Differential Expression Proteomics Analysis Platform","Generic infrastructure for Bioconductor mass spectrometry packages","Handling and Managing Peptide Spectrum Matches","Pre-processing PTR-TOF-MS Data","A Framework for Quality Control","Quantitative features for mass spectrometry data","Quantitative Metabolomics Data Processing Tools","Tools for quantitative proteomics data analysis","Direct Access to Orbitrap Data and Beyond","Decomposition of Isotopic Patterns","Lipid Shorthand Name Parsing and Normalization","Converting experimental metadata from ISA-tab into Bioconductor data structures","Workflow to process tandem MS files and build MassBank records","An R interface to the Ontology Lookup Service","R Interface to the ProteomeXchange Repository","scDataviz: single cell dataviz and downstream analyses","Mass Spectrometry-Based Single-Cell Proteomics Data Analysis","Differential Abundant/Expression Analysis for Metabolomics, Proteomics and single-cell RNA sequencing Data","GC-SIM-MS data processing and alaysis tool","Statistical Modelling of AP-MS Data (SMAD)","Using Gaussian graphical structue learning estimation in generalized least squared regression for multivariate normal\nregression","specL - Prepare Peptide Spectrum Matches for Use in Targeted Proteomics","Spectra Infrastructure for Mass Spectrometry Data","Statistical Analysis of Molecular Profiles","SubCellBarCode: Integrated workflow for robust mapping and visualizing whole human spatial proteome","Transform and Filter SWATH Data for Statistical Packages","Label-free data analysis pipeline for optimal identification and quantitation","Diagnostic Plots to Evaluate the Target Decoy Approach","A package for the analysis of GC-MS metabolite profiling data","Investigation of Fragmentation Conditions in Top-Down Proteomics","Analyze thermal proteome profiling (TPP) experiments","Cytometry Cluster Hierarchy and Cellular-to-phenotype Associations","Well Plate Maker","LC-MS and GC-MS Data Analysis","Tools for high-throughput metabolomics","Signature discovery from omics data","Data Mining and Analysis of Lipidomics Datasets","Postprocessing and univariate analysis of omics data","Tools for Diagnostics and Corrections of Batch Effects in Proteomics","PCA, PLS(-DA) and OPLS(-DA) for multivariate analysis and feature selection of omics data","Preprocessing of FIA-HRMS data","Cytometry dATa anALYSis Tools"],["1.15.0","2.65.0","1.17.0","1.7.0","1.3.0","1.45.0","1.55.0","3.1.0","1.13.0","1.3.1","1.7.0","1.7.0","1.33.0","1.39.0","1.31.0","1.21.0","1.17.3","2.7.0","1.21.0","1.55.0","1.7.0","2.45.0","2.13.0","1.25.0","1.45.0","1.17.0","1.15.0","1.25.0","1.33.0","1.9.0","1.51.0","1.65.0","1.33.0","1.9.0","1.3.0","1.7.0","1.33.0","1.35.0","1.5.0","1.29.1","1.17.1","1.3.0","1.7.0","1.7.0","1.7.1","1.3.0","1.5.0","1.11.2","1.1.1","1.7.0","1.9.0","1.37.0","1.37.0","2.25.1","1.33.0","1.9.0","1.25.0","1.7.0","0.99.6","4.7.1","1.9.2","1.5.1","1.7.0","2.1.1","2.17.0","1.19.0","1.13.0","1.1.5","2.7.0","1.37.0","2.33.0","1.13.0","1.13.1","1.33.0","1.23.0","1.71.0","1.11.0","1.33.0","1.75.0","1.13.0","1.39.0","1.31.0","1.17.0","1.31.0","1.3.0","1.7.0","1.37.0","1.9.2","1.3.0","1.17.0","1.7.0","1.59.0","1.3.0","1.41.0","3.9.0","2.27.0","2.7.0","1.9.0","1.9.0","1.19.0","1.31.0","1.15.1","1.17.0","1.33.3","1.9.5","1.29.0","1.15.0","1.29.0","2.23.0","1.5.0","2.1.0","1.21.0","3.27.0","1.7.0","1.9.0","3.21.0","1.25.0","1.27.0","2.13.0","1.1.2","1.15.0","1.31.0","1.25.0","1.23.0"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Package<\/th>\n      <th>Title<\/th>\n      <th>Version<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-eba3eb5505aa9e63e526" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-eba3eb5505aa9e63e526">{"x":{"filter":"none","vertical":false,"data":[["adductData","BioPlex","CardinalWorkflows","CluMSIDdata","DAPARdata","faahKO","gcspikelite","metaMSdata","msdata","msPurityData","msqc1","mtbls2","NestLink","ProData","pRolocdata","ptairData","PtH2O2lipids","qPLEXdata","RMassBankData","scpdata","synapterdata","tartare","topdownrdata","RforProteomics","plasFIA"],["adductData","BioPlex","CardinalWorkflows","CluMSIDdata","DAPARdata","faahKO","gcspikelite","metaMSdata","msdata","msPurityData","msqc1","mtbls2","NestLink","ProData","pRolocdata","ptairData","PtH2O2lipids","qPLEXdata","RMassBankData","scpdata","synapterdata","tartare","topdownrdata","RforProteomics","plasFIA"],["Data from untargeted MS of modifications to Cys34 of serum albumin","R-side access to BioPlex protein-protein interaction data","Datasets and workflows for the Cardinal mass spectrometry imaging package","Data for the CluMSID package","Data accompanying the DAPAR and Prostar packages","Saghatelian et al. (2004) FAAH knockout LC/MS data","Spike-in data for GC/MS data and methods within flagme","Example CDF data for the metaMS package","Various Mass Spectrometry raw data example files","Fragmentation spectral libraries and data to test the msPurity package","Sigma mix MSQC1 data","MetaboLights MTBLS2: Comparative LC/MS-based profiling of silver nitrate-treated Arabidopsis thaliana leaves of wild-type and\ncyp79B2 cyp79B3 double knockout plants. Böttcher et al. (2004)","NestLink an R data package to guide through Engineered Peptide Barcodes for In-Depth Analyzes of Binding Protein Ensembles","SELDI-TOF data of Breast cancer samples","Data accompanying the pRoloc package","PTR-TOF-MS volatolomics raw datasets from exhaled air and cell culture headspace","P. tricornutum HPLC-ESI-MS Lipid Data from van Creveld et al. (2015)","Data accompanying qPLEXanalyzer package","Test dataset for RMassBank","Single-Cell Proteomics Data Package","Data accompanying the synapter package","Raw ground spectra recorded on Thermo Fisher Scientific mass spectrometers","Example Files for the topdownr R Package","Companion package to the 'Using R and Bioconductor for proteomics data analysis' publication","FIA-HRMS plasma dataset"],["1.15.0","1.5.3","1.31.0","1.15.0","1.29.0","1.39.0","1.37.0","1.35.0","0.39.0","1.27.0","1.27.1","1.29.0","1.15.0","1.37.0","1.37.0","1.7.0","1.25.0","1.17.0","1.37.0","1.7.0","1.37.0","1.13.0","1.21.0","1.37.0","1.27.0"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Package<\/th>\n      <th>Title<\/th>\n      <th>Version<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script><p>The tables can easily be generated with the
 <code>proteomicsPackages</code>, <code>massSpectrometryPackages</code>
 and <code>massSpectrometryDataPackages</code> functions. The respective
 package tables can then be interactively explored using the
 <code>display</code> function.</p>
-<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/proteomicsPackages.html">proteomicsPackages</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">display</span><span class="op">(</span><span class="va">pp</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -1796,13 +1806,13 @@ Omegahat), i.e. not only available through a personal web page.</p>
 </h2>
 <p>All software and respective versions used in this document, as
 returned by <code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo()</a></code> are detailed below.</p>
-<pre><code><span><span class="co">## R version 4.2.1 (2022-06-23)</span></span>
+<pre><code><span><span class="co">## R Under development (unstable) (2023-01-10 r83596)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
-<span><span class="co">## Running under: Ubuntu 20.04.5 LTS</span></span>
+<span><span class="co">## Running under: Ubuntu 22.04.1 LTS</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Matrix products: default</span></span>
-<span><span class="co">## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3</span></span>
-<span><span class="co">## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3</span></span>
+<span><span class="co">## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
+<span><span class="co">## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## locale:</span></span>
 <span><span class="co">##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              </span></span>
@@ -1812,87 +1822,90 @@ returned by <code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="exte
 <span><span class="co">##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            </span></span>
 <span><span class="co">## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       </span></span>
 <span><span class="co">## </span></span>
+<span><span class="co">## time zone: UTC</span></span>
+<span><span class="co">## tzcode source: system (glibc)</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## attached base packages:</span></span>
 <span><span class="co">## [1] grid      stats4    stats     graphics  grDevices utils     datasets </span></span>
 <span><span class="co">## [8] methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">##  [1] MSnID_1.31.0           cleaver_1.35.0         OrgMassSpecR_0.5-3    </span></span>
-<span><span class="co">##  [4] msdata_0.37.0          reshape2_1.4.4         ggplot2_3.3.6         </span></span>
-<span><span class="co">##  [7] RColorBrewer_1.1-3     RforProteomics_1.35.1  biomaRt_2.53.2        </span></span>
-<span><span class="co">## [10] Rdisop_1.57.0          GO.db_3.15.0           org.Hs.eg.db_3.15.0   </span></span>
-<span><span class="co">## [13] AnnotationDbi_1.59.1   BRAIN_1.43.0           lattice_0.20-45       </span></span>
-<span><span class="co">## [16] Biostrings_2.65.3      GenomeInfoDb_1.33.5    XVector_0.37.1        </span></span>
-<span><span class="co">## [19] IRanges_2.31.2         PolynomF_2.0-5         hpar_1.39.0           </span></span>
-<span><span class="co">## [22] rols_2.25.3            MALDIquantForeign_0.13 MALDIquant_1.21       </span></span>
-<span><span class="co">## [25] rpx_2.5.1              mzID_1.35.0            MSnbase_2.23.0        </span></span>
-<span><span class="co">## [28] ProtGenerics_1.29.0    S4Vectors_0.35.1       Biobase_2.57.1        </span></span>
-<span><span class="co">## [31] BiocGenerics_0.43.1    mzR_2.31.1             Rcpp_1.0.9            </span></span>
-<span><span class="co">## [34] BiocManager_1.30.18    DT_0.24                BiocStyle_2.25.0      </span></span>
+<span><span class="co">##  [1] MSnID_1.33.0           cleaver_1.37.0         OrgMassSpecR_0.5-3    </span></span>
+<span><span class="co">##  [4] msdata_0.39.0          reshape2_1.4.4         ggplot2_3.4.0         </span></span>
+<span><span class="co">##  [7] RColorBrewer_1.1-3     RforProteomics_1.37.1  biomaRt_2.55.0        </span></span>
+<span><span class="co">## [10] Rdisop_1.59.0          GO.db_3.16.0           org.Hs.eg.db_3.16.0   </span></span>
+<span><span class="co">## [13] AnnotationDbi_1.61.0   BRAIN_1.45.0           lattice_0.20-45       </span></span>
+<span><span class="co">## [16] Biostrings_2.67.0      GenomeInfoDb_1.35.10   XVector_0.39.0        </span></span>
+<span><span class="co">## [19] IRanges_2.33.0         PolynomF_2.0-5         hpar_1.41.1           </span></span>
+<span><span class="co">## [22] rols_2.27.0            MALDIquantForeign_0.13 MALDIquant_1.22       </span></span>
+<span><span class="co">## [25] rpx_2.5.1              mzID_1.37.0            MSnbase_2.25.1        </span></span>
+<span><span class="co">## [28] ProtGenerics_1.31.0    S4Vectors_0.37.3       Biobase_2.59.0        </span></span>
+<span><span class="co">## [31] BiocGenerics_0.45.0    mzR_2.33.0             Rcpp_1.0.9            </span></span>
+<span><span class="co">## [34] BiocManager_1.30.19    DT_0.26                BiocStyle_2.27.0      </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
-<span><span class="co">##   [1] AnnotationHub_3.5.0           BiocFileCache_2.5.0          </span></span>
-<span><span class="co">##   [3] systemfonts_1.0.4             plyr_1.8.7                   </span></span>
-<span><span class="co">##   [5] crosstalk_1.2.0               BiocParallel_1.31.12         </span></span>
-<span><span class="co">##   [7] digest_0.6.29                 foreach_1.5.2                </span></span>
-<span><span class="co">##   [9] htmltools_0.5.3               fansi_1.0.3                  </span></span>
-<span><span class="co">##  [11] magrittr_2.0.3                memoise_2.0.1                </span></span>
-<span><span class="co">##  [13] cluster_2.1.4                 doParallel_1.0.17            </span></span>
-<span><span class="co">##  [15] limma_3.53.6                  matrixStats_0.62.0           </span></span>
-<span><span class="co">##  [17] R.utils_2.12.0                pkgdown_2.0.6.9000           </span></span>
-<span><span class="co">##  [19] prettyunits_1.1.1             colorspace_2.0-3             </span></span>
-<span><span class="co">##  [21] blob_1.2.3                    rappdirs_0.3.3               </span></span>
-<span><span class="co">##  [23] textshaping_0.3.6             xfun_0.32                    </span></span>
-<span><span class="co">##  [25] dplyr_1.0.9                   crayon_1.5.1                 </span></span>
-<span><span class="co">##  [27] RCurl_1.98-1.8                jsonlite_1.8.0               </span></span>
-<span><span class="co">##  [29] readBrukerFlexData_1.9.0      graph_1.75.0                 </span></span>
-<span><span class="co">##  [31] impute_1.71.0                 iterators_1.0.14             </span></span>
-<span><span class="co">##  [33] glue_1.6.2                    gtable_0.3.0                 </span></span>
-<span><span class="co">##  [35] zlibbioc_1.43.0               readMzXmlData_2.8.1          </span></span>
-<span><span class="co">##  [37] DelayedArray_0.23.1           R.cache_0.16.0               </span></span>
-<span><span class="co">##  [39] scales_1.2.1                  vsn_3.65.0                   </span></span>
-<span><span class="co">##  [41] DBI_1.1.3                     xtable_1.8-4                 </span></span>
-<span><span class="co">##  [43] progress_1.2.2                clue_0.3-61                  </span></span>
-<span><span class="co">##  [45] bit_4.0.4                     preprocessCore_1.59.0        </span></span>
-<span><span class="co">##  [47] MsCoreUtils_1.9.1             htmlwidgets_1.5.4            </span></span>
-<span><span class="co">##  [49] httr_1.4.4                    ellipsis_0.3.2               </span></span>
-<span><span class="co">##  [51] pkgconfig_2.0.3               XML_3.99-0.10                </span></span>
-<span><span class="co">##  [53] R.methodsS3_1.8.2             farver_2.1.1                 </span></span>
-<span><span class="co">##  [55] sass_0.4.2                    dbplyr_2.2.1                 </span></span>
-<span><span class="co">##  [57] utf8_1.2.2                    later_1.3.0                  </span></span>
-<span><span class="co">##  [59] tidyselect_1.1.2              labeling_0.4.2               </span></span>
-<span><span class="co">##  [61] rlang_1.0.4                   BiocVersion_3.16.0           </span></span>
-<span><span class="co">##  [63] munsell_0.5.0                 biocViews_1.65.3             </span></span>
-<span><span class="co">##  [65] tools_4.2.1                   cachem_1.0.6                 </span></span>
-<span><span class="co">##  [67] cli_3.3.0                     generics_0.1.3               </span></span>
-<span><span class="co">##  [69] RSQLite_2.2.16                evaluate_0.16                </span></span>
-<span><span class="co">##  [71] stringr_1.4.1                 fastmap_1.1.0                </span></span>
-<span><span class="co">##  [73] yaml_2.3.5                    ragg_1.2.2                   </span></span>
-<span><span class="co">##  [75] knitr_1.40                    bit64_4.0.5                  </span></span>
-<span><span class="co">##  [77] fs_1.5.2                      purrr_0.3.4                  </span></span>
-<span><span class="co">##  [79] KEGGREST_1.37.3               ncdf4_1.19                   </span></span>
-<span><span class="co">##  [81] RBGL_1.73.0                   mime_0.12                    </span></span>
-<span><span class="co">##  [83] R.oo_1.25.0                   xml2_1.3.3                   </span></span>
-<span><span class="co">##  [85] compiler_4.2.1                interactiveDisplayBase_1.35.0</span></span>
-<span><span class="co">##  [87] filelock_1.0.2                curl_4.3.2                   </span></span>
-<span><span class="co">##  [89] png_0.1-7                     affyio_1.67.0                </span></span>
-<span><span class="co">##  [91] tibble_3.1.8                  bslib_0.4.0                  </span></span>
-<span><span class="co">##  [93] stringi_1.7.8                 highr_0.9                    </span></span>
-<span><span class="co">##  [95] desc_1.4.1                    Matrix_1.4-1                 </span></span>
-<span><span class="co">##  [97] vctrs_0.4.1                   pillar_1.8.1                 </span></span>
-<span><span class="co">##  [99] lifecycle_1.0.1               RUnit_0.4.32                 </span></span>
-<span><span class="co">## [101] jquerylib_0.1.4               data.table_1.14.2            </span></span>
-<span><span class="co">## [103] bitops_1.0-7                  httpuv_1.6.5                 </span></span>
-<span><span class="co">## [105] GenomicRanges_1.49.1          R6_2.5.1                     </span></span>
-<span><span class="co">## [107] pcaMethods_1.89.0             affy_1.75.0                  </span></span>
-<span><span class="co">## [109] promises_1.2.0.1              bookdown_0.28                </span></span>
-<span><span class="co">## [111] codetools_0.2-18              MASS_7.3-58.1                </span></span>
-<span><span class="co">## [113] assertthat_0.2.1              SummarizedExperiment_1.27.2  </span></span>
-<span><span class="co">## [115] rprojroot_2.0.3               withr_2.5.0                  </span></span>
-<span><span class="co">## [117] GenomeInfoDbData_1.2.8        parallel_4.2.1               </span></span>
-<span><span class="co">## [119] hms_1.1.2                     rmarkdown_2.16               </span></span>
-<span><span class="co">## [121] MatrixGenerics_1.9.1          shiny_1.7.2                  </span></span>
-<span><span class="co">## [123] base64enc_0.1-3</span></span></code></pre>
+<span><span class="co">##   [1] later_1.3.0                   bitops_1.0-7                 </span></span>
+<span><span class="co">##   [3] filelock_1.0.2                tibble_3.1.8                 </span></span>
+<span><span class="co">##   [5] R.oo_1.25.0                   preprocessCore_1.61.0        </span></span>
+<span><span class="co">##   [7] graph_1.77.1                  XML_3.99-0.13                </span></span>
+<span><span class="co">##   [9] lifecycle_1.0.3               doParallel_1.0.17            </span></span>
+<span><span class="co">##  [11] rprojroot_2.0.3               MASS_7.3-58.1                </span></span>
+<span><span class="co">##  [13] crosstalk_1.2.0               magrittr_2.0.3               </span></span>
+<span><span class="co">##  [15] limma_3.55.2                  sass_0.4.4                   </span></span>
+<span><span class="co">##  [17] rmarkdown_2.19                jquerylib_0.1.4              </span></span>
+<span><span class="co">##  [19] yaml_2.3.6                    httpuv_1.6.8                 </span></span>
+<span><span class="co">##  [21] RUnit_0.4.32                  MsCoreUtils_1.11.2           </span></span>
+<span><span class="co">##  [23] DBI_1.1.3                     zlibbioc_1.45.0              </span></span>
+<span><span class="co">##  [25] R.cache_0.16.0                GenomicRanges_1.51.4         </span></span>
+<span><span class="co">##  [27] purrr_1.0.1                   R.utils_2.12.2               </span></span>
+<span><span class="co">##  [29] RCurl_1.98-1.9                rappdirs_0.3.3               </span></span>
+<span><span class="co">##  [31] GenomeInfoDbData_1.2.9        readMzXmlData_2.8.2          </span></span>
+<span><span class="co">##  [33] pkgdown_2.0.7.9000            ncdf4_1.21                   </span></span>
+<span><span class="co">##  [35] codetools_0.2-18              DelayedArray_0.25.0          </span></span>
+<span><span class="co">##  [37] xml2_1.3.3                    tidyselect_1.2.0             </span></span>
+<span><span class="co">##  [39] farver_2.1.1                  matrixStats_0.63.0           </span></span>
+<span><span class="co">##  [41] BiocFileCache_2.7.1           base64enc_0.1-3              </span></span>
+<span><span class="co">##  [43] jsonlite_1.8.4                ellipsis_0.3.2               </span></span>
+<span><span class="co">##  [45] iterators_1.0.14              systemfonts_1.0.4            </span></span>
+<span><span class="co">##  [47] foreach_1.5.2                 tools_4.3.0                  </span></span>
+<span><span class="co">##  [49] progress_1.2.2                ragg_1.2.5                   </span></span>
+<span><span class="co">##  [51] readBrukerFlexData_1.9.0      glue_1.6.2                   </span></span>
+<span><span class="co">##  [53] xfun_0.36                     MatrixGenerics_1.11.0        </span></span>
+<span><span class="co">##  [55] dplyr_1.0.10                  withr_2.5.0                  </span></span>
+<span><span class="co">##  [57] fastmap_1.1.0                 fansi_1.0.3                  </span></span>
+<span><span class="co">##  [59] digest_0.6.31                 R6_2.5.1                     </span></span>
+<span><span class="co">##  [61] mime_0.12                     textshaping_0.3.6            </span></span>
+<span><span class="co">##  [63] colorspace_2.0-3              RSQLite_2.2.20               </span></span>
+<span><span class="co">##  [65] R.methodsS3_1.8.2             utf8_1.2.2                   </span></span>
+<span><span class="co">##  [67] generics_0.1.3                data.table_1.14.6            </span></span>
+<span><span class="co">##  [69] prettyunits_1.1.1             httr_1.4.4                   </span></span>
+<span><span class="co">##  [71] htmlwidgets_1.6.1             pkgconfig_2.0.3              </span></span>
+<span><span class="co">##  [73] gtable_0.3.1                  blob_1.2.3                   </span></span>
+<span><span class="co">##  [75] impute_1.73.0                 htmltools_0.5.4              </span></span>
+<span><span class="co">##  [77] bookdown_0.31                 RBGL_1.75.0                  </span></span>
+<span><span class="co">##  [79] clue_0.3-63                   scales_1.2.1                 </span></span>
+<span><span class="co">##  [81] png_0.1-8                     knitr_1.41                   </span></span>
+<span><span class="co">##  [83] curl_5.0.0                    biocViews_1.67.2             </span></span>
+<span><span class="co">##  [85] cachem_1.0.6                  stringr_1.5.0                </span></span>
+<span><span class="co">##  [87] BiocVersion_3.17.1            parallel_4.3.0               </span></span>
+<span><span class="co">##  [89] vsn_3.67.0                    desc_1.4.2                   </span></span>
+<span><span class="co">##  [91] pillar_1.8.1                  vctrs_0.5.1                  </span></span>
+<span><span class="co">##  [93] pcaMethods_1.91.0             promises_1.2.0.1             </span></span>
+<span><span class="co">##  [95] dbplyr_2.2.1                  xtable_1.8-4                 </span></span>
+<span><span class="co">##  [97] cluster_2.1.4                 evaluate_0.19                </span></span>
+<span><span class="co">##  [99] cli_3.6.0                     compiler_4.3.0               </span></span>
+<span><span class="co">## [101] rlang_1.0.6                   crayon_1.5.2                 </span></span>
+<span><span class="co">## [103] labeling_0.4.2                affy_1.77.0                  </span></span>
+<span><span class="co">## [105] plyr_1.8.8                    fs_1.5.2                     </span></span>
+<span><span class="co">## [107] stringi_1.7.12                BiocParallel_1.33.9          </span></span>
+<span><span class="co">## [109] assertthat_0.2.1              munsell_0.5.0                </span></span>
+<span><span class="co">## [111] Matrix_1.5-3                  ExperimentHub_2.7.0          </span></span>
+<span><span class="co">## [113] hms_1.1.2                     bit64_4.0.5                  </span></span>
+<span><span class="co">## [115] KEGGREST_1.39.0               shiny_1.7.4                  </span></span>
+<span><span class="co">## [117] SummarizedExperiment_1.29.1   interactiveDisplayBase_1.37.0</span></span>
+<span><span class="co">## [119] highr_0.10                    AnnotationHub_3.7.0          </span></span>
+<span><span class="co">## [121] memoise_2.0.1                 affyio_1.69.0                </span></span>
+<span><span class="co">## [123] bslib_0.4.2                   bit_4.0.5</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
@@ -2012,7 +2025,7 @@ explicitly.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.9000.</p>
 </div>
 
       </footer>
