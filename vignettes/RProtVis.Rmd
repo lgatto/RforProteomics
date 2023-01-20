@@ -266,11 +266,9 @@ This (now outdated and deprecated) app is based on Mike Love's
 [shinyMA](https://github.com/mikelove/shinyMA) application, adapted
 for a proteomics data. A screen shot is displayed below.
 
-<!-- ```{r echo=FALSE, out.width='80%', fig.align = 'center'} -->
-<!-- knitr::include_graphics("figures/shinyMA.png") -->
-<!-- ``` -->
-
-![shinyMA](figures/shinyMA.png)
+```{r echo=FALSE, out.width='80%', fig.align = 'center'}
+knitr::include_graphics("figures/shinyMA.png")
+```
 
 See the excellent `r CRANpkg("shiny")` [web
 page](http://shiny.rstudio.com/) for tutorials and the [Mastering
@@ -827,7 +825,7 @@ plotMsiSlice(spectra,
 par(oldPar)
 ```
 
-![mqmsi](./figures/mqmsi-1.png))]
+![mqmsi](./figures/mqmsi-1.png)
 
 ## An interactive `r CRANpkg("shiny")` app for Imaging mass spectrometry
 
