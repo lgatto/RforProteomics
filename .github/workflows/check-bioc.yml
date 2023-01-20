@@ -280,9 +280,10 @@ jobs:
       - name: Deploy package
         if: github.ref == 'refs/heads/master' && env.run_pkgdown == 'true'
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          Rscript -e "pkgdown::deploy_to_branch(new_process = FALSE)"
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git config --global --add safe.directory /__w/RforProteomics/RforProteomics
+          Rscript -e "pkgdown::deploy_to_branch(new_process = FALSE)"        
         shell: bash {0}
         ## Note that you need to run pkgdown::deploy_to_branch(new_process = FALSE)
         ## at least one locally before this will work. This creates the gh-pages
