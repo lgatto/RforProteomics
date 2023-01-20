@@ -1,5 +1,9 @@
 # RforProteomics 1
 
+## Changes in version 1.37.2
+
+- Don't use knitr::include_graphics to fix missing figure error.
+
 ## Changes in version 1.37.1
 
 - Adapt vignette for new hpar version.
