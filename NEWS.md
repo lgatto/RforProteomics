@@ -1,5 +1,10 @@
 # RforProteomics 1
 
+## Changes in version 1.37.3
+
+- I give up: remove that effing figure that is supposedly not found
+  despite being there.
+
 ## Changes in version 1.37.2
 
 - Fix syntax to fix missing figure error.

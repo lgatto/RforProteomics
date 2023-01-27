@@ -266,10 +266,6 @@ This (now outdated and deprecated) app is based on Mike Love's
 [shinyMA](https://github.com/mikelove/shinyMA) application, adapted
 for a proteomics data. A screen shot is displayed below.
 
-```{r echo=FALSE, out.width='80%', fig.align = 'center'}
-knitr::include_graphics("figures/shinyMA.png")
-```
-
 See the excellent `r CRANpkg("shiny")` [web
 page](http://shiny.rstudio.com/) for tutorials and the [Mastering
 Shiny](https://mastering-shiny.org/) book for details on `shiny`.
