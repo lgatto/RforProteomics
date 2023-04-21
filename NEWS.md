@@ -1,5 +1,9 @@
 # RforProteomics 1
 
+## Changes in version 1.37.4
+
+Using `knitr::include_graphics()` to include figures.
+
 ## Changes in version 1.37.3
 
 - I give up: remove that effing figure that is supposedly not found
