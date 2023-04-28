@@ -1,8 +1,12 @@
 # RforProteomics 1
 
+## Changes in version 1.39.1
+
+- change paths to figures.
+
 ## Changes in version 1.39.0
 
-- New Bioc devel version
+- New Bioc devel version.
 
 ## Changes in version 1.37.4
 
