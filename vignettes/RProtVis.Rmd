@@ -604,7 +604,7 @@ saveGIF(an1(), movie.name = "msanim1.gif")
 ```
 
 ```{r, fig.align = "center"}
-knitr::include_graphics("figures/msanim1.gif")
+knitr::include_graphics("./figures/msanim1.gif")
 ```
 
 The code chunk below scrolls of a slice of retention times while
@@ -626,7 +626,7 @@ saveGIF(an2(), movie.name = "msanim2.gif")
 ```
 
 ```{r, fig.align = "center"}
-knitr::include_graphics("figures/msanim2.gif")
+knitr::include_graphics("./figures/msanim2.gif")
 ```
 
 ## The `r Biocpkg("MSnbase")` infrastructure
@@ -826,7 +826,7 @@ par(oldPar)
 ```
 
 ```{r, fig.align = "center"}
-knitr::include_graphics("figures/mqmsi-1.png")
+knitr::include_graphics("./figures/mqmsi-1.png")
 ```
 
 ## An interactive `r CRANpkg("shiny")` app for Imaging mass spectrometry
@@ -841,7 +841,7 @@ runGitHub("sgibb/ims-shiny")
 ```
 
 ```{r, fig.align = "center"}
-knitr::include_graphics("figures/ims-shiny.png")
+knitr::include_graphics("./figures/ims-shiny.png")
 ```
 
 # Spatial proteomics
