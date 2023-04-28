@@ -28,7 +28,6 @@ Suggests:
     mzR,
     xcms,
     msdata,
-    isobar,
     MALDIquant (>= 1.12),
     MALDIquantForeign,
     readBrukerFlexData,

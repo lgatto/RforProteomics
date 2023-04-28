@@ -1,8 +1,12 @@
 # RforProteomics 1
 
+## Changes in version 1.39.0
+
+- New Bioc devel version
+
 ## Changes in version 1.37.4
 
-Using `knitr::include_graphics()` to include figures.
+- Using `knitr::include_graphics()` to include figures.
 
 ## Changes in version 1.37.3
 
