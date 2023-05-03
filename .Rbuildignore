@@ -1,7 +1,4 @@
-sandbox
-vignettes/vigsrc
 .gitignore
-README.md
 ^docs$
 vignettes/P00924.fasta
 vignettes/PXD000001_mztab.txt
@@ -9,8 +6,6 @@ vignettes/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML
 vignettes/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01.mzXML
 vignettes/output*
 vignettes/*_cache
-docs
 vignettes/cache
-vignettes/figure
 .git
 .github
