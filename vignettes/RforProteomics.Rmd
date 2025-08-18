@@ -45,6 +45,14 @@ suppressPackageStartupMessages(library("Rdisop"))
 suppressPackageStartupMessages(library("biomaRt"))
 ```
 
+# Note
+
+For a more **up-to-date overview** of what is available for mass
+spectrometry-based proteomics in R, please see the [*R for Mass
+Spectrometry* initiative](https://www.rformassspectrometry.org/) in
+general, and the [book](https://rformassspectrometry.github.io/book/)
+in particular.
+
 # Introduction {#sec:intro}
 
 This document illustrates some existing R infrastructure for the
@@ -777,44 +785,6 @@ par(mfrow = c(4,3))
 for (i in 1:length(inc))
   plot(inc[[i]][, c(1, 3)], xlim = c(1823, 1848), type = "h",
        main = paste0("15N incorporation at ", incrate[i]*100, "%"))
-```
-
-## The `r Biocpkg("isobar")` package
-
-The `r Biocpkg("isobar")` package [@Breitwieser2011] provides methods
-for the statistical analysis of isobarically tagged MS2
-experiments. Please refer to the package vignette for more details.
-
-
-## The `r Biocpkg("DEP")`  package
-
-The `r Biocpkg("DEP")` package supports analysis of label-free and TMT
-pipelines using, as described in its vignette. These can be used with
-`MSnSet` objects by converting them to/from `SummarizedExperiment`
-objects:
-
-```{r msnsetse}
-data(msnset)
-se <- as(msnset, "SummarizedExperiment")
-se
-ms <- as(se, "MSnSet")
-ms
-```
-
-## The `r Biocpkg("synapter")` package
-
-The `r Biocpkg("synapter")` [@synapter] package comes with a detailed
-vignette that describes how to prepare the MSE data and then
-process it in R. Several interfaces are available provided the user
-with maximum control, easy batch processing capabilities or a
-graphical user interface. The conversion into `MSnSet`
-instances and filter and combination thereof as well as statistical
-analysis are also described.
-
-```{r synapter, eval=FALSE}
-## open the synapter vignette
-library("synapter")
-synapterGuide()
 ```
 
 # MS2 spectra identification
