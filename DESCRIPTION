@@ -19,6 +19,7 @@ Imports:
     biocViews,
     BiocManager
 Suggests:
+    MsCoreUtils (>= 1.13.2),
     AnnotationDbi,
     rpx (>= 2.0.3),
     DT,
