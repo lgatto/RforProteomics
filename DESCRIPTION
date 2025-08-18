@@ -13,13 +13,12 @@ Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
                     email='thomasp85@gmail.com'))
 Depends:
     R (>= 3.5),
-    MSnbase (>= 2.5.3)
+    MSnbase (>= 2.35.1)
 Imports:
     R.utils,
     biocViews,
     BiocManager
 Suggests:
-    MsCoreUtils (>= 1.13.2),
     AnnotationDbi,
     rpx (>= 2.0.3),
     DT,
