@@ -207,7 +207,7 @@ jobs:
           BiocManager::install("BiocCheck")
 
           ## Install additional packages manually
-          BiocManager::install("RforMassSpectromety/PSMatch")
+          BiocManager::install("RforMassSpectrometry/PSMatch")
           BiocManager::install("lgatto/MSnbase")
 
         shell: Rscript {0}
