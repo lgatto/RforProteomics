@@ -1,5 +1,11 @@
 # RforProteomics 1
 
+## Changes in version 1.47.1
+
+- Remove DEP suggests.
+- Update vignettes: remove some references to old/outdated packages,
+  add note about RforMS.
+
 ## Changes in version 1.39.2
 
 - Clearn up .gitignore and .Rbuildignore (in the hope to fix the

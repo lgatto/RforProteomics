@@ -46,9 +46,17 @@ library("msmsEDA")
 library("e1071")
 ```
 
+# Note
+
+For a more **up-to-date overview** of what is available for mass
+spectrometry-based proteomics in R, please see the [*R for Mass
+Spectrometry* initiative](https://www.rformassspectrometry.org/) in
+general, and the [book](https://rformassspectrometry.github.io/book/)
+in particular.
+
 # Introduction
 
-This vignette illustrates existing \R{} and Bioconductor
+This vignette illustrates existing R and Bioconductor
 infrastructure for the visualisation of mass spectrometry and
 proteomics data. The code details the visualisations presented in
 
