@@ -5,6 +5,7 @@
 - Remove DEP suggests.
 - Update vignettes: remove some references to old/outdated packages,
   add note about RforMS.
+- Use latest MSnbase
 
 ## Changes in version 1.39.2
 
