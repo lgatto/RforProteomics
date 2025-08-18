@@ -207,7 +207,8 @@ jobs:
           BiocManager::install("BiocCheck")
 
           ## Install additional packages manually
-          BiocManager::install("lgatto/rpx")
+          BiocManager::install("RforMassSpectromety/PSMatch")
+          BiocManager::install("lgatto/MSnbase")
 
         shell: Rscript {0}
 
@@ -282,7 +283,7 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
           git config --global --add safe.directory /__w/RforProteomics/RforProteomics
-          Rscript -e "pkgdown::deploy_to_branch(new_process = FALSE)"        
+          Rscript -e "pkgdown::deploy_to_branch(new_process = FALSE)"
         shell: bash {0}
         ## Note that you need to run pkgdown::deploy_to_branch(new_process = FALSE)
         ## at least one locally before this will work. This creates the gh-pages
