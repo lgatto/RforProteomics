@@ -10,7 +10,9 @@ Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
              person("Vlad", "Petyuk", role="ctb",
                     email="petyuk@gmail.com"),
              person('Thomas', 'Pedersen Lin', role='ctb',
-                    email='thomasp85@gmail.com'))
+                    email='thomasp85@gmail.com'),
+             person('Alvaro', 'Sanchez-Villalba', role='ctb',
+                    email='sanchezvillalba.alvaro@gmail.com'))
 Depends:
     R (>= 3.5),
     MSnbase (>= 2.5.3)

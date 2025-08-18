@@ -1092,6 +1092,12 @@ metrics and bundle them together to generate html or pdf reports. It
 provides some ready made metrics for MS data and N15 labelled
 data.
 
+
+The `r Biocpkg("MQmetrics")`package generates a pdf report containing several
+metrics regarding the sample preparation and LC-MS/MS runs. As input, it takes 
+the MaxQuant output tables. It is designed for people not so well versed
+in R, so it is very user-friendly.
+
 # Annotation {#sec:annot}
 
 In this section, we briefly present some Bioconductor annotation
