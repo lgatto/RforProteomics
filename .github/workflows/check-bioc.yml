@@ -209,6 +209,7 @@ jobs:
           ## Install additional packages manually
           BiocManager::install("RforMassSpectrometry/PSMatch")
           BiocManager::install("lgatto/MSnbase")
+          BiocManager::install("xcms")
 
         shell: Rscript {0}
 
