@@ -2,7 +2,7 @@ Package: RforProteomics
 Type: Package
 Title: Companion package to the 'Using R and Bioconductor for
     proteomics data analysis' publication
-Version: 1.47.1
+Version: 1.47.2
 Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
                     email="laurent.gatto@uclouvain.be"),
              person("Sebastian", "Gibb", role="ctb",
@@ -13,7 +13,7 @@ Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
                     email='thomasp85@gmail.com'))
 Depends:
     R (>= 3.5),
-    MSnbase (>= 2.35.1)
+    MSnbase (>= 2.35.2)
 Imports:
     R.utils,
     biocViews,
