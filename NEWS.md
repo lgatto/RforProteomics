@@ -1,5 +1,9 @@
 # RforProteomics 1
 
+## Changes in version 1.49.1
+
+- Remove rols dep.
+
 ## Changes in version 1.47.2
 
 - Use latest MSnbase
