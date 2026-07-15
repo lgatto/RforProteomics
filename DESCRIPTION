@@ -35,7 +35,6 @@ Suggests:
     OrgMassSpecR,
     SummarizedExperiment,
     BRAIN,
-    rols,
     hpar,
     GO.db,
     org.Hs.eg.db,
