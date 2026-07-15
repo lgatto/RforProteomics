@@ -396,6 +396,7 @@ are going to load it by hand and create a `SummarizedExperiment`. See
 `?readSummarizedExperiment` from the QFeatures package for details.
 
 ```{r se, tidy = FALSE}
+library("QFeatures")
 x <- read.delim(mztab, skip = 10)
 i <- grep("peptide", names(x))
 se <- readSummarizedExperiment(x, quantCols = i)
