@@ -103,12 +103,10 @@ There are currently `r nrow(pp)`
 `r nrow(msp)`
 [MassSpectrometry](http://bioconductor.org/packages/devel/BiocViews.html#___MassSpectrometry) packages
 in Bioconductor version `r as.character(BiocManager::version())`.  Other
-non-Bioconductor packages are described in the `r
-Biocexptpkg("RforProteomics")` vignette (open it in R with
-`RforProteomics()` or read
-it
-[online](file:///home/lg390/dev/00_github/RforProteomics/docs/articles/RforProteomics.html).)
-
+non-Bioconductor packages are described in the
+`r Biocexptpkg("RforProteomics")` vignette (open it in R with
+`RforProteomics()` or read it
+[online](https://bioconductor.org/packages/release/data/experiment/html/RforProteomics.html).)
 
 ```{r pptab, echo=FALSE}
 DT::datatable(pp)

@@ -1,5 +1,11 @@
 # RforProteomics 1
 
+## Changes in version 1.51.1
+
+- Remove defunct readMzTab reading. Replace by
+  readSummarizedExperiment() and convert to MSnSet.
+- Update startup message and point to RforMS.
+
 ## Changes in version 1.49.1
 
 - Remove rols dep.
