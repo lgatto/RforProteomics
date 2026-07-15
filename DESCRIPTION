@@ -19,6 +19,7 @@ Imports:
     biocViews,
     BiocManager
 Suggests:
+    QFeatures,
     AnnotationDbi,
     rpx (>= 2.0.3),
     DT,

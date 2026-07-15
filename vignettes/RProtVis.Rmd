@@ -172,18 +172,26 @@ kable(sapply(mods, residuals))
 # The MA plot example
 
 The following code chunk connects to the `PXD000001` data set on the
-ProteomeXchange repository and fetches the `mzTab` file. After missing
-values filtering, we extract relevant data (log2 fold-changes and
-log10 mean expression intensities) into `data.frames`.
+ProteomeXchange repository and fetches the `mzTab` file. Note that we
+first load the data as a `SummarizedExperiment` that we convert to an
+`MSnSet`. After missing values filtering, we extract relevant data
+(log2 fold-changes and log10 mean expression intensities) into
+`data.frames`.
 
 ```{r, makemadata, warning=FALSE, cache=FALSE}
 library("rpx")
 px1 <- PXDataset("PXD000001")
 mztab <- pxget(px1, "F063721.dat-mztab.txt")
 
+library("QFeatures")
+x <- read.delim(mztab, skip = 10)
+i <- grep("peptide", names(x))
+se <- readSummarizedExperiment(x, quantCols = i)
+
 library("MSnbase")
-## here, we need to specify the (old) mzTab version 0.9
-qnt <- readMzTabData(mztab, what = "PEP", version = "0.9")
+qnt <- MSnSet(exprs = assay(se),
+              fData = data.frame(rowData(se)),
+              pData = data.frame(colData(se)))
 sampleNames(qnt) <- reporterNames(TMT6)
 qnt <- filterNA(qnt)
 ## may be combineFeatuers

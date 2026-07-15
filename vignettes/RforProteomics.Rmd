@@ -367,14 +367,6 @@ plot(raw, full = TRUE)
 plot(raw[[3]], full = TRUE, reporters = iTRAQ4)
 ```
 
-## `mgf` read/write support
-
-Read and write support for data in the
-[`mgf`](http://www.matrixscience.com/help/data_file_help.html\#GEN)
-and `mzTab` formats are available via the `readMgfData`/`writeMgfData`
-and `readMzTabData`/`writeMzTabData` functions, respectively. An
-example for the latter is shown in the next section.
-
 # Quantitative proteomics
 
 As an running example throughout this document, we will use a TMT
@@ -398,18 +390,28 @@ mztab <- pxget(px1, "F063721.dat-mztab.txt")
 mztab
 ```
 
-The code below loads the `mzTab` file into R and generates an `MSnSet`
-instance^[Here, we specify `mzTab` format version 0.9. Recent files
-have been generated according to the latest specifications, version
-1.0, and the `version` does not need to be specified explicitly.],
-removes missing values and calculates protein intensities by summing
-the peptide quantitation data. The figure below illustrates the
-intensities for 5 proteins.
 
+The function to read mzTab data version 0.9 has been deprecated. We
+are going to load it by hand and create a `SummarizedExperiment`. See
+`?readSummarizedExperiment` from the QFeatures package for details.
+
+```{r se, tidy = FALSE}
+x <- read.delim(mztab, skip = 10)
+i <- grep("peptide", names(x))
+se <- readSummarizedExperiment(x, quantCols = i)
+se
+```
+
+Here, we convert the `SummarizedExperiment` to an `MSnSet` to fit the
+rest of the vignette.
+
+```{r msnset, tidy = FALSE}
+qnt <- MSnSet(exprs = assay(se),
+       fData = data.frame(rowData(se)),
+       pData = data.frame(colData(se)))
+```
 
 ```{r mztab, tidy = FALSE}
-## Load mzTab peptide data
-qnt <- readMzTabData(mztab, what = "PEP", version = "0.9")
 sampleNames(qnt) <- reporterNames(TMT6)
 head(exprs(qnt))
 ## remove missing values
@@ -424,9 +426,6 @@ protqnt <- combineFeatures(qnt,
                            method = sum)
 ```
 
-
-
-
 ```{r matplot, fig.cap = "Protein quantitation data." }
 cls <- brewer.pal(5, "Set1")
 matplot(t(tail(exprs(protqnt), n = 5)), type = "b",
@@ -436,9 +435,6 @@ matplot(t(tail(exprs(protqnt), n = 5)), type = "b",
 legend("topright", tail(featureNames(protqnt), n=5),
        lty = 1, bty = "n", cex = .8, col = cls)
 ```
-
-
-
 
 ```{r mztab2}
 qntS <- normalise(qnt, "sum")
