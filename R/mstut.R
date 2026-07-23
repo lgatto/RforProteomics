@@ -1,6 +1,6 @@
 ##' This is the constructor function to generate a set of ions that
 ##' can later be analysed with `analyse()` and detected with
-##' `detect()`. 
+##' `detect()`.
 ##'
 ##' @title Create, analyse and detect ions
 ##' @param npeaks A `numeric` scalar defining the number of unique
@@ -26,9 +26,9 @@ new_ions <- function(npeaks = 10,
                      mzrange = c(100, 1000),
                      nimg = 100) {
     ## peaks
-    mzs <- stats::runif(npeaks, min = min(mzrange), max = max(mzrange))    
+    mzs <- stats::runif(npeaks, min = min(mzrange), max = max(mzrange))
     maxint <- 10
-    k <- sample(maxint, npeaks, replace = TRUE)    
+    k <- sample(maxint, npeaks, replace = TRUE)
     mzs <- sample(rep(mzs, k))
     N <- length(mzs)
 
@@ -36,9 +36,9 @@ new_ions <- function(npeaks = 10,
     cex <- mzs / max(mzs) * 2
 
     ## ms data
-    ys <- seq(0.05, 0.95, length = N)
+    ys <- seq(0.05, 0.95, length.out = N)
     x0 <- rep(100, N) ## start
-    msdata <- mapply(seq, x0, mzs, length = nimg)
+    msdata <- mapply(seq, x0, mzs, length.out = nimg)
 
     ## spectrum
     smzs <- sort(mzs)
@@ -73,7 +73,7 @@ analyse <- function(x, sleep = 0.1) {
     n <- nrow(x$msdata)
     sapply(seq_len(nrow(x$msdata)),
           function(i) {
-              plot(x$msdata[i, ], x$ys, 
+              plot(x$msdata[i, ], x$ys,
                    xlim = x$mzrange, ylim = c(0, 1),
                    yaxt = "n", xlab = "M/Z", ylab = "Analytes",
                    main = paste0("Analyser (", i, "/", n, ")"),
@@ -97,13 +97,13 @@ analyze <- analyse
 detect <- function(x, new = FALSE) {
     stopifnot(inherits(x, "ions"))
     if (new)
-        plot(x$msdata[nrow(x$msdata),], x$ys, 
+        plot(x$msdata[nrow(x$msdata),], x$ys,
              xlim = x$mzrange, ylim = c(0, 1),
              yaxt = "n", xlab = "M/Z", ylab = "Analytes",
-             main = "Analyser", cex = x$size)        
+             main = "Analyser", cex = x$size)
     grid()
     lines(x$spectrum$MZ, x$spectrum$Intensity,
-          col = "red", type = "h", lwd = 2) 
+          col = "red", type = "h", lwd = 2)
 
 }
 
@@ -122,8 +122,3 @@ spectrum <- function(x, ...) {
 ##          yaxt = "n", xlab = "M/Z", ylab = "Analytes",
 ##          main = main)
 ## }
-
-
-
-
-

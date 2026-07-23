@@ -12,13 +12,12 @@ Authors@R: c(person("Laurent", "Gatto", role=c("aut", "cre"),
              person('Thomas', 'Pedersen Lin', role='ctb',
                     email='thomasp85@gmail.com'))
 Depends:
-    R (>= 3.5),
-    MSnbase (>= 2.35.2)
+    R (>= 3.5)
 Imports:
-    R.utils,
     biocViews,
     BiocManager
 Suggests:
+    MSnbase (>= 2.35.2),
     QFeatures,
     AnnotationDbi,
     rpx (>= 2.0.3),
@@ -78,4 +77,5 @@ URL: http://lgatto.github.com/RforProteomics/
 biocViews: ExperimentData, MassSpectrometryData, ReproducibleResearch
 License: Artistic-2.0
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+Encoding: UTF-8
+Config/roxygen2/version: 8.0.0

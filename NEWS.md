@@ -5,6 +5,7 @@
 - Remove defunct readMzTab reading. Replace by
   readSummarizedExperiment() and convert to MSnSet.
 - Update startup message and point to RforMS.
+- Remove data downloading functions.
 
 ## Changes in version 1.49.1
 
